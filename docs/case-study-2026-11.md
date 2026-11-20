@@ -24,6 +24,11 @@ produced it, and each section opens with a plain-language summary before the tec
 *Before* means `76ea4f4` (2026-10-04) for file and line counts, and the old code's last measurement
 for speed and Explore.
 
+> **About the commit hashes.** The short hashes in this document (`4bcee2a`, `29c09ff` and the
+> rest) belong to the private development history, which is not published. The public repository
+> starts at `d6295dfb`, one snapshot of the finished tree taken after this window, so those hashes
+> cannot be opened on GitHub. They stay here as the audit trail the numbers were checked against.
+
 ---
 
 ## Contents
@@ -300,9 +305,7 @@ fixed side panel. `4bcee2a` implemented them:
   emits facts: threats found by SEE, captures, checks, mates and the material balance along the
   line. `move-explanation.ts` turns them into Spanish or English sentences.
 
-![Explore recommending a move after 1.e4 e5](explore.png)
-
-> The screenshot above predates `4bcee2a`. It has not been retaken for the new design.
+![Explore after the Italian Game: the engine recommends c3 at +64 centipawns, with three alternatives drawn as numbered arrows](media/explore-dark.webp)
 
 ## 12. What did not work
 
@@ -339,21 +342,26 @@ repo), and the WASM speed numbers (measured 2026-11-20).
 
 ## 14. Known gaps
 
-The audit also turned up these open items:
+The audit turned up eight open items. Four were fixed right after it, in the reconciliation pass
+(`41d93d70`, public history) and the README rewrite:
+
+- **Errors no longer collapse.** Cancelling a search now reaches the UI as `"cancelled"`, a bad
+  reply as `"invalid-response"`, and only real failures as `"search-failed"`, with their detail.
+- **`just bench` measures the engine** (`Engine::think`), not the legacy search: depth 9 in 41 ms,
+  4.62 M nodes/s.
+- **Orphan proof scripts pruned.** 23 `scripts/proof-*` and `scripts/measure-*` files (~10 k
+  lines) were deleted; the ones wired into `justfile` or the policy tests stayed.
+- **The README is current.** It shows the new Explore and the engine's browser speed.
+
+Still open:
 
 - **Coach review, reaction map and forcing-moves lens** still run on the legacy search in
   `search/src/lib.rs`, with the untuned classical evaluation.
 - **In Explore the engine does not reply.** The user moves both sides. The opponent mode plays the
   engine but does not yet show the new panel. Which way to go is an open product decision.
-- **Errors collapse.** Most failures, including cancellation, reach the UI as `"search-failed"`.
-- **Implicit UI state.** `play-ui.ts` (6,014 lines) has four analysis sub-states, five version
-  counters for discarding stale responses, and about 60 untyped state assignments. This was
-  reviewed on 18 November and not re-checked since.
-- **Stale proof scripts.** About 25 `scripts/proof-*` scripts are not wired into `justfile` or
-  `package.json`. Some look for UI hooks that the redesign removed.
-- **`just bench` measures the legacy search**, not the engine, against a baseline from 18 November.
-- **The README is stale** after `29c09ff`. Its "Known limitations" still says Explore does not use
-  the engine, and its speed table lists the legacy search.
+- **Implicit UI state.** The four version counters now go through one request tracker
+  (`play-state-machine.ts`), which fixed a resign path that left a stale forcing result. But
+  `play-ui.ts` is still 5,864 lines, and its analysis sub-states are still implicit.
 - **Explore's own strength is not measured.** Only the playing engine has an Elo figure.
 
 ## 15. How I did it
@@ -445,5 +453,6 @@ cargo run --release -p chess-cli -- perft --fen "rnbqkbnr/pppppppp/8/8/8/8/PPPPP
 cargo run --release -p chess-cli -- uci   # then: position startpos / go nodes 60000
 ```
 
-Compare view of the whole window:
-[`76ea4f4...4bcee2a`](https://github.com/Caliko06/chess/compare/76ea4f4...4bcee2a).
+The window's commits are in the private history (see the note at the top). The public snapshot of
+the finished tree is
+[`d6295dfb`](https://github.com/Caliko06/chess-engine-browser/tree/d6295dfb).
