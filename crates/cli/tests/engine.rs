@@ -26,7 +26,7 @@ fn cli_analyze_fen_outputs_stable_json() {
     assert_eq!(
         stdout_text(&output),
         format!(
-            "{{\"command\":\"analyze-fen\",\"fen\":\"{STARTPOS}\",\"depth\":1,\"status\":\"ongoing\",\"best_move\":\"b1c3\",\"score_cp\":24,\"nodes\":20,\"tt_hits\":0}}"
+            "{{\"command\":\"analyze-fen\",\"search\":\"engine\",\"fen\":\"{STARTPOS}\",\"depth\":1,\"status\":\"ongoing\",\"best_move\":\"g1f3\",\"score_cp\":7,\"nodes\":23,\"pv\":[\"g1f3\"]}}"
         )
     );
 }
@@ -35,6 +35,7 @@ fn cli_analyze_fen_outputs_stable_json() {
 fn cli_analyze_fen_rejects_bad_inputs() {
     for args in [
         ["analyze-fen", "--fen", STARTPOS, "--depth", "0"],
+        ["analyze-fen", "--fen", STARTPOS, "--depth", "33"],
         ["analyze-fen", "--fen", "not-a-fen", "--depth", "1"],
     ] {
         let output = run_chess_cli(&args);
@@ -52,13 +53,8 @@ fn cli_bench_outputs_local_schema() {
     assert_eq!(output.status.code(), Some(0));
     assert_eq!(stderr_text(&output), "");
     let stdout = stdout_text(&output);
-    // Node count at depth 1 was repinned 2026-07-05 (1074 -> 21528): ADR-0195 quiescence capture
-    // resolution (MAX_QUIESCENCE_PLY 3 -> 16 with q-node guard and delta pruning) legitimately
-    // expands quiescence subtrees even at this shallow depth. Repin authorized by the user in
-    // session (fence widening recorded in the product-delivery run log); verified deterministic
-    // via `chess-cli bench --depth 1` before repinning.
     assert!(stdout.starts_with(
-        "{\"command\":\"bench\",\"position_set\":[\"startpos\",\"kiwipete\",\"recapture_trap\"],\"depth\":1,\"total_nodes\":21528,\"elapsed_ms\":"
+        "{\"command\":\"bench\",\"search\":\"engine\",\"position_set\":[\"startpos\",\"kiwipete\",\"recapture_trap\",\"stalemate_trap\",\"back_rank_mate\"],\"depth\":1,\"total_nodes\":262,\"elapsed_ms\":"
     ));
     assert!(stdout.contains(",\"nodes_per_second\":"));
     assert!(stdout.ends_with('}'));
@@ -73,5 +69,5 @@ fn cli_bench_rejects_bad_depth() {
     assert_eq!(stdout_text(&output), "");
     let stderr = stderr_text(&output);
     assert!(stderr.contains("error: invalid depth"));
-    assert!(stderr.contains("usage: chess-cli bench --depth <1..6>"));
+    assert!(stderr.contains("usage: chess-cli bench --depth <1..32>"));
 }

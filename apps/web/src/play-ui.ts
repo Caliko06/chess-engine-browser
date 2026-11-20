@@ -1,4 +1,31 @@
 import { explainRecommendation } from "./move-explanation.js";
+import {
+  createRequestTracker,
+  emptyAnalysisSlices,
+  emptyForcing,
+  emptyReaction,
+  emptySideExplore,
+  followUpForMode,
+  forcingFromState,
+  idleAnalysisSlicesForState,
+  isSetupMode,
+  isSpectatorMode,
+  lensFromState,
+  reactionFromState,
+  sideExploreFromState,
+  transitionPlayMode,
+  transitionToResigned,
+  type PlayErrorCode,
+  type PlayForcingState,
+  type PlayLensState,
+  type PlayMode,
+  type PlayReactionState,
+  type PlaySideExploreState,
+  type ReactionLensDepth,
+  type ReactionLensView
+} from "./play-state-machine.js";
+
+export type { PlaySideExploreState };
 import type {
   BestMoveDto,
   ColorDto,
@@ -6,11 +33,8 @@ import type {
   EngineStateDto,
   ForcingKindDto,
   ForcingCandidateDto,
-  ForcingMapDto,
   MoveResultDto,
-  ReactionMapDto,
-  SideExploreDto,
-  WasmBridgeError
+  SideExploreDto
 } from "./engine-dtos.js";
 import {
   hasLegalMoveFrom,
@@ -69,7 +93,6 @@ export type CompletedPlayGame = {
 
 type PlayUiStatus = "loading" | "ready" | "thinking" | "failed";
 type PlayStatusOwner = "engine" | "player" | "system" | "terminal";
-type PlayMode = "opponent" | "spectator-lens" | "reaction-lens" | "setup";
 type SetupPieceKind = "king" | "queen" | "rook" | "bishop" | "knight" | "pawn";
 type SetupPieceColor = "white" | "black";
 type SetupPiece = { readonly color: SetupPieceColor; readonly kind: SetupPieceKind };
@@ -82,14 +105,10 @@ type SetupState = {
 type PromotionPiece = "queen" | "rook" | "bishop" | "knight";
 type PlayerSide = ColorDto;
 type PlayErrorSource = "new-game" | "invalid-input" | "player-move" | "engine-search" | "engine-move";
-type PlayErrorCode = WasmBridgeError | "operation-failed";
 type ControlledEngineResult<T> = PlayEngineResult<T> | { readonly ok: false; readonly error: "operation-failed" };
 type PlayAnalysisEngine = Pick<PlayEngine, "bestMove" | "reactionMap" | "forcingMap" | "sideExplore"> & {
   readonly cancelSearch?: () => void;
 };
-
-type ReactionLensView = "reaction" | "forcing";
-type ReactionLensDepth = "fast" | "deep";
 
 const reactionArrowLimit = 4;
 const playDepthOptions = [1, 2, 3, 4, 5, 6] as const;
@@ -114,39 +133,6 @@ type PendingPromotion = {
 };
 
 type PlayErrorState = { readonly source: PlayErrorSource; readonly code: PlayErrorCode };
-
-type PlayLensState = {
-  readonly status: "idle" | "pending" | "ready" | "failed";
-  readonly fen: string | null;
-  readonly legalMoveCount: number;
-  readonly bestMove: BestMoveDto | null;
-  readonly error: PlayErrorCode | null;
-};
-
-type PlayReactionState = {
-  readonly status: "idle" | "pending" | "ready" | "failed";
-  readonly fen: string | null;
-  readonly legalMoveCount: number;
-  readonly map: ReactionMapDto | null;
-  readonly error: PlayErrorCode | null;
-};
-
-type PlayForcingState = {
-  readonly status: "idle" | "pending" | "ready" | "failed";
-  readonly fen: string | null;
-  readonly host: ColorDto | null;
-  readonly map: ForcingMapDto | null;
-  readonly error: PlayErrorCode | null;
-};
-
-export type PlaySideExploreState = {
-  readonly status: "idle" | "pending" | "ready" | "failed";
-  readonly fen: string | null;
-  readonly side: ColorDto | null;
-  readonly result: SideExploreDto | null;
-  readonly source: "provisional" | "rich" | null;
-  readonly error: PlayErrorCode | null;
-};
 
 type PlayEvidenceStatus = "idle" | "saved" | "skipped" | "copied" | "downloaded" | "imported" | "failed";
 type PlayGameArchiveStatus =
@@ -391,10 +377,7 @@ export type PlayUiHandle = {
 };
 
 export function mountPlayUi(root: HTMLElement, dependencies: PlayUiDependencies): PlayUiHandle {
-  let gameVersion = 0;
-  let lensRequestVersion = 0;
-  let forcingRequestVersion = 0;
-  let sideExploreRequestVersion = 0;
+  const tracker = createRequestTracker();
   const motion = resolvePlayMotion(dependencies.motion);
   let locale = dependencies.locale ?? "en";
   const gameArchiveStorage = dependencies.evidenceStorage ?? browserManualAggressiveEvidenceStorage();
@@ -403,7 +386,7 @@ export function mountPlayUi(root: HTMLElement, dependencies: PlayUiDependencies)
     dependencies.automaticEvidence?.sessionId ?? createAutomaticEvidenceSessionId();
   let automaticEvidenceSeq = 0;
   const gameArchiveRecommendations = new Map<string, PlayGameArchiveRecommendationSnapshot>();
-  let playMode: PlayMode =
+  const initialPlayMode: PlayMode =
     dependencies.reactionLens === true
       ? "reaction-lens"
       : dependencies.spectatorLens === true
@@ -421,17 +404,14 @@ export function mountPlayUi(root: HTMLElement, dependencies: PlayUiDependencies)
     engineDepth: 1,
     aggressive: dependencies.initialAggressive === true,
     engineMode: currentEngineMode(dependencies.engine),
-    playMode,
+    playMode: initialPlayMode,
     reactionLensView: "reaction",
     // Explore opens in the responsive lane. Deep remains an explicit user choice when the
     // position warrants more analysis, but it must not be the first-contact latency cost.
     reactionLensDepth: "fast",
     lastBestMove: null,
     sideExplorePreviousLine: [],
-    lens: emptyLens(),
-    reaction: emptyReaction(),
-    forcing: emptyForcing(),
-    sideExplore: emptySideExplore(),
+    ...emptyAnalysisSlices(),
     completedGame: null,
     activeBoardMotion: null,
     fenInputValue: "",
@@ -635,28 +615,13 @@ export function mountPlayUi(root: HTMLElement, dependencies: PlayUiDependencies)
     if (!canResign(state) || currentState === null) {
       return;
     }
-    gameVersion += 1;
-    lensRequestVersion += 1;
-    sideExploreRequestVersion += 1;
+    tracker.begin("resign");
     cancelActiveSearches();
-    state = {
-      ...state,
-      selectedSquare: null,
-      pendingPromotion: null,
-      activeBoardMotion: null,
-      status: "ready",
-      error: null,
-      engineMode: currentEngineMode(dependencies.engine),
-      lens: emptyLens(),
-      reaction: emptyReaction(),
-      sideExplore: emptySideExplore(),
-      completedGame: buildResignedPlayGame(
-        state.moves,
-        currentState,
-        resignationSide(state, actor),
-        actor
-      )
-    };
+    state = transitionToResigned(
+      state,
+      buildResignedPlayGame(state.moves, currentState, resignationSide(state, actor), actor),
+      currentEngineMode(dependencies.engine)
+    );
     state = { ...state, gameArchive: captureGameArchive("terminal") };
     render();
   };
@@ -925,18 +890,13 @@ export function mountPlayUi(root: HTMLElement, dependencies: PlayUiDependencies)
     if (options.notifyReset) {
       gameArchiveRecommendations.clear();
     }
-    gameVersion += 1;
-    const version = gameVersion;
+    const version = tracker.begin("new-game");
     const playerSide = state.playerSide;
     const engineDepth = state.engineDepth;
     if (options.notifyReset) {
       cancelActiveSearches();
       dependencies.onPlayReset?.();
     }
-    lensRequestVersion += 1;
-
-    forcingRequestVersion += 1;
-    sideExploreRequestVersion += 1;
     state = {
       engineState: null,
       moves: [],
@@ -954,10 +914,7 @@ export function mountPlayUi(root: HTMLElement, dependencies: PlayUiDependencies)
       reactionLensDepth: state.reactionLensDepth,
       lastBestMove: null,
       sideExplorePreviousLine: [],
-      lens: emptyLens(),
-      reaction: emptyReaction(),
-      forcing: emptyForcing(),
-      sideExplore: emptySideExplore(),
+      ...emptyAnalysisSlices(),
       completedGame: null,
       activeBoardMotion: null,
       fenInputValue: state.fenInputValue,
@@ -967,7 +924,7 @@ export function mountPlayUi(root: HTMLElement, dependencies: PlayUiDependencies)
     };
     render();
     const result = await runEngineOperation(() => dependencies.engine.newGame());
-    if (version !== gameVersion) {
+    if (!tracker.isCurrent("game", version)) {
       return;
     }
     state = result.ok
@@ -977,10 +934,7 @@ export function mountPlayUi(root: HTMLElement, dependencies: PlayUiDependencies)
           status: "ready",
           error: null,
           activeBoardMotion: null,
-          lens: lensFromState(result.value, "idle"),
-          reaction: reactionFromState(result.value, "idle"),
-          forcing: forcingFromState(result.value, state.playerSide, "idle"),
-          sideExplore: sideExploreFromState(result.value, state.playerSide, "idle"),
+          ...idleAnalysisSlicesForState(result.value, state.playerSide),
           reactionLensView:
             state.playMode === "reaction-lens"
               ? focusedReactionLensView()
@@ -992,20 +946,23 @@ export function mountPlayUi(root: HTMLElement, dependencies: PlayUiDependencies)
           status: "failed",
           error: playError("new-game", result.error),
           activeBoardMotion: null,
-          lens: emptyLens(),
-          reaction: emptyReaction(),
-          forcing: emptyForcing(),
-          sideExplore: emptySideExplore(),
+          ...emptyAnalysisSlices(),
           engineMode: currentEngineMode(dependencies.engine)
         };
     render();
     if (result.ok) {
-      if (state.playMode === "reaction-lens") {
-        void requestActiveLensAnalysis(version, result.value);
-      } else if (state.playMode === "spectator-lens") {
-        void requestLensAnalysis(version, result.value);
-      } else {
-        await requestEngineMove(version, result.value);
+      switch (followUpForMode(state.playMode)) {
+        case "explore-analysis":
+          void requestActiveLensAnalysis(version, result.value);
+          break;
+        case "lens-analysis":
+          void requestLensAnalysis(version, result.value);
+          break;
+        case "engine-move":
+          await requestEngineMove(version, result.value);
+          break;
+        case "none":
+          break;
       }
     }
   };
@@ -1015,7 +972,7 @@ export function mountPlayUi(root: HTMLElement, dependencies: PlayUiDependencies)
       return;
     }
     const currentState = state.engineState;
-    sideExploreRequestVersion += 1;
+    tracker.begin("change-side");
     state = {
       ...state,
       playerSide: side,
@@ -1037,7 +994,7 @@ export function mountPlayUi(root: HTMLElement, dependencies: PlayUiDependencies)
     };
     render();
     if (currentState !== null && state.status === "ready" && state.playMode === "reaction-lens") {
-      void requestActiveLensAnalysis(gameVersion, currentState);
+      void requestActiveLensAnalysis(tracker.game(), currentState);
     }
   };
 
@@ -1046,9 +1003,7 @@ export function mountPlayUi(root: HTMLElement, dependencies: PlayUiDependencies)
       return;
     }
     dependencies.analysisEngine?.cancelSearch?.();
-
-    forcingRequestVersion += 1;
-    sideExploreRequestVersion += 1;
+    tracker.begin("change-lens-view");
     const currentState = state.engineState;
     state = {
       ...state,
@@ -1062,7 +1017,7 @@ export function mountPlayUi(root: HTMLElement, dependencies: PlayUiDependencies)
     };
     render();
     if (currentState !== null && state.status === "ready") {
-      void requestActiveLensAnalysis(gameVersion, currentState);
+      void requestActiveLensAnalysis(tracker.game(), currentState);
     }
   };
 
@@ -1071,9 +1026,7 @@ export function mountPlayUi(root: HTMLElement, dependencies: PlayUiDependencies)
       return;
     }
     dependencies.analysisEngine?.cancelSearch?.();
-
-    forcingRequestVersion += 1;
-    sideExploreRequestVersion += 1;
+    tracker.begin("change-lens-depth");
     const currentState = state.engineState;
     state = {
       ...state,
@@ -1087,7 +1040,7 @@ export function mountPlayUi(root: HTMLElement, dependencies: PlayUiDependencies)
     };
     render();
     if (currentState !== null && state.status === "ready") {
-      void requestActiveLensAnalysis(gameVersion, currentState);
+      void requestActiveLensAnalysis(tracker.game(), currentState);
     }
   };
 
@@ -1106,9 +1059,9 @@ export function mountPlayUi(root: HTMLElement, dependencies: PlayUiDependencies)
     render();
     if (currentState !== null && state.status === "ready") {
       if (state.playMode === "reaction-lens") {
-        void requestActiveLensAnalysis(gameVersion, currentState);
+        void requestActiveLensAnalysis(tracker.game(), currentState);
       } else if (state.playMode === "spectator-lens") {
-        void requestLensAnalysis(gameVersion, currentState);
+        void requestLensAnalysis(tracker.game(), currentState);
       }
     }
   };
@@ -1133,7 +1086,7 @@ export function mountPlayUi(root: HTMLElement, dependencies: PlayUiDependencies)
       state.status === "ready" &&
       state.playMode === "reaction-lens"
     ) {
-      void requestActiveLensAnalysis(gameVersion, currentState);
+      void requestActiveLensAnalysis(tracker.game(), currentState);
     }
   };
 
@@ -1165,13 +1118,8 @@ export function mountPlayUi(root: HTMLElement, dependencies: PlayUiDependencies)
     }
     const remaining = moves.slice(0, moves.length - popCount);
 
-    gameVersion += 1;
-    const version = gameVersion;
+    const version = tracker.begin("undo");
     cancelActiveSearches();
-    lensRequestVersion += 1;
-
-    forcingRequestVersion += 1;
-    sideExploreRequestVersion += 1;
 
     state = {
       ...state,
@@ -1183,16 +1131,13 @@ export function mountPlayUi(root: HTMLElement, dependencies: PlayUiDependencies)
       completedGame: null,
       lastBestMove: null,
       sideExplorePreviousLine: [],
-      lens: emptyLens(),
-      reaction: emptyReaction(),
-      forcing: emptyForcing(),
-      sideExplore: emptySideExplore(),
+      ...emptyAnalysisSlices(),
       engineMode: currentEngineMode(dependencies.engine)
     };
     render();
 
     const loaded = await runEngineOperation(() => loadPosition(restored.fenBefore));
-    if (version !== gameVersion) {
+    if (!tracker.isCurrent("game", version)) {
       return;
     }
     if (!loaded.ok) {
@@ -1218,10 +1163,16 @@ export function mountPlayUi(root: HTMLElement, dependencies: PlayUiDependencies)
     render();
 
     if (loaded.value.status === "ongoing") {
-      if (state.playMode === "reaction-lens") {
-        void requestActiveLensAnalysis(version, loaded.value);
-      } else if (state.playMode === "spectator-lens") {
-        void requestLensAnalysis(version, loaded.value);
+      switch (followUpForMode(state.playMode)) {
+        case "explore-analysis":
+          void requestActiveLensAnalysis(version, loaded.value);
+          break;
+        case "lens-analysis":
+          void requestLensAnalysis(version, loaded.value);
+          break;
+        case "engine-move":
+        case "none":
+          break;
       }
     }
   };
@@ -1232,11 +1183,7 @@ export function mountPlayUi(root: HTMLElement, dependencies: PlayUiDependencies)
     }
     const currentState = state.engineState;
     cancelActiveSearches();
-    lensRequestVersion += 1;
-
-    forcingRequestVersion += 1;
-    sideExploreRequestVersion += 1;
-    playMode = mode;
+    tracker.begin("change-mode");
     const isSetup = mode === "setup";
     const setupState: SetupState | null = isSetup
       ? {
@@ -1246,33 +1193,21 @@ export function mountPlayUi(root: HTMLElement, dependencies: PlayUiDependencies)
           cursorSource: null
         }
       : null;
-    state = {
-      ...state,
-      playMode: mode,
-      reactionLensView:
-        mode === "reaction-lens"
-          ? focusedReactionLensView()
-          : state.reactionLensView,
-      status: "ready",
-      lens: emptyLens(),
-      reaction: emptyReaction(),
-      forcing: emptyForcing(),
-      sideExplore: emptySideExplore(),
-      selectedSquare: null,
-      pendingPromotion: null,
-      activeBoardMotion: null,
-      error: null,
-      engineMode: currentEngineMode(dependencies.engine),
-      setup: setupState
-    };
+    state = transitionPlayMode(state, mode, setupState, currentEngineMode(dependencies.engine));
     render();
     if (!isSetup && currentState !== null && currentState.status === "ongoing") {
-      if (mode === "reaction-lens") {
-        void requestActiveLensAnalysis(gameVersion, currentState);
-      } else if (mode === "spectator-lens") {
-        void requestLensAnalysis(gameVersion, currentState);
-      } else {
-        void requestEngineMove(gameVersion, currentState);
+      switch (followUpForMode(mode)) {
+        case "explore-analysis":
+          void requestActiveLensAnalysis(tracker.game(), currentState);
+          break;
+        case "lens-analysis":
+          void requestLensAnalysis(tracker.game(), currentState);
+          break;
+        case "engine-move":
+          void requestEngineMove(tracker.game(), currentState);
+          break;
+        case "none":
+          break;
       }
     }
   };
@@ -1332,7 +1267,6 @@ export function mountPlayUi(root: HTMLElement, dependencies: PlayUiDependencies)
     // post-load path runs the reaction analysis on the composed position
     // instead of treating it as an opponent game (which would request an
     // engine move and leave the lens idle).
-    playMode = "reaction-lens";
     state = { ...state, playMode: "reaction-lens", setup: null };
     await applyLoadPosition(fen);
   };
@@ -1343,12 +1277,7 @@ export function mountPlayUi(root: HTMLElement, dependencies: PlayUiDependencies)
       return;
     }
     cancelActiveSearches();
-    gameVersion += 1;
-    lensRequestVersion += 1;
-
-    forcingRequestVersion += 1;
-    sideExploreRequestVersion += 1;
-    const version = gameVersion;
+    const version = tracker.begin("load-position");
     state = {
       ...state,
       engineState: null,
@@ -1360,16 +1289,13 @@ export function mountPlayUi(root: HTMLElement, dependencies: PlayUiDependencies)
       error: null,
       lastBestMove: null,
       sideExplorePreviousLine: [],
-      lens: emptyLens(),
-      reaction: emptyReaction(),
-      forcing: emptyForcing(),
-      sideExplore: emptySideExplore(),
+      ...emptyAnalysisSlices(),
       completedGame: null,
       activeBoardMotion: null
     };
     render();
     const result = await runEngineOperation(() => loadPos(fen));
-    if (version !== gameVersion) {
+    if (!tracker.isCurrent("game", version)) {
       return;
     }
     state = result.ok
@@ -1378,10 +1304,7 @@ export function mountPlayUi(root: HTMLElement, dependencies: PlayUiDependencies)
           engineState: result.value,
           status: "ready",
           error: null,
-          lens: lensFromState(result.value, "idle"),
-          reaction: reactionFromState(result.value, "idle"),
-          forcing: forcingFromState(result.value, state.playerSide, "idle"),
-          sideExplore: sideExploreFromState(result.value, state.playerSide, "idle"),
+          ...idleAnalysisSlicesForState(result.value, state.playerSide),
           reactionLensView:
             state.playMode === "reaction-lens"
               ? focusedReactionLensView()
@@ -1396,12 +1319,18 @@ export function mountPlayUi(root: HTMLElement, dependencies: PlayUiDependencies)
         };
     render();
     if (result.ok) {
-      if (state.playMode === "reaction-lens") {
-        void requestActiveLensAnalysis(version, result.value);
-      } else if (state.playMode === "spectator-lens") {
-        void requestLensAnalysis(version, result.value);
-      } else {
-        await requestEngineMove(version, result.value);
+      switch (followUpForMode(state.playMode)) {
+        case "explore-analysis":
+          void requestActiveLensAnalysis(version, result.value);
+          break;
+        case "lens-analysis":
+          void requestLensAnalysis(version, result.value);
+          break;
+        case "engine-move":
+          await requestEngineMove(version, result.value);
+          break;
+        case "none":
+          break;
       }
     }
   };
@@ -1553,7 +1482,7 @@ export function mountPlayUi(root: HTMLElement, dependencies: PlayUiDependencies)
     if (before === null) {
       return;
     }
-    const version = gameVersion;
+    const version = tracker.game();
     const moveAttribution = currentPlayMoveAttribution(state, dependencies);
     state = {
       ...state,
@@ -1573,7 +1502,7 @@ export function mountPlayUi(root: HTMLElement, dependencies: PlayUiDependencies)
         state.moves.map((playedMove) => playedMove.fenBefore)
       )
     );
-    if (version !== gameVersion) {
+    if (!tracker.isCurrent("game", version)) {
       return;
     }
     if (!playerResult.ok) {
@@ -1596,7 +1525,7 @@ export function mountPlayUi(root: HTMLElement, dependencies: PlayUiDependencies)
     render();
 
     if (state.playMode === "reaction-lens") {
-      sideExploreRequestVersion += 1;
+      tracker.begin("player-move-in-explore");
       state = completeAndCaptureTerminal({
         ...state,
         status: "ready",
@@ -1632,7 +1561,7 @@ export function mountPlayUi(root: HTMLElement, dependencies: PlayUiDependencies)
   };
 
   const requestEngineMove = async (version: number, before: EngineStateDto): Promise<void> => {
-    if (version !== gameVersion) {
+    if (!tracker.isCurrent("game", version)) {
       return;
     }
     if (before.status !== "ongoing" || before.sideToMove === state.playerSide) {
@@ -1679,7 +1608,7 @@ export function mountPlayUi(root: HTMLElement, dependencies: PlayUiDependencies)
         }
       )
     );
-    if (version !== gameVersion) {
+    if (!tracker.isCurrent("game", version)) {
       return;
     }
     if (!best.ok) {
@@ -1714,7 +1643,7 @@ export function mountPlayUi(root: HTMLElement, dependencies: PlayUiDependencies)
         state.moves.map((playedMove) => playedMove.fenBefore)
       )
     );
-    if (version !== gameVersion) {
+    if (!tracker.isCurrent("game", version)) {
       return;
     }
     if (!engineResult.ok) {
@@ -1730,7 +1659,7 @@ export function mountPlayUi(root: HTMLElement, dependencies: PlayUiDependencies)
       return;
     }
 
-    if (!(await waitForEnginePacing(motion, pacingStartedAt, () => version === gameVersion))) {
+    if (!(await waitForEnginePacing(motion, pacingStartedAt, () => tracker.isCurrent("game", version)))) {
       return;
     }
     const activeBoardMotion = engineBoardMotion(engineMove, motion.engineMoveAnimationMs);
@@ -1746,7 +1675,7 @@ export function mountPlayUi(root: HTMLElement, dependencies: PlayUiDependencies)
       };
       render();
       await motion.delay(activeBoardMotion.durationMs);
-      if (version !== gameVersion) {
+      if (!tracker.isCurrent("game", version)) {
         return;
       }
     }
@@ -1775,11 +1704,10 @@ export function mountPlayUi(root: HTMLElement, dependencies: PlayUiDependencies)
   };
 
   const requestLensAnalysis = async (version: number, before: EngineStateDto): Promise<void> => {
-    if (state.playMode !== "spectator-lens" || version !== gameVersion) {
+    if (state.playMode !== "spectator-lens" || !tracker.isCurrent("game", version)) {
       return;
     }
-    const requestVersion = lensRequestVersion + 1;
-    lensRequestVersion = requestVersion;
+    const requestVersion = tracker.nextLens();
     if (before.status !== "ongoing") {
       state = {
         ...state,
@@ -1804,10 +1732,16 @@ export function mountPlayUi(root: HTMLElement, dependencies: PlayUiDependencies)
         ? ({ ok: false, error: "search-failed" } as const)
         : await runEngineOperation(() => analysisEngine.bestMove(before.fen, depth, before.legalMoves));
     if (
-      version !== gameVersion ||
-      requestVersion !== lensRequestVersion ||
+      !tracker.isCurrent("game", version) ||
+      !tracker.isCurrent("lens", requestVersion) ||
       state.engineState?.fen !== before.fen
     ) {
+      return;
+    }
+    if (!result.ok && result.error === "cancelled") {
+      // Abandoned on purpose, not an engine fault: leave the lens waiting for its next request.
+      state = { ...state, lens: lensFromState(before, "idle") };
+      render();
       return;
     }
 
@@ -1843,12 +1777,11 @@ export function mountPlayUi(root: HTMLElement, dependencies: PlayUiDependencies)
     version: number,
     before: EngineStateDto
   ): Promise<void> => {
-    if (state.playMode !== "reaction-lens" || version !== gameVersion) {
+    if (state.playMode !== "reaction-lens" || !tracker.isCurrent("game", version)) {
       return;
     }
     const side = state.playerSide;
-    const requestVersion = sideExploreRequestVersion + 1;
-    sideExploreRequestVersion = requestVersion;
+    const requestVersion = tracker.nextSideExplore();
     if (before.status !== "ongoing") {
       state = {
         ...state,
@@ -1898,10 +1831,18 @@ export function mountPlayUi(root: HTMLElement, dependencies: PlayUiDependencies)
 
     const applyRichResult = (result: ControlledEngineResult<SideExploreDto>): void => {
       if (
-        version !== gameVersion ||
-        requestVersion !== sideExploreRequestVersion ||
+        !tracker.isCurrent("game", version) ||
+        !tracker.isCurrent("sideExplore", requestVersion) ||
         state.engineState?.fen !== before.fen
       ) {
+        return;
+      }
+      if (!result.ok && result.error === "cancelled") {
+        // Keep a fallback already on screen; otherwise return to idle instead of "failed".
+        if (state.sideExplore.status === "pending") {
+          state = { ...state, sideExplore: sideExploreFromState(before, side, "idle") };
+        }
+        render();
         return;
       }
 
@@ -1950,8 +1891,8 @@ export function mountPlayUi(root: HTMLElement, dependencies: PlayUiDependencies)
     const applyFallback = (fallback: SideExploreDto | null): void => {
       if (
         fallback === null ||
-        version !== gameVersion ||
-        requestVersion !== sideExploreRequestVersion ||
+        !tracker.isCurrent("game", version) ||
+        !tracker.isCurrent("sideExplore", requestVersion) ||
         state.engineState?.fen !== before.fen ||
         state.sideExplore.fen !== before.fen ||
         state.sideExplore.side !== side ||
@@ -2003,12 +1944,11 @@ export function mountPlayUi(root: HTMLElement, dependencies: PlayUiDependencies)
     version: number,
     before: EngineStateDto
   ): Promise<void> => {
-    if (state.playMode !== "reaction-lens" || version !== gameVersion) {
+    if (state.playMode !== "reaction-lens" || !tracker.isCurrent("game", version)) {
       return;
     }
     const host = state.playerSide;
-    const requestVersion = forcingRequestVersion + 1;
-    forcingRequestVersion = requestVersion;
+    const requestVersion = tracker.nextForcing();
     // The lens only surfaces forcing options the host can play right now; when it is not the
     // host's turn (or the game is over) there is nothing to search.
     if (before.status !== "ongoing" || before.sideToMove !== host) {
@@ -2037,10 +1977,15 @@ export function mountPlayUi(root: HTMLElement, dependencies: PlayUiDependencies)
             forcingMap(before.fen, depth, host, state.reactionLensDepth === "deep")
           );
     if (
-      version !== gameVersion ||
-      requestVersion !== forcingRequestVersion ||
+      !tracker.isCurrent("game", version) ||
+      !tracker.isCurrent("forcing", requestVersion) ||
       state.engineState?.fen !== before.fen
     ) {
+      return;
+    }
+    if (!result.ok && result.error === "cancelled") {
+      state = { ...state, forcing: forcingFromState(before, host, "idle") };
+      render();
       return;
     }
 
@@ -2099,102 +2044,6 @@ function currentPlayMoveAttribution(
     evaluatorBackend: currentEngineMode(dependencies.engine),
     engineDepth: state.engineDepth,
     aggressive: state.aggressive
-  };
-}
-
-function emptyLens(): PlayLensState {
-  return {
-    status: "idle",
-    fen: null,
-    legalMoveCount: 0,
-    bestMove: null,
-    error: null
-  };
-}
-
-function lensFromState(
-  engineState: EngineStateDto,
-  status: PlayLensState["status"]
-): PlayLensState {
-  return {
-    status,
-    fen: engineState.fen,
-    legalMoveCount: engineState.legalMoves.length,
-    bestMove: null,
-    error: null
-  };
-}
-
-function emptyReaction(): PlayReactionState {
-  return {
-    status: "idle",
-    fen: null,
-    legalMoveCount: 0,
-    map: null,
-    error: null
-  };
-}
-
-function reactionFromState(
-  engineState: EngineStateDto,
-  status: PlayReactionState["status"]
-): PlayReactionState {
-  return {
-    status,
-    fen: engineState.fen,
-    legalMoveCount: engineState.legalMoves.length,
-    map: null,
-    error: null
-  };
-}
-
-function emptyForcing(): PlayForcingState {
-  return {
-    status: "idle",
-    fen: null,
-    host: null,
-    map: null,
-    error: null
-  };
-}
-
-function forcingFromState(
-  engineState: EngineStateDto,
-  host: ColorDto,
-  status: PlayForcingState["status"]
-): PlayForcingState {
-  return {
-    status,
-    fen: engineState.fen,
-    host,
-    map: null,
-    error: null
-  };
-}
-
-function emptySideExplore(): PlaySideExploreState {
-  return {
-    status: "idle",
-    fen: null,
-    side: null,
-    result: null,
-    source: null,
-    error: null
-  };
-}
-
-function sideExploreFromState(
-  engineState: EngineStateDto,
-  side: ColorDto,
-  status: PlaySideExploreState["status"]
-): PlaySideExploreState {
-  return {
-    status,
-    fen: engineState.fen,
-    side,
-    result: null,
-    source: null,
-    error: null
   };
 }
 
@@ -2726,14 +2575,6 @@ function engineBoardMotion(move: string, durationMs: number): PlayBoardMotion | 
     return null;
   }
   return { actor: "engine", move, from, to, durationMs };
-}
-
-function isSpectatorMode(playMode: PlayMode): boolean {
-  return playMode === "spectator-lens" || playMode === "reaction-lens";
-}
-
-function isSetupMode(playMode: PlayMode): boolean {
-  return playMode === "setup";
 }
 
 function parsePiecesFromFen(fen: string | null): ReadonlyMap<BoardSquare, SetupPiece> {
@@ -5918,6 +5759,10 @@ function errorLabel(error: PlayErrorCode, locale: UiLocale = "en"): string {
         return "PGN no válido";
       case "search-failed":
         return "Búsqueda fallida";
+      case "invalid-response":
+        return "Respuesta del motor no válida";
+      case "cancelled":
+        return "Búsqueda cancelada";
     }
   }
   switch (error) {
@@ -5935,6 +5780,10 @@ function errorLabel(error: PlayErrorCode, locale: UiLocale = "en"): string {
       return "Invalid PGN";
     case "search-failed":
       return "Search failed";
+    case "invalid-response":
+      return "Invalid engine response";
+    case "cancelled":
+      return "Search cancelled";
   }
 }
 

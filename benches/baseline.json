@@ -1,11 +1,20 @@
 {
-  "schema_version": 1,
-  "generated_on": "2026-11-18",
+  "schema_version": 2,
+  "generated_on": "2026-11-20",
   "hardware": "local development machine",
   "command": "cargo run --release --quiet -p chess-search --example m8_bench",
+  "search": "engine",
   "position_set": ["startpos", "kiwipete", "recapture_trap", "stalemate_trap", "back_rank_mate"],
-  "depth": 3,
-  "total_nodes": 53996,
-  "elapsed_ms": 225,
-  "nodes_per_second": 239982
+  "depth": 9,
+  "total_nodes": 194109,
+  "elapsed_ms": 42,
+  "nodes_per_second": 4621642,
+  "legacy_m8_baseline": {
+    "generated_on": "2026-11-18",
+    "search": "legacy_m8",
+    "depth": 3,
+    "total_nodes": 53996,
+    "elapsed_ms": 225,
+    "nodes_per_second": 239982
+  }
 }

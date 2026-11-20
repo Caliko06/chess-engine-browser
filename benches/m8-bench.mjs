@@ -13,6 +13,7 @@ const baselineFields = [
   "generated_on",
   "hardware",
   "command",
+  "search",
   "position_set",
   "depth",
   "total_nodes",
@@ -21,6 +22,7 @@ const baselineFields = [
 ];
 const currentFields = [
   "command",
+  "search",
   "position_set",
   "depth",
   "total_nodes",
@@ -82,18 +84,29 @@ for (const field of currentFields) {
 function benchmarkComparison() {
   const deltaNodes = current.total_nodes - baseline.total_nodes;
   const deltaNps = current.nodes_per_second - baseline.nodes_per_second;
+  const legacyNps = baseline.legacy_m8_baseline?.nodes_per_second;
+  const legacySpeedup =
+    typeof legacyNps === "number" && legacyNps > 0
+      ? ` legacy_m8_nps=${legacyNps} speedup_vs_legacy=${(current.nodes_per_second / legacyNps).toFixed(2)}x`
+      : "";
   return [
+    `search=${current.search}`,
+    `depth=${current.depth}`,
     `baseline_total_nodes=${baseline.total_nodes}`,
     `current_total_nodes=${current.total_nodes}`,
     `delta_nodes=${deltaNodes}`,
     `baseline_nps=${baseline.nodes_per_second}`,
     `current_nps=${current.nodes_per_second}`,
-    `delta_nps=${deltaNps}`
+    `delta_nps=${deltaNps}${legacySpeedup}`
   ].join(" ");
 }
 
 if (baseline.command !== current.command) {
   console.error(`command mismatch: baseline=${baseline.command} current=${current.command}`);
+  process.exit(1);
+}
+if (baseline.search !== current.search) {
+  console.error(`search mismatch: baseline=${baseline.search} current=${current.search}`);
   process.exit(1);
 }
 if (baseline.depth !== current.depth) {

@@ -42,24 +42,17 @@ board -> eval (tapered | clásica) -> search (engine.rs: motor -> explore.rs: Ex
 | `apps/web/src/play-worker-engine.ts` | Workers del motor; cancelar recrea el worker de análisis (`:82`). |
 | `data/engine-memory` | Memoria de refutaciones que se compila al frontend. |
 
-## Lo que ya sabemos (auditoría 2026-11-19, e823ecb; Explore migrado 2026-11-20, 29c09ff)
+## Lo que ya sabemos (auditoría 2026-11-19, e823ecb; Explore migrado 2026-11-20, 29c09ff; reconciliación 2026-11-20)
 - **Explore usa el motor.** En WASM el motor hace 1.0-1.5 M nodos/s: con 300 k nodos Explore llega a
   prof. 9-10 en ~200 ms y respeta el presupuesto exacto (antes prof. 1-5, 220-290 k nodos/s, y se
   pasaba). 1.e4 e5 con Aggressive: antes Dh5 +70, ahora d4 +52.
-- **Siguen en la búsqueda vieja:** revisión del coach, mapa de reacción y lente de forzadas.
-- **Niveles 1-6 de la jugada propia** (`best_move*`): ahora solo cambian el presupuesto de nodos.
-- **Velocidad nativa:** motor 2.0-3.0 M nodos/s (`uci`, 60 k nodos); 1.85x sobre v8 en el banco.
-  `just bench` y `chess-cli bench` miden la búsqueda vieja, no el motor.
-  `benches/baseline.json` es del 2026-11-18, prof. 3.
-- **Errores que se pierden:** casi todo termina como `"search-failed"` (9 archivos de `apps/web/src`);
-  cancelar también (`play-worker-engine.ts:67`); sin referencia, una jugada de Explore sale como
-  "Best" (`wasm-bridge/src/lib.rs:1266`).
-- **Estados implícitos en la UI** (revisión 2026-11-18, no re-verificado): 4 sub-estados de
-  análisis, 5 contadores de versión para descartar respuestas viejas y ~60 reasignaciones de
-  `state` sin transiciones declaradas.
-- `just check` y `just test` pasan en 29c09ff (390 pruebas de Rust más las web).
-  `audit-policy` rechaza la palabra "Stockfish" en código de producción.
-- ~25 scripts `scripts/proof-*` y `measure-*` no los llama `justfile` ni `package.json`.
+- **Siguen en la búsqueda vieja:** revisión del coach (tests acoplados a centipawns de `eval/src/lib.rs`), mapa de reacción y lente de forzadas.
+- **Niveles 1-6 de la jugada propia** (`best_move*`): `strengthEnvelopes` en `play-wasm-executor.ts` ahora progresa monótonamente de L1 (`60k`) a L6 (`1,920k`); el oponente (`engine_move`) usa `skill.rs`.
+- **Velocidad nativa y benchmarks:** `just bench`, `m8_bench`, `chess-cli bench` y `chess-cli analyze-fen` ahora miden `engine.rs` (`Engine::think`, TT 16 MB): prof. 9 en `41 ms` (`4.73 M nodos/s`, vs `240 k nodos/s` a prof. 3 en el baseline anterior).
+- **Errores explícitos (ya no se tragan):** cancelar en `play-worker-engine.ts` devuelve `"cancelled"`, fallos de contrato/JSON devuelven `"invalid-response"`, `side_explore_dto` gradúa contra el máximo score (sin `.unwrap_or(MoveQuality::Best)`), y `new_game()` ya no cae a un tablero `Ongoing` sin jugadas legales.
+- **Máquina de estado en la UI:** `apps/web/src/play-state-machine.ts` centraliza `createRequestTracker()` (4 contadores de versión + invalidación exhaustiva por transición, corrigiendo la fuga de `forcingRequestVersion` en `resign`) y elimina el duplicado `let playMode`.
+- `just check` y `just test` pasan. `audit-policy` rechaza la palabra "Stockfish" en código de producción.
+- Los 23 scripts huérfanos `scripts/proof-*` y `scripts/measure-*` (~10,085 líneas) fueron podados; quedan los 4 scripts `proof-*` activos de `justfile` + `proof-p2-14-wasm-browser-executor.mjs` (referenciado por `policy-hardening.test.mjs`).
 - Node 26 instalado; `package.json` pide 22 o 24 (solo aviso).
 
 ## Comandos

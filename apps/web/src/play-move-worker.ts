@@ -77,8 +77,12 @@ async function dispatch(request: MoveRequest): Promise<void> {
         );
         break;
     }
-  } catch {
-    result = { ok: false, error: "search-failed" };
+  } catch (caught) {
+    result = {
+      ok: false,
+      error: "search-failed",
+      detail: caught instanceof Error ? caught.message : String(caught)
+    };
   }
   scope.postMessage({ id, result });
 }

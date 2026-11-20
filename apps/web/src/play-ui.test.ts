@@ -3816,3 +3816,44 @@ expectEqual(archiveGroundTruthRecord.moves?.[1]?.role, "user");
 function canChangePlayerSideProbe(root: FakeRoot): boolean {
   return !playerSideButton(root, "black").disabled;
 }
+
+// Regression: resigning while a forcing-lens search is in flight must drop the late forcing
+// response (tracker.begin("resign") invalidates forcing alongside game/lens/sideExplore), and a
+// deliberate `"cancelled"` result from the analysis worker must never put Explore into `"failed"`.
+const deferredForcingOnResign = deferredEngineResult<ForcingMapDto>();
+const resignForcingRoot = fakeRoot();
+await mountPlayUi(resignForcingRoot, {
+  reactionLens: true,
+  engine: {
+    newGame: () => Promise.resolve({ ok: true, value: startState }),
+    makeMove: () => Promise.resolve({ ok: false, error: "invalid-move" }),
+    bestMove: () => Promise.resolve({ ok: false, error: "search-failed" })
+  },
+  analysisEngine: {
+    bestMove: () => Promise.resolve({ ok: false, error: "cancelled" }),
+    sideExplore: () => Promise.resolve({ ok: false, error: "cancelled" }),
+    forcingMap: () => deferredForcingOnResign.promise
+  }
+}).ready;
+// A cancelled Explore search leaves the surface clean (not failed).
+expectEqual(elements(resignForcingRoot, `[data-play-ui="error-banner"]`).length, 0);
+await reactionViewButton(resignForcingRoot, "forcing").dispatch("click");
+await element(resignForcingRoot, `[data-play-ui="resign-button"][data-resign-actor="user"]`).dispatch("click");
+expectEqual(element(resignForcingRoot, `[data-play-ui="status"]`).textContent, "White resigned");
+deferredForcingOnResign.resolve({
+  ok: true,
+  value: {
+    state: startState,
+    host: "white",
+    onTurn: true,
+    candidates: [{ move: "e2e4", kind: "check", scoreCp: 120, sound: true, mateIn: 1 }],
+    depth: 2,
+    nodes: 10
+  }
+});
+await new Promise<void>((resolve) => {
+  setTimeout(resolve, 0);
+});
+// Stale forcing candidates resolved after resignation must not paint arrows or candidates.
+expectEqual(resignForcingRoot.html().includes(`data-candidate-from="e2"`), false);
+

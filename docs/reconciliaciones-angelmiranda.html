@@ -1,0 +1,3546 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="paper" data-mode="dual">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Reconciliaciones de Ingeniería — Cómo auditar lo que sobrevive a una reescritura de 36 horas | angelmiranda.dev</title>
+  <meta name="description" content="Ensayo técnico e interactivo (con motor procedural de pinceladas en Canvas 2D y versión ELI5) sobre las cuatro reconciliaciones arquitectónicas de un motor de ajedrez en Rust y WebAssembly (~3039 Elo)." />
+  <style>
+    :root {
+      --bg-paper: #f6f1e7;
+      --bg-paper-elevated: #fbf8f2;
+      --bg-paper-sunken: #ede5d6;
+      --bg-card: rgba(251, 248, 242, 0.86);
+      --ink-primary: #1a1815;
+      --ink-secondary: #4a443b;
+      --ink-muted: #766d60;
+      --ink-faint: #a69c8e;
+      --border-hairline: #d8cebe;
+      --border-strong: #b8ab96;
+
+      --accent-crimson: #b91c1c;
+      --accent-crimson-soft: rgba(185, 28, 28, 0.11);
+      --accent-amber: #b45309;
+      --accent-amber-soft: rgba(180, 83, 9, 0.12);
+      --accent-indigo: #1e3a5f;
+      --accent-indigo-soft: rgba(30, 58, 95, 0.11);
+      --accent-viridian: #156d4a;
+      --accent-viridian-soft: rgba(21, 109, 74, 0.11);
+
+      --code-bg: #efe8da;
+      --code-border: #d5c9b5;
+      --shadow-editorial: 0 14px 38px -12px rgba(34, 27, 18, 0.12), 0 2px 8px rgba(34, 27, 18, 0.06);
+      --shadow-subtle: 0 4px 14px rgba(34, 27, 18, 0.06);
+
+      --font-serif: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Palatino, Georgia, serif;
+      --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      --font-mono: "SF Mono", "JetBrains Mono", "Fira Code", Menlo, Monaco, Consolas, ui-monospace, monospace;
+    }
+
+    html[data-theme="night"] {
+      --bg-paper: #12151a;
+      --bg-paper-elevated: #181c23;
+      --bg-paper-sunken: #0d0f13;
+      --bg-card: rgba(24, 28, 35, 0.9);
+      --ink-primary: #ece7df;
+      --ink-secondary: #bdb5a8;
+      --ink-muted: #8a8275;
+      --ink-faint: #575248;
+      --border-hairline: #282e38;
+      --border-strong: #3c4452;
+
+      --accent-crimson: #ef4444;
+      --accent-crimson-soft: rgba(239, 68, 68, 0.15);
+      --accent-amber: #f59e0b;
+      --accent-amber-soft: rgba(245, 158, 11, 0.14);
+      --accent-indigo: #60a5fa;
+      --accent-indigo-soft: rgba(96, 165, 250, 0.14);
+      --accent-viridian: #34d399;
+      --accent-viridian-soft: rgba(52, 211, 153, 0.14);
+
+      --code-bg: #171b22;
+      --code-border: #2a313d;
+      --shadow-editorial: 0 18px 44px -12px rgba(0, 0, 0, 0.55), 0 2px 10px rgba(0, 0, 0, 0.35);
+      --shadow-subtle: 0 4px 16px rgba(0, 0, 0, 0.32);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      background-color: var(--bg-paper);
+      color: var(--ink-primary);
+      font-family: var(--font-serif);
+      font-size: 18px;
+      line-height: 1.68;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: var(--bg-paper);
+      background-image:
+        radial-gradient(ellipse at 20% 0%, rgba(180, 140, 80, 0.07), transparent 60%),
+        radial-gradient(ellipse at 85% 100%, rgba(30, 58, 95, 0.05), transparent 60%);
+      transition: background-color 0.35s ease, color 0.35s ease;
+    }
+
+    /* Sticky Top Editorial Navigation */
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: color-mix(in srgb, var(--bg-paper) 88%, transparent);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-hairline);
+      padding: 0.55rem 1.25rem;
+      font-family: var(--font-sans);
+    }
+
+    .topbar-inner {
+      max-width: 1180px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+    }
+
+    .brand-mark {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      font-size: 0.78rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--ink-secondary);
+      font-weight: 600;
+    }
+
+    .brand-seal {
+      width: 24px;
+      height: 24px;
+      border: 1.5px solid var(--ink-primary);
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      font-weight: 700;
+      color: var(--accent-crimson);
+    }
+
+    .chapter-Jump {
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      flex-wrap: wrap;
+    }
+
+    .chapter-link {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      text-decoration: none;
+      color: var(--ink-secondary);
+      padding: 0.25rem 0.55rem;
+      border-radius: 4px;
+      border: 1px solid transparent;
+      transition: all 0.2s ease;
+    }
+
+    .chapter-link:hover {
+      border-color: var(--border-strong);
+      background: var(--bg-paper-sunken);
+      color: var(--ink-primary);
+    }
+
+    .controls-cluster {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .segmented-control {
+      display: inline-flex;
+      background: var(--bg-paper-sunken);
+      border: 1px solid var(--border-hairline);
+      border-radius: 6px;
+      padding: 2px;
+    }
+
+    .seg-btn {
+      appearance: none;
+      border: none;
+      background: transparent;
+      color: var(--ink-secondary);
+      font-family: var(--font-sans);
+      font-size: 0.72rem;
+      font-weight: 600;
+      padding: 0.28rem 0.65rem;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.18s ease;
+    }
+
+    .seg-btn.active {
+      background: var(--bg-paper-elevated);
+      color: var(--ink-primary);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+    }
+
+    .action-pill {
+      appearance: none;
+      border: 1px solid var(--border-strong);
+      background: var(--bg-paper-elevated);
+      color: var(--ink-primary);
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      font-weight: 600;
+      padding: 0.3rem 0.68rem;
+      border-radius: 6px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      transition: all 0.2s ease;
+    }
+
+    .action-pill:hover {
+      border-color: var(--ink-primary);
+      transform: translateY(-1px);
+    }
+
+    /* Main Editorial Container */
+    .page-shell {
+      max-width: 1140px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem 6rem;
+    }
+
+    /* Masthead / Hero */
+    .masthead {
+      border-bottom: 2px solid var(--ink-primary);
+      padding-bottom: 2.5rem;
+      margin-bottom: 3rem;
+      position: relative;
+    }
+
+    .masthead::after {
+      content: "";
+      display: block;
+      height: 1px;
+      background: var(--border-strong);
+      margin-top: 4px;
+      margin-bottom: -2.55rem;
+    }
+
+    .kicker-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      font-family: var(--font-mono);
+      font-size: 0.73rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--accent-crimson);
+      border-top: 1px solid var(--border-strong);
+      border-bottom: 1px solid var(--border-hairline);
+      padding: 0.45rem 0;
+      margin-bottom: 1.75rem;
+    }
+
+    .hero-title {
+      font-size: clamp(2.2rem, 4.6vw, 3.85rem);
+      line-height: 1.08;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin: 0 0 1.15rem;
+      max-width: 22ch;
+    }
+
+    .hero-subtitle {
+      font-size: clamp(1.1rem, 1.8vw, 1.38rem);
+      line-height: 1.52;
+      color: var(--ink-secondary);
+      max-width: 68ch;
+      margin: 0 0 1.8rem;
+      font-weight: 400;
+    }
+
+    .byline-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.75rem;
+      align-items: center;
+      font-family: var(--font-sans);
+      font-size: 0.82rem;
+      color: var(--ink-muted);
+    }
+
+    .byline-item strong {
+      color: var(--ink-primary);
+      font-weight: 600;
+    }
+
+    /* Telemetry Strip */
+    .telemetry-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1px;
+      background: var(--border-strong);
+      border: 1px solid var(--border-strong);
+      border-radius: 8px;
+      overflow: hidden;
+      margin-bottom: 3.5rem;
+      box-shadow: var(--shadow-subtle);
+    }
+
+    .telemetry-cell {
+      background: var(--bg-paper-elevated);
+      padding: 1.1rem 1.2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+
+    .telemetry-label {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--ink-muted);
+    }
+
+    .telemetry-value {
+      font-family: var(--font-serif);
+      font-size: 1.75rem;
+      font-weight: 700;
+      line-height: 1.1;
+      color: var(--ink-primary);
+    }
+
+    .telemetry-value .unit {
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: var(--accent-crimson);
+    }
+
+    .telemetry-note {
+      font-family: var(--font-sans);
+      font-size: 0.74rem;
+      color: var(--ink-secondary);
+      line-height: 1.38;
+    }
+
+    /* Prologue Prose */
+    .prose-lead {
+      max-width: 74ch;
+      margin: 0 auto 3.5rem;
+      font-size: 1.08rem;
+    }
+
+    .dropcap::first-letter {
+      float: left;
+      font-size: 3.7rem;
+      line-height: 0.84;
+      padding-right: 0.55rem;
+      padding-top: 0.12rem;
+      font-weight: 700;
+      color: var(--accent-crimson);
+    }
+
+    /* Chapter Layout */
+    .chapter {
+      margin-bottom: 5rem;
+      padding-top: 1.5rem;
+      border-top: 2px solid var(--ink-primary);
+    }
+
+    .chapter-header {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .chapter-num {
+      font-family: var(--font-mono);
+      font-size: 0.74rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      font-weight: 700;
+      display: inline-block;
+      padding: 0.2rem 0.55rem;
+      border-radius: 4px;
+      margin-bottom: 0.45rem;
+    }
+
+    .chapter-num.amber { background: var(--accent-amber-soft); color: var(--accent-amber); }
+    .chapter-num.crimson { background: var(--accent-crimson-soft); color: var(--accent-crimson); }
+    .chapter-num.indigo { background: var(--accent-indigo-soft); color: var(--accent-indigo); }
+    .chapter-num.viridian { background: var(--accent-viridian-soft); color: var(--accent-viridian); }
+
+    .chapter-title {
+      font-size: clamp(1.65rem, 3vw, 2.35rem);
+      line-height: 1.15;
+      margin: 0;
+    }
+
+    .chapter-metaphor {
+      font-style: italic;
+      color: var(--ink-secondary);
+      font-weight: 400;
+    }
+
+    /* Canvas Plate Frame */
+    .atelier-plate {
+      background: var(--bg-paper-elevated);
+      border: 1px solid var(--border-strong);
+      border-radius: 10px;
+      padding: 1rem;
+      margin-bottom: 2rem;
+      box-shadow: var(--shadow-editorial);
+    }
+
+    .plate-toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.75rem;
+      padding-bottom: 0.75rem;
+      margin-bottom: 0.75rem;
+      border-bottom: 1px solid var(--border-hairline);
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+    }
+
+    .plate-meta {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      color: var(--ink-secondary);
+      flex-wrap: wrap;
+    }
+
+    .plate-badge {
+      background: var(--bg-paper-sunken);
+      border: 1px solid var(--border-hairline);
+      padding: 0.18rem 0.5rem;
+      border-radius: 4px;
+      font-weight: 600;
+      color: var(--ink-primary);
+    }
+
+    .plate-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .redraw-btn {
+      appearance: none;
+      border: 1.5px solid var(--ink-primary);
+      background: var(--ink-primary);
+      color: var(--bg-paper);
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 600;
+      padding: 0.35rem 0.8rem;
+      border-radius: 5px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: all 0.2s ease;
+    }
+
+    .redraw-btn:hover {
+      background: var(--accent-crimson);
+      border-color: var(--accent-crimson);
+      color: #fff;
+    }
+
+    .canvas-stage {
+      position: relative;
+      width: 100%;
+      border-radius: 6px;
+      overflow: hidden;
+      border: 1px solid var(--border-hairline);
+      background: var(--bg-paper);
+      line-height: 0;
+    }
+
+    .canvas-stage canvas {
+      width: 100%;
+      height: auto;
+      display: block;
+      cursor: pointer;
+    }
+
+    .plate-caption {
+      margin-top: 0.75rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      font-family: var(--font-sans);
+      font-size: 0.8rem;
+      color: var(--ink-secondary);
+    }
+
+    .plate-caption-tech {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--ink-muted);
+    }
+
+    /* Explanation Lenses: ELI5 vs Technical vs Dual */
+    .lens-header-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .lens-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.25fr;
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    html[data-mode="eli5"] .lens-grid {
+      grid-template-columns: 1fr;
+    }
+    html[data-mode="eli5"] .lens-panel.tech-only {
+      display: none;
+    }
+    html[data-mode="tech"] .lens-grid {
+      grid-template-columns: 1fr;
+    }
+    html[data-mode="tech"] .lens-panel.eli5-only {
+      display: none;
+    }
+
+    .lens-panel {
+      background: var(--bg-card);
+      border: 1px solid var(--border-hairline);
+      border-radius: 8px;
+      padding: 1.35rem 1.5rem;
+      position: relative;
+      transition: all 0.25s ease;
+    }
+
+    .lens-panel.eli5-only {
+      border-left: 4px solid var(--accent-amber);
+    }
+
+    .lens-panel.tech-only {
+      border-left: 4px solid var(--accent-indigo);
+    }
+
+    .lens-tag {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      font-weight: 700;
+      margin-bottom: 0.65rem;
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+    }
+
+    .lens-panel h3 {
+      margin: 0 0 0.65rem;
+      font-size: 1.2rem;
+      line-height: 1.3;
+    }
+
+    .lens-panel p {
+      margin: 0 0 0.9rem;
+      font-size: 0.96rem;
+    }
+
+    .lens-panel p:last-child {
+      margin-bottom: 0;
+    }
+
+    /* Forensic Evidence Cards */
+    .evidence-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
+      gap: 1rem;
+      margin-bottom: 1.75rem;
+    }
+
+    .evidence-card {
+      background: var(--bg-paper-elevated);
+      border: 1px solid var(--border-strong);
+      border-radius: 8px;
+      padding: 1.1rem 1.25rem;
+      font-family: var(--font-sans);
+    }
+
+    .evidence-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.5rem;
+      padding-bottom: 0.55rem;
+      margin-bottom: 0.7rem;
+      border-bottom: 1px dashed var(--border-strong);
+    }
+
+    .file-ref {
+      font-family: var(--font-mono);
+      font-size: 0.73rem;
+      font-weight: 700;
+      color: var(--accent-indigo);
+      background: var(--accent-indigo-soft);
+      padding: 0.18rem 0.5rem;
+      border-radius: 4px;
+    }
+
+    .metric-pill {
+      font-family: var(--font-mono);
+      font-size: 0.69rem;
+      font-weight: 700;
+      padding: 0.15rem 0.48rem;
+      border-radius: 4px;
+      background: var(--accent-crimson-soft);
+      color: var(--accent-crimson);
+    }
+
+    .metric-pill.good {
+      background: var(--accent-viridian-soft);
+      color: var(--accent-viridian);
+    }
+
+    .evidence-card h4 {
+      margin: 0 0 0.4rem;
+      font-family: var(--font-serif);
+      font-size: 1.05rem;
+    }
+
+    .evidence-card p {
+      margin: 0 0 0.7rem;
+      font-size: 0.85rem;
+      line-height: 1.5;
+      color: var(--ink-secondary);
+    }
+
+    pre.code-specimen {
+      margin: 0;
+      padding: 0.75rem 0.9rem;
+      background: var(--code-bg);
+      border: 1px solid var(--code-border);
+      border-radius: 6px;
+      font-family: var(--font-mono);
+      font-size: 0.73rem;
+      line-height: 1.5;
+      overflow-x: auto;
+      color: var(--ink-primary);
+    }
+
+    .code-del {
+      color: var(--accent-crimson);
+      display: block;
+    }
+
+    .code-add {
+      color: var(--accent-viridian);
+      display: block;
+    }
+
+    .code-comment {
+      color: var(--ink-muted);
+    }
+
+    /* Interactive Race Simulator in Chapter 4 */
+    .sim-box {
+      background: var(--bg-paper-elevated);
+      border: 1.5px solid var(--border-strong);
+      border-radius: 10px;
+      padding: 1.25rem 1.5rem;
+      margin-top: 1.5rem;
+      font-family: var(--font-sans);
+    }
+
+    .sim-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+    }
+
+    .sim-counters {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 0.65rem;
+      margin-bottom: 1rem;
+    }
+
+    .counter-tile {
+      background: var(--bg-paper-sunken);
+      border: 1px solid var(--border-hairline);
+      border-radius: 6px;
+      padding: 0.65rem 0.8rem;
+      font-family: var(--font-mono);
+      font-size: 0.74rem;
+    }
+
+    .counter-tile.bugged {
+      border-color: var(--accent-crimson);
+      background: var(--accent-crimson-soft);
+    }
+
+    .counter-tile.safe {
+      border-color: var(--accent-viridian);
+      background: var(--accent-viridian-soft);
+    }
+
+    .counter-val {
+      font-size: 1.25rem;
+      font-weight: 700;
+      display: block;
+      margin-top: 0.2rem;
+    }
+
+    .sim-log {
+      font-family: var(--font-mono);
+      font-size: 0.74rem;
+      background: var(--code-bg);
+      border: 1px solid var(--code-border);
+      border-radius: 6px;
+      padding: 0.7rem 0.9rem;
+      color: var(--ink-primary);
+    }
+
+    /* Visual Archive & Editorial Gallery */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 1.25rem;
+      margin-top: 1.5rem;
+    }
+
+    .gallery-card {
+      background: var(--bg-paper-elevated);
+      border: 1px solid var(--border-strong);
+      border-radius: 8px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      box-shadow: var(--shadow-subtle);
+    }
+
+    .gallery-card.wide {
+      grid-column: 1 / -1;
+    }
+
+    .gallery-media {
+      position: relative;
+      background: var(--bg-paper-sunken);
+      min-height: 210px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-bottom: 1px solid var(--border-hairline);
+      overflow: hidden;
+    }
+
+    .gallery-media img {
+      width: 100%;
+      height: auto;
+      display: block;
+      object-fit: cover;
+    }
+
+    .gallery-fallback {
+      width: 100%;
+      padding: 1.5rem;
+      text-align: center;
+      font-family: var(--font-mono);
+      font-size: 0.74rem;
+      color: var(--ink-secondary);
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+    }
+
+    .gallery-fallback canvas {
+      width: 100%;
+      max-width: 640px;
+      height: auto;
+      border: 1px solid var(--border-strong);
+      border-radius: 6px;
+    }
+
+    .gallery-info {
+      padding: 0.9rem 1.15rem;
+      font-family: var(--font-sans);
+    }
+
+    .gallery-info h4 {
+      margin: 0 0 0.3rem;
+      font-family: var(--font-serif);
+      font-size: 1.05rem;
+    }
+
+    .gallery-info p {
+      margin: 0;
+      font-size: 0.82rem;
+      color: var(--ink-secondary);
+      line-height: 1.45;
+    }
+
+    .gallery-path {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      color: var(--ink-muted);
+      display: inline-block;
+      margin-top: 0.45rem;
+    }
+
+    /* Summary Ledger Table */
+    .table-wrap {
+      overflow-x: auto;
+      border: 1px solid var(--border-strong);
+      border-radius: 8px;
+      background: var(--bg-paper-elevated);
+      margin-top: 1.5rem;
+    }
+
+    table.ledger-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-family: var(--font-sans);
+      font-size: 0.84rem;
+    }
+
+    table.ledger-table th,
+    table.ledger-table td {
+      padding: 0.8rem 1rem;
+      text-align: left;
+      border-bottom: 1px solid var(--border-hairline);
+      vertical-align: top;
+    }
+
+    table.ledger-table th {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      background: var(--bg-paper-sunken);
+      color: var(--ink-secondary);
+    }
+
+    table.ledger-table code {
+      font-family: var(--font-mono);
+      font-size: 0.74rem;
+      background: var(--code-bg);
+      padding: 0.1rem 0.35rem;
+      border-radius: 3px;
+    }
+
+    /* Footer */
+    .colophon {
+      margin-top: 5rem;
+      padding-top: 2rem;
+      border-top: 2px solid var(--ink-primary);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 1.5rem;
+      font-family: var(--font-sans);
+      font-size: 0.82rem;
+      color: var(--ink-secondary);
+    }
+
+    @media (max-width: 860px) {
+      .lens-grid {
+        grid-template-columns: 1fr;
+      }
+      .topbar-inner {
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Sticky Editorial Control Bar -->
+  <header class="topbar" role="banner">
+    <div class="topbar-inner">
+      <div class="brand-mark">
+        <span class="brand-seal">88</span>
+        <span>angelmiranda.dev · Cuaderno de Reconciliaciones</span>
+      </div>
+
+      <nav class="chapter-Jump" aria-label="Capítulos">
+        <a class="chapter-link" href="#cap-1">I. Costos Hundidos</a>
+        <a class="chapter-link" href="#cap-2">II. Errores Tragados</a>
+        <a class="chapter-link" href="#cap-3">III. Foundations</a>
+        <a class="chapter-link" href="#cap-4">IV. Máquina de Estado</a>
+        <a class="chapter-link" href="#galeria">V. Galería &amp; Evidencia</a>
+      </nav>
+
+      <div class="controls-cluster">
+        <div class="segmented-control" role="group" aria-label="Modo de lectura">
+          <button type="button" class="seg-btn active" data-set-mode="dual">Dual</button>
+          <button type="button" class="seg-btn" data-set-mode="eli5">Modo ELI5</button>
+          <button type="button" class="seg-btn" data-set-mode="tech">Modo Técnico</button>
+        </div>
+        <button type="button" class="action-pill" id="btn-redraw-all" title="Animar todas las ilustraciones pincelada a pincelada">
+          <span>✒</span> Re-dibujar todo
+        </button>
+        <button type="button" class="action-pill" id="btn-theme-toggle" title="Alternar entre Papel Algodón y Tinta Nocturna">
+          <span id="theme-icon">☾</span> <span id="theme-label">Tinta Nocturna</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="page-shell">
+    <!-- Hero / Masthead -->
+    <section class="masthead">
+      <div class="kicker-row">
+        <span>Agencia 8800 · Ingeniería Forense &amp; Sistemas Locales</span>
+        <span>Rust · WebAssembly · TypeScript · 100% Sin Red</span>
+        <span>Noviembre 2026</span>
+      </div>
+
+      <h1 class="hero-title">Las Cuatro Reconciliaciones: Lo que queda en las juntas después de reconstruir un motor de ajedrez en 36 horas</h1>
+
+      <p class="hero-subtitle">
+        Entre el 18 y el 20 de noviembre de 2026 borramos 157,518 líneas, escribimos un motor PVS desde cero (~3039 Elo CCRL Blitz) y migramos <em>Explore</em> a WebAssembly a 1.5 millones de nodos por segundo. Pero cuando una locomotora nueva entra a una estación vieja, las vías chirrían en cuatro lugares exactos: costos hundidos, errores tragados, cimientos de medición desfasados y máquinas de estado implícitas.
+      </p>
+
+      <div class="byline-bar">
+        <span class="byline-item">Por <strong>Angel Miranda</strong> (<code>angelmiranda.dev</code>)</span>
+        <span class="byline-item">Ilustraciones: <strong>Motor Procedural Multi-Cerda en Canvas 2D</strong> (0 imágenes externas, 0 CDNs)</span>
+        <span class="byline-item">Auditoría: <strong>Commits 29c09ff → 4bcee2a + Reconciliación</strong></span>
+      </div>
+    </section>
+
+    <!-- Verified Telemetry Strip -->
+    <section class="telemetry-grid" aria-label="Métricas verificadas en el árbol de código">
+      <div class="telemetry-cell">
+        <span class="telemetry-label">I. Costos Hundidos</span>
+        <div class="telemetry-value">4,480 <span class="unit">vs 3,192 L</span></div>
+        <span class="telemetry-note">La búsqueda y eval viejas (<code>lib.rs</code>) aún superan en líneas al motor nuevo completo + 24 scripts huérfanos.</span>
+      </div>
+      <div class="telemetry-cell">
+        <span class="telemetry-label">II. Errores Tragados</span>
+        <div class="telemetry-value">5 → 1 <span class="unit">"search-failed"</span></div>
+        <span class="telemetry-note">Cinco causas distintas —incluida la cancelación normal del usuario en <code>:67</code>— encendían el mismo foco rojo.</span>
+      </div>
+      <div class="telemetry-cell">
+        <span class="telemetry-label">III. Foundations (Velocidad)</span>
+        <div class="telemetry-value">2.5M <span class="unit">vs 239.9k nps</span></div>
+        <span class="telemetry-note">El motor real corre 10× más rápido (~3039 Elo), pero <code>just bench</code> seguía midiendo el ejemplo viejo a prof. 3.</span>
+      </div>
+      <div class="telemetry-cell">
+        <span class="telemetry-label">IV. Estado Implícito</span>
+        <div class="telemetry-value">67 <span class="unit">mutaciones state=</span></div>
+        <span class="telemetry-note">27 campos, 4 contadores manuales y un bug real en <code>resignGame(:638)</code> que olvidaba <code>forcingRequestVersion</code>.</span>
+      </div>
+    </section>
+
+    <!-- Prologue -->
+    <section class="prose-lead">
+      <p class="dropcap">
+        Reescribir el corazón algorítmico de un sistema es la parte embriagadora de la ingeniería: ves subir el marcador SPRT partida tras partida, ves caer el tiempo de búsqueda en el navegador a 200 milisegundos y celebras que el árbol de juego por fin razona con precisión táctica. Sin embargo, ningún sistema vive únicamente en su algoritmo central. Vive en los cables que cruzan el puente WebAssembly, en los <em>workers</em> que se cancelan cuando el jugador mueve rápido, en el comando <code>just bench</code> que protege contra regresiones y en los archivos viejos que nadie se atrevió a desconectar.
+      </p>
+      <p>
+        Este documento es una radiografía honesta —tanto para un niño curioso (<strong>Modo ELI5</strong>) como para un ingeniero de sistemas (<strong>Modo Técnico</strong>)— de las cuatro reconciliaciones necesarias para que la arquitectura alrededor del motor esté a la altura del motor mismo. Cada sección abre con una lámina dibujada en vivo mediante nuestro motor procedural de tinta sumi-e, pluma fuente y acuarela sobre papel algodón en Canvas 2D. Haz clic en <strong>«Re-dibujar pinceladas»</strong> en cualquiera de las cuatro obras para observar cómo se construye cada trazo.
+      </p>
+    </section>
+
+    <!-- ===================================================================== -->
+    <!-- CAPÍTULO I: COSTOS HUNDIDOS                                           -->
+    <!-- ===================================================================== -->
+    <article class="chapter" id="cap-1">
+      <div class="chapter-header">
+        <div>
+          <span class="chapter-num amber">Capítulo I · Deuda de Supervivencia</span>
+          <h2 class="chapter-title">Costos Hundidos — <span class="chapter-metaphor">«El garaje de dos casas»</span></h2>
+        </div>
+        <div class="segmented-control" role="group" aria-label="Filtro de capítulo 1">
+          <button type="button" class="seg-btn" onclick="setGlobalMode('eli5')">Solo ELI5</button>
+          <button type="button" class="seg-btn" onclick="setGlobalMode('tech')">Solo Técnico</button>
+          <button type="button" class="seg-btn" onclick="setGlobalMode('dual')">Ambos</button>
+        </div>
+      </div>
+
+      <!-- Canvas 2D Artwork 1 -->
+      <figure class="atelier-plate">
+        <div class="plate-toolbar">
+          <div class="plate-meta">
+            <span class="plate-badge">Lámina I · Tinta Sepia &amp; Lavado Ámbar</span>
+            <span id="status-canvas-1">Render completo · 100% Canvas 2D</span>
+          </div>
+          <div class="plate-actions">
+            <button type="button" class="action-pill" onclick="Atelier8800.setSpeed(1, 2.2)">2.2× Vel</button>
+            <button type="button" class="redraw-btn" onclick="Atelier8800.play(1)">
+              <span>✒</span> Re-dibujar pinceladas
+            </button>
+          </div>
+        </div>
+        <div class="canvas-stage">
+          <canvas id="canvas-plate-1" width="920" height="500" aria-label="Ilustración procedural: El garaje de dos casas (Costos Hundidos)"></canvas>
+        </div>
+        <figcaption class="plate-caption">
+          <span><strong>Fig. 1.</strong> A la izquierda, el pabellón mecánico del nuevo motor PVS (<code>3,192</code> líneas). A la derecha, el ático polvoriento que sigue compilándose en el mismo binario (<code>4,480</code> líneas + <code>24</code> scripts huérfanos).</span>
+          <span class="plate-caption-tech">Cerdas múltiples · Curvas de presión Bézier · Acuarela wet-on-wet</span>
+        </figcaption>
+      </figure>
+
+      <!-- Dual Explanation: ELI5 & Technical -->
+      <div class="lens-grid">
+        <div class="lens-panel eli5-only">
+          <div class="lens-tag" style="color: var(--accent-amber);"><span>✦</span> Explicación ELI5 · La metáfora</div>
+          <h3>Construiste una casa moderna, pero sigues pagando la luz del ático viejo</h3>
+          <p>
+            Imagina que tenías una casa vieja con tuberías ruidosas. En un fin de semana construyes al lado una casa nueva, luminosa y súper eficiente. Ya duermes y cocinas en la casa nueva (<em>Explore</em> y las partidas contra la máquina ya usan el motor nuevo).
+          </p>
+          <p>
+            Pero como todavía guardas tres cajas de herramientas en el ático viejo (la revisión del <em>coach</em>, el mapa de reacción y la lente de jugadas forzadas), no has podido demoler la casa antigua. Peor aún: en el garaje tienes <strong>24 cajas cerradas con cinta adhesiva</strong> (scripts de prueba de diseños pasados) que nadie abre, y en el panel de velocidad de tu coche los botones de «Velocidad 5» y «Velocidad 6» están conectados exactamente al mismo cable (<code>960,000</code> pasos).
+          </p>
+        </div>
+
+        <div class="lens-panel tech-only">
+          <div class="lens-tag" style="color: var(--accent-indigo);"><span>⚙</span> Diagnóstico Técnico · Evidencia en código</div>
+          <h3>Coexistencia de dos motores completos y duplicación de presupuestos</h3>
+          <p>
+            Tras el commit <code>29c09ff</code>, la vista principal <em>Explore</em> migró a <code>crates/search/src/engine.rs</code> + <code>explore.rs</code> con evaluación <em>tapered</em> ajustada por Texel. Sin embargo, el árbol de compilación mantiene dos stacks completos de búsqueda y evaluación:
+          </p>
+          <p>
+            El stack nuevo suma <strong>3,192 líneas</strong> (<code>engine.rs</code> 1,197 + <code>explore.rs</code> 309 + <code>skill.rs</code> 281 + <code>tapered.rs</code> 1,405). El stack legado suma <strong>4,480 líneas</strong> (<code>crates/search/src/lib.rs</code> 3,378 + <code>crates/eval/src/lib.rs</code> 1,102) porque sigue alimentando <code>review_game</code> en <code>crates/coach</code>, <code>reaction_lines*</code> y <code>forcing_moves*</code>. Además, detectamos <strong>24 scripts huérfanos</strong> en <code>scripts/</code>, un shim WASM redundante y niveles 5 y 6 idénticos en el ejecutor web.
+          </p>
+        </div>
+      </div>
+
+      <!-- Forensic Evidence Cards for Chapter 1 -->
+      <div class="evidence-grid">
+        <div class="evidence-card">
+          <div class="evidence-card-header">
+            <span class="file-ref">apps/web/src/play-wasm-executor.ts:82-97</span>
+            <span class="metric-pill">Lv5 == Lv6 (960k)</span>
+          </div>
+          <h4>Ilusión de elección entre Nivel 5 y Nivel 6</h4>
+          <p>En los mapas <code>strengthDepthCaps</code> y <code>strengthNodeBudgets</code>, elegir nivel 5 o nivel 6 producía exactamente el mismo límite de profundidad (16) y el mismo presupuesto de nodos (960,000).</p>
+          <pre class="code-specimen"><span class="code-comment">// play-wasm-executor.ts:90-97</span>
+const strengthNodeBudgets = new Map([
+  [1, 60_000],  [2, 120_000],
+  [3, 240_000], [4, 480_000],
+<span class="code-del">  [5, 960_000],</span>
+<span class="code-del">  [6, 960_000]  // ← Duplicado exacto con nivel 5</span>
+<span class="code-add">  [5, 640_000], // ← Reconciliado: progresión real 1..6</span>
+<span class="code-add">  [6, 1_200_000]</span>
+]);</pre>
+        </div>
+
+        <div class="evidence-card">
+          <div class="evidence-card-header">
+            <span class="file-ref">crates/wasm-bridge/src/lib.rs:965-995</span>
+            <span class="metric-pill">Shim redundante</span>
+          </div>
+          <h4>Export WASM que ignora su propio parámetro</h4>
+          <p><code>best_move_user_context_json</code> recibía <code>_player_color: &amp;str</code>, lo descartaba silenciosamente y delegaba línea por línea a <code>best_move_context_json</code>.</p>
+          <pre class="code-specimen"><span class="code-comment">// crates/wasm-bridge/src/lib.rs:965</span>
+pub fn best_move_user_context_json(
+    fen: &amp;str, depth: u8,
+<span class="code-del">    _player_color: &amp;str, // ← Ignorado por completo</span>
+    aggressive: bool, history_fens: &amp;str,
+    previous_line: &amp;str, max_nodes: u64,
+) -&gt; String {
+    best_move_context_json(fen, depth, aggressive, ...)
+}</pre>
+        </div>
+
+        <div class="evidence-card">
+          <div class="evidence-card-header">
+            <span class="file-ref">scripts/proof-* &amp; scripts/measure-*</span>
+            <span class="metric-pill">24 scripts huérfanos</span>
+          </div>
+          <h4>Arqueología de pruebas desconectadas del CI</h4>
+          <p>De los 32 scripts en <code>scripts/</code>, solo 8 están conectados a <code>justfile</code> o <code>package.json</code>. Los otros 24 (<code>proof-p1..p6</code>, <code>proof-m1..m6</code>, etc.) buscan selectores DOM que ya no existen.</p>
+          <pre class="code-specimen"><span class="code-comment"># Activos en justfile / package.json (8):</span>
+audit-policy.mjs, audit-runtime-network.mjs,
+build-web.mjs, preview-web.mjs, smoke-web.mjs...
+<span class="code-del"># Huérfanos sin invocador (24):</span>
+<span class="code-del">proof-p1-Layout.mjs .. proof-m10-release-signoff.mjs</span></pre>
+        </div>
+      </div>
+    </article>
+
+    <!-- ===================================================================== -->
+    <!-- CAPÍTULO II: ERRORES TRAGADOS                                         -->
+    <!-- ===================================================================== -->
+    <article class="chapter" id="cap-2">
+      <div class="chapter-header">
+        <div>
+          <span class="chapter-num crimson">Capítulo II · Observabilidad &amp; Contratos Honestos</span>
+          <h2 class="chapter-title">Errores Tragados — <span class="chapter-metaphor">«El tablero con un solo foco rojo»</span></h2>
+        </div>
+        <div class="segmented-control" role="group" aria-label="Filtro de capítulo 2">
+          <button type="button" class="seg-btn" onclick="setGlobalMode('eli5')">Solo ELI5</button>
+          <button type="button" class="seg-btn" onclick="setGlobalMode('tech')">Solo Técnico</button>
+          <button type="button" class="seg-btn" onclick="setGlobalMode('dual')">Ambos</button>
+        </div>
+      </div>
+
+      <!-- Canvas 2D Artwork 2 -->
+      <figure class="atelier-plate">
+        <div class="plate-toolbar">
+          <div class="plate-meta">
+            <span class="plate-badge">Lámina II · Tinta China &amp; Halo Carmesí</span>
+            <span id="status-canvas-2">Render completo · 100% Canvas 2D</span>
+          </div>
+          <div class="plate-actions">
+            <button type="button" class="action-pill" onclick="Atelier8800.setSpeed(2, 2.2)">2.2× Vel</button>
+            <button type="button" class="redraw-btn" onclick="Atelier8800.play(2)">
+              <span>✒</span> Re-dibujar pinceladas
+            </button>
+          </div>
+        </div>
+        <div class="canvas-stage">
+          <canvas id="canvas-plate-2" width="920" height="500" aria-label="Ilustración procedural: El tablero con un solo foco rojo (Errores Tragados)"></canvas>
+        </div>
+        <figcaption class="plate-caption">
+          <span><strong>Fig. 2.</strong> Cinco cables de naturaleza opuesta —desde un pánico en WASM hasta el botón legítimo de cancelar búsqueda cuando el usuario mueve otra pieza— convergen en el mismo bulbo rojo: <code>"search-failed"</code>.</span>
+          <span class="plate-caption-tech">Lavado carmesí multicapa · Sombreado de cables Bézier · Salpicadura de pluma</span>
+        </figcaption>
+      </figure>
+
+      <!-- Dual Explanation: ELI5 & Technical -->
+      <div class="lens-grid">
+        <div class="lens-panel eli5-only">
+          <div class="lens-tag" style="color: var(--accent-amber);"><span>✦</span> Explicación ELI5 · La metáfora</div>
+          <h3>Un auto donde pisar el freno enciende la alerta de «Motor Fundido»</h3>
+          <p>
+            Imagina el tablero de instrumentos de un coche que solo tiene <strong>un foco rojo gigante</strong> que dice <code>FALLO DEL MOTOR</code>. Si se rompe la correa, se prende el foco. Si la gasolina está sucia, se prende el foco. ¡Pero si tú simplemente <strong>cambias de estación de radio o pisas el freno</strong> porque cambiaste de opinión, también se prende el mismo foco de <code>FALLO DEL MOTOR</code>!
+          </p>
+          <p>
+            Y del otro lado, en la fábrica de piezas (Rust), cuando el inspector no tenía a mano la regla para medir qué tan buena era una jugada, en vez de anotar «Sin referencia», le pegaba una estrellita dorada de <strong>«¡Mejor Jugada (Best)!»</strong> para no dejar la casilla vacía.
+          </p>
+        </div>
+
+        <div class="lens-panel tech-only">
+          <div class="lens-tag" style="color: var(--accent-indigo);"><span>⚙</span> Diagnóstico Técnico · Evidencia en código</div>
+          <h3>Colapso de discriminantes en TypeScript y fallbacks mentirosos en Rust</h3>
+          <p>
+            En la frontera entre <code>crates/wasm-bridge</code> y <code>apps/web/src/</code> encontramos tres patrones clásicos de absorción de errores:
+          </p>
+          <p>
+            <strong>1. Cancelación disfrazada de fallo:</strong> En <code>play-worker-engine.ts:62-70</code>, el método <code>cancel()</code> resolvía todas las promesas pendientes en vuelo con <code>{ ok: false, error: "search-failed" }</code>. Cada vez que el usuario hacía una jugada rápida o <em>Undo</em> y recreaba el worker de análisis (<code>:82</code>), el canal reportaba un fallo de búsqueda idéntico a un <em>panic</em> de WebAssembly.<br />
+            <strong>2. Halago por omisión:</strong> En <code>wasm-bridge/src/lib.rs:1268-1270</code>, si <code>best_exact_score</code> era <code>None</code>, <code>.unwrap_or(MoveQuality::Best)</code> graduaba cualquier jugada como <code>"best"</code>.<br />
+            <strong>3. Tablero zombi en <code>new_game()</code>:</strong> En <code>wasm-bridge/src/lib.rs:499-507</code>, un <code>unwrap_or_else</code> devolvía una partida con estado <code>Ongoing</code> pero <code>legal_moves: Vec::new()</code>.
+          </p>
+        </div>
+      </div>
+
+      <!-- Forensic Evidence Cards for Chapter 2 -->
+      <div class="evidence-grid">
+        <div class="evidence-card">
+          <div class="evidence-card-header">
+            <span class="file-ref">apps/web/src/play-worker-engine.ts:62-70</span>
+            <span class="metric-pill">Cancel == Crash</span>
+          </div>
+          <h4>La cancelación normal resolvía como <code>"search-failed"</code></h4>
+          <p>Al cancelar un worker porque el usuario avanzó de turno, la promesa se resolvía con el mismo código de error que un fallo fatal del binario WASM.</p>
+          <pre class="code-specimen"><span class="code-comment">// apps/web/src/play-worker-engine.ts:62-70</span>
+cancel: () =&gt; {
+  for (const [id, entry] of pending) {
+    if (!entry.cancelable) continue;
+<span class="code-del">    entry.resolve({ ok: false, error: "search-failed" });</span>
+<span class="code-add">    entry.resolve({ ok: false, error: "cancelled" });</span>
+    pending.delete(id);
+  }
+}</pre>
+        </div>
+
+        <div class="evidence-card">
+          <div class="evidence-card-header">
+            <span class="file-ref">crates/wasm-bridge/src/lib.rs:1267-1271</span>
+            <span class="metric-pill">4/4 "Best" en Aggressive</span>
+          </div>
+          <h4><code>.unwrap_or(MoveQuality::Best)</code> y referencia invertida</h4>
+          <p>En <code>side_explore_dto</code> se tomaba <code>candidates.first()</code> como referencia y <code>.unwrap_or(MoveQuality::Best)</code> como fallback. En modo <em>Aggressive</em> (donde tras <code>1.e4 e5</code> se reordena <code>Bc4 (+23)</code> delante de <code>Nc3 (+42)</code>), comparar <code>+42</code> contra <code>+23</code> daba pérdida 0.0 y coronaba <strong>las 4 jugadas como <code>Best</code></strong>.</p>
+          <pre class="code-specimen"><span class="code-comment">// crates/wasm-bridge/src/lib.rs:1251-1271</span>
+<span class="code-del">let best_exact_score = report.candidates.first().map(|c| c.exact_score);</span>
+<span class="code-del">// ... .unwrap_or(MoveQuality::Best)</span>
+<span class="code-add">let best_exact_score = report.candidates.iter().map(|c| c.exact_score).max()?;</span>
+<span class="code-add">// Ahora Bc4 (+23) y d4 (+40) son Excellent; solo +42 es Best</span></pre>
+        </div>
+
+        <div class="evidence-card">
+          <div class="evidence-card-header">
+            <span class="file-ref">crates/wasm-bridge/src/lib.rs:499-507</span>
+            <span class="metric-pill">Estado Zombi</span>
+          </div>
+          <h4>Partida «En curso» con 0 jugadas legales</h4>
+          <p><code>Position::startpos()</code> es un invariante estático. Sin embargo, <code>new_game()</code> atrapaba errores fabricando un DTO corrupto donde es turno de Blancas pero no existe ningún movimiento legal.</p>
+          <pre class="code-specimen"><span class="code-comment">// crates/wasm-bridge/src/lib.rs:499-507</span>
+pub fn new_game() -&gt; EngineStateDto {
+<span class="code-del">    state_dto(&amp;Position::startpos()).unwrap_or_else(|_| EngineStateDto {</span>
+<span class="code-del">        status: GameStatusDto::Ongoing,</span>
+<span class="code-del">        legal_moves: Vec::new(), // ← Estado imposible en ajedrez</span>
+<span class="code-del">        ...</span>
+<span class="code-del">    })</span>
+<span class="code-add">    state_dto(&amp;Position::startpos())</span>
+<span class="code-add">        .expect("startpos is a valid chess position invariant")</span>
+}</pre>
+        </div>
+      </div>
+    </article>
+
+    <!-- ===================================================================== -->
+    <!-- CAPÍTULO III: FOUNDATIONS ROTAS                                       -->
+    <!-- ===================================================================== -->
+    <article class="chapter" id="cap-3">
+      <div class="chapter-header">
+        <div>
+          <span class="chapter-num indigo">Capítulo III · Verdad Empírica &amp; Metrología</span>
+          <h2 class="chapter-title">Foundations Rotas — <span class="chapter-metaphor">«El velocímetro en la bicicleta vieja»</span></h2>
+        </div>
+        <div class="segmented-control" role="group" aria-label="Filtro de capítulo 3">
+          <button type="button" class="seg-btn" onclick="setGlobalMode('eli5')">Solo ELI5</button>
+          <button type="button" class="seg-btn" onclick="setGlobalMode('tech')">Solo Técnico</button>
+          <button type="button" class="seg-btn" onclick="setGlobalMode('dual')">Ambos</button>
+        </div>
+      </div>
+
+      <!-- Canvas 2D Artwork 3 -->
+      <figure class="atelier-plate">
+        <div class="plate-toolbar">
+          <div class="plate-meta">
+            <span class="plate-badge">Lámina III · Cuaderno Técnico en Índigo Prusia &amp; Ocre</span>
+            <span id="status-canvas-3">Render completo · 100% Canvas 2D</span>
+          </div>
+          <div class="plate-actions">
+            <button type="button" class="action-pill" onclick="Atelier8800.setSpeed(3, 2.2)">2.2× Vel</button>
+            <button type="button" class="redraw-btn" onclick="Atelier8800.play(3)">
+              <span>✒</span> Re-dibujar pinceladas
+            </button>
+          </div>
+        </div>
+        <div class="canvas-stage">
+          <canvas id="canvas-plate-3" width="920" height="500" aria-label="Ilustración procedural: El velocímetro en la bicicleta vieja (Foundations Rotas)"></canvas>
+        </div>
+        <figcaption class="plate-caption">
+          <span><strong>Fig. 3.</strong> El caballo mecánico del motor nuevo salta sobre el tablero a <strong>2,500,000 nodos/s</strong> (~3039 Elo), mientras el velocímetro oficial del repositorio (<code>just bench</code>) sigue atornillado con un cable a la rueda de la bicicleta vieja (<code>239,982 nps</code> a profundidad 3).</span>
+          <span class="plate-caption-tech">Líneas de construcción geométrica · Pluma índigo · Acuarela ocre</span>
+        </figcaption>
+      </figure>
+
+      <!-- Dual Explanation: ELI5 & Technical -->
+      <div class="lens-grid">
+        <div class="lens-panel eli5-only">
+          <div class="lens-tag" style="color: var(--accent-amber);"><span>✦</span> Explicación ELI5 · La metáfora</div>
+          <h3>Tienes un caballo pura sangre, pero el cronómetro oficial mide tu triciclo</h3>
+          <p>
+            Imagina que entrenas un caballo de carreras capaz de galopar a velocidad récord. Cada vez que alguien te pregunta «¿qué tan rápido corre el proyecto?», tomas el cronómetro oficial del club (<code>just bench</code>)... ¡pero el cable del cronómetro sigue amarrado a la rueda de la bicicleta oxidada que usabas el año pasado!
+          </p>
+          <p>
+            El cronómetro marca orgulloso: «¡239 mil pasos por segundo, todo en orden!». Si mañana la bicicleta vieja se engrasa, el cronómetro aplaude; y si el caballo de carreras se lastima una pata, el cronómetro ni siquiera se entera porque no lo está mirando.
+          </p>
+        </div>
+
+        <div class="lens-panel tech-only">
+          <div class="lens-tag" style="color: var(--accent-indigo);"><span>⚙</span> Diagnóstico Técnico · Evidencia en código</div>
+          <h3>Desacoplamiento entre el benchmark de regresión (<code>m8_bench</code>) y el motor de producción</h3>
+          <p>
+            La regla número uno de nuestro mapa de ingeniería (<code>AGENTS.md</code>) exige: <em>«Evidencia en vez de afirmaciones: cuando digas más rápido o más fuerte, muéstrame el número y el comando»</em>.
+          </p>
+          <p>
+            Al auditar <code>benches/m8-bench.mjs</code>, <code>benches/baseline.json</code> y <code>crates/cli/src/main.rs</code> (subcomando <code>bench</code> y <code>analyze-fen</code>), comprobamos que <code>just bench</code> ejecutaba <code>cargo run --release --quiet -p chess-search --example m8_bench</code> a profundidad 3 sobre 5 posiciones, visitando <code>53,996</code> nodos en <code>225 ms</code> (<strong>239,982 nps</strong>) con la búsqueda vieja de <code>crates/search/src/lib.rs</code>. Mientras tanto, el motor real en <code>crates/search/src/engine.rs</code> opera entre <strong>2.0 y 3.0 millones de nodos/s</strong> en nativo (y 1.0–1.5M nps en WASM). Reconciliar los cimientos significa conectar el tacómetro al motor real.
+          </p>
+        </div>
+      </div>
+
+      <!-- Forensic Evidence Cards for Chapter 3 -->
+      <div class="evidence-grid">
+        <div class="evidence-card">
+          <div class="evidence-card-header">
+            <span class="file-ref">benches/baseline.json &amp; m8-bench.mjs</span>
+            <span class="metric-pill good">239.9k → 4.73M nps (19.7×)</span>
+          </div>
+          <h4>De profundidad 3 en 225 ms a profundidad 9 en 41 ms</h4>
+          <p>Al migrar <code>m8_bench</code> de <code>chess_search::search</code> a <code>Engine::think</code> (TT 16 MB), el benchmark oficial pasa de 239,982 nps a <strong>4,734,365 nps</strong> (llegando 6 plies más profundo en menos de la mitad del tiempo).</p>
+          <pre class="code-specimen"><span class="code-comment">// benches/baseline.json (Antes vs Después medido)</span>
+<span class="code-del">"depth": 3, "total_nodes": 53996,  "elapsed_ms": 225, "nps": 239982</span>
+<span class="code-add">"depth": 9, "total_nodes": 194109, "elapsed_ms": 41,  "nps": 4734365</span></pre>
+        </div>
+
+        <div class="evidence-card">
+          <div class="evidence-card-header">
+            <span class="file-ref">crates/cli/src/main.rs (bench &amp; analyze-fen)</span>
+            <span class="metric-pill good">235× más rápido a prof. 6</span>
+          </div>
+          <h4><code>chess-cli bench</code> y <code>analyze-fen</code> sobre Kiwipete</h4>
+          <p>En <code>chess-cli bench --depth 6</code>, el tiempo cae de <strong>1,886 ms</strong> (1,022,976 nodos) a <strong>8 ms</strong> (24,401 nodos, <strong>3.05M nps</strong>). En Kiwipete a prof. 6, <code>analyze-fen</code> pasa de 1,005,387 nodos (1,817 ms) a <strong>7,065 nodos (~3 ms, 142× menos nodos)</strong>.</p>
+          <pre class="code-specimen"><span class="code-comment">// chess-cli analyze-fen --fen "&lt;kiwipete&gt;" --depth 6</span>
+<span class="code-del">Antes (lib.rs):    1,005,387 nodos · 1,817 ms · e2a6 (-14 cp)</span>
+<span class="code-add">Después (Engine):      7,065 nodos ·    ~3 ms · e2a6 (+3 cp)</span></pre>
+        </div>
+      </div>
+    </article>
+
+    <!-- ===================================================================== -->
+    <!-- CAPÍTULO IV: MÁQUINAS DE ESTADO IMPLÍCITAS                            -->
+    <!-- ===================================================================== -->
+    <article class="chapter" id="cap-4">
+      <div class="chapter-header">
+        <div>
+          <span class="chapter-num viridian">Capítulo IV · Concurrencia &amp; Determinismo en UI</span>
+          <h2 class="chapter-title">Máquinas de Estado Implícitas — <span class="chapter-metaphor">«El cruce sin semáforo»</span></h2>
+        </div>
+        <div class="segmented-control" role="group" aria-label="Filtro de capítulo 4">
+          <button type="button" class="seg-btn" onclick="setGlobalMode('eli5')">Solo ELI5</button>
+          <button type="button" class="seg-btn" onclick="setGlobalMode('tech')">Solo Técnico</button>
+          <button type="button" class="seg-btn" onclick="setGlobalMode('dual')">Ambos</button>
+        </div>
+      </div>
+
+      <!-- Canvas 2D Artwork 4 -->
+      <figure class="atelier-plate">
+        <div class="plate-toolbar">
+          <div class="plate-meta">
+            <span class="plate-badge">Lámina IV · Díptico en Acuarela Carmesí / Viridián</span>
+            <span id="status-canvas-4">Render completo · 100% Canvas 2D</span>
+          </div>
+          <div class="plate-actions">
+            <button type="button" class="action-pill" onclick="Atelier8800.setSpeed(4, 2.2)">2.2× Vel</button>
+            <button type="button" class="redraw-btn" onclick="Atelier8800.play(4)">
+              <span>✒</span> Re-dibujar pinceladas
+            </button>
+          </div>
+        </div>
+        <div class="canvas-stage">
+          <canvas id="canvas-plate-4" width="920" height="500" aria-label="Ilustración procedural: El cruce sin semáforo (Máquinas de Estado Implícitas)"></canvas>
+        </div>
+        <figcaption class="plate-caption">
+          <span><strong>Fig. 4.</strong> A la izquierda, la maraña implícita de <code>play-ui.ts</code>: 27 interruptores, 67 flechas de mutación directa y 4 contadores manuales donde <code>forcingRequestVersion</code> quedó olvidado en <code>resignGame</code>. A la derecha, el grafo explícito sincronizado por <code>RequestTracker</code>.</span>
+          <span class="plate-caption-tech">Composición partida · Grafo dirigido en tinta · Lavado viridián</span>
+        </figcaption>
+      </figure>
+
+      <!-- Dual Explanation: ELI5 & Technical -->
+      <div class="lens-grid">
+        <div class="lens-panel eli5-only">
+          <div class="lens-tag" style="color: var(--accent-amber);"><span>✦</span> Explicación ELI5 · La metáfora</div>
+          <h3>Cuatro boletos de turno en la cocina y un repartidor fantasma</h3>
+          <p>
+            Imagina una cocina muy ocupada donde hay <strong>cuatro libretas de números de pedido distintas</strong> (una para el plato fuerte, otra para la salsa, otra para las bebidas y otra para el postre). Cuando un cliente dice «¡Ya me voy, cancelen mi mesa!» (<em>Resign / Rendirse</em>), el mesero tiene que acordarse de tachar las cuatro libretas a mano.
+          </p>
+          <p>
+            ¿Qué pasó en la vida real? Al escribir la regla de «Rendirse», el mesero tachó la libreta 1, la libreta 2 y la libreta 4... <strong>¡pero se le olvidó tachar la libreta 3!</strong> Así que medio segundo después de que la partida ya había terminado por rendición, llegaba corriendo el cocinero de la libreta 3 y servía sugerencias de jugadas sobre una mesa que ya estaba cerrada.
+          </p>
+        </div>
+
+        <div class="lens-panel tech-only">
+          <div class="lens-tag" style="color: var(--accent-indigo);"><span>⚙</span> Diagnóstico Técnico · Evidencia en código</div>
+          <h3>27 campos, 67 reasignaciones <code>state =</code>, variable sombra y el bug de <code>resignGame</code></h3>
+          <p>
+            <code>apps/web/src/play-ui.ts</code> creció hasta <strong>6,014 líneas</strong> gobernadas por un objeto <code>PlayUiState</code> de 27 propiedades (<code>:345-372</code>) que se reasigna mediante <code>state = { ...state, ... }</code> en <strong>67 sitios distintos</strong> sin transiciones centralizadas.
+          </p>
+          <p>
+            Para descartar respuestas asíncronas obsoletas de los workers, el archivo mantenía 4 contadores mutables sueltos en el closure (<code>:394-397</code>): <code>gameVersion</code>, <code>lensRequestVersion</code>, <code>forcingRequestVersion</code> y <code>sideExploreRequestVersion</code>, además de una variable local <code>let playMode</code> (<code>:406</code>) que duplicaba <code>state.playMode</code> (<code>:357</code>). Cuando una invariante depende de que el humano recuerde incrementar 4 variables juntas en cada salida, tarde o temprano ocurre un bug: en <code>resignGame</code> (<code>:638-640</code>) faltaba incrementar <code>forcingRequestVersion</code> y faltaba limpiar <code>forcing: emptyForcing()</code>.
+          </p>
+        </div>
+      </div>
+
+      <!-- Forensic Evidence Cards for Chapter 4 -->
+      <div class="evidence-grid">
+        <div class="evidence-card">
+          <div class="evidence-card-header">
+            <span class="file-ref">apps/web/src/play-ui.ts:633-653</span>
+            <span class="metric-pill">Bug real verificado</span>
+          </div>
+          <h4>Fuga de <code>forcingRequestVersion</code> al rendirse</h4>
+          <p>En <code>resignGame</code> se invalidaban 3 de los 4 contadores, dejando viva cualquier petición en vuelo de la lente de jugadas forzadas.</p>
+          <pre class="code-specimen"><span class="code-comment">// apps/web/src/play-ui.ts:638-653</span>
+const resignGame = (actor: "user" | "rival"): void =&gt; {
+  gameVersion += 1;
+  lensRequestVersion += 1;
+<span class="code-del">  // ← ¡FALTABA forcingRequestVersion += 1!</span>
+  sideExploreRequestVersion += 1;
+  cancelActiveSearches();
+  state = {
+    ...state,
+    lens: emptyLens(),
+    reaction: emptyReaction(),
+<span class="code-del">    // ← ¡FALTABA forcing: emptyForcing()!</span>
+    sideExplore: emptySideExplore(),
+  };
+};</pre>
+        </div>
+
+        <div class="evidence-card">
+          <div class="evidence-card-header">
+            <span class="file-ref">apps/web/src/play-state-machine.ts</span>
+            <span class="metric-pill good">Imposible por diseño</span>
+          </div>
+          <h4>Reconciliación: <code>createRequestTracker()</code> y transiciones puras</h4>
+          <p>Al encapsular las generaciones en un tracker atómico con <code>invalidateAll()</code> e <code>invalidatePosition()</code> y eliminar la variable sombra <code>let playMode</code>, olvidar un contador deja de ser posible.</p>
+          <pre class="code-specimen"><span class="code-comment">// apps/web/src/play-state-machine.ts</span>
+export function createRequestTracker(): RequestTracker {
+  // invalidateAll() avanza TODAS las generaciones en una sola operación
+  // y transitionResignGame() resetea los 4 sub-estados de análisis.
+}</pre>
+        </div>
+      </div>
+
+      <!-- Interactive Simulator of the Resign Race Bug -->
+      <div class="sim-box" aria-label="Simulador interactivo del bug de contadores en resignGame">
+        <div class="sim-header">
+          <div>
+            <strong style="font-family: var(--font-serif); font-size: 1.1rem;">Laboratorio Interactivo: Simula la condición de carrera en <code>resignGame(:638)</code></strong>
+            <div style="font-size: 0.8rem; color: var(--ink-secondary);">Compara qué ocurre cuando un worker de <code>forcingMoves</code> tarda 180ms y el jugador se rinde a mitad del cálculo.</div>
+          </div>
+          <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+            <button type="button" class="action-pill" onclick="RaceSim.run('old')">⚡ Simular Código Viejo (4 contadores sueltos)</button>
+            <button type="button" class=" redraw-btn" onclick="RaceSim.run('new')">✓ Simular RequestTracker Reconciliado</button>
+          </div>
+        </div>
+
+        <div class="sim-counters" id="sim-counters-view">
+          <div class="counter-tile" id="tile-game">
+            <span>gameVersion</span>
+            <span class="counter-val" id="val-game">1</span>
+          </div>
+          <div class="counter-tile" id="tile-lens">
+            <span>lensRequestVersion</span>
+            <span class="counter-val" id="val-lens">4</span>
+          </div>
+          <div class="counter-tile bugged" id="tile-forcing">
+            <span>forcingRequestVersion</span>
+            <span class="counter-val" id="val-forcing">2 (¡Olvidado en :638!)</span>
+          </div>
+          <div class="counter-tile" id="tile-explore">
+            <span>sideExploreVersion</span>
+            <span class="counter-val" id="val-explore">7</span>
+          </div>
+        </div>
+
+        <div class="sim-log" id="sim-log-output">
+          Pulsa cualquiera de los dos botones arriba para disparar una petición en vuelo de <code>forcingMoves (req #2)</code> seguida de <code>resignGame("user")</code>.
+        </div>
+      </div>
+    </article>
+
+    <!-- ===================================================================== -->
+    <!-- CAPÍTULO V: GALERÍA VISUAL & TABLA MAESTRA DE RECONCILIACIÓN          -->
+    <!-- ===================================================================== -->
+    <article class="chapter" id="galeria">
+      <div class="chapter-header">
+        <div>
+          <span class="chapter-num indigo">Capítulo V · Archivo Visual &amp; Matriz Forense</span>
+          <h2 class="chapter-title">Galería de Evidencia Real y Láminas Editoriales</h2>
+        </div>
+      </div>
+
+      <p style="max-width: 72ch; color: var(--ink-secondary); margin-bottom: 1.5rem;">
+        Todas las capturas y gráficos siguientes provienen directamente del árbol local (<code>docs/</code> y <code>docs/media/</code>). Las dos láminas de cabecera (<code>./media/reconciliaciones/hero.png</code> y <code>./media/reconciliaciones/diptych.png</code>) cuentan con render procedural automático de respaldo en caso de abrir este archivo antes de sincronizar la carpeta de medios.
+      </p>
+
+      <div class="gallery-grid">
+        <!-- Editorial Hero Plate -->
+        <div class="gallery-card">
+          <div class="gallery-media">
+            <img
+              src="./media/reconciliaciones/hero.png"
+              alt="Ilustración editorial Hero: Reconciliaciones de Ingeniería"
+              onload="this.style.display='block'; this.nextElementSibling.style.display='none';"
+              onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'; Atelier8800.renderFallbackBadge('fallback-hero-canvas', 'HERO · EL PUENTE ENTRE DOS MOTORES');"
+            />
+            <div class="gallery-fallback">
+              <canvas id="fallback-hero-canvas" width="560" height="280"></canvas>
+              <span>Lámina procedural activa · Ruta lista para <code>./media/reconciliaciones/hero.png</code></span>
+            </div>
+          </div>
+          <div class="gallery-info">
+            <h4>Lámina Editorial I — El Puente de Reconciliación</h4>
+            <p>Ilustración de portada para <code>angelmiranda.dev</code>: la transición entre el árbol legado y el motor PVS de ~3039 Elo.</p>
+            <span class="gallery-path">./media/reconciliaciones/hero.png</span>
+          </div>
+        </div>
+
+        <!-- Editorial Diptych Plate -->
+        <div class="gallery-card">
+          <div class="gallery-media">
+            <img
+              src="./media/reconciliaciones/diptych.png"
+              alt="Díptico editorial: Del caos implícito al determinismo"
+              onload="this.style.display='block'; this.nextElementSibling.style.display='none';"
+              onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'; Atelier8800.renderFallbackBadge('fallback-diptych-canvas', 'DÍPTICO · 67 MUTACIONES VS GRAFO PURO');"
+            />
+            <div class="gallery-fallback">
+              <canvas id="fallback-diptych-canvas" width="560" height="280"></canvas>
+              <span>Lámina procedural activa · Ruta lista para <code>./media/reconciliaciones/diptych.png</code></span>
+            </div>
+          </div>
+          <div class="gallery-info">
+            <h4>Lámina Editorial II — Díptico de Estado y Observabilidad</h4>
+            <p>Contraste visual entre errores tragados / contadores desincronizados y contratos explícitos verificables.</p>
+            <span class="gallery-path">./media/reconciliaciones/diptych.png</span>
+          </div>
+        </div>
+
+        <!-- Real Capture: Explore Light -->
+        <div class="gallery-card">
+          <div class="gallery-media">
+            <img src="./media/explore-light.webp" alt="Captura real de Explore en modo claro" onerror="this.src='./explore.png'" />
+          </div>
+          <div class="gallery-info">
+            <h4>Explore sobre el Motor Real (Tema Claro)</h4>
+            <p>Con 300k nodos de presupuesto en WASM (1.0–1.5M nps), Explore alcanza profundidad 9–10 en ~200 ms y recomienda <code>3.d4 (+52)</code> tras <code>1.e4 e5</code>.</p>
+            <span class="gallery-path">./media/explore-light.webp</span>
+          </div>
+        </div>
+
+        <!-- Real Capture: Explore Dark -->
+        <div class="gallery-card">
+          <div class="gallery-media">
+            <img src="./media/explore-dark.webp" alt="Captura real de Explore en modo oscuro" onerror="this.src='./explore.png'" />
+          </div>
+          <div class="gallery-info">
+            <h4>Explore sobre el Motor Real (Tema Oscuro)</h4>
+            <p>Panel lateral fijo con barra de evaluación, oración explicativa generada desde hechos tácticos SEE en Rust y líneas numeradas.</p>
+            <span class="gallery-path">./media/explore-dark.webp</span>
+          </div>
+        </div>
+
+        <!-- Real Capture: Elo Gains -->
+        <div class="gallery-card">
+          <div class="gallery-media">
+            <img src="./media/elo-gains-light.png" alt="Gráfica real de ganancias Elo por versión SPRT" />
+          </div>
+          <div class="gallery-info">
+            <h4>Escalera de Fuerza Medida (v1 → v9 · ~3039 CCRL Blitz)</h4>
+            <p>Cada versión superó un test secuencial SPRT en <code>fastchess</code>; el hito de velocidad (<code>ce31a8e</code>, ~1.9× nps con árbol idéntico) aportó +117.4 Elo.</p>
+            <span class="gallery-path">./media/elo-gains-light.png</span>
+          </div>
+        </div>
+
+        <!-- Real Capture: Pre-4bcee2a Explore Snapshot -->
+        <div class="gallery-card">
+          <div class="gallery-media">
+            <img src="./explore.png" alt="Captura histórica de Explore previa a 4bcee2a" />
+          </div>
+          <div class="gallery-info">
+            <h4>Registro Histórico — Interfaz Explore Pre-Rediseño</h4>
+            <p>Captura conservada en <code>docs/explore.png</code> que documenta la transición entre el sistema visual <em>liquid glass</em> y el rediseño técnico definitivo (<code>4bcee2a</code>).</p>
+            <span class="gallery-path">./explore.png</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Complete Reconciliations Ledger Table -->
+      <h3 style="margin-top: 3rem; font-size: 1.45rem;">Matriz Maestra de Reconciliaciones</h3>
+      <div class="table-wrap">
+        <table class="ledger-table">
+          <thead>
+            <tr>
+              <th>Eje</th>
+              <th>Ubicación Exacta</th>
+              <th>Hallazgo Forense (Antes)</th>
+              <th>Reconciliación Aplicada (Después)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>I. Costos Hundidos</strong></td>
+              <td><code>apps/web/src/play-wasm-executor.ts:82-97</code></td>
+              <td>Niveles 5 y 6 tenían idéntico tope de profundidad (16) e idéntico presupuesto (<code>960,000</code> nodos).</td>
+              <td>Progresión diferenciada real entre niveles 1..6 sin escalón muerto entre 5 y 6.</td>
+            </tr>
+            <tr>
+              <td><strong>I. Costos Hundidos</strong></td>
+              <td><code>crates/wasm-bridge/src/lib.rs:965-995</code></td>
+              <td>Shim <code>best_move_user_context_json</code> ignoraba <code>_player_color</code> y duplicaba <code>best_move_context_json</code>.</td>
+              <td>Documentado / limpiado y desacoplado de consumidores de soporte.</td>
+            </tr>
+            <tr>
+              <td><strong>I. Costos Hundidos</strong></td>
+              <td><code>crates/search/src/lib.rs</code> (3,378 L) vs <code>engine.rs</code> (1,197 L)</td>
+              <td>4,480 líneas de búsqueda+eval vieja convivían sin mapa claro con las 3,192 líneas del motor nuevo y 24 scripts huérfanos.</td>
+              <td>Frontera explícita documentada: <code>engine.rs</code> gobierna juego, UCI y Explore; <code>lib.rs</code> queda acotado a lentes legadas y coach.</td>
+            </tr>
+            <tr>
+              <td><strong>II. Errores Tragados</strong></td>
+              <td><code>apps/web/src/play-worker-engine.ts:62-70</code></td>
+              <td><code>cancel()</code> resolvía peticiones en vuelo con <code>{ ok: false, error: "search-failed" }</code>.</td>
+              <td>Discriminante explícito <code>"cancelled"</code> separado de fallos reales de motor o esquema.</td>
+            </tr>
+            <tr>
+              <td><strong>II. Errores Tragados</strong></td>
+              <td><code>crates/wasm-bridge/src/lib.rs:1267-1271</code></td>
+              <td><code>best_exact_score.map(...).unwrap_or(MoveQuality::Best)</code> coronaba como <code>Best</code> jugadas sin referencia.</td>
+              <td>Clasificación honesta que nunca regala <code>MoveQuality::Best</code> por ausencia de score base.</td>
+            </tr>
+            <tr>
+              <td><strong>II. Errores Tragados</strong></td>
+              <td><code>crates/wasm-bridge/src/lib.rs:499-507</code></td>
+              <td><code>new_game()</code> usaba <code>unwrap_or_else</code> devolviendo <code>Ongoing</code> con <code>legal_moves: Vec::new()</code>.</td>
+              <td>Invariante explícito sobre <code>Position::startpos()</code> sin fabricar estados zombi.</td>
+            </tr>
+            <tr>
+              <td><strong>III. Foundations</strong></td>
+              <td><code>benches/baseline.json</code> &amp; <code>crates/cli/src/main.rs</code></td>
+              <td><code>just bench</code> medía el ejemplo viejo <code>m8_bench</code> a prof. 3 (<code>239,982 nps</code>), ignorando el motor real.</td>
+              <td>Benchmark conectado a <code>chess_search::engine::Engine::think</code> midiendo la velocidad real (~2.0–3.0M nps).</td>
+            </tr>
+            <tr>
+              <td><strong>IV. Máquina de Estado</strong></td>
+              <td><code>apps/web/src/play-ui.ts:394-406, 638-640</code></td>
+              <td>4 contadores sueltos, variable sombra <code>let playMode</code>, 67 mutaciones <code>state =</code> y bug en <code>resignGame</code> que olvidaba <code>forcingRequestVersion</code>.</td>
+              <td>Módulo <code>play-state-machine.ts</code> con <code>createRequestTracker()</code> (<code>invalidateAll()</code>) y fuente única de verdad en <code>state.playMode</code>.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </article>
+
+    <!-- Colophon / Footer -->
+    <footer class="colophon">
+      <div>
+        <strong>angelmiranda.dev · Agencia 8800</strong><br />
+        <span>Ensayo técnico y motor procedural de pinceladas en Canvas 2D. 100% local, cero llamadas de red, cero dependencias externas.</span>
+      </div>
+      <div style="font-family: var(--font-mono); font-size: 0.73rem;">
+        <div>Verificación: <code>node scripts/audit-runtime-network.mjs</code> · <code>node scripts/audit-policy.mjs</code></div>
+        <div>Versión Markdown gemela: <code>docs/reconciliaciones-angelmiranda.md</code></div>
+      </div>
+    </footer>
+  </main>
+
+  <!-- ======================================================================= -->
+  <!-- MOTOR PROCEDURAL DE PINCELADAS MULTI-CERDA EN CANVAS 2D (ATELIER 8800)  -->
+  <!-- ======================================================================= -->
+  <script>
+    "use strict";
+
+    /**
+     * Atelier8800 — Motor físico-procedural de pinceladas en Canvas 2D.
+     * Implementa:
+     * 1. Generador pseudoaleatorio determinista (Mulberry32) + Ruido Value/FBM 2D.
+     * 2. Textura de papel algodón prensado en frío (Offscreen Canvas con fibras, grano y viñeta).
+     * 3. Lavados de acuarela wet-on-wet (polígonos subdivididos por FBM + borde de pigmento).
+     * 4. Pincel multi-cerda (Multi-Bristle Sumi-e / Pluma Fuente) con curva de presión Bézier,
+     *    separación de filamentos en trazo seco (feibai), ángulo caligráfico y temblor humano.
+     * 5. Sombreado arquitectónico (cross-hatching), salpicaduras orgánicas y cotas técnicas.
+     */
+    const Atelier8800 = (() => {
+      // Seeded PRNG (Mulberry32)
+      function createRng(seed) {
+        let a = seed >>> 0;
+        return function rng() {
+          a |= 0;
+          a = (a + 0x6d2b79f5) | 0;
+          let t = Math.imul(a ^ (a >>> 15), 1 | a);
+          t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+          return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+        };
+      }
+
+      // Deterministic 2D hash & smooth value noise
+      function hash2(ix, iy, seed) {
+        let h = Math.imul(ix, 374761393) + Math.imul(iy, 668265263) + Math.imul(seed, 1442695041);
+        h = (h ^ (h >>> 13)) * 1274126177;
+        return ((h ^ (h >>> 16)) >>> 0) / 4294967296;
+      }
+
+      function noise2D(x, y, seed = 8800) {
+        const ix = Math.floor(x);
+        const iy = Math.floor(y);
+        const fx = x - ix;
+        const fy = y - iy;
+        const ux = fx * fx * (3 - 2 * fx);
+        const uy = fy * fy * (3 - 2 * fy);
+        const a = hash2(ix, iy, seed);
+        const b = hash2(ix + 1, iy, seed);
+        const c = hash2(ix, iy + 1, seed);
+        const d = hash2(ix + 1, iy + 1, seed);
+        return a + (b - a) * ux + (c - a) * uy + (a - b - c + d) * ux * uy;
+      }
+
+      function fbm2D(x, y, seed = 8800, octaves = 3) {
+        let val = 0;
+        let amp = 0.5;
+        let freq = 1;
+        for (let i = 0; i < octaves; i++) {
+          val += amp * noise2D(x * freq, y * freq, seed + i * 101);
+          freq *= 2.04;
+          amp *= 0.5;
+        }
+        return val;
+      }
+
+      function isNight() {
+        return document.documentElement.getAttribute("data-theme") === "night";
+      }
+
+      // Theme-aware pigment palette
+      function palette() {
+        if (isNight()) {
+          return {
+            paperBase: "#141820",
+            paperWarm: "#1a202c",
+            inkDeep: "#ece6dc",
+            inkSoft: "#b5ada0",
+            inkFaint: "rgba(220, 212, 198, 0.24)",
+            gridLine: "rgba(180, 195, 220, 0.08)",
+            sepiaDark: "#d8b48a",
+            sepiaWash: "rgba(194, 135, 68, 0.16)",
+            amberWash: "rgba(245, 158, 11, 0.19)",
+            amberInk: "#fbbf24",
+            crimsonWash: "rgba(239, 68, 68, 0.22)",
+            crimsonGlow: "rgba(248, 113, 113, 0.32)",
+            crimsonInk: "#f87171",
+            indigoWash: "rgba(59, 130, 246, 0.18)",
+            indigoInk: "#93c5fd",
+            ochreWash: "rgba(217, 119, 6, 0.19)",
+            viridianWash: "rgba(16, 185, 129, 0.19)",
+            viridianInk: "#6ee7b7",
+            paperCard: "rgba(28, 34, 44, 0.9)"
+          };
+        }
+        return {
+          paperBase: "#f5efe3",
+          paperWarm: "#ede3d1",
+          inkDeep: "#1b1815",
+          inkSoft: "#473f36",
+          inkFaint: "rgba(45, 37, 28, 0.24)",
+          gridLine: "rgba(95, 78, 56, 0.09)",
+          sepiaDark: "#3e2a1b",
+          sepiaWash: "rgba(138, 92, 46, 0.15)",
+          amberWash: "rgba(217, 130, 24, 0.17)",
+          amberInk: "#9a4406",
+          crimsonWash: "rgba(190, 24, 24, 0.16)",
+          crimsonGlow: "rgba(220, 38, 38, 0.26)",
+          crimsonInk: "#991b1b",
+          indigoWash: "rgba(26, 62, 108, 0.15)",
+          indigoInk: "#173257",
+          ochreWash: "rgba(196, 122, 34, 0.17)",
+          viridianWash: "rgba(18, 118, 78, 0.16)",
+          viridianInk: "#0f5c3e",
+          paperCard: "rgba(250, 246, 238, 0.92)"
+        };
+      }
+
+      // Offscreen cache for cotton rag paper texture
+      const paperCache = new Map();
+
+      function getPaperCanvas(width, height, seed) {
+        const key = `${width}x${height}:${isNight() ? "night" : "paper"}:${seed}`;
+        if (paperCache.has(key)) return paperCache.get(key);
+
+        const off = document.createElement("canvas");
+        off.width = width;
+        off.height = height;
+        const ctx = off.getContext("2d");
+        const pal = palette();
+        const rng = createRng(seed);
+
+        // Base fill
+        ctx.fillStyle = pal.paperBase;
+        ctx.fillRect(0, 0, width, height);
+
+        // Subtle radial warm/vignette wash
+        const grad = ctx.createRadialGradient(
+          width * 0.48, height * 0.45, width * 0.08,
+          width * 0.5, height * 0.5, width * 0.72
+        );
+        grad.addColorStop(0, "rgba(0,0,0,0)");
+        grad.addColorStop(1, isNight() ? "rgba(0,0,0,0.34)" : "rgba(128,100,64,0.11)");
+        ctx.fillStyle = grad;
+        ctx.fillRect(0, 0, width, height);
+
+        // Cotton rag cold-pressed grain (organic micro-fibers & speckles)
+        const night = isNight();
+        for (let i = 0; i < 2400; i++) {
+          const x = rng() * width;
+          const y = rng() * height;
+          const len = 2 + rng() * 9;
+          const ang = rng() * Math.PI;
+          ctx.strokeStyle = night
+            ? `rgba(255, 248, 235, ${0.012 + rng() * 0.025})`
+            : `rgba(88, 68, 42, ${0.018 + rng() * 0.032})`;
+          ctx.lineWidth = 0.5 + rng() * 0.7;
+          ctx.beginPath();
+          ctx.moveTo(x, y);
+          ctx.lineTo(x + Math.cos(ang) * len, y + Math.sin(ang) * len);
+          ctx.stroke();
+        }
+
+        // Architect's subtle registration grid & margin frame
+        ctx.strokeStyle = pal.gridLine;
+        ctx.lineWidth = 0.75;
+        const step = 40;
+        for (let x = step; x < width; x += step) {
+          ctx.beginPath();
+          ctx.moveTo(x, 14);
+          ctx.lineTo(x, height - 14);
+          ctx.stroke();
+        }
+        for (let y = step; y < height; y += step) {
+          ctx.beginPath();
+          ctx.moveTo(14, y);
+          ctx.lineTo(width - 14, y);
+          ctx.stroke();
+        }
+
+        // Double editorial border line
+        ctx.strokeStyle = night ? "rgba(220,210,195,0.22)" : "rgba(65,52,38,0.28)";
+        ctx.lineWidth = 1.2;
+        ctx.strokeRect(12, 12, width - 24, height - 24);
+        ctx.lineWidth = 0.6;
+        ctx.strokeRect(16, 16, width - 32, height - 32);
+
+        paperCache.set(key, off);
+        return off;
+      }
+
+      // Evaluate polyline / cubic / quadratic spline points into dense arc samples
+      function samplePath(pts, stepPx = 1.8) {
+        if (!pts || pts.length < 2) return [];
+        const samples = [];
+        // Catmull-Rom / smooth interpolation through waypoints
+        for (let i = 0; i < pts.length - 1; i++) {
+          const p0 = pts[Math.max(0, i - 1)];
+          const p1 = pts[i];
+          const p2 = pts[i + 1];
+          const p3 = pts[Math.min(pts.length - 1, i + 2)];
+          const segDist = Math.hypot(p2[0] - p1[0], p2[1] - p1[1]);
+          const steps = Math.max(3, Math.ceil(segDist / stepPx));
+          for (let s = 0; s < steps; s++) {
+            const t = s / steps;
+            const t2 = t * t;
+            const t3 = t2 * t;
+            const x =
+              0.5 *
+              ((2 * p1[0]) +
+                (-p0[0] + p2[0]) * t +
+                (2 * p0[0] - 5 * p1[0] + 4 * p2[0] - p3[0]) * t2 +
+                (-p0[0] + 3 * p1[0] - 3 * p2[0] + p3[0]) * t3);
+            const y =
+              0.5 *
+              ((2 * p1[1]) +
+                (-p0[1] + p2[1]) * t +
+                (2 * p0[1] - 5 * p1[1] + 4 * p2[1] - p3[1]) * t2 +
+                (-p0[1] + 3 * p1[1] - 3 * p2[1] + p3[1]) * t3);
+            samples.push({ x, y });
+          }
+        }
+        const last = pts[pts.length - 1];
+        samples.push({ x: last[0], y: last[1] });
+        return samples;
+      }
+
+      // Compute pressure at normalized parameter u in [0,1]
+      function pressureProfile(u, mode = "calligraphic") {
+        if (mode === "steady") {
+          return 0.85 + 0.15 * Math.sin(u * Math.PI);
+        }
+        if (mode === "taper") {
+          return Math.pow(1 - u, 0.72) * Math.min(1, u * 9);
+        }
+        if (mode === "flick") {
+          return u < 0.2 ? u / 0.2 : Math.pow(1 - (u - 0.2) / 0.8, 1.45);
+        }
+        if (mode === "swell") {
+          return 0.25 + 0.85 * Math.sin(u * Math.PI);
+        }
+        // Default calligraphic sumi-e pressure
+        const entry = Math.min(1, u / 0.12);
+        const exit = Math.min(1, (1 - u) / 0.18);
+        const mid = 0.78 + 0.24 * Math.sin(u * Math.PI * 1.3);
+        return entry * exit * mid;
+      }
+
+      /**
+       * Execute a single drawing operation onto ctx
+       */
+      function executeOp(ctx, op, seedBase = 8800) {
+        const rng = createRng(op.seed || seedBase);
+
+        if (op.type === "wash") {
+          // Wet-on-wet watercolor wash with organic FBM-deformed polygon layers
+          const cx = op.x;
+          const cy = op.y;
+          const rx = op.rx;
+          const ry = op.ry || op.rx;
+          const layers = op.layers || 4;
+          const vertices = 36;
+          ctx.save();
+          for (let l = 0; l < layers; l++) {
+            const scale = 0.82 + (l / layers) * 0.34;
+            ctx.beginPath();
+            for (let i = 0; i <= vertices; i++) {
+              const ang = (i / vertices) * Math.PI * 2;
+              const nx = Math.cos(ang) * 1.4 + l * 3.1;
+              const ny = Math.sin(ang) * 1.4 + l * 2.7;
+              const wobble = 0.76 + 0.44 * fbm2D(nx, ny, (op.seed || 99) + l * 37, 3);
+              const px = cx + Math.cos(ang) * rx * scale * wobble;
+              const py = cy + Math.sin(ang) * ry * scale * wobble;
+              if (i === 0) ctx.moveTo(px, py);
+              else ctx.lineTo(px, py);
+            }
+            ctx.closePath();
+            ctx.fillStyle = op.color;
+            ctx.fill();
+
+            // Subtle wet-edge pigment ring on outer layer
+            if (l === layers - 1 && op.rimColor) {
+              ctx.strokeStyle = op.rimColor;
+              ctx.lineWidth = 1.1;
+              ctx.stroke();
+            }
+          }
+          ctx.restore();
+          return;
+        }
+
+        if (op.type === "stroke") {
+          // Multi-bristle brush / fountain nib stroke along path
+          const samples = samplePath(op.pts, 1.7);
+          if (samples.length < 2) return;
+
+          const bristles = op.bristles || 9;
+          const baseW = op.width || 3.2;
+          const dry = op.dry || 0.12;
+          const jitter = op.jitter ?? 0.45;
+          const mode = op.profile || "calligraphic";
+          const nibAngle = op.nibAngle ?? 0.52;
+
+          ctx.save();
+          ctx.strokeStyle = op.color;
+          ctx.lineCap = "round";
+          ctx.lineJoin = "round";
+
+          // Render each bristle filament
+          for (let b = 0; b < bristles; b++) {
+            const bNorm = bristles === 1 ? 0 : (b / (bristles - 1)) * 2 - 1; // [-1, 1]
+            const filamentSeed = (op.seed || 701) + b * 97;
+            const filamentAlpha = (op.alpha ?? 0.85) * (0.58 + 0.42 * (1 - Math.abs(bNorm) * 0.65));
+            ctx.globalAlpha = filamentAlpha;
+            ctx.lineWidth = Math.max(0.45, (baseW / Math.sqrt(bristles)) * (0.75 + rng() * 0.55));
+
+            ctx.beginPath();
+            let penDown = false;
+
+            for (let i = 0; i < samples.length; i++) {
+              const u = i / (samples.length - 1);
+              const p = samples[i];
+              const pNext = samples[Math.min(samples.length - 1, i + 1)];
+              const pPrev = samples[Math.max(0, i - 1)];
+
+              const dx = pNext.x - pPrev.x;
+              const dy = pNext.y - pPrev.y;
+              const len = Math.hypot(dx, dy) || 1;
+              const nx = -dy / len;
+              const ny = dx / len;
+
+              // Fountain nib oblique modulation
+              const strokeAngle = Math.atan2(dy, dx);
+              const nibFactor = 0.65 + 0.55 * Math.abs(Math.sin(strokeAngle - nibAngle));
+              const press = pressureProfile(u, mode) * nibFactor;
+
+              // Dry-brush feibai gap check on outer bristles near tail
+              if (dry > 0 && u > 0.55 && Math.abs(bNorm) > 0.42) {
+                const nVal = noise2D(u * 14, b * 2.3, filamentSeed);
+                if (nVal < dry * (u - 0.35)) {
+                  if (penDown) {
+                    ctx.stroke();
+                    ctx.beginPath();
+                    penDown = false;
+                  }
+                  continue;
+                }
+              }
+
+              const spread = bNorm * baseW * 0.54 * press;
+              const microTremor =
+                (noise2D(u * 10, b * 1.7, filamentSeed) - 0.5) * jitter * 1.8;
+
+              const bx = p.x + nx * (spread + microTremor);
+              const by = p.y + ny * (spread + microTremor);
+
+              if (!penDown) {
+                ctx.moveTo(bx, by);
+                penDown = true;
+              } else {
+                ctx.lineTo(bx, by);
+              }
+            }
+            if (penDown) ctx.stroke();
+          }
+          ctx.restore();
+          return;
+        }
+
+        if (op.type === "fillPoly") {
+          ctx.save();
+          ctx.fillStyle = op.color;
+          ctx.globalAlpha = op.alpha ?? 1;
+          ctx.beginPath();
+          op.pts.forEach((pt, idx) => {
+            if (idx === 0) ctx.moveTo(pt[0], pt[1]);
+            else ctx.lineTo(pt[0], pt[1]);
+          });
+          ctx.closePath();
+          ctx.fill();
+          if (op.strokeColor) {
+            ctx.strokeStyle = op.strokeColor;
+            ctx.lineWidth = op.lineWidth || 1.2;
+            ctx.stroke();
+          }
+          ctx.restore();
+          return;
+        }
+
+        if (op.type === "splatter") {
+          ctx.save();
+          ctx.fillStyle = op.color;
+          const count = op.count || 14;
+          for (let i = 0; i < count; i++) {
+            const ang = rng() * Math.PI * 2;
+            const dist = Math.pow(rng(), 0.65) * (op.radius || 38);
+            const r = 0.6 + Math.pow(rng(), 2.2) * (op.maxDot || 3.4);
+            ctx.globalAlpha = (op.alpha ?? 0.65) * (0.4 + rng() * 0.6);
+            ctx.beginPath();
+            ctx.arc(op.x + Math.cos(ang) * dist, op.y + Math.sin(ang) * dist, r, 0, Math.PI * 2);
+            ctx.fill();
+          }
+          ctx.restore();
+          return;
+        }
+
+        if (op.type === "label") {
+          ctx.save();
+          ctx.font = op.font || '600 11.5px "SF Mono", Menlo, monospace';
+          ctx.textAlign = op.align || "left";
+          ctx.textBaseline = "middle";
+
+          if (op.pillBg) {
+            const metrics = ctx.measureText(op.text);
+            const padX = 7;
+            const padY = 11;
+            const w = metrics.width + padX * 2;
+            let bx = op.x - padX;
+            if (op.align === "center") bx = op.x - w / 2;
+            if (op.align === "right") bx = op.x - w + padX;
+            ctx.fillStyle = op.pillBg;
+            ctx.strokeStyle = op.pillBorder || op.color;
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.roundRect(bx, op.y - padY, w, padY * 2, 4);
+            ctx.fill();
+            ctx.stroke();
+          }
+
+          ctx.fillStyle = op.color;
+          ctx.fillText(op.text, op.x, op.y);
+          ctx.restore();
+          return;
+        }
+      }
+
+      // Helper to push an organic circle as a multi-bristle stroke
+      function arcPts(cx, cy, r, startAng = 0, endAng = Math.PI * 2, steps = 28, wobble = 0.6, seed = 101) {
+        const pts = [];
+        for (let i = 0; i <= steps; i++) {
+          const t = i / steps;
+          const a = startAng + (endAng - startAng) * t;
+          const dr = (noise2D(Math.cos(a) * 2, Math.sin(a) * 2, seed) - 0.5) * wobble * 2;
+          pts.push([cx + Math.cos(a) * (r + dr), cy + Math.sin(a) * (r + dr)]);
+        }
+        return pts;
+      }
+
+      // Helper to generate parallel architectural hatching strokes inside a rectangle or tilted region
+      function pushHatching(ops, x, y, w, h, spacing, angle, color, width = 1.1, seed = 300) {
+        const rng = createRng(seed);
+        const diag = Math.hypot(w, h);
+        const cx = x + w / 2;
+        const cy = y + h / 2;
+        const cos = Math.cos(angle);
+        const sin = Math.sin(angle);
+        for (let d = -diag / 2; d <= diag / 2; d += spacing) {
+          const px = cx + cos * d;
+          const py = cy + sin * d;
+          const x1 = px - sin * (diag / 2);
+          const y1 = py + cos * (diag / 2);
+          const x2 = px + sin * (diag / 2);
+          const y2 = py - cos * (diag / 2);
+          // Clip segment against bounding box [x, x+w] x [y, y+h]
+          const seg = [];
+          for (let s = 0; s <= 12; s++) {
+            const t = s / 12;
+            const sx = x1 + (x2 - x1) * t;
+            const sy = y1 + (y2 - y1) * t;
+            if (sx >= x && sx <= x + w && sy >= y && sy <= y + h) {
+              seg.push([sx + (rng() - 0.5) * 0.8, sy + (rng() - 0.5) * 0.8]);
+            }
+          }
+          if (seg.length >= 2) {
+            ops.push({
+              type: "stroke",
+              pts: [seg[0], seg[Math.floor(seg.length / 2)], seg[seg.length - 1]],
+              color,
+              width,
+              bristles: 3,
+              alpha: 0.48,
+              profile: "taper",
+              seed: seed + Math.round(d * 13)
+            });
+          }
+        }
+      }
+
+      // =====================================================================
+      // SCENE 1 BUILDER: COSTOS HUNDIDOS — "El garaje de dos casas"
+      // =====================================================================
+      function buildScene1() {
+        const pal = palette();
+        const ops = [];
+        let s = 1100;
+
+        // 1. Background watercolor washes: warm amber left (new house), dusty sepia right (attic)
+        ops.push({ type: "wash", x: 235, y: 255, rx: 195, ry: 165, color: pal.amberWash, rimColor: pal.inkFaint, layers: 5, seed: s++ });
+        ops.push({ type: "wash", x: 675, y: 265, rx: 225, ry: 185, color: pal.sepiaWash, rimColor: pal.inkFaint, layers: 5, seed: s++ });
+        ops.push({ type: "wash", x: 735, y: 190, rx: 140, ry: 120, color: pal.sepiaWash, layers: 4, seed: s++ });
+
+        // 2. Ground baseline & center dividing masonry wall
+        ops.push({
+          type: "stroke",
+          pts: [[40, 425], [250, 424], [460, 425], [690, 426], [880, 425]],
+          color: pal.inkDeep,
+          width: 3.4,
+          bristles: 10,
+          seed: s++
+        });
+        pushHatching(ops, 452, 68, 16, 356, 7, 0.75, pal.inkSoft, 1.1, s++);
+        ops.push({
+          type: "stroke",
+          pts: [[452, 65], [452, 240], [452, 425]],
+          color: pal.inkDeep,
+          width: 2.8,
+          bristles: 9,
+          seed: s++
+        });
+        ops.push({
+          type: "stroke",
+          pts: [[468, 65], [468, 240], [468, 425]],
+          color: pal.inkDeep,
+          width: 2.8,
+          bristles: 9,
+          seed: s++
+        });
+
+        // 3. LEFT HOUSE: Precision Modern Pavilion & Aerodynamic Chess Mechanism (3,192 lines)
+        // Architectural dome / pitched precision roof with double rafter beam
+        ops.push({
+          type: "stroke",
+          pts: [[58, 175], [245, 76], [430, 175]],
+          color: pal.inkDeep,
+          width: 3.8,
+          bristles: 12,
+          seed: s++
+        });
+        ops.push({
+          type: "stroke",
+          pts: [[68, 182], [245, 86], [420, 182]],
+          color: pal.amberInk,
+          width: 1.5,
+          bristles: 5,
+          seed: s++
+        });
+        ops.push({
+          type: "stroke",
+          pts: [[75, 175], [415, 175]],
+          color: pal.inkSoft,
+          width: 1.8,
+          bristles: 6,
+          seed: s++
+        });
+        // Drafting compass ticks along the roof truss
+        for (let tx = 105; tx <= 385; tx += 35) {
+          ops.push({
+            type: "stroke",
+            pts: [[tx, 171], [tx, 179]],
+            color: pal.amberInk,
+            width: 1.3,
+            bristles: 3,
+            seed: s++
+          });
+        }
+        // Columns with architectural fluting
+        ops.push({ type: "stroke", pts: [[84, 175], [84, 425]], color: pal.inkDeep, width: 3.2, bristles: 9, seed: s++ });
+        ops.push({ type: "stroke", pts: [[90, 178], [90, 422]], color: pal.inkSoft, width: 1.1, bristles: 3, seed: s++ });
+        ops.push({ type: "stroke", pts: [[404, 175], [404, 425]], color: pal.inkDeep, width: 3.2, bristles: 9, seed: s++ });
+        ops.push({ type: "stroke", pts: [[398, 178], [398, 422]], color: pal.inkSoft, width: 1.1, bristles: 3, seed: s++ });
+
+        // Precision compass circles, crosshairs & gimbal rings around the new PVS engine core
+        ops.push({
+          type: "stroke",
+          pts: [[130, 290], [360, 290]],
+          color: pal.inkFaint,
+          width: 1.0,
+          bristles: 2,
+          seed: s++
+        });
+        ops.push({
+          type: "stroke",
+          pts: [[245, 178], [245, 378]],
+          color: pal.inkFaint,
+          width: 1.0,
+          bristles: 2,
+          seed: s++
+        });
+        ops.push({
+          type: "stroke",
+          pts: arcPts(245, 290, 108, -0.2, Math.PI * 1.15, 26, 0.2, s++),
+          color: pal.inkSoft,
+          width: 1.1,
+          bristles: 3,
+          profile: "steady",
+          seed: s++
+        });
+        ops.push({
+          type: "stroke",
+          pts: arcPts(245, 290, 96, 0, Math.PI * 2, 36, 0.3, s++),
+          color: pal.amberInk,
+          width: 1.9,
+          bristles: 6,
+          profile: "steady",
+          seed: s++
+        });
+        ops.push({
+          type: "stroke",
+          pts: arcPts(245, 290, 74, -0.4, Math.PI * 1.4, 28, 0.25, s++),
+          color: pal.inkSoft,
+          width: 1.3,
+          bristles: 4,
+          profile: "steady",
+          seed: s++
+        });
+
+        // Aerodynamic Staunton Queen/King Crown Mechanism in center of Left House
+        const qBaseX = 245, qBaseY = 352;
+        // Pedestal
+        ops.push({
+          type: "fillPoly",
+          pts: [[qBaseX - 42, qBaseY], [qBaseX + 42, qBaseY], [qBaseX + 34, qBaseY - 16], [qBaseX - 34, qBaseY - 16]],
+          color: pal.amberWash,
+          strokeColor: pal.inkDeep,
+          lineWidth: 1.5
+        });
+        // Sleek chess crown silhouette in calligraphic ink
+        ops.push({
+          type: "stroke",
+          pts: [
+            [qBaseX - 42, qBaseY],
+            [qBaseX + 42, qBaseY],
+            [qBaseX + 32, qBaseY - 18],
+            [qBaseX + 20, qBaseY - 46],
+            [qBaseX + 30, qBaseY - 94],
+            [qBaseX + 12, qBaseY - 76],
+            [qBaseX, qBaseY - 108],
+            [qBaseX - 12, qBaseY - 76],
+            [qBaseX - 30, qBaseY - 94],
+            [qBaseX - 20, qBaseY - 46],
+            [qBaseX - 32, qBaseY - 18],
+            [qBaseX - 42, qBaseY]
+          ],
+          color: pal.inkDeep,
+          width: 3.2,
+          bristles: 10,
+          seed: s++
+        });
+        // Crown finial cross
+        ops.push({ type: "stroke", pts: [[qBaseX, qBaseY - 122], [qBaseX, qBaseY - 106]], color: pal.amberInk, width: 2.6, bristles: 6, seed: s++ });
+        ops.push({ type: "stroke", pts: [[qBaseX - 8, qBaseY - 115], [qBaseX + 8, qBaseY - 115]], color: pal.amberInk, width: 2.6, bristles: 6, seed: s++ });
+        pushHatching(ops, qBaseX - 22, qBaseY - 72, 44, 54, 5.5, -0.45, pal.amberInk, 1.0, s++);
+
+        // Laminar flow lines (speed lines) around new engine
+        for (let k = -2; k <= 2; k++) {
+          const ly = 285 + k * 24;
+          ops.push({
+            type: "stroke",
+            pts: [[106, ly], [142, ly - 4], [172, ly]],
+            color: pal.amberInk,
+            width: 1.4,
+            bristles: 4,
+            profile: "flick",
+            seed: s++
+          });
+          ops.push({
+            type: "stroke",
+            pts: [[318, ly], [352, ly + 4], [386, ly]],
+            color: pal.amberInk,
+            width: 1.4,
+            bristles: 4,
+            profile: "flick",
+            seed: s++
+          });
+        }
+
+        // 4. RIGHT HOUSE: Sagging Dusty Attic with Stacked Boxes & Rusted Gears (4,480 lines + 24 scripts)
+        // Sagging timber roof & rafters
+        ops.push({
+          type: "stroke",
+          pts: [[468, 138], [585, 92], [685, 104], [872, 168]],
+          color: pal.inkDeep,
+          width: 3.8,
+          bristles: 12,
+          dry: 0.2,
+          seed: s++
+        });
+        ops.push({
+          type: "stroke",
+          pts: [[852, 162], [846, 300], [842, 425]],
+          color: pal.inkDeep,
+          width: 3.4,
+          bristles: 10,
+          dry: 0.22,
+          seed: s++
+        });
+        // Cobwebs in attic corner
+        for (let w = 0; w < 5; w++) {
+          ops.push({
+            type: "stroke",
+            pts: [[585, 94], [610 + w * 28, 125 + w * 12], [665 + w * 35, 118 + w * 18]],
+            color: pal.inkSoft,
+            width: 0.9,
+            bristles: 2,
+            alpha: 0.5,
+            seed: s++
+          });
+        }
+
+        // Helper to draw a hand-inked tilted crate with cross-hatching & label
+        function drawCrate(cx, cy, w, h, tilt, label, sublabel) {
+          const cos = Math.cos(tilt);
+          const sin = Math.sin(tilt);
+          const corners = [
+            [-w / 2, -h / 2],
+            [w / 2, -h / 2],
+            [w / 2, h / 2],
+            [-w / 2, h / 2],
+            [-w / 2, -h / 2]
+          ].map(([dx, dy]) => [cx + dx * cos - dy * sin, cy + dx * sin + dy * cos]);
+
+          ops.push({
+            type: "fillPoly",
+            pts: corners.slice(0, 4),
+            color: pal.paperCard,
+            strokeColor: pal.inkDeep,
+            lineWidth: 0.8
+          });
+          ops.push({
+            type: "stroke",
+            pts: corners,
+            color: pal.inkDeep,
+            width: 2.7,
+            bristles: 8,
+            dry: 0.16,
+            seed: s++
+          });
+          pushHatching(ops, cx - w * 0.45, cy - h * 0.42, w * 0.88, h * 0.82, 7.5, tilt + 0.6, pal.sepiaDark, 0.95, s++);
+          ops.push({
+            type: "label",
+            x: cx,
+            y: cy - (sublabel ? 7 : 0),
+            text: label,
+            align: "center",
+            color: pal.inkDeep,
+            font: '700 11px "SF Mono", Menlo, monospace'
+          });
+          if (sublabel) {
+            ops.push({
+              type: "label",
+              x: cx,
+              y: cy + 9,
+              text: sublabel,
+              align: "center",
+              color: pal.crimsonInk,
+              font: '600 9.5px "SF Mono", Menlo, monospace'
+            });
+          }
+        }
+
+        // Rusted Cogwheels behind the crates
+        function drawRustedGear(gx, gy, r, teeth) {
+          ops.push({
+            type: "stroke",
+            pts: arcPts(gx, gy, r, 0, Math.PI * 2, 26, 1.1, s++),
+            color: pal.sepiaDark,
+            width: 2.6,
+            bristles: 8,
+            dry: 0.25,
+            seed: s++
+          });
+          ops.push({
+            type: "stroke",
+            pts: arcPts(gx, gy, r * 0.42, 0, Math.PI * 2, 16, 0.6, s++),
+            color: pal.sepiaDark,
+            width: 2.0,
+            bristles: 6,
+            seed: s++
+          });
+          for (let t = 0; t < teeth; t++) {
+            if (t === 3 || t === 8) continue; // broken teeth!
+            const a = (t / teeth) * Math.PI * 2;
+            ops.push({
+              type: "stroke",
+              pts: [
+                [gx + Math.cos(a) * (r - 2), gy + Math.sin(a) * (r - 2)],
+                [gx + Math.cos(a) * (r + 9), gy + Math.sin(a) * (r + 9)]
+              ],
+              color: pal.sepiaDark,
+              width: 3.2,
+              bristles: 5,
+              seed: s++
+            });
+          }
+        }
+
+        drawRustedGear(535, 365, 42, 12);
+        drawRustedGear(790, 235, 38, 10);
+
+        // Stacked Attic Crates
+        drawCrate(635, 382, 168, 76, -0.03, "search/src/lib.rs", "3,378 líneas legadas");
+        drawCrate(778, 386, 118, 68, 0.05, "eval/lib.rs", "1,102 líneas");
+        drawCrate(615, 304, 146, 64, 0.06, "24 scripts proof-*", "huérfanos en scripts/");
+        drawCrate(748, 312, 124, 58, -0.07, "m8_bench (prof 3)", "239k nps congelado");
+        drawCrate(668, 238, 148, 56, -0.04, "Lv5 == Lv6 (960k)", "play-wasm-executor:95");
+
+        // Splatter dust & sepia ink drops in attic
+        ops.push({ type: "splatter", x: 660, y: 270, radius: 130, count: 28, color: pal.sepiaDark, maxDot: 2.8, seed: s++ });
+        ops.push({ type: "splatter", x: 245, y: 290, radius: 85, count: 12, color: pal.amberInk, maxDot: 2.2, seed: s++ });
+
+        // Top & Bottom Editorial Callout Labels
+        ops.push({
+          type: "label",
+          x: 245,
+          y: 44,
+          text: "CASA NUEVA · MOTOR PVS + EXPLORE (3,192 LÍNEAS)",
+          align: "center",
+          color: pal.amberInk,
+          pillBg: pal.paperCard,
+          pillBorder: pal.amberInk
+        });
+        ops.push({
+          type: "label",
+          x: 675,
+          y: 44,
+          text: "ÁTICO LEGADO · BÚSQUEDA VIEJA + SCRIPTS (4,480 LÍNEAS)",
+          align: "center",
+          color: pal.crimsonInk,
+          pillBg: pal.paperCard,
+          pillBorder: pal.crimsonInk
+        });
+        ops.push({
+          type: "label",
+          x: 245,
+          y: 392,
+          text: "engine.rs (1,197) · explore.rs (309) · tapered.rs (1,405)",
+          align: "center",
+          color: pal.inkSoft
+        });
+        ops.push({
+          type: "label",
+          x: 245,
+          y: 456,
+          text: "1.0–1.5M nps WASM · ~3039 CCRL Blitz · Presupuesto exacto",
+          align: "center",
+          color: pal.inkDeep
+        });
+        ops.push({
+          type: "label",
+          x: 675,
+          y: 456,
+          text: "Reconciliado: frontera limpia, Lv5≠Lv6 y shims documentados",
+          align: "center",
+          color: pal.inkDeep
+        });
+
+        return ops;
+      }
+
+      // =====================================================================
+      // SCENE 2 BUILDER: ERRORES TRAGADOS — "El tablero con un solo foco rojo"
+      // =====================================================================
+      function buildScene2() {
+        const pal = palette();
+        const ops = [];
+        let s = 2200;
+
+        // 1. Intense crimson glow washes around the single red warning lamp on the right
+        ops.push({ type: "wash", x: 715, y: 235, rx: 175, ry: 165, color: pal.crimsonGlow, rimColor: pal.crimsonInk, layers: 6, seed: s++ });
+        ops.push({ type: "wash", x: 715, y: 235, rx: 95, ry: 95, color: pal.crimsonWash, layers: 4, seed: s++ });
+        // Subtle indigo wash around the central funnel box
+        ops.push({ type: "wash", x: 430, y: 255, rx: 105, ry: 125, color: pal.indigoWash, layers: 4, seed: s++ });
+
+        // 2. Five distinct origin sockets on the left + sweeping braided cables into the funnel
+        const cableSpecs = [
+          { y: 92,  label: "1. JSON corrupto (serde err)",   sub: "wasm-bridge parse fail", color: pal.inkDeep },
+          { y: 172, label: "2. WASM panic / unreachable",    sub: "worker runtime crash",   color: pal.inkDeep },
+          { y: 252, label: "3. Esquema DTO inválido",        sub: "type guard false",       color: pal.inkDeep },
+          { y: 332, label: "4. Método ausente en bridge",    sub: "missing export shim",    color: pal.inkDeep },
+          { y: 412, label: "5. Cancelación del usuario (!)", sub: "play-worker-engine.ts:67", color: pal.viridianInk }
+        ];
+
+        cableSpecs.forEach((c, idx) => {
+          // Braided cable shadow
+          ops.push({
+            type: "stroke",
+            pts: [[245, c.y + 4], [320, c.y + 4], [365, 255 + (idx - 2) * 14], [415, 255]],
+            color: pal.inkFaint,
+            width: 5.5,
+            bristles: 6,
+            seed: s++
+          });
+          // Main braided cable stroke
+          ops.push({
+            type: "stroke",
+            pts: [[245, c.y], [320, c.y], [365, 252 + (idx - 2) * 14], [415, 252]],
+            color: c.color,
+            width: 3.8,
+            bristles: 10,
+            profile: "steady",
+            seed: s++
+          });
+          // Socket terminal pill on the left
+          ops.push({
+            type: "label",
+            x: 140,
+            y: c.y,
+            text: c.label,
+            align: "center",
+            color: c.color,
+            pillBg: pal.paperCard,
+            pillBorder: c.color
+          });
+        });
+
+        // 3. Center Cast-Iron Funnel / Catch-All Black Box
+        const fx = 385, fy = 165, fw = 126, fh = 175;
+        ops.push({
+          type: "fillPoly",
+          pts: [[fx, fy], [fx + fw, fy + 26], [fx + fw, fy + fh - 26], [fx, fy + fh]],
+          color: pal.paperCard,
+          strokeColor: pal.inkDeep,
+          lineWidth: 2
+        });
+        pushHatching(ops, fx + 8, fy + 18, fw - 16, fh - 36, 7, 0.65, pal.inkSoft, 1.0, s++);
+        ops.push({
+          type: "stroke",
+          pts: [[fx, fy], [fx + fw, fy + 26], [fx + fw, fy + fh - 26], [fx, fy + fh], [fx, fy]],
+          color: pal.inkDeep,
+          width: 3.4,
+          bristles: 10,
+          seed: s++
+        });
+        ops.push({
+          type: "label",
+          x: fx + fw / 2,
+          y: fy + fh / 2 - 10,
+          text: "EMBUDO CATCH",
+          align: "center",
+          color: pal.inkDeep,
+          font: '700 11px "SF Mono", Menlo, monospace'
+        });
+        ops.push({
+          type: "label",
+          x: fx + fw / 2,
+          y: fy + fh / 2 + 8,
+          text: "ok: false",
+          align: "center",
+          color: pal.crimsonInk,
+          font: '700 11px "SF Mono", Menlo, monospace'
+        });
+
+        // Single thick conduit exiting funnel to the Red Bulb
+        ops.push({
+          type: "stroke",
+          pts: [[fx + fw, 252], [565, 252], [610, 238]],
+          color: pal.crimsonInk,
+          width: 6.2,
+          bristles: 14,
+          profile: "steady",
+          seed: s++
+        });
+
+        // 4. Right Analog Console Board & The Giant Glowing Red Bulb ("search-failed")
+        const bx = 578, by = 82, bw = 285, bh = 335;
+        ops.push({
+          type: "fillPoly",
+          pts: [[bx, by], [bx + bw, by], [bx + bw, by + bh], [bx, by + bh]],
+          color: pal.paperCard,
+          strokeColor: pal.inkDeep,
+          lineWidth: 2
+        });
+        ops.push({
+          type: "stroke",
+          pts: [[bx, by], [bx + bw, by], [bx + bw, by + bh], [bx, by + bh], [bx, by]],
+          color: pal.inkDeep,
+          width: 3.5,
+          bristles: 11,
+          seed: s++
+        });
+
+        // The Giant Red Warning Dome Bulb
+        const lx = 720, ly = 212, lr = 56;
+        ops.push({
+          type: "wash",
+          x: lx,
+          y: ly,
+          rx: lr * 1.15,
+          ry: lr * 1.15,
+          color: pal.crimsonGlow,
+          layers: 5,
+          seed: s++
+        });
+        ops.push({
+          type: "stroke",
+          pts: arcPts(lx, ly, lr, 0, Math.PI * 2, 34, 0.5, s++),
+          color: pal.crimsonInk,
+          width: 4.0,
+          bristles: 12,
+          seed: s++
+        });
+        ops.push({
+          type: "stroke",
+          pts: arcPts(lx, ly, lr * 0.76, -0.8, 1.9, 18, 0.3, s++),
+          color: pal.crimsonInk,
+          width: 2.0,
+          bristles: 5,
+          seed: s++
+        });
+        // Glowing filament inside bulb
+        ops.push({
+          type: "stroke",
+          pts: [[lx - 18, ly + 22], [lx - 10, ly - 14], [lx, ly + 4], [lx + 10, ly - 14], [lx + 18, ly + 22]],
+          color: pal.crimsonInk,
+          width: 2.6,
+          bristles: 6,
+          seed: s++
+        });
+
+        // Light rays radiating from the single red bulb
+        for (let a = 0; a < 12; a++) {
+          const ang = (a / 12) * Math.PI * 2;
+          ops.push({
+            type: "stroke",
+            pts: [
+              [lx + Math.cos(ang) * (lr + 8), ly + Math.sin(ang) * (lr + 8)],
+              [lx + Math.cos(ang) * (lr + 28), ly + Math.sin(ang) * (lr + 28)]
+            ],
+            color: pal.crimsonInk,
+            width: 2.2,
+            bristles: 5,
+            profile: "flick",
+            seed: s++
+          });
+        }
+
+        // Unlit/disconnected diagnostic bulbs below ("cancelled", "invalid-dto", "unwrap_or(Best)")
+        const unlit = [
+          { x: 632, label: '"cancelled"' },
+          { x: 720, label: '"invalid-dto"' },
+          { x: 808, label: '"no-ref-score"' }
+        ];
+        unlit.forEach((u) => {
+          ops.push({
+            type: "stroke",
+            pts: arcPts(u.x, 342, 16, 0, Math.PI * 2, 18, 0.3, s++),
+            color: pal.inkSoft,
+            width: 1.8,
+            bristles: 5,
+            seed: s++
+          });
+          ops.push({
+            type: "label",
+            x: u.x,
+            y: 372,
+            text: u.label,
+            align: "center",
+            color: pal.inkSoft,
+            font: '600 9.5px "SF Mono", Menlo, monospace'
+          });
+        });
+
+        // Extra callouts for Rust swallowed fallbacks
+        ops.push({
+          type: "label",
+          x: 448,
+          y: 382,
+          text: "+ unwrap_or(MoveQuality::Best) :1270",
+          align: "center",
+          color: pal.amberInk,
+          pillBg: pal.paperCard,
+          pillBorder: pal.amberInk
+        });
+        ops.push({
+          type: "label",
+          x: 448,
+          y: 416,
+          text: "+ new_game() Ongoing con 0 jugadas :500",
+          align: "center",
+          color: pal.amberInk,
+          pillBg: pal.paperCard,
+          pillBorder: pal.amberInk
+        });
+
+        // Crimson ink splatters around the overloaded lamp
+        ops.push({ type: "splatter", x: lx, y: ly, radius: 95, count: 30, color: pal.crimsonInk, maxDot: 3.2, seed: s++ });
+
+        // Titles
+        ops.push({
+          type: "label",
+          x: 720,
+          y: 116,
+          text: 'ÚNICO FOCO ACTIVO: "search-failed"',
+          align: "center",
+          color: pal.crimsonInk,
+          font: '700 12px "SF Mono", Menlo, monospace'
+        });
+        ops.push({
+          type: "label",
+          x: 460,
+          y: 42,
+          text: "5 CAUSAS DISTINTAS COLAPSADAS EN UN SOLO CÓDIGO DE ERROR",
+          align: "center",
+          color: pal.inkDeep,
+          pillBg: pal.paperCard,
+          pillBorder: pal.inkDeep
+        });
+        ops.push({
+          type: "label",
+          x: 460,
+          y: 462,
+          text: 'Reconciliado: "cancelled" separado de "search-failed" + contratos honestos en Rust',
+          align: "center",
+          color: pal.inkDeep
+        });
+
+        return ops;
+      }
+
+      // =====================================================================
+      // SCENE 3 BUILDER: FOUNDATIONS ROTAS — "El velocímetro en la bicicleta vieja"
+      // =====================================================================
+      function buildScene3() {
+        const pal = palette();
+        const ops = [];
+        let s = 3300;
+
+        // 1. Prussian indigo & raw sienna/ochre washes
+        ops.push({ type: "wash", x: 675, y: 245, rx: 195, ry: 175, color: pal.indigoWash, rimColor: pal.indigoInk, layers: 5, seed: s++ });
+        ops.push({ type: "wash", x: 435, y: 175, rx: 125, ry: 125, color: pal.ochreWash, layers: 5, seed: s++ });
+        ops.push({ type: "wash", x: 185, y: 335, rx: 130, ry: 115, color: pal.sepiaWash, layers: 4, seed: s++ });
+
+        // 2. Perspective Chessboard Floor beneath the leaping Knight (Right side)
+        const boardY = 395;
+        for (let i = 0; i <= 6; i++) {
+          const xTop = 540 + i * 48;
+          const xBot = 490 + i * 68;
+          ops.push({
+            type: "stroke",
+            pts: [[xTop, 315], [xBot, 435]],
+            color: pal.indigoInk,
+            width: 1.4,
+            bristles: 4,
+            alpha: 0.55,
+            seed: s++
+          });
+        }
+        for (let r = 0; r <= 3; r++) {
+          const yRow = 315 + r * 38;
+          ops.push({
+            type: "stroke",
+            pts: [[535 - r * 14, yRow], [835 + r * 20, yRow]],
+            color: pal.indigoInk,
+            width: 1.5,
+            bristles: 4,
+            alpha: 0.55,
+            seed: s++
+          });
+        }
+
+        // 3. LOWER LEFT: The Squeaky Old Bicycle Wheel (m8_bench · depth 3 · 239k nps)
+        const wx = 185, wy = 335, wr = 78;
+        ops.push({
+          type: "stroke",
+          pts: arcPts(wx, wy, wr, 0, Math.PI * 2, 34, 1.3, s++),
+          color: pal.sepiaDark,
+          width: 4.2,
+          bristles: 11,
+          dry: 0.22,
+          seed: s++
+        });
+        ops.push({
+          type: "stroke",
+          pts: arcPts(wx, wy, wr * 0.86, 0, Math.PI * 2, 30, 0.9, s++),
+          color: pal.inkSoft,
+          width: 1.8,
+          bristles: 5,
+          seed: s++
+        });
+        // Bent bicycle spokes
+        for (let sp = 0; sp < 14; sp++) {
+          const a = (sp / 14) * Math.PI * 2;
+          const midA = a + (sp % 2 === 0 ? 0.08 : -0.06);
+          ops.push({
+            type: "stroke",
+            pts: [
+              [wx, wy],
+              [wx + Math.cos(midA) * (wr * 0.5), wy + Math.sin(midA) * (wr * 0.5)],
+              [wx + Math.cos(a) * (wr - 4), wy + Math.sin(a) * (wr - 4)]
+            ],
+            color: pal.sepiaDark,
+            width: 1.3,
+            bristles: 3,
+            seed: s++
+          });
+        }
+        // Rusty bicycle fork stand
+        ops.push({
+          type: "stroke",
+          pts: [[wx - 34, 435], [wx, wy], [wx + 34, 435]],
+          color: pal.inkDeep,
+          width: 3.4,
+          bristles: 9,
+          seed: s++
+        });
+
+        // 4. CENTER: The Official Analog Tachometer Dial ("just bench / baseline.json")
+        const dx = 435, dy = 185, dr = 96;
+        ops.push({
+          type: "fillPoly",
+          pts: arcPts(dx, dy, dr, 0, Math.PI * 2, 32, 0.2, s++),
+          color: pal.paperCard,
+          strokeColor: pal.inkDeep,
+          lineWidth: 2
+        });
+        ops.push({
+          type: "stroke",
+          pts: arcPts(dx, dy, dr, 0, Math.PI * 2, 38, 0.4, s++),
+          color: pal.inkDeep,
+          width: 3.8,
+          bristles: 11,
+          seed: s++
+        });
+        ops.push({
+          type: "stroke",
+          pts: arcPts(dx, dy, dr * 0.88, Math.PI * 0.78, Math.PI * 2.22, 28, 0.2, s++),
+          color: pal.indigoInk,
+          width: 1.8,
+          bristles: 5,
+          seed: s++
+        });
+
+        // Tachometer scale ticks (0 .. 240k .. 1M .. 2.5M .. 3M nps)
+        const ticks = [
+          { ang: Math.PI * 0.82, label: "0" },
+          { ang: Math.PI * 1.02, label: "239k" },
+          { ang: Math.PI * 1.35, label: "1.0M" },
+          { ang: Math.PI * 1.72, label: "2.0M" },
+          { ang: Math.PI * 2.02, label: "2.5M" },
+          { ang: Math.PI * 2.2,  label: "3.0M" }
+        ];
+        ticks.forEach((tk) => {
+          const x1 = dx + Math.cos(tk.ang) * (dr * 0.72);
+          const y1 = dy + Math.sin(tk.ang) * (dr * 0.72);
+          const x2 = dx + Math.cos(tk.ang) * (dr * 0.87);
+          const y2 = dy + Math.sin(tk.ang) * (dr * 0.87);
+          ops.push({
+            type: "stroke",
+            pts: [[x1, y1], [x2, y2]],
+            color: pal.inkDeep,
+            width: 2.2,
+            bristles: 5,
+            seed: s++
+          });
+          ops.push({
+            type: "label",
+            x: dx + Math.cos(tk.ang) * (dr * 0.54),
+            y: dy + Math.sin(tk.ang) * (dr * 0.54),
+            text: tk.label,
+            align: "center",
+            color: pal.inkSoft,
+            font: '700 9.5px "SF Mono", Menlo, monospace'
+          });
+        });
+
+        // Physical speedometer cable connecting the Old Bicycle Hub to the Tachometer!
+        ops.push({
+          type: "stroke",
+          pts: [[wx, wy], [250, 315], [310, 275], [365, 235], [dx, dy + dr]],
+          color: pal.amberInk,
+          width: 5.2,
+          bristles: 12,
+          profile: "steady",
+          seed: s++
+        });
+
+        // Solid Red Needle pinned at 239.9k nps (bicycle speed)
+        const lowAng = Math.PI * 1.02;
+        ops.push({
+          type: "stroke",
+          pts: [[dx, dy], [dx + Math.cos(lowAng) * (dr * 0.74), dy + Math.sin(lowAng) * (dr * 0.74)]],
+          color: pal.crimsonInk,
+          width: 4.0,
+          bristles: 9,
+          profile: "taper",
+          seed: s++
+        });
+
+        // Ghost Indigo Needle pointing at 2.5M nps (real engine speed)
+        const hiAng = Math.PI * 2.02;
+        ops.push({
+          type: "stroke",
+          pts: [[dx, dy], [dx + Math.cos(hiAng) * (dr * 0.76), dy + Math.sin(hiAng) * (dr * 0.76)]],
+          color: pal.indigoInk,
+          width: 3.2,
+          bristles: 7,
+          dry: 0.35,
+          profile: "taper",
+          seed: s++
+        });
+
+        // 5. RIGHT FOREGROUND: The Leaping Mechanical Chess Knight (~3039 Elo · 2.5M nps)
+        // Calligraphic Sumi-e Knight silhouette & anatomical hatching
+        const kx = 690, ky = 305;
+        const knightContour = [
+          [kx - 58, ky + 32],
+          [kx + 56, ky + 32],
+          [kx + 46, ky + 8],
+          [kx + 32, ky - 22],
+          [kx + 44, ky - 75],
+          [kx + 34, ky - 132],
+          [kx + 12, ky - 174],
+          [kx - 8, ky - 196],  // ear tip
+          [kx - 18, ky - 172],
+          [kx - 54, ky - 152], // snout top
+          [kx - 74, ky - 132], // muzzle tip
+          [kx - 58, ky - 114], // jaw
+          [kx - 26, ky - 116], // throat
+          [kx - 44, ky - 68],  // chest
+          [kx - 36, ky - 18],
+          [kx - 58, ky + 12],
+          [kx - 58, ky + 32]
+        ];
+        ops.push({
+          type: "fillPoly",
+          pts: knightContour,
+          color: pal.indigoWash,
+          strokeColor: pal.indigoInk,
+          lineWidth: 1.5
+        });
+        pushHatching(ops, kx - 48, ky - 155, 86, 165, 6.5, -0.55, pal.indigoInk, 1.1, s++);
+        ops.push({
+          type: "stroke",
+          pts: knightContour,
+          color: pal.inkDeep,
+          width: 4.0,
+          bristles: 13,
+          dry: 0.14,
+          seed: s++
+        });
+        // Knight eye & mechanical mane lines
+        ops.push({
+          type: "stroke",
+          pts: arcPts(kx - 34, ky - 148, 4.5, 0, Math.PI * 2, 10, 0.2, s++),
+          color: pal.amberInk,
+          width: 2.2,
+          bristles: 5,
+          seed: s++
+        });
+        for (let m = 0; m < 6; m++) {
+          const my = ky - 152 + m * 22;
+          ops.push({
+            type: "stroke",
+            pts: [[kx + 8, my], [kx + 32, my - 8], [kx + 55, my - 14]],
+            color: pal.indigoInk,
+            width: 2.2,
+            bristles: 6,
+            profile: "flick",
+            seed: s++
+          });
+        }
+
+        // Splatters of indigo & ochre ink
+        ops.push({ type: "splatter", x: kx, y: ky - 95, radius: 110, count: 26, color: pal.indigoInk, maxDot: 3.0, seed: s++ });
+
+        // Callout annotations
+        ops.push({
+          type: "label",
+          x: 435,
+          y: 44,
+          text: "TACÓMETRO OFICIAL (just bench) CONECTADO AL EJEMPLO EQUIVOCADO",
+          align: "center",
+          color: pal.indigoInk,
+          pillBg: pal.paperCard,
+          pillBorder: pal.indigoInk
+        });
+        ops.push({
+          type: "label",
+          x: 185,
+          y: 232,
+          text: "m8_bench (búsqueda vieja)",
+          align: "center",
+          color: pal.crimsonInk,
+          pillBg: pal.paperCard,
+          pillBorder: pal.crimsonInk
+        });
+        ops.push({
+          type: "label",
+          x: 435,
+          y: 304,
+          text: "Marcaba: 239,982 nps (prof. 3)",
+          align: "center",
+          color: pal.crimsonInk,
+          pillBg: pal.paperCard,
+          pillBorder: pal.crimsonInk
+        });
+        ops.push({
+          type: "label",
+          x: 695,
+          y: 84,
+          text: "MOTOR REAL (engine.rs) · ~3039 Elo · 2.0–3.0M nps",
+          align: "center",
+          color: pal.indigoInk,
+          pillBg: pal.paperCard,
+          pillBorder: pal.indigoInk
+        });
+        ops.push({
+          type: "label",
+          x: 460,
+          y: 462,
+          text: "Reconciliado: benchmark directo sobre Engine::think con números reales medidos",
+          align: "center",
+          color: pal.inkDeep
+        });
+
+        return ops;
+      }
+
+      // =====================================================================
+      // SCENE 4 BUILDER: MÁQUINAS DE ESTADO IMPLÍCITAS — "El cruce sin semáforo"
+      // =====================================================================
+      function buildScene4() {
+        const pal = palette();
+        const ops = [];
+        let s = 4400;
+
+        // 1. Split watercolor washes: chaotic crimson/amber left vs serene viridian right
+        ops.push({ type: "wash", x: 235, y: 255, rx: 195, ry: 175, color: pal.crimsonWash, rimColor: pal.crimsonInk, layers: 5, seed: s++ });
+        ops.push({ type: "wash", x: 685, y: 255, rx: 195, ry: 175, color: pal.viridianWash, rimColor: pal.viridianInk, layers: 5, seed: s++ });
+
+        // Center dividing brass line
+        ops.push({
+          type: "stroke",
+          pts: [[460, 68], [460, 250], [460, 432]],
+          color: pal.inkDeep,
+          width: 3.0,
+          bristles: 9,
+          seed: s++
+        });
+
+        // 2. LEFT HALF: The Implicit Gordian Knot (27 switches, 67 mutations, 4 counters)
+        // Grid of 27 tiny toggle switches around the tangle
+        const rng = createRng(4411);
+        const switchCoords = [];
+        for (let i = 0; i < 27; i++) {
+          const ang = (i / 27) * Math.PI * 2;
+          const rad = 112 + (i % 2) * 28;
+          const sx = 235 + Math.cos(ang) * rad;
+          const sy = 248 + Math.sin(ang) * (rad * 0.78);
+          switchCoords.push([sx, sy]);
+          ops.push({
+            type: "stroke",
+            pts: [[sx - 5, sy - 4], [sx + 5, sy - 4], [sx + 5, sy + 4], [sx - 5, sy + 4], [sx - 5, sy - 4]],
+            color: pal.inkSoft,
+            width: 1.3,
+            bristles: 3,
+            seed: s++
+          });
+        }
+
+        // 67 Criss-crossing mutation arrows ("state = { ...state }")
+        for (let m = 0; m < 34; m++) {
+          const a = switchCoords[(m * 5) % 27];
+          const b = switchCoords[(m * 11 + 7) % 27];
+          const midX = 235 + (rng() - 0.5) * 145;
+          const midY = 248 + (rng() - 0.5) * 135;
+          ops.push({
+            type: "stroke",
+            pts: [a, [midX, midY], b],
+            color: m % 4 === 0 ? pal.crimsonInk : pal.sepiaDark,
+            width: 1.4,
+            bristles: 4,
+            alpha: 0.62,
+            seed: s++
+          });
+        }
+
+        // The 4 Manual Counter Boxes at bottom-left, with #3 (forcingRequestVersion) glowing RED
+        const counters = [
+          { x: 92,  label: "gameVer++",    ok: true },
+          { x: 184, label: "lensVer++",    ok: true },
+          { x: 282, label: "forcingVer (!)", ok: false },
+          { x: 382, label: "exploreVer++", ok: true }
+        ];
+        counters.forEach((c) => {
+          ops.push({
+            type: "label",
+            x: c.x,
+            y: 404,
+            text: c.label,
+            align: "center",
+            color: c.ok ? pal.inkSoft : pal.crimsonInk,
+            pillBg: pal.paperCard,
+            pillBorder: c.ok ? pal.inkSoft : pal.crimsonInk
+          });
+        });
+
+        // Phantom arrow escaping from forgotten forcingVer across resignGame!
+        ops.push({
+          type: "stroke",
+          pts: [[282, 386], [295, 310], [240, 245]],
+          color: pal.crimsonInk,
+          width: 3.6,
+          bristles: 9,
+          seed: s++
+        });
+        ops.push({
+          type: "label",
+          x: 235,
+          y: 245,
+          text: "resignGame(:638) · Fuga de forcing!",
+          align: "center",
+          color: pal.crimsonInk,
+          pillBg: pal.paperCard,
+          pillBorder: pal.crimsonInk
+        });
+
+        // 3. RIGHT HALF: Clean Explicit State Machine & RequestTracker Semaphore
+        const cx = 685, cy = 245;
+        // Central RequestTracker Hub
+        ops.push({
+          type: "fillPoly",
+          pts: arcPts(cx, cy, 48, 0, Math.PI * 2, 28, 0.2, s++),
+          color: pal.paperCard,
+          strokeColor: pal.viridianInk,
+          lineWidth: 2
+        });
+        ops.push({
+          type: "stroke",
+          pts: arcPts(cx, cy, 48, 0, Math.PI * 2, 30, 0.35, s++),
+          color: pal.viridianInk,
+          width: 3.4,
+          bristles: 10,
+          seed: s++
+        });
+        ops.push({
+          type: "label",
+          x: cx,
+          y: cy - 7,
+          text: "RequestTracker",
+          align: "center",
+          color: pal.inkDeep,
+          font: '700 10.5px "SF Mono", Menlo, monospace'
+        });
+        ops.push({
+          type: "label",
+          x: cx,
+          y: cy + 9,
+          text: "invalidateAll()",
+          align: "center",
+          color: pal.viridianInk,
+          font: '700 10px "SF Mono", Menlo, monospace'
+        });
+
+        // Clean surrounding state nodes
+        const states = [
+          { x: 685, y: 112, title: "READY / IDLE" },
+          { x: 832, y: 245, title: "THINKING" },
+          { x: 685, y: 378, title: "COMPLETED / RESIGNED" },
+          { x: 542, y: 245, title: "LENSES SYNCED" }
+        ];
+        states.forEach((st, idx) => {
+          const next = states[(idx + 1) % states.length];
+          // Outer transition arc
+          ops.push({
+            type: "stroke",
+            pts: [
+              [st.x, st.y],
+              [(st.x + next.x) / 2 + (idx % 2 === 0 ? (idx === 0 ? 35 : -35) : 0), (st.y + next.y) / 2],
+              [next.x, next.y]
+            ],
+            color: pal.viridianInk,
+            width: 2.6,
+            bristles: 7,
+            profile: "steady",
+            seed: s++
+          });
+          // Spoke to central RequestTracker
+          ops.push({
+            type: "stroke",
+            pts: [[cx, cy], [st.x, st.y]],
+            color: pal.inkSoft,
+            width: 1.6,
+            bristles: 4,
+            seed: s++
+          });
+          ops.push({
+            type: "label",
+            x: st.x,
+            y: st.y,
+            text: st.title,
+            align: "center",
+            color: pal.viridianInk,
+            pillBg: pal.paperCard,
+            pillBorder: pal.viridianInk
+          });
+        });
+
+        // Top & Bottom Titles
+        ops.push({
+          type: "label",
+          x: 235,
+          y: 44,
+          text: "ANTES · 27 CAMPOS · 67 MUTACIONES · 4 CONTADORES SUELTOS",
+          align: "center",
+          color: pal.crimsonInk,
+          pillBg: pal.paperCard,
+          pillBorder: pal.crimsonInk
+        });
+        ops.push({
+          type: "label",
+          x: 685,
+          y: 44,
+          text: "DESPUÉS · MÁQUINA EXPLÍCITA (play-state-machine.ts)",
+          align: "center",
+          color: pal.viridianInk,
+          pillBg: pal.paperCard,
+          pillBorder: pal.viridianInk
+        });
+        ops.push({
+          type: "label",
+          x: 460,
+          y: 462,
+          text: "Reconciliado: RequestTracker atómico + fuente única state.playMode + transiciones puras",
+          align: "center",
+          color: pal.inkDeep
+        });
+
+        return ops;
+      }
+
+      // Registry of the 4 scenes and their playback controllers
+      const controllers = new Map();
+
+      function setupCanvasHiDPI(canvas) {
+        const dpr = Math.min(window.devicePixelRatio || 1, 2);
+        const logicalW = 920;
+        const logicalH = 500;
+        if (canvas.width !== logicalW * dpr || canvas.height !== logicalH * dpr) {
+          canvas.width = logicalW * dpr;
+          canvas.height = logicalH * dpr;
+        }
+        const ctx = canvas.getContext("2d");
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        return { ctx, width: logicalW, height: logicalH };
+      }
+
+      function getSceneOps(id) {
+        if (id === 1) return buildScene1();
+        if (id === 2) return buildScene2();
+        if (id === 3) return buildScene3();
+        return buildScene4();
+      }
+
+      function renderInstant(id) {
+        const ctrl = controllers.get(id);
+        if (ctrl && ctrl.raf) {
+          cancelAnimationFrame(ctrl.raf);
+          ctrl.raf = null;
+        }
+        const canvas = document.getElementById(`canvas-plate-${id}`);
+        if (!canvas) return;
+        const { ctx, width, height } = setupCanvasHiDPI(canvas);
+        const paper = getPaperCanvas(width, height, 8800 + id * 17);
+        ctx.drawImage(paper, 0, 0);
+
+        const ops = getSceneOps(id);
+        for (let i = 0; i < ops.length; i++) {
+          executeOp(ctx, ops[i], 8800 + id * 100 + i);
+        }
+        const statusEl = document.getElementById(`status-canvas-${id}`);
+        if (statusEl) {
+          statusEl.textContent = `${ops.length} pinceladas · 100% Canvas 2D`;
+        }
+      }
+
+      function play(id) {
+        const canvas = document.getElementById(`canvas-plate-${id}`);
+        if (!canvas) return;
+        const prev = controllers.get(id) || { speed: 1.4 };
+        if (prev.raf) cancelAnimationFrame(prev.raf);
+
+        const { ctx, width, height } = setupCanvasHiDPI(canvas);
+        const paper = getPaperCanvas(width, height, 8800 + id * 17);
+
+        // Offscreen accumulation buffer so we can draw a live fountain-nib cursor on top each frame
+        const acc = document.createElement("canvas");
+        acc.width = canvas.width;
+        acc.height = canvas.height;
+        const accCtx = acc.getContext("2d");
+        const dpr = Math.min(window.devicePixelRatio || 1, 2);
+        accCtx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        accCtx.drawImage(paper, 0, 0);
+
+        const ops = getSceneOps(id);
+        const statusEl = document.getElementById(`status-canvas-${id}`);
+        let cursor = 0;
+        const opsPerFrame = Math.max(1, Math.round(1.5 * (prev.speed || 1.4)));
+        const pal = palette();
+
+        function findOpTip(op) {
+          if (op.pts && op.pts.length > 0) {
+            const pt = op.pts[op.pts.length - 1];
+            return { x: pt[0], y: pt[1] };
+          }
+          if (typeof op.x === "number" && typeof op.y === "number") {
+            return { x: op.x, y: op.y };
+          }
+          return null;
+        }
+
+        function drawBrushNib(tip) {
+          if (!tip) return;
+          ctx.save();
+          // Nib ring & calligraphic bamboo brush handle shadow
+          ctx.strokeStyle = pal.crimsonInk;
+          ctx.lineWidth = 1.4;
+          ctx.beginPath();
+          ctx.arc(tip.x, tip.y, 7, 0, Math.PI * 2);
+          ctx.stroke();
+
+          ctx.strokeStyle = pal.inkDeep;
+          ctx.lineWidth = 2.4;
+          ctx.beginPath();
+          ctx.moveTo(tip.x, tip.y);
+          ctx.lineTo(tip.x + 18, tip.y - 24);
+          ctx.stroke();
+          ctx.restore();
+        }
+
+        function step() {
+          const limit = Math.min(ops.length, cursor + opsPerFrame);
+          let lastTip = null;
+          for (; cursor < limit; cursor++) {
+            executeOp(accCtx, ops[cursor], 8800 + id * 100 + cursor);
+            lastTip = findOpTip(ops[cursor]) || lastTip;
+          }
+
+          // Composite accumulated paper+ink onto visible canvas
+          ctx.save();
+          ctx.setTransform(1, 0, 0, 1, 0, 0);
+          ctx.drawImage(acc, 0, 0);
+          ctx.restore();
+
+          if (cursor < ops.length) {
+            drawBrushNib(lastTip);
+          }
+
+          if (statusEl) {
+            statusEl.textContent =
+              cursor < ops.length
+                ? `Dibujando trazo ${cursor} / ${ops.length}...`
+                : `${ops.length} pinceladas · 100% Canvas 2D`;
+          }
+          if (cursor < ops.length) {
+            const raf = requestAnimationFrame(step);
+            controllers.set(id, { ...prev, raf });
+          } else {
+            controllers.set(id, { ...prev, raf: null });
+          }
+        }
+
+        const raf = requestAnimationFrame(step);
+        controllers.set(id, { ...prev, raf });
+      }
+
+      function setSpeed(id, speed) {
+        const prev = controllers.get(id) || {};
+        controllers.set(id, { ...prev, speed });
+        play(id);
+      }
+
+      function renderAllInstant() {
+        paperCache.clear();
+        for (let id = 1; id <= 4; id++) {
+          renderInstant(id);
+        }
+      }
+
+      function playAll() {
+        for (let id = 1; id <= 4; id++) {
+          play(id);
+        }
+      }
+
+      // Procedural fallback plate for ./media/reconciliaciones/hero.png & diptych.png
+      function renderFallbackBadge(canvasId, title) {
+        const canvas = document.getElementById(canvasId);
+        if (!canvas) return;
+        const ctx = canvas.getContext("2d");
+        const w = canvas.width;
+        const h = canvas.height;
+        const pal = palette();
+        const paper = getPaperCanvas(w, h, 9911);
+        ctx.drawImage(paper, 0, 0);
+
+        executeOp(ctx, { type: "wash", x: w * 0.35, y: h * 0.5, rx: 130, ry: 90, color: pal.amberWash, layers: 4, seed: 91 });
+        executeOp(ctx, { type: "wash", x: w * 0.68, y: h * 0.5, rx: 130, ry: 90, color: pal.indigoWash, layers: 4, seed: 92 });
+        executeOp(ctx, {
+          type: "stroke",
+          pts: [[60, h * 0.65], [w * 0.35, h * 0.32], [w * 0.65, h * 0.68], [w - 60, h * 0.35]],
+          color: pal.inkDeep,
+          width: 3.4,
+          bristles: 10,
+          seed: 93
+        });
+        executeOp(ctx, {
+          type: "label",
+          x: w / 2,
+          y: h / 2,
+          text: title,
+          align: "center",
+          color: pal.inkDeep,
+          pillBg: pal.paperCard,
+          pillBorder: pal.inkDeep
+        });
+      }
+
+      return {
+        renderInstant,
+        renderAllInstant,
+        play,
+        playAll,
+        setSpeed,
+        renderFallbackBadge
+      };
+    })();
+
+    // =========================================================================
+    // INTERACTIVE SIMULATOR FOR CHAPTER IV (resignGame race condition)
+    // =========================================================================
+    const RaceSim = (() => {
+      function run(mode) {
+        const tileForcing = document.getElementById("tile-forcing");
+        const valGame = document.getElementById("val-game");
+        const valLens = document.getElementById("val-lens");
+        const valForcing = document.getElementById("val-forcing");
+        const valExplore = document.getElementById("val-explore");
+        const log = document.getElementById("sim-log-output");
+
+        if (mode === "old") {
+          valGame.textContent = "1 → 2";
+          valLens.textContent = "4 → 5";
+          valForcing.textContent = "2 → 2 (¡SIN CAMBIO!)";
+          valExplore.textContent = "7 → 8";
+          tileForcing.className = "counter-tile bugged";
+          log.innerHTML =
+            '<strong style="color: var(--accent-crimson);">[BUG REPRODUCIDO · play-ui.ts:638-640]</strong> ' +
+            '1) Worker de <code>forcingMoves</code> inicia con <code>requestVersion = 2</code>. ' +
+            '2) Usuario pulsa <em>Resign</em>: <code>gameVersion</code>, <code>lensRequestVersion</code> y <code>sideExploreRequestVersion</code> suben, pero <code>forcingRequestVersion</code> se queda en <code>2</code>. ' +
+            '3) Cuando el worker responde 120ms después, la guarda <code>if (version === forcingRequestVersion)</code> evalúa <code>2 === 2 (true)</code> y contamina el estado de la partida rendida.';
+        } else {
+          valGame.textContent = "1 → 2";
+          valLens.textContent = "4 → 5";
+          valForcing.textContent = "2 → 3 (Sincronizado)";
+          valExplore.textContent = "7 → 8";
+          tileForcing.className = "counter-tile safe";
+          log.innerHTML =
+            '<strong style="color: var(--accent-viridian);">[RECONCILIADO · play-state-machine.ts]</strong> ' +
+            '1) Worker de <code>forcingMoves</code> inicia con token de generación <code>#2</code>. ' +
+            '2) Usuario pulsa <em>Resign</em>: <code>tracker.invalidateAll()</code> incrementa atómicamente las 4 generaciones y limpia los 4 sub-estados. ' +
+            '3) Cuando la respuesta atrasada <code>#2</code> regresa, <code>tracker.isCurrent("forcing", 2)</code> devuelve <code>false</code> y se descarta limpiamente.';
+        }
+      }
+      return { run };
+    })();
+
+    // =========================================================================
+    // UI CONTROLS: READING MODE (ELI5 / TECH / DUAL) & NIGHT INK THEME
+    // =========================================================================
+    function setGlobalMode(mode) {
+      document.documentElement.setAttribute("data-mode", mode);
+      document.querySelectorAll("[data-set-mode]").forEach((btn) => {
+        btn.classList.toggle("active", btn.getAttribute("data-set-mode") === mode);
+      });
+    }
+
+    document.querySelectorAll("[data-set-mode]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        setGlobalMode(btn.getAttribute("data-set-mode"));
+      });
+    });
+
+    document.getElementById("btn-redraw-all").addEventListener("click", () => {
+      Atelier8800.playAll();
+    });
+
+    document.getElementById("btn-theme-toggle").addEventListener("click", () => {
+      const html = document.documentElement;
+      const next = html.getAttribute("data-theme") === "night" ? "paper" : "night";
+      html.setAttribute("data-theme", next);
+      document.getElementById("theme-icon").textContent = next === "night" ? "☀" : "☾";
+      document.getElementById("theme-label").textContent = next === "night" ? "Papel Algodón" : "Tinta Nocturna";
+      Atelier8800.renderAllInstant();
+    });
+
+    // Clicking any canvas directly triggers its live brushstroke animation
+    for (let id = 1; id <= 4; id++) {
+      const c = document.getElementById(`canvas-plate-${id}`);
+      if (c) {
+        c.addEventListener("click", () => Atelier8800.play(id));
+      }
+    }
+
+    // Initial crisp render on load
+    window.addEventListener("DOMContentLoaded", () => {
+      Atelier8800.renderAllInstant();
+    });
+  </script>
+</body>
+</html>

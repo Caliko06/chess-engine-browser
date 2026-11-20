@@ -2,10 +2,10 @@ use chess_board::{Color, PgnGame, Position, PositionStatus};
 use chess_coach::{
     CoachConfig, GameReview, MoveLabel, ReviewEntry, ReviewSummary, review_pgn_game,
 };
+use chess_search::engine::{Engine, EngineLimits, EngineResult};
 use chess_search::explore::side_explore;
 use chess_search::{
-    ForcingKind, SacrificeAftermath, SearchConfig, SearchResult, SideExploreCandidate,
-    SideExploreReport, search,
+    ForcingKind, MAX_PLAY_DEPTH, SacrificeAftermath, SideExploreCandidate, SideExploreReport,
 };
 mod datagen;
 mod uci;
@@ -16,13 +16,14 @@ use std::time::Instant;
 const PERFT_USAGE: &str = "usage: chess-cli perft --fen <fen> --depth <n>";
 const PGN_ROUNDTRIP_USAGE: &str = "usage: chess-cli pgn-roundtrip --pgn <pgn>";
 const PGN_PLIES_USAGE: &str = "usage: chess-cli pgn-plies --pgn <pgn>";
-const ANALYZE_FEN_USAGE: &str = "usage: chess-cli analyze-fen --fen <fen> --depth <1..6>";
+const ANALYZE_FEN_USAGE: &str = "usage: chess-cli analyze-fen --fen <fen> --depth <1..32>";
 const BEST_MOVE_USAGE: &str =
     "usage: chess-cli best-move --fen <fen> [--aggressive] [--budget <nodes>]";
 const SIDE_EXPLORE_USAGE: &str = "usage: chess-cli side-explore --fen <fen> --side <white|black> --budget <nodes> [--aggressive]";
-const BENCH_USAGE: &str = "usage: chess-cli bench --depth <1..6>";
+const BENCH_USAGE: &str = "usage: chess-cli bench --depth <1..32>";
 const REVIEW_PGN_USAGE: &str = "usage: chess-cli review-pgn --pgn <pgn> --depth <2..6>";
-const BENCH_POSITIONS: [(&str, &str); 3] = [
+/// Same set as the legacy `m8_bench` example, so both searches are measured on the same positions.
+const BENCH_POSITIONS: [(&str, &str); 5] = [
     (
         "startpos",
         "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
@@ -32,7 +33,11 @@ const BENCH_POSITIONS: [(&str, &str); 3] = [
         "r3k2r/p1ppqpb1/bn2pnp1/3PN3/1p2P3/2N2Q1p/PPPBBPPP/R3K2R w KQkq - 0 1",
     ),
     ("recapture_trap", "kq6/8/8/8/8/8/8/1R2K3 w - - 0 1"),
+    ("stalemate_trap", "k7/8/1Q6/8/8/8/8/7K w - - 0 1"),
+    ("back_rank_mate", "6k1/5ppp/8/8/8/8/8/R5K1 w - - 0 1"),
 ];
+/// Transposition table for the one-shot CLI searches; matches the UCI default.
+const CLI_HASH_MB: usize = 16;
 
 fn main() -> ExitCode {
     let mut args = std::env::args().skip(1);
@@ -180,7 +185,7 @@ fn run_analyze_fen(args: &[String]) -> ExitCode {
         Ok(value) => value,
         Err(message) => return analyze_usage_error(&message),
     };
-    let depth = match parse_search_depth(analyze_args.depth) {
+    let depth = match parse_engine_depth(analyze_args.depth) {
         Ok(value) => value,
         Err(message) => return analyze_usage_error(message),
     };
@@ -191,16 +196,32 @@ fn run_analyze_fen(args: &[String]) -> ExitCode {
             return ExitCode::from(2);
         }
     };
-    let result = match search(&position, SearchConfig { max_depth: depth }) {
-        Ok(result) => result,
+    let status = match position.status() {
+        Ok(status) => status,
         Err(error) => {
             eprintln!("error: analyze failed: {error}");
             return ExitCode::from(2);
         }
     };
+    let result = engine_search(&position, depth);
 
-    print_analyze_json(&position, result);
+    print_analyze_json(&position, status, &result);
     ExitCode::SUCCESS
+}
+
+/// One fixed-depth search with the play engine (`engine.rs`) on a fresh table, so the same
+/// position and depth always give the same answer and node count.
+fn engine_search(position: &Position, depth: u8) -> EngineResult {
+    Engine::new(CLI_HASH_MB).think(
+        position,
+        &[],
+        EngineLimits {
+            max_depth: Some(depth),
+            nodes: None,
+            stop: None,
+        },
+        &mut |_| true,
+    )
 }
 
 fn parse_fen_depth_args(args: &[String]) -> Result<FenDepthArgs<'_>, String> {
@@ -480,32 +501,43 @@ fn run_bench(args: &[String]) -> ExitCode {
         Ok(value) => value,
         Err(message) => return bench_usage_error(&message),
     };
-    let depth = match parse_search_depth(depth_text) {
+    let depth = match parse_engine_depth(depth_text) {
         Ok(value) => value,
         Err(message) => return bench_usage_error(message),
     };
 
-    let started = Instant::now();
-    let mut total_nodes = 0_u64;
+    let mut positions = Vec::with_capacity(BENCH_POSITIONS.len());
     for (_name, fen) in BENCH_POSITIONS {
-        let position = match Position::from_fen(fen) {
-            Ok(position) => position,
+        match Position::from_fen(fen) {
+            Ok(position) => positions.push(position),
             Err(error) => {
                 eprintln!("error: bench FEN failed to parse: {error}");
                 return ExitCode::from(2);
             }
-        };
-        let result = match search(&position, SearchConfig { max_depth: depth }) {
-            Ok(result) => result,
-            Err(error) => {
-                eprintln!("error: bench search failed: {error}");
-                return ExitCode::from(2);
-            }
-        };
+        }
+    }
+    // Only the searches are timed; each position starts from a fresh engine so the node count is
+    // deterministic and independent of the order of the set.
+    let mut elapsed = std::time::Duration::ZERO;
+    let mut total_nodes = 0_u64;
+    for position in &positions {
+        let mut engine = Engine::new(CLI_HASH_MB);
+        let started = Instant::now();
+        let result = engine.think(
+            position,
+            &[],
+            EngineLimits {
+                max_depth: Some(depth),
+                nodes: None,
+                stop: None,
+            },
+            &mut |_| true,
+        );
+        elapsed += started.elapsed();
         total_nodes = total_nodes.saturating_add(result.nodes);
     }
 
-    let elapsed_ms = u64::try_from(started.elapsed().as_millis())
+    let elapsed_ms = u64::try_from(elapsed.as_millis())
         .unwrap_or(u64::MAX)
         .max(1);
     let nodes_per_second = total_nodes.saturating_mul(1_000) / elapsed_ms;
@@ -779,12 +811,18 @@ fn parse_depth(value: &str) -> Result<u8, &'static str> {
     }
 }
 
-fn parse_search_depth(value: &str) -> Result<u8, &'static str> {
-    let depth = parse_depth(value)?;
-    if depth == 0 {
+/// Depth for the play engine, which deepens far past the legacy search's 6-ply window.
+fn parse_engine_depth(value: &str) -> Result<u8, &'static str> {
+    if value.is_empty() || !value.bytes().all(|byte| byte.is_ascii_digit()) {
         return Err("invalid depth");
     }
-    Ok(depth)
+    if value.starts_with('0') {
+        return Err("invalid depth");
+    }
+    match value.parse::<u8>() {
+        Ok(depth) if depth <= MAX_PLAY_DEPTH => Ok(depth),
+        _ => Err("invalid depth"),
+    }
 }
 
 fn parse_coach_depth(value: &str) -> Result<u8, &'static str> {
@@ -920,19 +958,25 @@ const fn label_text(label: MoveLabel) -> &'static str {
     }
 }
 
-fn print_analyze_json(position: &Position, result: SearchResult) {
+fn print_analyze_json(position: &Position, status: PositionStatus, result: &EngineResult) {
+    let pv = result
+        .pv
+        .iter()
+        .map(|mv| format!("\"{}\"", mv.to_coordinate()))
+        .collect::<Vec<_>>()
+        .join(",");
     print!(
-        "{{\"command\":\"analyze-fen\",\"fen\":\"{}\",\"depth\":{},\"status\":\"{}\",\"best_move\":{},\"score_cp\":{},\"nodes\":{},\"tt_hits\":{}}}",
+        "{{\"command\":\"analyze-fen\",\"search\":\"engine\",\"fen\":\"{}\",\"depth\":{},\"status\":\"{}\",\"best_move\":{},\"score_cp\":{},\"nodes\":{},\"pv\":[{}]}}",
         position.to_fen(),
         result.depth,
-        status_text(position.status().unwrap_or(PositionStatus::Ongoing)),
+        status_text(status),
         result.best_move.map_or_else(
             || "null".to_owned(),
             |mv| format!("\"{}\"", mv.to_coordinate())
         ),
-        result.score,
+        result.score_cp,
         result.nodes,
-        result.tt_hits
+        pv
     );
 }
 
@@ -962,7 +1006,7 @@ fn status_text(status: PositionStatus) -> &'static str {
 
 fn print_bench_json(depth: u8, total_nodes: u64, elapsed_ms: u64, nodes_per_second: u64) {
     print!(
-        "{{\"command\":\"bench\",\"position_set\":[\"startpos\",\"kiwipete\",\"recapture_trap\"],\"depth\":{depth},\"total_nodes\":{total_nodes},\"elapsed_ms\":{elapsed_ms},\"nodes_per_second\":{nodes_per_second}}}"
+        "{{\"command\":\"bench\",\"search\":\"engine\",\"position_set\":[\"startpos\",\"kiwipete\",\"recapture_trap\",\"stalemate_trap\",\"back_rank_mate\"],\"depth\":{depth},\"total_nodes\":{total_nodes},\"elapsed_ms\":{elapsed_ms},\"nodes_per_second\":{nodes_per_second}}}"
     );
 }
 
@@ -1007,11 +1051,15 @@ fn print_help() {
     println!("  --help        Show this help text");
     println!("  perft         Run owned perft: perft --fen <fen> --depth <n> [--divide]");
     println!("  pgn-roundtrip Canonicalize one local PGN: pgn-roundtrip --pgn <pgn>");
-    println!("  analyze-fen   Search one local FEN: analyze-fen --fen <fen> --depth <1..6>");
+    println!(
+        "  analyze-fen   Search one local FEN with the play engine: analyze-fen --fen <fen> --depth <1..32>"
+    );
     println!(
         "  best-move     Search the board-first Play move: best-move --fen <fen> [--aggressive] [--budget <nodes>]"
     );
-    println!("  bench         Run local search benchmark: bench --depth <1..6>");
+    println!(
+        "  bench         Benchmark the play engine (engine.rs) on a fixed set: bench --depth <1..32>"
+    );
     println!("  review-pgn    Review one local PGN: review-pgn --pgn <pgn> --depth <2..6>");
     println!("  pgn-plies     Replay PGN to JSONL: pgn-plies --pgn <pgn>");
     println!(

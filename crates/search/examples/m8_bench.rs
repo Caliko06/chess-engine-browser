@@ -1,8 +1,9 @@
 use chess_board::Position;
-use chess_search::{SearchConfig, search};
-use std::time::Instant;
+use chess_search::engine::{Engine, EngineLimits};
+use std::time::{Duration, Instant};
 
-const DEPTH: u8 = 3;
+const DEPTH: u8 = 9;
+const HASH_MB: usize = 16;
 const POSITIONS: [(&str, &str); 5] = [
     (
         "startpos",
@@ -18,7 +19,7 @@ const POSITIONS: [(&str, &str); 5] = [
 ];
 
 fn main() {
-    let started = Instant::now();
+    let mut elapsed = Duration::ZERO;
     let mut total_nodes = 0_u64;
 
     for (name, fen) in POSITIONS {
@@ -29,13 +30,19 @@ fn main() {
                 std::process::exit(1);
             }
         };
-        let result = match search(&position, SearchConfig { max_depth: DEPTH }) {
-            Ok(result) => result,
-            Err(error) => {
-                eprintln!("bench search failed: {error}");
-                std::process::exit(1);
-            }
-        };
+        let mut engine = Engine::new(HASH_MB);
+        let started = Instant::now();
+        let result = engine.think(
+            &position,
+            &[],
+            EngineLimits {
+                max_depth: Some(DEPTH),
+                nodes: None,
+                stop: None,
+            },
+            &mut |_| true,
+        );
+        elapsed += started.elapsed();
         total_nodes = total_nodes.saturating_add(result.nodes);
 
         let best_move = result
@@ -43,16 +50,16 @@ fn main() {
             .map_or_else(String::new, |best_move| best_move.to_coordinate());
         println!(
             "{{\"name\":\"{name}\",\"best_move\":\"{best_move}\",\"score\":{},\"depth\":{},\"nodes\":{}}}",
-            result.score, result.depth, result.nodes
+            result.score_cp, result.depth, result.nodes
         );
     }
 
-    let elapsed_ms = u64::try_from(started.elapsed().as_millis())
+    let elapsed_ms = u64::try_from(elapsed.as_millis())
         .unwrap_or(u64::MAX)
         .max(1);
     let nodes_per_second = total_nodes.saturating_mul(1_000) / elapsed_ms;
 
     println!(
-        "{{\"command\":\"cargo run --release --quiet -p chess-search --example m8_bench\",\"position_set\":[\"startpos\",\"kiwipete\",\"recapture_trap\",\"stalemate_trap\",\"back_rank_mate\"],\"depth\":{DEPTH},\"total_nodes\":{total_nodes},\"elapsed_ms\":{elapsed_ms},\"nodes_per_second\":{nodes_per_second}}}"
+        "{{\"command\":\"cargo run --release --quiet -p chess-search --example m8_bench\",\"search\":\"engine\",\"position_set\":[\"startpos\",\"kiwipete\",\"recapture_trap\",\"stalemate_trap\",\"back_rank_mate\"],\"depth\":{DEPTH},\"total_nodes\":{total_nodes},\"elapsed_ms\":{elapsed_ms},\"nodes_per_second\":{nodes_per_second}}}"
     );
 }

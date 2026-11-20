@@ -11,8 +11,8 @@ use chess_search::explore;
 use chess_search::{
     EXPLORE_SOUND_MARGIN_CP, ForcingKind, ForcingReport, MoveQuality, ReactionLines,
     ReplyCandidate, ReplyCandidateRole, SacrificeAftermath, SearchConfig, SearchError,
-    SearchLimits, SideExploreReport, forcing_moves, forcing_moves_deep, reaction_lines,
-    reaction_lines_deep,
+    SearchLimits, SideExploreCandidate, SideExploreReport, forcing_moves, forcing_moves_deep,
+    reaction_lines, reaction_lines_deep,
 };
 mod explanation;
 
@@ -497,13 +497,9 @@ impl fmt::Display for WasmBridgeError {
 impl std::error::Error for WasmBridgeError {}
 
 pub fn new_game() -> EngineStateDto {
-    state_dto(&Position::startpos()).unwrap_or_else(|_error| EngineStateDto {
-        fen: Position::startpos().to_fen(),
-        status: GameStatusDto::Ongoing,
-        draw_reason: None,
-        side_to_move: ColorDto::White,
-        legal_moves: Vec::new(),
-    })
+    // The start position is a fixed, valid position: failing here is a board bug, not user input,
+    // and must not be papered over with an "ongoing" state that has no legal moves.
+    state_dto(&Position::startpos()).expect("the start position always has a valid state")
 }
 
 pub fn make_move(request: MakeMoveRequestDto) -> Result<MoveResultDto, WasmBridgeError> {
@@ -962,38 +958,6 @@ pub fn engine_move_json(
     }
 }
 
-/// Kept only because `scripts/beta-preview-support.mjs` still imports this export; the user side is
-/// validated but no longer steers the search.
-#[cfg_attr(target_arch = "wasm32", wasm_bindgen)]
-#[allow(clippy::too_many_arguments)]
-pub fn best_move_user_context_json(
-    fen: &str,
-    depth: u8,
-    aggressive: bool,
-    engine_side: &str,
-    user_side: &str,
-    history_fens: &str,
-    previous_line: &str,
-    node_budget: u32,
-) -> String {
-    let (Some(engine_side_dto), Some(_)) = (parse_color(engine_side), parse_color(user_side))
-    else {
-        return error_result_json(WasmBridgeError::InvalidPosition);
-    };
-    match best_move_context(BestMoveContextRequestDto {
-        fen: fen.to_owned(),
-        depth,
-        aggressive,
-        node_budget,
-        side: engine_side_dto,
-        history_fens: history_fens.to_owned(),
-        previous_line: previous_line.to_owned(),
-    }) {
-        Ok(result) => best_move_result_json(&result),
-        Err(error) => error_result_json(error),
-    }
-}
-
 fn review_pgn_core(request: ReviewPgnRequestDto) -> Result<(PgnGame, GameReview), WasmBridgeError> {
     if request.depth < 2 || request.depth > chess_search::MAX_M8_DEPTH {
         return Err(WasmBridgeError::InvalidDepth);
@@ -1248,36 +1212,12 @@ fn side_explore_dto(
 ) -> Result<SideExploreDto, WasmBridgeError> {
     let state = state_dto(position)?;
     let on_turn = report.on_turn;
-    let best_exact_score = report
-        .candidates
-        .first()
-        .map(|candidate| candidate.exact_score);
     let reply_candidates = report
         .reply_candidates
         .into_iter()
         .map(side_explore_reply_dto)
         .collect();
-    let candidates: Vec<SideExploreCandidateDto> = report
-        .candidates
-        .into_iter()
-        .map(|c| SideExploreCandidateDto {
-            mv: c.mv.to_coordinate(),
-            kind: forcing_kind_dto(c.kind),
-            exact_score_cp: c.exact_score,
-            quality: move_quality_dto(
-                best_exact_score
-                    .map(|best| classify_win_percent_loss(best, c.exact_score))
-                    .unwrap_or(MoveQuality::Best),
-            ),
-            sound: c.sound,
-            sacrifice: c.sacrifice,
-            mate_in: c.mate_in,
-            aftermath: c.aftermath.map(sacrifice_aftermath_label),
-            continuation: c.continuation.map(|mv| mv.to_coordinate()),
-            prospective_brilliant: c.prospective_brilliant,
-            opening: None,
-        })
-        .collect();
+    let candidates = side_explore_candidate_dtos(report.candidates);
     let principal_line: Vec<String> = report
         .principal_line
         .iter()
@@ -1309,6 +1249,33 @@ fn side_explore_dto(
     };
     annotate_opening_provenance(position, &mut dto, aggressive);
     Ok(dto)
+}
+
+/// Grades every candidate against the best exact score among them. Aggressive mode may put a
+/// sound move up to the sound margin below the best first, so the first candidate is not the
+/// reference: grading against it would call every candidate "best".
+fn side_explore_candidate_dtos(
+    candidates: Vec<SideExploreCandidate>,
+) -> Vec<SideExploreCandidateDto> {
+    let Some(best) = candidates.iter().map(|c| c.exact_score).max() else {
+        return Vec::new();
+    };
+    candidates
+        .into_iter()
+        .map(|c| SideExploreCandidateDto {
+            mv: c.mv.to_coordinate(),
+            kind: forcing_kind_dto(c.kind),
+            exact_score_cp: c.exact_score,
+            quality: move_quality_dto(classify_win_percent_loss(best, c.exact_score)),
+            sound: c.sound,
+            sacrifice: c.sacrifice,
+            mate_in: c.mate_in,
+            aftermath: c.aftermath.map(sacrifice_aftermath_label),
+            continuation: c.continuation.map(|mv| mv.to_coordinate()),
+            prospective_brilliant: c.prospective_brilliant,
+            opening: None,
+        })
+        .collect()
 }
 
 fn annotate_opening_provenance(position: &Position, dto: &mut SideExploreDto, aggressive: bool) {
@@ -2458,17 +2425,18 @@ mod tests {
         ForcingMapRequestDto, ForkCandidateDto, ForkTargetDto, GameStatusDto, MoveLabelDto,
         MoveQualityDto, OpeningProvenanceDto, OpeningStatusDto, PieceDto, ReactionCandidateDto,
         ReactionMapDto, ReactionMapRequestDto, ReviewArtifactsDto, SideExploreCandidateDto,
-        SideExploreDto, best_move_user_context_json, catalog_line_matches_candidate, forcing_map,
-        fork_candidate_dto, game_review_dto, opening_eligible_candidate, opening_for_candidate,
-        planned_continuation_from_context, push_artifacts_json, push_forcing_map_json,
-        push_reaction_map_json, push_side_explore_json, reaction_map, side_explore_context_v2_json,
-        side_explore_plan_status,
+        SideExploreDto, best_move_context_json, catalog_line_matches_candidate, forcing_map,
+        fork_candidate_dto, game_review_dto, new_game, opening_eligible_candidate,
+        opening_for_candidate, planned_continuation_from_context, push_artifacts_json,
+        push_forcing_map_json, push_reaction_map_json, push_side_explore_json, reaction_map,
+        side_explore_candidate_dtos, side_explore_context_v2_json, side_explore_plan_status,
     };
     use chess_board::{Color, Move, Piece, PieceKind, Position, Square};
     use chess_coach::{
         ForkCandidateEvidence, ForkCandidateSourceKind, ForkTarget, GameReview, MoveLabel,
         ReviewEntry, ReviewSummary,
     };
+    use chess_search::{ForcingKind, SideExploreCandidate};
 
     fn mv(text: &str) -> Move {
         Move::from_coordinate(text).expect("test move should parse")
@@ -2891,13 +2859,89 @@ mod tests {
     }
 
     #[test]
-    fn best_move_user_context_json_returns_a_move() {
+    fn best_move_context_json_returns_a_move_for_the_engine_side() {
         let after_user_move = "rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq - 0 1";
-        let result =
-            best_move_user_context_json(after_user_move, 1, false, "black", "white", "", "", 1_000);
+        let result = best_move_context_json(after_user_move, 1, false, "black", "", "", 1_000);
 
         assert!(result.contains(r#""ok":true"#), "{result}");
         assert!(result.contains(r#""bestMove":"#), "{result}");
+    }
+
+    #[test]
+    fn new_game_is_the_start_position_with_its_twenty_moves() {
+        let state = new_game();
+
+        assert_eq!(state.fen, Position::startpos().to_fen());
+        assert_eq!(state.status, GameStatusDto::Ongoing);
+        assert_eq!(state.side_to_move, ColorDto::White);
+        assert_eq!(state.legal_moves.len(), 20);
+    }
+
+    fn explore_candidate(coordinate: &str, exact_score: i32) -> SideExploreCandidate {
+        SideExploreCandidate {
+            mv: mv(coordinate),
+            kind: ForcingKind::Defense,
+            exact_score,
+            sound: true,
+            sacrifice: false,
+            mate_in: None,
+            aftermath: None,
+            continuation: None,
+            prospective_brilliant: false,
+        }
+    }
+
+    #[test]
+    fn explore_quality_is_graded_against_the_best_score_not_the_first_candidate() {
+        // Aggressive order observed natively after 1.e4 e5 (300 k nodes): Bc4 +23 first, then
+        // Nc3 +42, Nf3 +42, d4 +40. Grading against the first candidate called all four "best".
+        let dtos = side_explore_candidate_dtos(vec![
+            explore_candidate("f1c4", 23),
+            explore_candidate("b1c3", 42),
+            explore_candidate("g1f3", 42),
+            explore_candidate("d2d4", 40),
+        ]);
+        let qualities: Vec<_> = dtos.iter().map(|dto| dto.quality).collect();
+
+        assert_eq!(
+            qualities,
+            vec![
+                MoveQualityDto::Excellent,
+                MoveQualityDto::Best,
+                MoveQualityDto::Best,
+                MoveQualityDto::Excellent,
+            ]
+        );
+        assert!(side_explore_candidate_dtos(Vec::new()).is_empty());
+    }
+
+    #[test]
+    fn aggressive_explore_marks_best_only_the_top_scored_candidates() {
+        let after_e4_e5 = "rnbqkbnr/pppp1ppp/8/4p3/4P3/8/PPPP1PPP/RNBQKBNR w KQkq - 0 2";
+        for aggressive in [false, true] {
+            let dto = super::side_explore_context_v2_call(super::SideExploreContextV2RequestDto {
+                fen: after_e4_e5.to_owned(),
+                side: ColorDto::White,
+                aggressive,
+                history_fens: String::new(),
+                node_budget: 100_000,
+                previous_line: String::new(),
+            })
+            .expect("explore runs");
+            let best = dto
+                .candidates
+                .iter()
+                .map(|c| c.exact_score_cp)
+                .max()
+                .expect("candidates exist");
+            for candidate in &dto.candidates {
+                assert_eq!(
+                    candidate.quality == MoveQualityDto::Best,
+                    candidate.exact_score_cp == best,
+                    "aggressive={aggressive} {candidate:?}"
+                );
+            }
+        }
     }
 
     #[test]

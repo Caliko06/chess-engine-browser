@@ -8,7 +8,7 @@
   "scripts": {
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "lint": "eslint \"src/**/*.{ts,tsx,mts,cts}\" --max-warnings=0",
-    "test": "node scripts/smoke-test.mjs && node scripts/review-store-test.mjs && node scripts/review-workflow-test.mjs && node scripts/review-ui-test.mjs && node scripts/analyzer-ui-test.mjs && node scripts/review-wasm-executor-test.mjs && node scripts/review-browser-edge-test.mjs && node scripts/play-evidence-store-test.mjs && node scripts/play-wasm-executor-test.mjs && node scripts/move-explanation-test.mjs && node scripts/play-engine-test.mjs && node scripts/play-worker-engine-test.mjs && node scripts/play-ui-test.mjs && node scripts/app-test.mjs",
+    "test": "node scripts/smoke-test.mjs && node scripts/review-store-test.mjs && node scripts/review-workflow-test.mjs && node scripts/review-ui-test.mjs && node scripts/analyzer-ui-test.mjs && node scripts/review-wasm-executor-test.mjs && node scripts/review-browser-edge-test.mjs && node scripts/play-evidence-store-test.mjs && node scripts/play-wasm-executor-test.mjs && node scripts/move-explanation-test.mjs && node scripts/play-state-machine-test.mjs && node scripts/play-engine-test.mjs && node scripts/play-worker-engine-test.mjs && node scripts/play-ui-test.mjs && node scripts/app-test.mjs",
     "coverage": "node scripts/coverage-test.mjs",
     "dev": "node scripts/phase-zero-dev.mjs",
     "build": "node -e \"require('fs').rmSync('dist',{recursive:true,force:true})\" && tsc -p tsconfig.build.json",

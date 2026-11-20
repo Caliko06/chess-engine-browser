@@ -25,6 +25,7 @@ class FakeWorker {
   readonly messages: WorkerMessage[] = [];
   terminated = false;
   private listener: WorkerMessageListener | null = null;
+  private errorListener: ((event: ErrorEvent) => void) | null = null;
 
   constructor(
     readonly url: string,
@@ -33,8 +34,19 @@ class FakeWorker {
     FakeWorker.instances.push(this);
   }
 
-  addEventListener(_type: "message", listener: WorkerMessageListener): void {
-    this.listener = listener;
+  addEventListener(type: "message" | "error", listener: unknown): void {
+    if (type === "message") {
+      this.listener = listener as WorkerMessageListener;
+    } else {
+      this.errorListener = listener as (event: ErrorEvent) => void;
+    }
+  }
+
+  crash(message: string): void {
+    if (this.errorListener === null) {
+      throw new Error("worker error listener missing");
+    }
+    this.errorListener({ message } as ErrorEvent);
   }
 
   postMessage(message: unknown): void {
@@ -140,7 +152,8 @@ try {
   expectEqual(staleMessage.op, "reactionMap");
 
   engine.cancelSearch?.();
-  expectEqual(await staleRequest, { ok: false, error: "search-failed" });
+  // A deliberate cancel is its own outcome, never reported as an engine failure.
+  expectEqual(await staleRequest, { ok: false, error: "cancelled" });
   expectEqual(moveWorker.terminated, false);
   expectEqual(analysisWorker.terminated, true);
 
@@ -155,6 +168,16 @@ try {
   const freshMessage = messageAt(freshAnalysisWorker, 0);
   freshAnalysisWorker.respond(messageId(freshMessage), { ok: true, value: reactionMap });
   expectEqual(await freshRequest, { ok: true, value: reactionMap });
+
+  // A crashed worker fails its in-flight request with the real reason.
+  const crashedRequest = engine.reactionMap(startState.fen, 2, false);
+  await flushWorkerContinuations();
+  freshAnalysisWorker.crash("module failed to load");
+  expectEqual(await crashedRequest, {
+    ok: false,
+    error: "search-failed",
+    detail: "module failed to load"
+  });
 } finally {
   if (originalWorker === undefined) {
     delete workerHost.Worker;

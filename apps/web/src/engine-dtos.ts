@@ -397,3 +397,11 @@ export type WasmBridgeError =
   | "invalid-depth"
   | "invalid-position"
   | "search-failed";
+
+/**
+ * Everything a play engine call can fail with. The first group is the Rust bridge contract
+ * (`WasmBridgeError`, also used by the review flow). The other two never come from Rust:
+ * `cancelled` is a search the UI abandoned on purpose (new move, new game, view change) and is
+ * not a fault; `invalid-response` means the bridge answered with a payload that failed validation.
+ */
+export type PlayEngineError = WasmBridgeError | "cancelled" | "invalid-response";

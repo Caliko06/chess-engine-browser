@@ -98,8 +98,12 @@ async function runProviderOperation<T>(
 ): Promise<PlayEngineResult<T> | undefined> {
   try {
     return await operation();
-  } catch {
-    return { ok: false, error: "search-failed" };
+  } catch (caught) {
+    return {
+      ok: false,
+      error: "search-failed",
+      detail: caught instanceof Error ? caught.message : String(caught)
+    };
   }
 }
 

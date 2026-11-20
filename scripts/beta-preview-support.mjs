@@ -154,7 +154,7 @@ if (JSON.stringify(wasmImports) !== JSON.stringify(expectedWasmImports)) {
 
   writeFileSync(
     join(pkgRoot, "chess_wasm_bridge_embedded.mjs"),
-    `import { __wbg_set_wasm, __wbindgen_init_externref_table, best_move_context_json, best_move_json, best_move_user_context_json, engine_move_json, forcing_map_json, make_move_json, new_game_json, position_json, reaction_map_json, review_pgn_json, review_pgn_with_artifacts_json, side_explore_context_json, side_explore_context_v2_json, side_explore_json } from "./chess_wasm_bridge_bg.js";
+    `import { __wbg_set_wasm, __wbindgen_init_externref_table, best_move_context_json, best_move_json, engine_move_json, forcing_map_json, make_move_json, new_game_json, position_json, reaction_map_json, review_pgn_json, review_pgn_with_artifacts_json, side_explore_context_json, side_explore_context_v2_json, side_explore_json } from "./chess_wasm_bridge_bg.js";
 const wasmBytes = new Uint8Array([${wasmBytes.join(",")}]);
 const wasmModule = new WebAssembly.Module(wasmBytes);
 ${importAssertion}const wasmInstance = new WebAssembly.Instance(wasmModule, {
@@ -162,7 +162,7 @@ ${importAssertion}const wasmInstance = new WebAssembly.Instance(wasmModule, {
 });
 __wbg_set_wasm(wasmInstance.exports);
 wasmInstance.exports.__wbindgen_start();
-export { best_move_context_json, best_move_json, best_move_user_context_json, engine_move_json, forcing_map_json, make_move_json, new_game_json, position_json, reaction_map_json, review_pgn_json, review_pgn_with_artifacts_json, side_explore_context_json, side_explore_context_v2_json, side_explore_json };
+export { best_move_context_json, best_move_json, engine_move_json, forcing_map_json, make_move_json, new_game_json, position_json, reaction_map_json, review_pgn_json, review_pgn_with_artifacts_json, side_explore_context_json, side_explore_context_v2_json, side_explore_json };
 `
   );
 

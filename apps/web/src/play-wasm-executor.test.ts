@@ -264,7 +264,7 @@ expectEqual(
     historyFens: [startState.fen],
     previousLine: ["e2e4", "b8c6", "g1f3"]
   }),
-  { ok: false, error: "search-failed" }
+  { ok: false, error: "invalid-response" }
 );
 
 const errorEngine = createPlayWasmExecutor(() =>
@@ -295,14 +295,30 @@ const malformedEngine = createPlayWasmExecutor(() =>
       })
   })
 );
-expectEqual(await malformedEngine.newGame(), { ok: false, error: "search-failed" });
+expectEqual(await malformedEngine.newGame(), { ok: false, error: "invalid-response" });
 expectEqual(await malformedEngine.makeMove(startState.fen, "e2e4"), {
   ok: false,
-  error: "search-failed"
+  error: "invalid-response"
 });
 expectEqual(await malformedEngine.bestMove(startState.fen, 1), {
   ok: false,
-  error: "search-failed"
+  error: "invalid-response"
+});
+
+// A module that throws is a real engine failure and keeps its cause.
+const throwingEngine = createPlayWasmExecutor(() =>
+  Promise.resolve({
+    new_game_json: () => {
+      throw new Error("wasm trap");
+    },
+    make_move_json: () => "{}",
+    best_move_json: () => "{}"
+  })
+);
+expectEqual(await throwingEngine.newGame(), {
+  ok: false,
+  error: "search-failed",
+  detail: "wasm trap"
 });
 
 expectEqual(validateEngineStateDto(startState), startState);
@@ -376,8 +392,35 @@ const malformedReactionEngine = createPlayWasmExecutor(() =>
 );
 expectEqual(await malformedReactionEngine.reactionMap?.(startState.fen, 2, false), {
   ok: false,
-  error: "search-failed"
+  error: "invalid-response"
 });
+
+// Levels 1..6 each have a distinct depth/node envelope (level 5 and level 6 must not share 960k).
+const levelRequests: string[] = [];
+const levelEngine = createPlayWasmExecutor(() =>
+  Promise.resolve({
+    new_game_json: () => JSON.stringify({ ok: true, state: startState }),
+    make_move_json: () => JSON.stringify({ ok: true, move: afterE4 }),
+    best_move_json: (_fen: string, depth: number, _aggressive: boolean, nodeBudget: number) => {
+      levelRequests.push(`${String(depth)}:${String(nodeBudget)}`);
+      return JSON.stringify({
+        ok: true,
+        bestMove: { bestMove: "b8c6", depth, scoreCp: 0, nodes: nodeBudget, ttHits: 0 }
+      });
+    }
+  })
+);
+for (const level of [1, 2, 3, 4, 5, 6]) {
+  await levelEngine.bestMove(afterE4.state.fen, level);
+}
+expectEqual(levelRequests, [
+  "1:60000",
+  "8:120000",
+  "12:240000",
+  "14:480000",
+  "16:960000",
+  "18:1920000"
+]);
 
 const forcingMap: ForcingMapDto = {
   state: startState,

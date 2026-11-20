@@ -21,6 +21,7 @@ import type {
   SideExplorePlanReasonDto,
   SideExplorePlanStatusDto,
   SideExploreReplyDto,
+  PlayEngineError,
   WasmBridgeError
 } from "./engine-dtos.js";
 import { exactKeys, isRecord } from "./review-validators.js";
@@ -76,43 +77,37 @@ const reactionCandidatesMax = 8;
 const forcingCandidatesMax = 8;
 
 /**
- * Maps the play UI's strength level (1 to 6) to the coach searches' envelope. The user's opponent
- * does not use these caps: it plays through `engine_move_json` at the same level.
+ * Per-level envelope for the coach searches (reaction map, forcing lens, hints). The user's
+ * opponent does not use these caps: it plays through `engine_move_json` at the same level, and
+ * level 6 there is the full engine bounded by `opponentFullNodeBudget`.
  */
-const strengthDepthCaps: ReadonlyMap<number, number> = new Map([
-  [1, 1],
-  [2, 8],
-  [3, 12],
-  [4, 14],
-  [5, 16],
-  [6, 16]
-]);
-const strengthNodeBudgets: ReadonlyMap<number, number> = new Map([
-  [1, 60_000],
-  [2, 120_000],
-  [3, 240_000],
-  [4, 480_000],
-  [5, 960_000],
-  [6, 960_000]
-]);
+const strengthEnvelopes: ReadonlyMap<number, { readonly depth: number; readonly nodes: number }> =
+  new Map([
+    [1, { depth: 1, nodes: 60_000 }],
+    [2, { depth: 8, nodes: 120_000 }],
+    [3, { depth: 12, nodes: 240_000 }],
+    [4, { depth: 14, nodes: 480_000 }],
+    [5, { depth: 16, nodes: 960_000 }],
+    [6, { depth: 18, nodes: 1_920_000 }]
+  ]);
 /** Node cap for the full-strength opponent (level 6, about 1 to 2 s in WASM); weaker levels stop at their depth. */
 const opponentFullNodeBudget = 1_000_000;
 const sideExploreFastNodeBudget = 100_000;
 const sideExploreDeepNodeBudget = 300_000;
 
 function engineDepthCap(level: number): number {
-  return strengthDepthCaps.get(level) ?? level;
+  return strengthEnvelopes.get(level)?.depth ?? level;
 }
 
 function engineNodeBudget(level: number): number {
-  return strengthNodeBudgets.get(level) ?? 60_000;
+  return strengthEnvelopes.get(level)?.nodes ?? 60_000;
 }
 
 export type PlayWasmModuleLoader = () => Promise<PlayWasmModule>;
 
 export type PlayEngineResult<T> =
   | { readonly ok: true; readonly value: T }
-  | { readonly ok: false; readonly error: WasmBridgeError };
+  | { readonly ok: false; readonly error: PlayEngineError; readonly detail?: string };
 
 export type PlayEngineMode =
   | "owned-local"
@@ -180,8 +175,8 @@ export function createPlayWasmExecutor(
     newGame: async () => {
       try {
         return parseStateEnvelope((await loadOnce()).new_game_json());
-      } catch {
-        return { ok: false, error: "search-failed" };
+      } catch (caught) {
+        return engineFailure("search-failed", caught);
       }
     },
     makeMove: async (fen: string, mv: string, historyFens?: readonly string[]) => {
@@ -193,8 +188,8 @@ export function createPlayWasmExecutor(
             ? module.make_move_context_json(fen, mv, history)
             : module.make_move_json(fen, mv);
         return parseMoveEnvelope(serialized);
-      } catch {
-        return { ok: false, error: "search-failed" };
+      } catch (caught) {
+        return engineFailure("search-failed", caught);
       }
     },
     bestMove: async (
@@ -240,8 +235,8 @@ export function createPlayWasmExecutor(
         return parseBestMoveEnvelope(
           module.best_move_json(fen, cappedDepth, aggressive, nodeBudget)
         );
-      } catch {
-        return { ok: false, error: "search-failed" };
+      } catch (caught) {
+        return engineFailure("search-failed", caught);
       }
     },
     reactionMap: async (fen: string, depth: number, deep: boolean) => {
@@ -251,8 +246,8 @@ export function createPlayWasmExecutor(
           return { ok: false, error: "search-failed" };
         }
         return parseReactionMapEnvelope(module.reaction_map_json(fen, depth, deep));
-      } catch {
-        return { ok: false, error: "search-failed" };
+      } catch (caught) {
+        return engineFailure("search-failed", caught);
       }
     },
     forcingMap: async (fen: string, depth: number, host: ColorDto, deep: boolean) => {
@@ -262,8 +257,8 @@ export function createPlayWasmExecutor(
           return { ok: false, error: "search-failed" };
         }
         return parseForcingMapEnvelope(module.forcing_map_json(fen, depth, host, deep));
-      } catch {
-        return { ok: false, error: "search-failed" };
+      } catch (caught) {
+        return engineFailure("search-failed", caught);
       }
     },
     sideExplore: async (
@@ -303,8 +298,8 @@ export function createPlayWasmExecutor(
           return { ok: false, error: "search-failed" };
         }
         return parseSideExploreEnvelope(module.side_explore_json(fen, side, aggressive));
-      } catch {
-        return { ok: false, error: "search-failed" };
+      } catch (caught) {
+        return engineFailure("search-failed", caught);
       }
     },
     loadPosition: async (fen: string) => {
@@ -314,11 +309,17 @@ export function createPlayWasmExecutor(
           return { ok: false, error: "search-failed" };
         }
         return parseStateEnvelope(module.position_json(fen));
-      } catch {
-        return { ok: false, error: "search-failed" };
+      } catch (caught) {
+        return engineFailure("search-failed", caught);
       }
     }
   };
+}
+
+/** A failure that keeps the thrown cause so a real crash is never mistaken for a normal error. */
+function engineFailure(error: PlayEngineError, cause: unknown): PlayEngineResult<never> {
+  const detail = cause instanceof Error ? cause.message : String(cause);
+  return detail.length > 0 ? { ok: false, error, detail } : { ok: false, error };
 }
 
 function parseStateEnvelope(serialized: string): PlayEngineResult<EngineStateDto> {
@@ -327,10 +328,10 @@ function parseStateEnvelope(serialized: string): PlayEngineResult<EngineStateDto
     return parsed;
   }
   if (!exactKeys(parsed.value, ["ok", "state"])) {
-    return { ok: false, error: "search-failed" };
+    return { ok: false, error: "invalid-response" };
   }
   const state = validateEngineStateDto(parsed.value.state);
-  return state === null ? { ok: false, error: "search-failed" } : { ok: true, value: state };
+  return state === null ? { ok: false, error: "invalid-response" } : { ok: true, value: state };
 }
 
 function parseMoveEnvelope(serialized: string): PlayEngineResult<MoveResultDto> {
@@ -339,10 +340,10 @@ function parseMoveEnvelope(serialized: string): PlayEngineResult<MoveResultDto> 
     return parsed;
   }
   if (!exactKeys(parsed.value, ["ok", "move"])) {
-    return { ok: false, error: "search-failed" };
+    return { ok: false, error: "invalid-response" };
   }
   const move = validateMoveResultDto(parsed.value.move);
-  return move === null ? { ok: false, error: "search-failed" } : { ok: true, value: move };
+  return move === null ? { ok: false, error: "invalid-response" } : { ok: true, value: move };
 }
 
 function parseBestMoveEnvelope(serialized: string): PlayEngineResult<BestMoveDto> {
@@ -351,11 +352,11 @@ function parseBestMoveEnvelope(serialized: string): PlayEngineResult<BestMoveDto
     return parsed;
   }
   if (!exactKeys(parsed.value, ["ok", "bestMove"])) {
-    return { ok: false, error: "search-failed" };
+    return { ok: false, error: "invalid-response" };
   }
   const bestMove = validateBestMoveDto(parsed.value.bestMove);
   return bestMove === null
-    ? { ok: false, error: "search-failed" }
+    ? { ok: false, error: "invalid-response" }
     : { ok: true, value: bestMove };
 }
 
@@ -365,11 +366,11 @@ function parseReactionMapEnvelope(serialized: string): PlayEngineResult<Reaction
     return parsed;
   }
   if (!exactKeys(parsed.value, ["ok", "reactionMap"])) {
-    return { ok: false, error: "search-failed" };
+    return { ok: false, error: "invalid-response" };
   }
   const reactionMap = validateReactionMapDto(parsed.value.reactionMap);
   return reactionMap === null
-    ? { ok: false, error: "search-failed" }
+    ? { ok: false, error: "invalid-response" }
     : { ok: true, value: reactionMap };
 }
 
@@ -379,25 +380,25 @@ function parseForcingMapEnvelope(serialized: string): PlayEngineResult<ForcingMa
     return parsed;
   }
   if (!exactKeys(parsed.value, ["ok", "forcingMap"])) {
-    return { ok: false, error: "search-failed" };
+    return { ok: false, error: "invalid-response" };
   }
   const forcingMap = validateForcingMapDto(parsed.value.forcingMap);
   return forcingMap === null
-    ? { ok: false, error: "search-failed" }
+    ? { ok: false, error: "invalid-response" }
     : { ok: true, value: forcingMap };
 }
 
 function parseEnvelope(
   serialized: string
-): { readonly ok: true; readonly value: Record<string, unknown> } | { readonly ok: false; readonly error: WasmBridgeError } {
+): { readonly ok: true; readonly value: Record<string, unknown> } | { readonly ok: false; readonly error: PlayEngineError } {
   let parsed: unknown;
   try {
     parsed = JSON.parse(serialized);
   } catch {
-    return { ok: false, error: "search-failed" };
+    return { ok: false, error: "invalid-response" };
   }
   if (!isRecord(parsed) || !("ok" in parsed)) {
-    return { ok: false, error: "search-failed" };
+    return { ok: false, error: "invalid-response" };
   }
   if (parsed.ok === false && isWasmBridgeError(parsed.error)) {
     return { ok: false, error: parsed.error };
@@ -405,7 +406,7 @@ function parseEnvelope(
   if (parsed.ok === true) {
     return { ok: true, value: parsed };
   }
-  return { ok: false, error: "search-failed" };
+  return { ok: false, error: "invalid-response" };
 }
 
 export function validateEngineStateDto(value: unknown): EngineStateDto | null {
@@ -760,10 +761,10 @@ function parseSideExploreEnvelope(serialized: string): PlayEngineResult<SideExpl
     return parsed;
   }
   if (!exactKeys(parsed.value, ["ok", "sideExplore"])) {
-    return { ok: false, error: "search-failed" };
+    return { ok: false, error: "invalid-response" };
   }
   const result = validateSideExploreDto(parsed.value.sideExplore);
-  return result === null ? { ok: false, error: "search-failed" } : { ok: true, value: result };
+  return result === null ? { ok: false, error: "invalid-response" } : { ok: true, value: result };
 }
 
 export function validateSideExploreDto(value: unknown): SideExploreDto | null {

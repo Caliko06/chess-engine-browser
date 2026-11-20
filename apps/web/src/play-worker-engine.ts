@@ -45,6 +45,16 @@ function makeChannel(worker: Worker): {
     }
   });
 
+  // A worker that dies (script error, failed module load) never answers: fail its requests with
+  // the reason instead of leaving the UI waiting forever.
+  worker.addEventListener("error", (event: ErrorEvent) => {
+    const detail = event.message.length > 0 ? event.message : "worker error";
+    for (const [id, entry] of pending) {
+      pending.delete(id);
+      entry.resolve({ ok: false, error: "search-failed", detail });
+    }
+  });
+
   return {
     send: <T>(
       msg: Record<string, unknown>,
@@ -64,7 +74,7 @@ function makeChannel(worker: Worker): {
         if (!entry.cancelable) {
           continue;
         }
-        entry.resolve({ ok: false, error: "search-failed" });
+        entry.resolve({ ok: false, error: "cancelled" });
         pending.delete(id);
       }
     }

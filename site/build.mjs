@@ -29,6 +29,29 @@ mkdirSync(join(out, "img"), { recursive: true });
 for (const f of ["explore-dark.webp", "explore-light.webp", "explore-mate.webp", "explore-fork.webp", "elo-gains-light.png", "elo-gains-dark.png"]) {
   cpSync(join(repo, "docs/media", f), join(out, "img", f));
 }
+cpSync(join(repo, "docs/explore.png"), join(out, "img/explore.png"));
+mkdirSync(join(out, "img/reconciliaciones"), { recursive: true });
+for (const f of ["hero.png", "diptych.png"]) {
+  cpSync(join(repo, "docs/media/reconciliaciones", f), join(out, "img/reconciliaciones", f));
+}
+
+// Cuaderno de Reconciliaciones: interactive technical + ELI5 editorial notebook with procedural JS Canvas brushstrokes.
+const notebookDir = join(out, "cuaderno-de-reconciliaciones");
+mkdirSync(notebookDir, { recursive: true });
+let notebookHtml = readFileSync(join(repo, "docs/reconciliaciones-angelmiranda.html"), "utf8");
+notebookHtml = notebookHtml
+  .replaceAll("./media/reconciliaciones/", "/img/reconciliaciones/")
+  .replaceAll("./media/", "/img/")
+  .replaceAll("./explore.png", "/img/explore.png")
+  .replace(
+    "</head>",
+    `<link rel="canonical" href="${ORIGIN}/cuaderno-de-reconciliaciones/">\n<link rel="icon" href="/icon-32.png" sizes="32x32" type="image/png">\n<meta property="og:title" content="Cuaderno de Reconciliaciones — CaliChess">\n<meta property="og:image" content="${ORIGIN}/img/reconciliaciones/hero.png">\n</head>`
+  )
+  .replace(
+    '<div class="brand">',
+    '<a class="pill-btn" href="/" style="text-decoration:none;margin-right:0.5rem;">← Motor</a>\n        <div class="brand">'
+  );
+writeFileSync(join(notebookDir, "index.html"), notebookHtml);
 
 // Guides: each fragment starts with <!--{json meta}-->; pairs share a "pair" key.
 const guides = [];
@@ -123,8 +146,12 @@ const indexMeta = {
 for (const lang of ["en", "es"]) {
   const list = guides.filter((g) => g.lang === lang).sort((a, b) => a.order - b.order);
   const canonical = `${ORIGIN}/guides/${lang}/`;
+  const notebookCard =
+    lang === "es"
+      ? `<li><a href="/cuaderno-de-reconciliaciones/"><b>Cuaderno de Reconciliaciones (Técnico + ELI5)</b><span>Ensayo interactivo con pinceladas procedurales en Canvas 2D sobre costos hundidos, errores tragados, foundations y máquinas de estado.</span></a></li>`
+      : `<li><a href="/cuaderno-de-reconciliaciones/"><b>Reconciliation Notebook (Technical + ELI5)</b><span>Interactive essay with procedural Canvas 2D brushstroke illustrations on sunk costs, swallowed errors, broken foundations, and state machines.</span></a></li>`;
   const body = `<h1>${T[lang].guides}</h1><p class="lede">${indexMeta[lang].description}</p>
-<ul class="cards">${list.map((g) => `<li><a href="/guides/${lang}/${g.slug}"><b>${g.title}</b><span>${g.description}</span></a></li>`).join("")}</ul>`;
+<ul class="cards">${notebookCard}${list.map((g) => `<li><a href="/guides/${lang}/${g.slug}"><b>${g.title}</b><span>${g.description}</span></a></li>`).join("")}</ul>`;
   const html = head({ lang, title: indexMeta[lang].title, description: indexMeta[lang].description, canonical, type: "website", alternates: [["en", `${ORIGIN}/guides/en/`], ["es", `${ORIGIN}/guides/es/`], ["x-default", `${ORIGIN}/guides/en/`]], jsonld: { "@context": "https://schema.org", "@type": "CollectionPage", name: indexMeta[lang].title, inLanguage: lang, url: canonical } }) + "\n" + chrome(lang, `/guides/${lang === "en" ? "es" : "en"}/`, body);
   writeFileSync(join(out, "guides", lang, "index.html"), html);
 }
@@ -146,7 +173,7 @@ swap('<script type="module" src="./dist/play-build-sha.js">', '<script type="mod
 swap("</main>", "</main>\n" + readFileSync(join(site, "app-footer.html"), "utf8").trim());
 writeFileSync(indexPath, app);
 
-const pages = [`${ORIGIN}/`, `${ORIGIN}/guides/en/`, `${ORIGIN}/guides/es/`, ...guides.map(url)];
+const pages = [`${ORIGIN}/`, `${ORIGIN}/cuaderno-de-reconciliaciones/`, `${ORIGIN}/guides/en/`, `${ORIGIN}/guides/es/`, ...guides.map(url)];
 writeFileSync(join(out, "sitemap.xml"), `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${pages.map((p) => `  <url><loc>${p}</loc><lastmod>${today}</lastmod></url>`).join("\n")}
