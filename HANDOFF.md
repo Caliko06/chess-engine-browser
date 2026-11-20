@@ -5,5 +5,5 @@ Public main (Caliko06/chess-engine-browser) now carries everything: the local br
 Also committed: empty smoke tests and review-dtos.test.ts removed (unknown session's dirty tree), browser proofs launch chrome-bot. `just test`: 399 Rust passed, web suites passed.
 Left untracked on purpose: config.json (fastchess config with a /Users path) and .hallmark/ (local screenshots).
 calichess.cc not redeployed: no site file changed since the SEO deploy (e101b616). The portfolio links to the case study on GitHub main, so it is already live there.
-Known: §14 "Known gaps" is stale (errors, bench and proof scripts were fixed in 41d93d70). The case study still cites old-history hashes and a compare link that 404s.
+Then (2a2ccf14): §14 split into fixed (errors, bench, proof scripts, README) and still open (legacy lenses, Explore reply, play-ui state, Explore strength); a note explains the private-history hashes; the dead compare link now points to the public snapshot d6295dfb; the stale screenshot became docs/media/explore-dark.webp.
 Local `main` and old branches are still the private history; the pre-push hook only lets commits built on d6295dfb through.
