@@ -386,7 +386,7 @@ The process had grown faster than the engine. That was the first thing I had to 
 | 19 Nov | I set the next rule: an engine that is strong but slow is not the goal. I picked Stash and Ethereal as the engines to learn from, and asked for results in 20 minutes, compared against what existed before. Facts, not a story. | The speed milestone: same tree, about 1.9x faster, closed with a named before/after inventory. |
 | 19 Nov | I asked how the engine would fare against a top human, on the FIDE scale. | The estimate came back too wide (2495-3520). I asked for a bigger run, on a short clock. |
 | 19 Nov | I switched the agent's role to an external, adversarial auditor of its own work. | It found that Explore, the view I actually use, still ran the old search and suggested 3.Qh5 after 1.e4 e5. I moved Explore onto the engine. |
-| 19-20 Nov | I asked for a real inventory of implicit state machines and propagated biases, without re-running old tests. | The reconciliation pass (`373513bb`): errors split by cause, one request tracker, 23 dead scripts gone. |
+| 19-20 Nov | I asked for a real inventory of implicit state machines and propagated biases, without re-running old tests. | The reconciliation pass (`41d93d70`): errors split by cause, one request tracker, 23 dead scripts gone. |
 | 20 Nov | Before any redesign, I made the agent learn what I wanted before it chose anything. | My answers set the design: play and understand, precise and technical, one green accent, system theme, approved directly in the app. |
 
 ### The rules I work by
