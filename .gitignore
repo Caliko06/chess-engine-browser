@@ -1,0 +1,75 @@
+# Build outputs
+/target/
+/apps/web/dist/
+/apps/web/coverage/
+/coverage/
+
+# Package-manager installs
+/node_modules/
+/apps/web/node_modules/
+**/.pnpm-store/
+
+# Transient goal-packet loop state (ADR-0199); the hook config itself is committed.
+/.claude/loop/
+/.claude/settings.local.json
+
+# Local OS/editor files
+.DS_Store
+*.swp
+*.swo
+
+# Chess data (ADR-0239/0240/0241): engine-memory artifacts and archive READMEs are tracked;
+# per-run reports and game archives stay local. Anything NOT matching these explicit
+# patterns must appear in git status — never silently swallowed.
+/data/*
+!/data/.gitkeep
+!/data/openings/
+!/data/openings/explore-aggressive-v1.tsv
+!/data/engine-memory/
+/data/engine-memory/last-update-report.json
+!/data/play-archive/
+/data/play-archive/live-*
+/data/play-archive/imported-*
+/data/play-archive/play-game-archive*
+/data/play-archive/game-*
+
+# Do not commit engine binaries, tablebases, books, PGNs, puzzle blobs, or generated corpora.
+*.pgn
+*.epd
+*.fen
+*.cbh
+*.cbv
+*.ctg
+*.abk
+*.obk
+*.rtbw
+*.rtbz
+*.bin
+*.exe
+*.dll
+*.dylib
+*.so
+*.wasm
+*.zip
+*.tar
+*.tar.gz
+*.tgz
+*.7z
+
+# Local benchmark/cache outputs
+/benches/baseline.local.json
+/tmp/
+/cache/
+
+# Local-only LLM audit dumps (deliberately non-governing; see file headers)
+/[Ii]gnore-*.md
+
+# Python bytecode
+__pycache__/
+
+# Local symlink to the OWNER's design skill library (absolute path, machine-specific)
+/.agents/skills/frontend-design
+
+# Personal agent settings (kept locally, not published)
+/.codex/config.toml
+/.claude/settings.json

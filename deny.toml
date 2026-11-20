@@ -1,0 +1,37 @@
+[advisories]
+version = 2
+yanked = "deny"
+ignore = []
+
+[licenses]
+version = 2
+confidence-threshold = 0.8
+# Third-party runtime dependencies are still blocked by scripts/audit-policy.mjs
+# unless an ADR approves them. This list lets cargo-deny evaluate the approved
+# wasm-bindgen stack once that separate dependency-policy gate has passed.
+allow = ["Apache-2.0", "MIT", "Unicode-3.0"]
+
+[licenses.private]
+ignore = true
+registries = []
+
+[bans]
+multiple-versions = "warn"
+wildcards = "deny"
+highlight = "all"
+allow = []
+deny = [
+    { name = "stockfish", reason = "Stockfish may only be an external CLI oracle under tests/oracle, never a Rust dependency." },
+    { name = "shakmaty", reason = "Third-party chess-rules crates require a superseding ADR and explicit approval." },
+    { name = "chess", reason = "Third-party chess-rules crates require a superseding ADR and explicit approval." },
+    { name = "cozy-chess", reason = "Third-party chess-rules crates require a superseding ADR and explicit approval." },
+    { name = "pleco", reason = "Third-party chess engines/rules require a superseding ADR and explicit approval." },
+]
+skip = []
+skip-tree = []
+
+[sources]
+unknown-registry = "deny"
+unknown-git = "deny"
+allow-registry = ["https://github.com/rust-lang/crates.io-index"]
+allow-git = []

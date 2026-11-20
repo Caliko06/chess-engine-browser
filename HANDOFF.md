@@ -1,0 +1,11 @@
+# HANDOFF: SEO, sitio público calichess.cc y dist limpio (2026-11-20)
+
+Hecho: la app y 6 guías (3 EN + 3 ES) se publican en Cloudflare Pages, proyecto `calichess` (calichess.pages.dev). `just site` arma `target/site` desde `site/build.mjs`; `just site-deploy` lo publica (necesita CLOUDFLARE_API_TOKEN y CLOUDFLARE_ACCOUNT_ID).
+Sitio: title/description/canonical/OG/Twitter/JSON-LD (WebApplication, TechArticle, FAQPage), hreflang en/es, sitemap.xml, robots.txt, og.png 1200x630, íconos. Fuentes: `site/app-head.html`, `site/app-footer.html`, `site/static/`, `site/guides/{en,es}/*.html` (línea 1 = JSON de metadatos).
+Solo en el sitio público: se oculta el Analizador de Stockfish (`site/static/site.css`) y el idioma sale del navegador (`site/static/lang.js`). En la app, `app.ts` toma el idioma de `<html lang>` (local sigue en "es").
+Dist limpio: `apps/web` borra `dist/` antes de compilar (antes se publicaban 37 .js viejos de septiembre); `site/build.mjs` quita lo que la página no carga (sets de piezas fuera de cburnett, smoke.js, .d.ts, cargador wasm no embebido): 135 archivos/11 MB -> 66/3.1 MB (1.2 MB comprimido). Los envíos de evidencia y archivo de partidas solo corren en localhost (antes daban 405 en cada jugada en el sitio público).
+Repo: renombrado a Caliko06/chess-engine-browser, homepage https://calichess.cc, README EN/ES con enlaces a las guías.
+Verificado: dist `859c0d6` servido con `wrangler pages dev` en un host no local: el motor responde, 0 peticiones fallidas y 0 errores en la app y las 8 páginas de guías; `pnpm --filter web test` pasa. calichess.cc ya está activo (nameservers en Cloudflare).
+Publicado 2026-11-20: calichess.cc sirve `859c0d60` + 404.html + CSP pública abierta a Cloudflare Web Analytics (OWNER 2026-11-20: analítica en todo el sitio; solo en `site/build.mjs`, el código de la app sigue sin red). En vivo: motor responde, beacon 200, 0 peticiones fallidas, 0 errores.
+Pendiente del OWNER: Google Search Console (verificar dominio y mandar el sitemap); social preview en Settings de GitHub (`docs/media/social-preview.png`).
+Visto, sin tocar: en celular el selector Blancas/Negras se encima con la barra; Oponente juega a profundidad 1; `AGENTS.md` aún dice que Explore está en `search/src/lib.rs` en partes y no menciona `site/`.

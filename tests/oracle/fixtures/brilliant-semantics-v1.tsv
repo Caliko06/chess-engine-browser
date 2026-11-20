@@ -1,0 +1,10 @@
+id	class	fen	move	current	retrospective	evidence	future_verifier
+B01	immediate_recovery	4k3/4r3/4n3/8/2Q5/8/8/4R1K1 w - - 0 1	e1e6	best	NO	DERIVED	persistent_material_trace
+B02	unavoidable_loss	4k3/8/2p5/8/8/3Q4/8/4K3 w - - 0 1	d3d5	blunder	UNKNOWN	UNVERIFIED	excluded_move_material_floor
+B03	destination_independent	3r4/8/8/8/3N4/4B3/8/4K2k w - - 0 1	e3f4	blunder	NO	MACHINE_CHECKED	whole_position_material_delta
+B04	simple_non_sacrifice	4k3/8/2p5/8/8/3Q4/8/4K3 w - - 0 1	d3d5	blunder	NO	DERIVED	best_non_sacrificial_root_search
+B05	shallow_refutation	r2q1rk1/pp3pp1/2np1n1p/4p1N1/3PP3/2NB4/PPP2PPP/R1BQK2R w KQ - 0 12	g5h7	inaccuracy	NO	SOURCE_ANCHORED	targeted_equal_budget_research
+B06	mate	6k1/5ppp/8/8/8/8/8/R6K w - - 0 1	a1a8	great	UNKNOWN	UNVERIFIED	mate_outcome_and_nontriviality
+B07	underpromotion	7k/P7/8/8/8/8/8/7K w - - 0 1	a7a8n	blunder	UNKNOWN	UNVERIFIED	promotion_opportunity_cost
+B08	draw_edge	4k3/8/8/8/8/8/8/R3K3 w - - 99 75	a1a2	best	UNKNOWN	UNVERIFIED	history_aware_draw_verifier
+B09	positional_sacrifice	4k3/8/8/8/1p6/2n5/8/2R1K3 w - - 0 1	c1c3	blunder	UNKNOWN	UNVERIFIED	persistent_compensation_search

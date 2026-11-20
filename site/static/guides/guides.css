@@ -1,0 +1,58 @@
+/* Guides on calichess.cc: same language as the app (play.css): flat, one green accent, system theme. */
+:root {
+  --bg: oklch(97.6% 0.003 160); --surface: oklch(100% 0 0); --ink: oklch(22% 0.01 160); --ink2: oklch(40% 0.01 160);
+  --mute: oklch(52% 0.01 160); --line: oklch(90% 0.005 160); --accent: oklch(54% 0.14 150); --accent-ink: oklch(99% 0.01 150);
+  --accent-text: oklch(45% 0.13 150); --soft: oklch(94.5% 0.04 150);
+  color-scheme: light dark;
+}
+@media (prefers-color-scheme: dark) {
+  :root { --bg: oklch(17.5% 0.005 160); --surface: oklch(21.5% 0.006 160); --ink: oklch(94% 0.004 160); --ink2: oklch(80% 0.006 160);
+    --mute: oklch(66% 0.01 160); --line: oklch(30% 0.006 160); --accent: oklch(70% 0.16 150); --accent-ink: oklch(17% 0.03 150);
+    --accent-text: oklch(78% 0.15 150); --soft: oklch(29% 0.06 150); }
+}
+* { box-sizing: border-box; }
+html { background: var(--bg); color: var(--ink); font: 17px/1.65 ui-sans-serif, -apple-system, "Helvetica Neue", Arial, sans-serif; -webkit-text-size-adjust: 100%; }
+body { margin: 0; }
+a { color: var(--accent-text); text-underline-offset: 3px; }
+.top { display: flex; align-items: center; justify-content: space-between; gap: 16px; max-width: 1040px; margin: 0 auto; padding: 14px 20px; border-bottom: 1px solid var(--line); }
+.brand { display: flex; align-items: center; gap: 8px; color: var(--ink); font-weight: 700; text-decoration: none; }
+.logo { color: var(--accent); font-size: 22px; line-height: 1; }
+.muted { color: var(--mute); font-weight: 500; }
+.top nav { display: flex; align-items: center; gap: 18px; font-size: 15px; }
+.top nav a { text-decoration: none; }
+.cta { display: inline-block; padding: 7px 14px; border-radius: 8px; background: var(--accent); color: var(--accent-ink) !important; font-weight: 600; text-decoration: none; transition: transform 120ms ease, background-color 120ms ease; }
+.cta:hover { filter: brightness(1.06); }
+.cta:active { transform: scale(0.97); }
+.cta.big { padding: 11px 20px; font-size: 17px; }
+.page { max-width: 740px; margin: 0 auto; padding: 36px 20px 24px; }
+.kicker { margin: 0 0 6px; color: var(--mute); font-size: 14px; letter-spacing: .02em; }
+h1 { margin: 0 0 18px; font-size: clamp(30px, 5vw, 42px); line-height: 1.12; letter-spacing: -.02em; text-wrap: balance; }
+h2 { margin: 40px 0 10px; font-size: 24px; line-height: 1.25; letter-spacing: -.01em; }
+h3 { margin: 28px 0 6px; font-size: 19px; }
+p, ul, ol { margin: 0 0 16px; }
+li { margin-bottom: 6px; }
+.lede { font-size: 19px; color: var(--ink2); }
+.eli5 { margin: 24px 0; padding: 16px 18px; border-left: 3px solid var(--accent); background: var(--soft); border-radius: 0 10px 10px 0; }
+.eli5 b:first-child { display: block; margin-bottom: 4px; color: var(--accent-text); font-size: 14px; letter-spacing: .06em; text-transform: uppercase; }
+figure { margin: 24px 0; }
+figure img { display: block; width: 100%; height: auto; border-radius: 10px; border: 1px solid var(--line); }
+figcaption { margin-top: 8px; color: var(--mute); font-size: 14px; }
+table { width: 100%; margin: 16px 0 24px; border-collapse: collapse; font-size: 15px; }
+th, td { padding: 9px 10px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
+th { color: var(--mute); font-weight: 600; font-size: 13px; letter-spacing: .03em; text-transform: uppercase; }
+td.n, th.n { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+code { padding: 1px 5px; border-radius: 5px; background: var(--surface); border: 1px solid var(--line); font: 14px ui-monospace, SFMono-Regular, Menlo, monospace; }
+.faq details { padding: 12px 0; border-bottom: 1px solid var(--line); }
+.faq summary { cursor: pointer; font-weight: 600; }
+.faq details p { margin: 8px 0 0; color: var(--ink2); }
+.cta-row { margin: 36px 0; }
+.more ul { padding-left: 18px; }
+.cards { list-style: none; padding: 0; display: grid; gap: 12px; }
+.cards a { display: block; padding: 16px 18px; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); color: var(--ink); text-decoration: none; transition: border-color 120ms ease; }
+.cards a:hover { border-color: var(--accent); }
+.cards b { display: block; margin-bottom: 4px; font-size: 18px; }
+.cards span { color: var(--ink2); font-size: 15px; }
+.foot { max-width: 740px; margin: 0 auto; padding: 24px 20px 40px; border-top: 1px solid var(--line); color: var(--mute); font-size: 14px; }
+a:focus-visible, summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 4px; }
+@media (prefers-reduced-motion: reduce) { .cta, .cards a { transition: none; } }
+@media (max-width: 560px) { .top .muted { display: none; } html { font-size: 16px; } }

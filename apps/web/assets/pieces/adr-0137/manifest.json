@@ -1,0 +1,61 @@
+{
+  "schema": "chess-piece-candidates.v2",
+  "adr": "docs/adr/0137-play-review-only-piece-asset-sheet-candidates.md",
+  "promotionAdr": "docs/adr/0140-play-generated-piece-runtime-promotion.md",
+  "status": "runtime-approved",
+  "candidateSet": "adr-0137-staunton-sheet-v1",
+  "queryParam": "generatedPieceReview=adr-0137-staunton-sheet-v1",
+  "runtimePromotion": "approved by ADR-0140 after explicit human visual approval of the corrected ADR-0139 piece-only motion preview",
+  "fallback": "Default Play uses this approved piece set. Unknown generatedPieceReview values fail closed to the approved default set rather than loading arbitrary review assets.",
+  "sourceMode": "built-in image_gen principal sheet plus local chroma-key alpha removal and deterministic cell splitting",
+  "styleDirection": "clean Staunton-inspired digital-board pieces, readable at small size, not copied from proprietary assets",
+  "sourceSheet": {
+    "file": "apps/web/assets/pieces/adr-0137/piece-sheet-review-v1.png",
+    "sourceGeneratedImage": "$CODEX_HOME/generated_images/019e74da-492f-76b0-9b2c-14e3185571ed/ig_06138c709514fc65016a1ba2c604f08199a67114e93afb19ae.png",
+    "grid": { "rows": 2, "columns": 6 },
+    "order": [
+      "white-king",
+      "white-queen",
+      "white-rook",
+      "white-bishop",
+      "white-knight",
+      "white-pawn",
+      "black-king",
+      "black-queen",
+      "black-rook",
+      "black-bishop",
+      "black-knight",
+      "black-pawn"
+    ]
+  },
+  "sharedPrompt": "Create a single PNG asset sheet containing exactly 12 clean Staunton-inspired chess pieces for a digital board. Arrange them in a strict 2 row by 6 column grid with generous equal padding in every cell. Top row: white king, white queen, white rook, white bishop, white knight, white pawn. Bottom row: black king, black queen, black rook, black bishop, black knight, black pawn. Style: mature online chess board piece set, clean Staunton silhouette, readable at small sizes, polished but not photorealistic, subtle dimensional shading, no proprietary logos or copied branded assets. Subject constraints: each piece must be upright, centered in its cell, full piece visible from base to top, consistent scale and proportions across the set, strong silhouette distinction between identities. Chroma-key background: perfectly flat solid #00ff00 background for background removal. The background must be one uniform color with no shadows, gradients, texture, reflections, floor plane, or lighting variation. Do not use #00ff00 anywhere in the pieces. Avoid: no board, no floor, no cast shadows, no contact shadows, no reflection, no labels, no text, no watermark, no extra objects, no decorative frame.",
+  "alphaRemoval": {
+    "tool": "$CODEX_HOME/skills/.system/imagegen/scripts/remove_chroma_key.py",
+    "arguments": [
+      "--auto-key",
+      "border",
+      "--soft-matte",
+      "--transparent-threshold",
+      "12",
+      "--opaque-threshold",
+      "220",
+      "--despill",
+      "--edge-contract",
+      "1"
+    ]
+  },
+  "assets": [
+    { "color": "white", "kind": "king", "file": "apps/web/assets/pieces/adr-0137/white-king-review-v1.png", "sourceCell": { "row": 0, "column": 0 } },
+    { "color": "white", "kind": "queen", "file": "apps/web/assets/pieces/adr-0137/white-queen-review-v1.png", "sourceCell": { "row": 0, "column": 1 } },
+    { "color": "white", "kind": "rook", "file": "apps/web/assets/pieces/adr-0137/white-rook-review-v1.png", "sourceCell": { "row": 0, "column": 2 } },
+    { "color": "white", "kind": "bishop", "file": "apps/web/assets/pieces/adr-0137/white-bishop-review-v1.png", "sourceCell": { "row": 0, "column": 3 } },
+    { "color": "white", "kind": "knight", "file": "apps/web/assets/pieces/adr-0137/white-knight-review-v1.png", "sourceCell": { "row": 0, "column": 4 } },
+    { "color": "white", "kind": "pawn", "file": "apps/web/assets/pieces/adr-0137/white-pawn-review-v1.png", "sourceCell": { "row": 0, "column": 5 } },
+    { "color": "black", "kind": "king", "file": "apps/web/assets/pieces/adr-0137/black-king-review-v1.png", "sourceCell": { "row": 1, "column": 0 } },
+    { "color": "black", "kind": "queen", "file": "apps/web/assets/pieces/adr-0137/black-queen-review-v1.png", "sourceCell": { "row": 1, "column": 1 } },
+    { "color": "black", "kind": "rook", "file": "apps/web/assets/pieces/adr-0137/black-rook-review-v1.png", "sourceCell": { "row": 1, "column": 2 } },
+    { "color": "black", "kind": "bishop", "file": "apps/web/assets/pieces/adr-0137/black-bishop-review-v1.png", "sourceCell": { "row": 1, "column": 3 } },
+    { "color": "black", "kind": "knight", "file": "apps/web/assets/pieces/adr-0137/black-knight-review-v1.png", "sourceCell": { "row": 1, "column": 4 } },
+    { "color": "black", "kind": "pawn", "file": "apps/web/assets/pieces/adr-0137/black-pawn-review-v1.png", "sourceCell": { "row": 1, "column": 5 } }
+  ]
+}

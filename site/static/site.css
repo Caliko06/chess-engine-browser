@@ -1,0 +1,13 @@
+/* calichess.cc only. The Stockfish analyzer needs the local preview server, so the public site hides it. */
+[data-app-ui="analyzer-root"] { display: none; }
+.site-foot { --ink: oklch(22% 0.01 160); --mute: oklch(45% 0.01 160); --line: oklch(90% 0.005 160); --accent: oklch(45% 0.13 150);
+  max-width: 880px; margin: 48px auto 40px; padding: 24px 20px 0; border-top: 1px solid var(--line);
+  font: 15px/1.6 ui-sans-serif, -apple-system, "Helvetica Neue", Arial, sans-serif; color: var(--mute); }
+@media (prefers-color-scheme: dark) {
+  .site-foot { --ink: oklch(94% 0.004 160); --mute: oklch(72% 0.01 160); --line: oklch(30% 0.006 160); --accent: oklch(78% 0.15 150); }
+}
+.site-foot h2 { margin: 0 0 6px; font-size: 16px; color: var(--ink); }
+.site-foot p { margin: 0 0 10px; }
+.site-foot a { color: var(--accent); text-decoration: none; }
+.site-foot a:hover { text-decoration: underline; }
+html[lang="es"] .site-foot .en, html[lang="en"] .site-foot .es { display: none; }

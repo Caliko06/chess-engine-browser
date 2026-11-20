@@ -1,0 +1,117 @@
+{
+  "schema": "chess-piece-candidates.v2",
+  "adr": "docs/adr/0206-play-flat-classic-piece-theme-candidates.md",
+  "promotionAdr": "docs/adr/0207-play-flat-classic-theme-promotion.md",
+  "status": "runtime-approved",
+  "candidateSet": "adr-0206-cburnett-v1",
+  "queryParam": "generatedPieceReview=adr-0206-cburnett-v1",
+  "runtimePromotion": "Approved by ADR-0207 after explicit owner visual review and the exact promotion token PROMOTE adr-0206-cburnett-v1.",
+  "fallback": "Default Play uses this approved piece set. Unknown generatedPieceReview values fail closed to the approved default set rather than loading arbitrary review assets.",
+  "sourceMode": "free-licensed static SVG piece files fetched from lichess-org/lila public/piece/cburnett",
+  "styleDirection": "flat 2D vector-style classic pieces in the cburnett visual family, readable at small sizes",
+  "author": "Colin M.L. Burnett",
+  "license": {
+    "terms": ["GPLv2+", "GFDL", "BSD", "CC-BY-SA"],
+    "wikimediaCommonsSource": "https://commons.wikimedia.org/wiki/Category:SVG_chess_pieces"
+  },
+  "sourceUrls": [
+    "https://raw.githubusercontent.com/lichess-org/lila/master/public/piece/cburnett/wK.svg",
+    "https://raw.githubusercontent.com/lichess-org/lila/master/public/piece/cburnett/wQ.svg",
+    "https://raw.githubusercontent.com/lichess-org/lila/master/public/piece/cburnett/wR.svg",
+    "https://raw.githubusercontent.com/lichess-org/lila/master/public/piece/cburnett/wB.svg",
+    "https://raw.githubusercontent.com/lichess-org/lila/master/public/piece/cburnett/wN.svg",
+    "https://raw.githubusercontent.com/lichess-org/lila/master/public/piece/cburnett/wP.svg",
+    "https://raw.githubusercontent.com/lichess-org/lila/master/public/piece/cburnett/bK.svg",
+    "https://raw.githubusercontent.com/lichess-org/lila/master/public/piece/cburnett/bQ.svg",
+    "https://raw.githubusercontent.com/lichess-org/lila/master/public/piece/cburnett/bR.svg",
+    "https://raw.githubusercontent.com/lichess-org/lila/master/public/piece/cburnett/bB.svg",
+    "https://raw.githubusercontent.com/lichess-org/lila/master/public/piece/cburnett/bN.svg",
+    "https://raw.githubusercontent.com/lichess-org/lila/master/public/piece/cburnett/bP.svg"
+  ],
+  "assets": [
+    {
+      "color": "white",
+      "kind": "king",
+      "file": "apps/web/assets/pieces/adr-0206-cburnett/white-king-v1.svg",
+      "sourceUrl": "https://raw.githubusercontent.com/lichess-org/lila/master/public/piece/cburnett/wK.svg",
+      "sha256": "6a015951fb9ec986212164038e03008ae36d3438c2d4550d3ec1da76b172fa04"
+    },
+    {
+      "color": "white",
+      "kind": "queen",
+      "file": "apps/web/assets/pieces/adr-0206-cburnett/white-queen-v1.svg",
+      "sourceUrl": "https://raw.githubusercontent.com/lichess-org/lila/master/public/piece/cburnett/wQ.svg",
+      "sha256": "c3dc7fceb7ac157dda1fbcafbc2fcc58911a0a392cb671cbe50dbd4ea099e6c0"
+    },
+    {
+      "color": "white",
+      "kind": "rook",
+      "file": "apps/web/assets/pieces/adr-0206-cburnett/white-rook-v1.svg",
+      "sourceUrl": "https://raw.githubusercontent.com/lichess-org/lila/master/public/piece/cburnett/wR.svg",
+      "sha256": "53013fc8920647f3f3d0509f22ca16a67a8f320e6a6a55f2f05b30b9940566d9"
+    },
+    {
+      "color": "white",
+      "kind": "bishop",
+      "file": "apps/web/assets/pieces/adr-0206-cburnett/white-bishop-v1.svg",
+      "sourceUrl": "https://raw.githubusercontent.com/lichess-org/lila/master/public/piece/cburnett/wB.svg",
+      "sha256": "b7d1a118f4cfa74190ebf7f68dd88f4020072821e2c49236b0796766b34e159d"
+    },
+    {
+      "color": "white",
+      "kind": "knight",
+      "file": "apps/web/assets/pieces/adr-0206-cburnett/white-knight-v1.svg",
+      "sourceUrl": "https://raw.githubusercontent.com/lichess-org/lila/master/public/piece/cburnett/wN.svg",
+      "sha256": "ef4cde0a7b40914c436b8966767cbfa960a6a4ed2d3bfbe9aa9986a9214cb8e0"
+    },
+    {
+      "color": "white",
+      "kind": "pawn",
+      "file": "apps/web/assets/pieces/adr-0206-cburnett/white-pawn-v1.svg",
+      "sourceUrl": "https://raw.githubusercontent.com/lichess-org/lila/master/public/piece/cburnett/wP.svg",
+      "sha256": "0596b7ce6f71517800b5103f4ab0370d479e6d66e69c1411f27490d20772e8d6"
+    },
+    {
+      "color": "black",
+      "kind": "king",
+      "file": "apps/web/assets/pieces/adr-0206-cburnett/black-king-v1.svg",
+      "sourceUrl": "https://raw.githubusercontent.com/lichess-org/lila/master/public/piece/cburnett/bK.svg",
+      "sha256": "b83f0a15002eefcd30137d17042894f2ed821f6a85bd6eb41b5c85ce733359ed"
+    },
+    {
+      "color": "black",
+      "kind": "queen",
+      "file": "apps/web/assets/pieces/adr-0206-cburnett/black-queen-v1.svg",
+      "sourceUrl": "https://raw.githubusercontent.com/lichess-org/lila/master/public/piece/cburnett/bQ.svg",
+      "sha256": "b60573d7b225da00537368c9e20ff8d725f4edf3d5e3f93ce87e7d119aae8922"
+    },
+    {
+      "color": "black",
+      "kind": "rook",
+      "file": "apps/web/assets/pieces/adr-0206-cburnett/black-rook-v1.svg",
+      "sourceUrl": "https://raw.githubusercontent.com/lichess-org/lila/master/public/piece/cburnett/bR.svg",
+      "sha256": "7b4fa825748a9f9a19580353b4a57f57ed66b829f6aecd745d9e9752991dc843"
+    },
+    {
+      "color": "black",
+      "kind": "bishop",
+      "file": "apps/web/assets/pieces/adr-0206-cburnett/black-bishop-v1.svg",
+      "sourceUrl": "https://raw.githubusercontent.com/lichess-org/lila/master/public/piece/cburnett/bB.svg",
+      "sha256": "77e9debfa5cb8052a096affd49d5d4d842313ccd5194d5a85e38b8a7831885bf"
+    },
+    {
+      "color": "black",
+      "kind": "knight",
+      "file": "apps/web/assets/pieces/adr-0206-cburnett/black-knight-v1.svg",
+      "sourceUrl": "https://raw.githubusercontent.com/lichess-org/lila/master/public/piece/cburnett/bN.svg",
+      "sha256": "28c70309f34653625d8d1aa40b82387a5aa3a68cd55dbacee438a3d0c74269ea"
+    },
+    {
+      "color": "black",
+      "kind": "pawn",
+      "file": "apps/web/assets/pieces/adr-0206-cburnett/black-pawn-v1.svg",
+      "sourceUrl": "https://raw.githubusercontent.com/lichess-org/lila/master/public/piece/cburnett/bP.svg",
+      "sha256": "09539f32260765e6626c4653978aeeb166c7107854a03de37cd23c77f5ec6e6a"
+    }
+  ]
+}

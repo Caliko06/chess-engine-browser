@@ -1,0 +1,45 @@
+<!doctype html>
+<!-- Elo added by each accepted engine change (SPRT results, ~/chess-elo/progress.md). Render: see README.md in this folder. -->
+<meta charset="utf-8">
+<title>Elo gained per change</title>
+<style>
+:root{--bg:#fcfcfb;--ink:#0b0b0b;--ink2:#52514e;--mute:#8a8984;--grid:#e6e5e1;--bar:#2a78d6}
+.dark{--bg:#1a1a19;--ink:#f0efec;--ink2:#c3c2b7;--mute:#8a8984;--grid:#2e2e2c;--bar:#3987e5}
+html,body{margin:0;background:var(--bg);color:var(--ink);font-family:"Helvetica Neue",Helvetica,Arial,sans-serif}
+.w{padding:40px 48px}
+h2{margin:0;font-size:26px;font-weight:700;letter-spacing:-.01em}
+p{margin:8px 0 28px;font-size:16px;color:var(--ink2)}
+.r{display:grid;grid-template-columns:330px 1fr;align-items:center;height:42px}
+.l{font-size:16px;color:var(--ink2);padding-right:16px;text-align:right}
+.l b{color:var(--ink);font-weight:600;margin-right:8px}
+.t{position:relative;height:100%;display:flex;align-items:center;border-left:1px solid var(--grid)}
+.bar{height:22px;background:var(--bar);border-radius:0 4px 4px 0}
+.v{margin-left:10px;font-size:16px;font-weight:700;font-variant-numeric:tabular-nums;white-space:nowrap}
+.v span{font-weight:400;color:var(--mute);margin-left:4px}
+.f{margin-top:22px;font-size:14px;color:var(--mute)}
+</style>
+<body>
+<div class="w">
+  <h2>How the engine got stronger, change by change</h2>
+  <p>Each change had to beat the previous version in real games (an SPRT test). The bar is the Elo it added.</p>
+  <div id="c"></div>
+  <div class="f">v1, a new engine written from scratch, beat the old search 100 games to 0. Result: ~3039 Elo on the CCRL Blitz scale.</div>
+</div>
+<script>
+if (location.hash === "#dark") document.documentElement.className = "dark";
+const rows = [
+  ["v2", "Evaluation tuned on real games", 315, 82],
+  ["v3", "3x faster move generation", 175, 42],
+  ["v4", "Faster evaluation, new terms", 137, 36],
+  ["v5", "Smarter move ordering and time use", 59, 26],
+  ["v6", "Stop looking at losing trades", 60, 26],
+  ["v7", "Cut hopeless lines sooner", 19, 14],
+  ["v8", "King safety and endgame terms", 13.3, 8.4],
+  ["v9", "Same search, ~1.9x faster", 117.4, 24.1],
+  ["v9.1", "Use its memory in more places", 45.9, 16.4],
+];
+const max = 330;
+document.getElementById("c").innerHTML = rows.map(([v, l, e, ci]) =>
+  `<div class="r"><div class="l"><b>${v}</b>${l}</div><div class="t"><div class="bar" style="width:${(e / max) * 82}%"></div><div class="v">+${e}<span>±${ci}</span></div></div></div>`).join("");
+</script>
+</body>

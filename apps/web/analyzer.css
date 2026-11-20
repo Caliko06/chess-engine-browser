@@ -1,0 +1,572 @@
+/*
+ * Analyzer surface (ADR-0242) — composition owned by this surface.
+ *
+ * Decision: verdict-first instrument panel. The loss figure is the largest thing on the
+ * surface, typeset in the app serif (the "decision number" role already used by Explore);
+ * everything else is a left-aligned instrument stack — input console, filmstrip, review list.
+ * Band colours reuse the app path tokens (`--path-*`) so this surface keeps one visual language.
+ *
+ * Layer 1 (raw) = app tokens from review.css `:root`. Layer 2 (semantic) = `--analyzer-*`
+ * defined once on the section. Components consume the semantic layer only.
+ */
+
+[data-app-ui="analyzer-root"] {
+  display: block;
+}
+
+[data-analyzer-ui="section"] {
+  /* semantic layer */
+  --analyzer-band-best: var(--path-main);
+  --analyzer-band-good: var(--ink-soft);
+  --analyzer-band-inaccuracy: var(--path-caution);
+  --analyzer-band-mistake: var(--warn);
+  --analyzer-band-blunder: var(--path-hanging);
+  --analyzer-band-mate: var(--path-sacrifice);
+  --analyzer-serif: var(--font-display);
+  --analyzer-mono: var(--font-mono);
+  --analyzer-quiet: color-mix(in srgb, var(--ink-soft) 82%, var(--surface));
+
+  display: grid;
+  gap: 16px;
+  max-width: 1000px;
+  padding: clamp(16px, 2.2vw, 24px);
+  border: 1px solid var(--glass-edge);
+  border-radius: 28px;
+  background: var(--glass-fill);
+  -webkit-backdrop-filter: var(--glass-blur);
+  backdrop-filter: var(--glass-blur);
+  box-shadow: var(--glass-rim), var(--glass-shadow);
+}
+
+/* Header: title and hint share one baseline; the hint is context, not a second headline. */
+[data-analyzer-ui="header"] {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 12px;
+}
+
+[data-analyzer-ui="header"] h2 {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+[data-analyzer-ui="header"] small {
+  color: var(--analyzer-quiet);
+  font-size: 0.82rem;
+}
+
+[data-analyzer-ui="body"] {
+  display: grid;
+  gap: 12px;
+}
+
+/* Input console ---------------------------------------------------------- */
+
+[data-analyzer-ui="pgn-label"] {
+  color: var(--ink-soft);
+  font-size: 0.82rem;
+  font-weight: 600;
+}
+
+[data-analyzer-ui="pgn-input"] {
+  width: 100%;
+  min-height: 84px;
+  padding: 12px 14px;
+  border: 1px solid var(--glass-hairline);
+  border-radius: 16px;
+  background: var(--glass-fill-strong);
+  box-shadow: inset 0 1px 2px color-mix(in oklab, var(--shadow-ink) 8%, transparent);
+  color: var(--ink);
+  font-family: var(--analyzer-mono);
+  font-size: 0.82rem;
+  line-height: 1.55;
+  resize: vertical;
+}
+
+[data-analyzer-ui="pgn-input"]::placeholder {
+  color: var(--analyzer-quiet);
+}
+
+[data-analyzer-ui="input-row"] {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 18px;
+}
+
+[data-analyzer-ui="side"],
+[data-analyzer-ui="depth"] {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  padding: 3px;
+  border: 1px solid var(--glass-hairline);
+  border-radius: 999px;
+  background: var(--glass-tint);
+}
+
+[data-analyzer-ui="side-name"],
+[data-analyzer-ui="depth-name"] {
+  margin: 0 6px 0 8px;
+  color: var(--ink-soft);
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+
+/* Segmented control: one signed group per choice, not a row of loose buttons. */
+[data-analyzer-ui="side"] button,
+[data-analyzer-ui="depth"] button {
+  min-height: 32px;
+  min-width: 44px;
+  padding: 0 12px;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--ink-soft);
+  cursor: pointer;
+  font-size: 0.82rem;
+  font-weight: 600;
+  transition: background-color 160ms var(--ease-out-quart), color 160ms var(--ease-out-quart);
+}
+
+[data-analyzer-ui="side"] button:hover:not(:disabled),
+[data-analyzer-ui="depth"] button:hover:not(:disabled) {
+  background: var(--glass-fill);
+  color: var(--ink);
+}
+
+[data-analyzer-ui="side"] button[aria-pressed="true"],
+[data-analyzer-ui="depth"] button[aria-pressed="true"] {
+  background: var(--white);
+  color: var(--ink);
+  box-shadow: 0 1px 2px color-mix(in oklab, var(--shadow-ink) 18%, transparent), 0 4px 12px -4px color-mix(in oklab, var(--shadow-ink) 30%, transparent);
+}
+
+/* File control: the native input is the engine; the visible affordance is ours. */
+[data-analyzer-ui="file-input"] {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+[data-analyzer-ui="file-button"] {
+  min-height: 38px;
+  padding: 0 16px;
+  border: 1px solid var(--glass-hairline);
+  border-radius: 999px;
+  background: var(--glass-tint);
+  color: var(--ink);
+  cursor: pointer;
+  font-size: 0.82rem;
+  font-weight: 600;
+}
+
+[data-analyzer-ui="file-name"] {
+  color: var(--analyzer-quiet);
+  font-size: 0.78rem;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Primary action: position carries the dominance, not decoration. */
+[data-analyzer-ui="run"] {
+  justify-self: start;
+  min-width: 220px;
+  min-height: 44px;
+  padding: 0 22px;
+  border: 1px solid color-mix(in oklab, var(--accent-strong) 60%, transparent);
+  border-radius: 999px;
+  background: linear-gradient(160deg, color-mix(in oklab, var(--mate) 85%, var(--white)), var(--accent) 45%, var(--accent-strong));
+  color: var(--on-accent);
+  box-shadow: inset 0 1px 0 color-mix(in oklab, var(--white) 50%, transparent), 0 10px 24px -10px var(--accent-strong);
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0;
+  transition: background-color 120ms var(--ease-out-quart);
+}
+
+[data-analyzer-ui="run"]:hover:not(:disabled) {
+  background: linear-gradient(160deg, var(--mate), var(--accent-strong));
+}
+
+[data-analyzer-ui="run"]:active:not(:disabled) {
+  background: var(--accent-strong);
+  transform: translateY(1px);
+}
+
+/* Progress: visible mono timer plus an honest indeterminate ring, no fake percentage. */
+[data-analyzer-ui="progress"] {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+  color: var(--ink-soft);
+  font-size: 0.85rem;
+}
+
+[data-analyzer-ui="progress"]::before {
+  content: "";
+  width: 16px;
+  height: 16px;
+  border: 2px solid var(--line);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: analyzer-ring 720ms linear infinite;
+}
+
+[data-analyzer-ui="progress-seconds"] {
+  color: var(--ink);
+  font-family: var(--analyzer-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+@keyframes analyzer-ring {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+[data-analyzer-ui="error"] {
+  margin: 0;
+  padding: 10px 12px;
+  border: 1px solid var(--warn);
+  border-left-width: 3px;
+  border-radius: var(--radius);
+  background: var(--warn-soft);
+  color: var(--warn);
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+/* Report ----------------------------------------------------------------- */
+
+[data-analyzer-ui="report"] {
+  display: grid;
+  gap: 14px;
+  margin-top: 4px;
+}
+
+[data-analyzer-ui="oracle"] {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin: 0;
+  color: var(--analyzer-quiet);
+  font-size: 0.82rem;
+}
+
+[data-analyzer-ui="oracle"] strong {
+  font-weight: 700;
+}
+
+[data-analyzer-ui="oracle"][data-oracle="enabled"] strong {
+  color: var(--accent-strong);
+}
+
+[data-analyzer-ui="oracle"][data-oracle="degraded"] strong {
+  color: var(--path-caution);
+}
+
+[data-analyzer-ui="oracle"][data-oracle="unavailable"] strong,
+[data-analyzer-ui="oracle"][data-oracle="unknown"] strong {
+  color: var(--warn);
+}
+
+/* The memorable decision: one figure, serif, larger than anything else here. */
+[data-analyzer-ui="verdict"] {
+  display: grid;
+  gap: 4px;
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+}
+
+[data-analyzer-ui="verdict-hero"] {
+  display: grid;
+  gap: 2px;
+  margin: 0;
+}
+
+[data-analyzer-ui="verdict-label"] {
+  color: var(--ink-soft);
+  font-size: 0.82rem;
+  font-weight: 600;
+}
+
+[data-analyzer-ui="verdict-total"] {
+  color: var(--ink);
+  font-family: var(--analyzer-serif);
+  font-size: clamp(2.4rem, 5vw, 3.4rem);
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+}
+
+[data-analyzer-ui="verdict-total"] small {
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--ink-soft);
+}
+
+[data-analyzer-ui="verdict"][data-verdict="damaging"] [data-analyzer-ui="verdict-total"] {
+  color: var(--warn);
+}
+
+[data-analyzer-ui="verdict"][data-verdict="clean"] {
+  color: var(--accent-strong);
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+[data-analyzer-ui="verdict-detail"] {
+  margin: 0;
+  color: var(--ink-soft);
+  font-size: 0.85rem;
+}
+
+[data-analyzer-ui="verdict-detail"] {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Filmstrip: the game as a wrapped row of move chips. */
+[data-analyzer-ui="strip-disclosure"] {
+  padding-top: 12px;
+  border-top: 1px solid var(--line);
+}
+
+[data-analyzer-ui="strip-disclosure"] summary {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+[data-analyzer-ui="strip-disclosure"] summary small {
+  color: var(--analyzer-quiet);
+  font-family: var(--analyzer-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+[data-analyzer-ui="strip"] {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 10px;
+}
+
+[data-analyzer-ui="move"] {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--white);
+  color: var(--ink);
+  font-size: 0.82rem;
+}
+
+[data-analyzer-ui="move"][data-user="true"] {
+  border-color: var(--accent-strong);
+  background: var(--accent-soft);
+}
+
+[data-analyzer-ui="san"] {
+  font-family: var(--analyzer-mono);
+  font-weight: 600;
+}
+
+[data-analyzer-ui="move"] small {
+  color: var(--analyzer-quiet);
+  font-size: 0.72rem;
+}
+
+[data-analyzer-ui="delta"] {
+  color: var(--warn);
+  font-family: var(--analyzer-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Band chips: one pill vocabulary for the whole surface. */
+[data-analyzer-ui="band"] {
+  padding: 1px 7px;
+  border-radius: 999px;
+  background: var(--analyzer-band-good);
+  color: var(--white);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0;
+}
+
+[data-analyzer-ui="band"][data-band="best"] {
+  background: var(--analyzer-band-best);
+}
+
+[data-analyzer-ui="band"][data-band="inaccuracy"] {
+  background: var(--analyzer-band-inaccuracy);
+}
+
+[data-analyzer-ui="band"][data-band="mistake"] {
+  background: var(--analyzer-band-mistake);
+}
+
+[data-analyzer-ui="band"][data-band="blunder"] {
+  background: var(--analyzer-band-blunder);
+}
+
+[data-analyzer-ui="band"][data-band="mate-transition"] {
+  background: var(--analyzer-band-mate);
+}
+
+/* Review list: move on the left, the corrective on the right edge. */
+[data-analyzer-ui="attention"] {
+  display: grid;
+  gap: 8px;
+  padding-top: 12px;
+  border-top: 1px solid var(--line);
+}
+
+[data-analyzer-ui="attention"] h4 {
+  margin: 0;
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+[data-analyzer-ui="attention"] p {
+  margin: 0;
+  color: var(--ink-soft);
+  font-size: 0.85rem;
+}
+
+[data-analyzer-ui="attention"] ol {
+  display: grid;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+[data-analyzer-ui="attention"] li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 10px;
+  padding: 8px 12px;
+  border-left: 3px solid var(--line-strong);
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--accent) 5%, transparent);
+  font-size: 0.85rem;
+}
+
+[data-analyzer-ui="attention"] li > span:first-child {
+  font-family: var(--analyzer-mono);
+  font-weight: 700;
+}
+
+[data-analyzer-ui="attention-best"] {
+  margin-left: auto;
+  color: var(--ink-soft);
+  font-size: 0.78rem;
+}
+
+[data-analyzer-ui="attention-kind"] {
+  flex-basis: 100%;
+  color: var(--analyzer-quiet);
+  font-size: 0.78rem;
+}
+
+[data-analyzer-ui="attention-loss"] {
+  color: var(--warn);
+  font-weight: 700;
+}
+
+/* Quiet meta: quarantine, owned-engine note, empty report. */
+[data-analyzer-ui="quarantine"] {
+  display: grid;
+  gap: 4px;
+  padding: 10px 12px;
+  border: 1px dashed var(--line);
+  border-radius: var(--radius);
+}
+
+[data-analyzer-ui="quarantine"] h4 {
+  margin: 0;
+  color: var(--ink-soft);
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+[data-analyzer-ui="quarantine"] p,
+[data-analyzer-ui="no-games"],
+[data-analyzer-ui="owned-note"] {
+  margin: 0;
+  color: var(--analyzer-quiet);
+  font-size: 0.78rem;
+}
+
+/* States --------------------------------------------------------------- */
+
+[data-analyzer-ui="section"][data-phase="running"] [data-analyzer-ui="run"] {
+  cursor: progress;
+}
+
+/* Keyboard: this surface never relies on the browser's default ring. */
+[data-analyzer-ui="section"] button:focus-visible,
+[data-analyzer-ui="section"] textarea:focus-visible,
+[data-analyzer-ui="section"] summary:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 2px;
+}
+
+[data-analyzer-ui="section"] button:disabled {
+  cursor: not-allowed;
+  opacity: 0.56;
+}
+
+/* Responsive: the console stacks before the report does. */
+@media (max-width: 760px) {
+  [data-analyzer-ui="input-row"] {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  [data-analyzer-ui="run"] {
+    width: 100%;
+    min-width: 0;
+  }
+
+  [data-analyzer-ui="verdict-total"] {
+    font-size: 2.4rem;
+  }
+}
+
+/* Reduced motion is a designed state: the ring holds still, the press does not travel. */
+@media (prefers-reduced-motion: reduce) {
+  [data-analyzer-ui="progress"]::before {
+    animation: none;
+    border-top-color: var(--accent);
+    transform: none;
+  }
+
+  [data-analyzer-ui="run"] {
+    transition: none;
+  }
+
+  [data-analyzer-ui="run"]:active:not(:disabled) {
+    transform: none;
+  }
+}

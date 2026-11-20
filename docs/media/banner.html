@@ -1,0 +1,26 @@
+<!doctype html>
+<!-- README banner and GitHub social preview, built on one real capture of Explore. Render: see README.md in this folder. -->
+<meta charset="utf-8">
+<title>Chess banner</title>
+<style>
+html,body{margin:0;background:#0e100f}
+.b{position:relative;width:100vw;height:100vh;overflow:hidden;font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;color:#f0efec}
+.p{position:absolute;top:8vh;right:-14vh;height:96vh;aspect-ratio:1440/900;background:url(explore-dark.webp) 0 0/cover;border-radius:2vh;box-shadow:0 0 0 1px #2a2d2b,0 4vh 12vh rgba(0,0,0,.6)}
+.sh{position:absolute;inset:0;background:linear-gradient(90deg,#0e100f 0,#0e100f 42%,rgba(14,16,15,.88) 54%,rgba(14,16,15,0) 72%)}
+.t{position:absolute;left:7vh;top:50%;transform:translateY(-50%);max-width:46%}
+.k{font-size:2.8vh;font-weight:700;letter-spacing:.24em;color:#3fb950}
+h1{margin:2vh 0 0;font-size:10vh;line-height:.95;font-weight:800;letter-spacing:-.035em}
+.s{margin-top:3vh;font-size:3.6vh;line-height:1.35;font-weight:500;color:#c3c2b7;max-width:84%}
+.n{display:flex;gap:5vh;margin-top:5vh}
+.n div{font-size:2.3vh;font-weight:600;letter-spacing:.14em;color:#8b8f8c;text-transform:uppercase}
+.n b{display:block;font-size:5.4vh;letter-spacing:-.01em;color:#f0efec;text-transform:none}
+</style>
+<div class="b">
+  <div class="p"></div><div class="sh"></div>
+  <div class="t">
+    <div class="k">CHESS ENGINE · RUST + WEBASSEMBLY</div>
+    <h1>The best move,<br>explained</h1>
+    <div class="s">A strong chess engine that runs in your browser, offline, and tells you what to play and why.</div>
+    <div class="n"><div><b>~3039</b>Elo, CCRL Blitz</div><div><b>2-3 M</b>positions / s</div><div><b>0</b>servers</div></div>
+  </div>
+</div>

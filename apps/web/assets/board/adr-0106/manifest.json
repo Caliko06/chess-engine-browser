@@ -1,0 +1,30 @@
+{
+  "schema": "chess-board-assets.v1",
+  "adr": "docs/adr/0106-board-asset-pipeline.md",
+  "status": "runtime-approved",
+  "generatedAtLocal": "2026-05-27 America/Mexico_City",
+  "tool": "built-in image_gen",
+  "rules": {
+    "sourceOfTruth": "DOM data-square hitboxes and engine state remain authoritative.",
+    "fallback": "CSS background colors remain usable if image assets do not load.",
+    "pieceIdentity": "Generated piece identity assets are not part of this manifest."
+  },
+  "assets": [
+    {
+      "id": "light-square-material-v1",
+      "kind": "board-square-material",
+      "status": "runtime-approved",
+      "file": "apps/web/assets/board/adr-0106/light-square-material-v1.jpg",
+      "sourceGeneratedImage": "$CODEX_HOME/generated_images/019e6647-9376-7e61-aad2-2dc14ba311b8/ig_0e1dfa9a40c71314016a169326c1c4819aa45606db0f2f48f8.png",
+      "sourcePrompt": "Create one seamless square tile texture for LIGHT chessboard squares. Top-down flat material, warm maple wood/parchment hybrid, subtle grain, elegant but restrained, suitable behind chess pieces and move highlights. No chess pieces, no board grid, no labels, no text, no perspective, no bevels, no shadows, no reflections, no borders. The whole image must be one continuous tileable material with low contrast so black/white chess pieces remain readable."
+    },
+    {
+      "id": "dark-square-material-v1",
+      "kind": "board-square-material",
+      "status": "runtime-approved",
+      "file": "apps/web/assets/board/adr-0106/dark-square-material-v1.jpg",
+      "sourceGeneratedImage": "$CODEX_HOME/generated_images/019e6647-9376-7e61-aad2-2dc14ba311b8/ig_0e1dfa9a40c71314016a16936f1fbc819a9d9f17e6cf77db81.png",
+      "sourcePrompt": "Create one seamless square tile texture for DARK chessboard squares. Top-down flat material, muted sage green stained wood/felt hybrid, subtle grain, elegant but restrained, suitable behind chess pieces and move highlights. No chess pieces, no board grid, no labels, no text, no perspective, no bevels, no shadows, no reflections, no borders. The whole image must be one continuous tileable material with low contrast so black/white chess pieces remain readable. Avoid neon, saturated green, blue, purple, and heavy contrast."
+    }
+  ]
+}

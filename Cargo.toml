@@ -1,0 +1,18 @@
+[workspace]
+members = [
+    "crates/board",
+    "crates/search",
+    "crates/eval",
+    "crates/tuner",
+    "crates/coach",
+    "crates/wasm-bridge",
+    "crates/cli",
+]
+resolver = "3"
+
+[workspace.package]
+version = "0.0.0"
+edition = "2024"
+rust-version = "1.85"
+publish = false
+license = "MIT"

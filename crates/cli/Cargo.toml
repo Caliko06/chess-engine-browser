@@ -1,0 +1,17 @@
+[package]
+name = "chess-cli"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[dependencies]
+chess-board = { path = "../board", version = "0.0.0" }
+chess-coach = { path = "../coach", version = "0.0.0" }
+chess-eval = { path = "../eval", version = "0.0.0" }
+chess-search = { path = "../search", version = "0.0.0" }
+
+[[bin]]
+name = "chess-cli"
+path = "src/main.rs"

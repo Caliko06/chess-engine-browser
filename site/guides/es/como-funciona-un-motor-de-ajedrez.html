@@ -1,0 +1,45 @@
+<!--{"pair":"how-engines-work","order":2,"date":"2026-11-20","title":"Cómo funciona un motor de ajedrez, explicado fácil","description":"Cómo piensan los motores de ajedrez, en palabras simples: el tablero, la evaluación y la búsqueda, con números reales de un motor de 3000 Elo que puedes probar.","faq":[["¿Un motor de ajedrez sabe ajedrez como una persona?","No. No entiende los planes como lo hacen las personas. Revisa millones de posiciones y suma reglas simples, muy rápido."],["¿Qué es la profundidad?","Cuántas jugadas adelante miró el motor. Profundidad 20 significa que siguió líneas de 20 jugadas (una jugada de un bando cuenta como 1)."],["¿Qué es el Elo?","Un rating. Una diferencia de 100 puntos significa que el bando más fuerte saca cerca del 64%. Los motores tienen sus propias listas, como CCRL, que no equivalen directamente a los ratings humanos."],["¿Este motor usa una red neuronal?","No. Su evaluación es una lista de reglas escritas a mano, ajustadas automáticamente con partidas reales. Llega a cerca de 3039 Elo en la escala CCRL Blitz sin una."]]}-->
+<p class="lede">Un motor de ajedrez tiene tres partes: una que conoce las reglas, una que le pone puntaje a una posición y una que mira hacia adelante. Aquí va cada una en palabras simples, con números reales del motor de <a href="/">calichess.cc</a>.</p>
+
+<div class="eli5"><b>En corto</b>Imagina probar todas las jugadas posibles, luego cada respuesta, luego cada respuesta a esa, y ponerle puntaje a cada posición final. Después eliges la jugada cuyo peor caso es el mejor. Eso es un motor de ajedrez.</div>
+
+<h2>1. El tablero: conocer las reglas</h2>
+<p>Primero, el motor debe listar todas las jugadas legales de una posición: enroque, captura al paso, coronación, clavadas. Una sola regla mal puesta arruina todo lo que sigue.</p>
+<p>Este motor guarda el tablero como ocho números de 64 bits: uno por cada color y uno por cada tipo de pieza. Cada bit es una casilla, así que un tablero de ajedrez cabe justo. Ese truco, llamado <b>bitboards</b>, deja que la computadora revise muchas casillas a la vez con una sola instrucción, por ejemplo "¿qué casillas ataca este alfil?".</p>
+<p>Para comprobar que las reglas están bien, los motores corren <b>perft</b>: cuentan todas las posiciones a unas cuantas jugadas de profundidad y comparan con la respuesta conocida.</p>
+<table>
+<thead><tr><th>Prueba</th><th class="n">Posiciones contadas</th><th class="n">Tiempo</th></tr></thead>
+<tbody>
+<tr><td>Posición inicial, 6 jugadas de profundidad</td><td class="n">119,060,324</td><td class="n">3.55 s</td></tr>
+<tr><td>"Kiwipete" (una posición de prueba complicada), 5 jugadas de profundidad</td><td class="n">193,690,690</td><td class="n">5.63 s</td></tr>
+</tbody>
+</table>
+<p>Ambos coinciden exactamente con los valores publicados, a unos 34 millones de posiciones por segundo.</p>
+
+<h2>2. La evaluación: ponerle puntaje a una posición</h2>
+<p>Cuando el motor deja de mirar hacia adelante, tiene que adivinar quién está mejor. Suma reglas simples:</p>
+<ul>
+<li><b>Material:</b> una dama vale unos 9 peones, una torre 5, un caballo o alfil 3.</li>
+<li><b>Posición:</b> los caballos están mejor en el centro, a las torres les gustan las columnas abiertas, los peones se vuelven más fuertes al avanzar.</li>
+<li><b>Seguridad del rey:</b> los peones frente a tu rey son buenos; las piezas enemigas cerca de él son malas.</li>
+<li><b>Estructura de peones:</b> los peones doblados, aislados y atrasados son débiles; los peones pasados son fuertes.</li>
+</ul>
+<p>El resultado es un puntaje en <b>centipeones</b>, centésimas de peón. +100 es como ir un peón arriba. Los pesos de estas reglas se ajustaron comparándolos con los resultados de partidas reales.</p>
+
+<h2>3. La búsqueda: mirar hacia adelante</h2>
+<p>Aquí está la fuerza. El motor prueba una jugada, luego la mejor respuesta del rival, luego su mejor respuesta a eso, y así. Supone que ambos bandos juegan bien.</p>
+<p>Revisar todas las jugadas sería imposible: con solo 6 jugadas ya hay 119 millones de posiciones. Por eso los motores se saltan las líneas que no pueden importar:</p>
+<table>
+<thead><tr><th>Truco</th><th>Qué significa en simple</th></tr></thead>
+<tbody>
+<tr><td>Alfa-beta</td><td>"Ya tengo una jugada que gana un peón; esta otra pierde una pieza a la fuerza, así que deja de mirarla."</td></tr>
+<tr><td>Tabla de transposición</td><td>Recuerda las posiciones que ya puntuó, porque distintos órdenes de jugadas suelen llegar a la misma.</td></tr>
+<tr><td>Jugada nula</td><td>"Si paso mi turno y aun así voy ganando, esta línea es suficientemente buena."</td></tr>
+<tr><td>Reducciones de jugadas tardías</td><td>Las jugadas que quedan al final de la lista probablemente son malas, así que primero se miran con menos profundidad.</td></tr>
+<tr><td>Búsqueda de quietud</td><td>Nunca te detengas a la mitad de un intercambio; resuelve primero las capturas.</td></tr>
+</tbody>
+</table>
+<p>Con esto, el motor de calichess.cc llega a profundidad 19 a 31 en cinco segundos en un chip de laptop, revisando de 1.9 a 3.3 millones de posiciones por segundo.</p>
+
+<h2>Todo junto</h2>
+<p>Cada jugada que ves en calichess.cc sale de estas tres partes trabajando juntas: el tablero lista las jugadas, la búsqueda sigue las líneas que vale la pena seguir y la evaluación puntúa dónde terminan. La <a href="/guides/es/mejor-jugada-ajedrez">guía de la calculadora de la mejor jugada</a> te muestra cómo leer el resultado.</p>

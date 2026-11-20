@@ -1,0 +1,45 @@
+<!--{"pair":"how-engines-work","order":2,"date":"2026-11-20","title":"How a Chess Engine Works, Explained Simply","description":"How chess engines think, in plain words: the board, the evaluation and the search, with real numbers from a 3000 Elo engine you can try in your browser.","faq":[["Does a chess engine know chess like a person?","No. It does not understand plans the way people do. It checks millions of positions and adds up simple rules, very fast."],["What is depth?","How many moves ahead the engine looked. Depth 20 means it followed lines 20 moves long (one move by one side counts as 1)."],["What is Elo?","A rating. A 100-point gap means the stronger side scores about 64%. Engines have their own lists, like CCRL, that do not map directly to human ratings."],["Does this engine use a neural network?","No. Its evaluation is a list of hand-written rules, tuned automatically on real games. It reaches about 3039 Elo on the CCRL Blitz scale without one."]]}-->
+<p class="lede">A chess engine has three parts: one that knows the rules, one that scores a position, and one that looks ahead. Here is each one in plain words, with real numbers from the engine on <a href="/">calichess.cc</a>.</p>
+
+<div class="eli5"><b>In one breath</b>Imagine trying every possible move, then every reply, then every reply to that, and giving each final position a score. Then you pick the move whose worst case is the best. That is a chess engine.</div>
+
+<h2>1. The board: knowing the rules</h2>
+<p>First, the engine must list every legal move in a position: castling, en passant, promotion, pins. A single wrong rule ruins everything after it.</p>
+<p>This engine stores the board as eight 64-bit numbers: one for each color and one for each piece type. Each bit is one square, so a chessboard fits exactly. That trick, called <b>bitboards</b>, lets the computer check many squares at once with a single instruction, for example "which squares does this bishop attack?".</p>
+<p>To prove the rules are right, engines run <b>perft</b>: count every position a few moves deep and compare with the known answer.</p>
+<table>
+<thead><tr><th>Test</th><th class="n">Positions counted</th><th class="n">Time</th></tr></thead>
+<tbody>
+<tr><td>Starting position, 6 moves deep</td><td class="n">119,060,324</td><td class="n">3.55 s</td></tr>
+<tr><td>"Kiwipete" (a tricky test position), 5 moves deep</td><td class="n">193,690,690</td><td class="n">5.63 s</td></tr>
+</tbody>
+</table>
+<p>Both match the published values exactly, at about 34 million positions per second.</p>
+
+<h2>2. The evaluation: scoring a position</h2>
+<p>When the engine stops looking ahead, it must guess who is better. It adds up simple rules:</p>
+<ul>
+<li><b>Material:</b> a queen is worth about 9 pawns, a rook 5, a knight or bishop 3.</li>
+<li><b>Position:</b> knights are better in the center, rooks like open files, pawns get stronger as they advance.</li>
+<li><b>King safety:</b> pawns in front of your king are good; enemy pieces near it are bad.</li>
+<li><b>Pawn structure:</b> doubled, isolated and backward pawns are weak; passed pawns are strong.</li>
+</ul>
+<p>The result is a score in <b>centipawns</b>, hundredths of a pawn. +100 is like being a pawn up. The weights of these rules were tuned by comparing them with the results of real games.</p>
+
+<h2>3. The search: looking ahead</h2>
+<p>This is where the strength comes from. The engine tries a move, then the opponent's best answer, then its own best answer, and so on. It assumes both sides play well.</p>
+<p>Checking every move would be impossible: after just 6 moves there are already 119 million positions. So engines skip lines that cannot matter:</p>
+<table>
+<thead><tr><th>Trick</th><th>Plain meaning</th></tr></thead>
+<tbody>
+<tr><td>Alpha-beta</td><td>"I already have a move that wins a pawn; this other move loses a piece by force, so stop looking at it."</td></tr>
+<tr><td>Transposition table</td><td>Remember positions already scored, because different move orders often reach the same one.</td></tr>
+<tr><td>Null move</td><td>"If I skip my turn and I am still winning, this line is good enough."</td></tr>
+<tr><td>Late move reductions</td><td>Moves sorted last are probably bad, so look at them less deeply first.</td></tr>
+<tr><td>Quiescence search</td><td>Never stop in the middle of a trade; keep resolving captures first.</td></tr>
+</tbody>
+</table>
+<p>With these, the engine on calichess.cc reaches depth 19 to 31 in five seconds on a laptop chip, checking 1.9 to 3.3 million positions per second.</p>
+
+<h2>Putting it together</h2>
+<p>Every move you see on calichess.cc comes from these three parts working together: the board lists the moves, the search follows the lines worth following, and the evaluation scores where they end. The <a href="/guides/en/best-chess-move-finder">best move finder guide</a> shows how to read the result.</p>

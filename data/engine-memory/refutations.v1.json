@@ -1,0 +1,5297 @@
+{
+  "schema": 1,
+  "cases": [
+    {
+      "id": "1k1r3r_ppp1ppbp_8_3N2p1_PP6_3PBP1q_2P1QP2_R4RK1_b_-_-:g7a1",
+      "tier": "refuted-recommendation",
+      "fen": "1k1r3r/ppp1ppbp/8/3N2p1/PP6/3PBP1q/2P1QP2/R4RK1 b - - 0 20",
+      "positionKey": "1k1r3r/ppp1ppbp/8/3N2p1/PP6/3PBP1q/2P1QP2/R4RK1 b - -",
+      "move": "g7a1",
+      "side": "black",
+      "selectedSide": "black",
+      "role": "user",
+      "deltaCp": -236,
+      "oracleDepth": 12,
+      "buildShas": [
+        "4ebc31b49d36a1e72b1dd33071d26019770af8d2"
+      ],
+      "gameIds": [
+        "game-mrwycwlm-svpx2whe"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "1k1rr3_ppp1Bp1p_8_P5p1_1P6_3P1P1q_2P1QP2_5RK1_b_-_-:e8e7",
+      "tier": "refuted-played",
+      "fen": "1k1rr3/ppp1Bp1p/8/P5p1/1P6/3P1P1q/2P1QP2/5RK1 b - - 0 24",
+      "positionKey": "1k1rr3/ppp1Bp1p/8/P5p1/1P6/3P1P1q/2P1QP2/5RK1 b - -",
+      "move": "e8e7",
+      "side": "black",
+      "selectedSide": "black",
+      "role": "user",
+      "deltaCp": -656,
+      "oracleDepth": 12,
+      "buildShas": [
+        "4ebc31b49d36a1e72b1dd33071d26019770af8d2"
+      ],
+      "gameIds": [
+        "game-mrwycwlm-svpx2whe"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "1k3r2_1pq4p_2p2pp1_3np3_Pb2N1P1_5Q1P_RP3P2_5RK1_w_-_-:f1d1",
+      "tier": "refuted-recommendation",
+      "fen": "1k3r2/1pq4p/2p2pp1/3np3/Pb2N1P1/5Q1P/RP3P2/5RK1 w - - 9 26",
+      "positionKey": "1k3r2/1pq4p/2p2pp1/3np3/Pb2N1P1/5Q1P/RP3P2/5RK1 w - -",
+      "move": "f1d1",
+      "side": "white",
+      "selectedSide": "white",
+      "role": "user",
+      "deltaCp": -159,
+      "oracleDepth": 12,
+      "buildShas": [
+        "3c5e0ed078157ce41cdce2f77e5c27926d8d0929"
+      ],
+      "gameIds": [
+        "game-ms0kk02g-z9k4kc0o"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "1k5r_1pq1n2p_2p2pp1_4p3_Pb4P1_2N1Q2P_RP3P2_5RK1_w_-_-:c3e4",
+      "tier": "refuted-recommendation",
+      "fen": "1k5r/1pq1n2p/2p2pp1/4p3/Pb4P1/2N1Q2P/RP3P2/5RK1 w - - 5 24",
+      "positionKey": "1k5r/1pq1n2p/2p2pp1/4p3/Pb4P1/2N1Q2P/RP3P2/5RK1 w - -",
+      "move": "c3e4",
+      "side": "white",
+      "selectedSide": "white",
+      "role": "user",
+      "deltaCp": -236,
+      "oracleDepth": 12,
+      "buildShas": [
+        "3c5e0ed078157ce41cdce2f77e5c27926d8d0929"
+      ],
+      "gameIds": [
+        "game-ms0kk02g-z9k4kc0o"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "1k6_1p2q2p_2p3p1_3npr2_Pb2N3_6QP_RP3P2_3R2K1_w_-_-:g1h1",
+      "tier": "refuted-recommendation",
+      "fen": "1k6/1p2q2p/2p3p1/3npr2/Pb2N3/6QP/RP3P2/3R2K1 w - - 2 29",
+      "positionKey": "1k6/1p2q2p/2p3p1/3npr2/Pb2N3/6QP/RP3P2/3R2K1 w - -",
+      "move": "g1h1",
+      "side": "white",
+      "selectedSide": "white",
+      "role": "user",
+      "deltaCp": -183,
+      "oracleDepth": 12,
+      "buildShas": [
+        "3c5e0ed078157ce41cdce2f77e5c27926d8d0929"
+      ],
+      "gameIds": [
+        "game-ms0kk02g-z9k4kc0o"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "1k6_1pb2q1p_2p3p1_2Nnp3_P7_1P3r1P_2R2PQ1_3R3K_b_-_-:d5f4",
+      "tier": "refuted-played",
+      "fen": "1k6/1pb2q1p/2p3p1/2Nnp3/P7/1P3r1P/2R2PQ1/3R3K b - - 6 33",
+      "positionKey": "1k6/1pb2q1p/2p3p1/2Nnp3/P7/1P3r1P/2R2PQ1/3R3K b - -",
+      "move": "d5f4",
+      "side": "black",
+      "selectedSide": "white",
+      "role": "user",
+      "deltaCp": -706,
+      "oracleDepth": 12,
+      "buildShas": [
+        "3c5e0ed078157ce41cdce2f77e5c27926d8d0929"
+      ],
+      "gameIds": [
+        "game-ms0kk02g-z9k4kc0o"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "1k6_1pb2q1p_2p3p1_3npr2_P3N3_1P4QP_2R2P2_3R3K_w_-_-:e4c5",
+      "tier": "refuted-recommendation",
+      "fen": "1k6/1pb2q1p/2p3p1/3npr2/P3N3/1P4QP/2R2P2/3R3K w - - 3 32",
+      "positionKey": "1k6/1pb2q1p/2p3p1/3npr2/P3N3/1P4QP/2R2P2/3R3K w - -",
+      "move": "e4c5",
+      "side": "white",
+      "selectedSide": "white",
+      "role": "user",
+      "deltaCp": -207,
+      "oracleDepth": 12,
+      "buildShas": [
+        "3c5e0ed078157ce41cdce2f77e5c27926d8d0929"
+      ],
+      "gameIds": [
+        "game-ms0kk02g-z9k4kc0o"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "1nkr2r1_1pp1pp1p_4qb2_BPPp4_3P2p1_4PN1P_3QBPP1_1R4K1_w_-_-:f3h2",
+      "tier": "refuted-played",
+      "fen": "1nkr2r1/1pp1pp1p/4qb2/BPPp4/3P2p1/4PN1P/3QBPP1/1R4K1 w - - 0 21",
+      "positionKey": "1nkr2r1/1pp1pp1p/4qb2/BPPp4/3P2p1/4PN1P/3QBPP1/1R4K1 w - -",
+      "move": "f3h2",
+      "side": "white",
+      "selectedSide": "black",
+      "role": "rival",
+      "deltaCp": -404,
+      "oracleDepth": 12,
+      "buildShas": [
+        "dadf79a8fc20cdf0aa91e3f227e6e81fefb5f989"
+      ],
+      "gameIds": [
+        "game-mtq7j1gd-am6skq2s"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "1q2k2r_1p2nppp_p3bn2_3p4_1Q6_P1P2P2_2P3PP_2K1RBNR_w_k_-:b4e7",
+      "tier": "refuted-recommendation",
+      "fen": "1q2k2r/1p2nppp/p3bn2/3p4/1Q6/P1P2P2/2P3PP/2K1RBNR w k - 2 18",
+      "positionKey": "1q2k2r/1p2nppp/p3bn2/3p4/1Q6/P1P2P2/2P3PP/2K1RBNR w k -",
+      "move": "b4e7",
+      "side": "white",
+      "selectedSide": "white",
+      "role": "user",
+      "deltaCp": -694,
+      "oracleDepth": 12,
+      "buildShas": [
+        "1ca0f40806f6762f9355cf12cc96a097f256b1ed"
+      ],
+      "gameIds": [
+        "game-ms8f86xh-h0bda8e4"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "1Q6_5pk1_2p3p1_1pbbN2p_4n2P_8_r5P1_6K1_w_-_-:g1f1",
+      "tier": "refuted-played",
+      "fen": "1Q6/5pk1/2p3p1/1pbbN2p/4n2P/8/r5P1/6K1 w - - 4 36",
+      "positionKey": "1Q6/5pk1/2p3p1/1pbbN2p/4n2P/8/r5P1/6K1 w - -",
+      "move": "g1f1",
+      "side": "white",
+      "selectedSide": "black",
+      "role": "rival",
+      "deltaCp": -99132,
+      "oracleDepth": 12,
+      "buildShas": [
+        "319aaf49c5c766c4e77fe594de53eda981d9b758"
+      ],
+      "gameIds": [
+        "game-mrp94zuk-u2j8n70s"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "1r2k1r1_pbppnp1p_1bn2P2_7q_Q7_B1PB1N2_P4PPP_3RR1K1_b_-_-:h5f3",
+      "tier": "refuted-played",
+      "fen": "1r2k1r1/pbppnp1p/1bn2P2/7q/Q7/B1PB1N2/P4PPP/3RR1K1 b - - 2 19",
+      "positionKey": "1r2k1r1/pbppnp1p/1bn2P2/7q/Q7/B1PB1N2/P4PPP/3RR1K1 b - -",
+      "move": "h5f3",
+      "side": "black",
+      "selectedSide": "white",
+      "role": "rival",
+      "deltaCp": -442,
+      "oracleDepth": 12,
+      "buildShas": [
+        "319aaf49c5c766c4e77fe594de53eda981d9b758"
+      ],
+      "gameIds": [
+        "game-mrp98cqf-xi244y2o"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "1r2k1r1_pbppRp1p_1bn2P2_8_Q7_B1PB1q2_P4PPP_3R2K1_b_-_-:c6e7",
+      "tier": "refuted-played",
+      "fen": "1r2k1r1/pbppRp1p/1bn2P2/8/Q7/B1PB1q2/P4PPP/3R2K1 b - - 0 20",
+      "positionKey": "1r2k1r1/pbppRp1p/1bn2P2/8/Q7/B1PB1q2/P4PPP/3R2K1 b - -",
+      "move": "c6e7",
+      "side": "black",
+      "selectedSide": "white",
+      "role": "rival",
+      "deltaCp": -99676,
+      "oracleDepth": 12,
+      "buildShas": [
+        "319aaf49c5c766c4e77fe594de53eda981d9b758"
+      ],
+      "gameIds": [
+        "game-mrp98cqf-xi244y2o"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "1r2k2r_p1q2ppp_2p5_2bb4_Q7_8_PP2NPPP_R1B1K2R_w_KQk_-:e1f1",
+      "tier": "refuted-recommendation",
+      "fen": "1r2k2r/p1q2ppp/2p5/2bb4/Q7/8/PP2NPPP/R1B1K2R w KQk - 0 14",
+      "positionKey": "1r2k2r/p1q2ppp/2p5/2bb4/Q7/8/PP2NPPP/R1B1K2R w KQk -",
+      "move": "e1f1",
+      "side": "white",
+      "selectedSide": "white",
+      "role": "user",
+      "deltaCp": -213,
+      "oracleDepth": 12,
+      "buildShas": [
+        "a2d290ba8c7353ca9f5601222269a2a24eed5a76"
+      ],
+      "gameIds": [
+        "game-mrz20j07-t8ohfcnh"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "1r3k1r_1p2b1p1_pq3nQp_2pP4_P7_3B1N1P_1P1B1PP1_3K3R_w_-_-:h1e1",
+      "tier": "refuted-recommendation",
+      "fen": "1r3k1r/1p2b1p1/pq3nQp/2pP4/P7/3B1N1P/1P1B1PP1/3K3R w - - 2 23",
+      "positionKey": "1r3k1r/1p2b1p1/pq3nQp/2pP4/P7/3B1N1P/1P1B1PP1/3K3R w - -",
+      "move": "h1e1",
+      "side": "white",
+      "selectedSide": "white",
+      "role": "user",
+      "deltaCp": -305,
+      "oracleDepth": 12,
+      "buildShas": [
+        "dadf79a8fc20cdf0aa91e3f227e6e81fefb5f989"
+      ],
+      "gameIds": [
+        "game-mtjh19zk-2t5fh0hv"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "1r3k1r_1p2b1p1_pq3nQp_2pP4_P7_3B1N1P_1P1B1PP1_3KR3_b_-_-:b8d8",
+      "tier": "refuted-played",
+      "fen": "1r3k1r/1p2b1p1/pq3nQp/2pP4/P7/3B1N1P/1P1B1PP1/3KR3 b - - 3 23",
+      "positionKey": "1r3k1r/1p2b1p1/pq3nQp/2pP4/P7/3B1N1P/1P1B1PP1/3KR3 b - -",
+      "move": "b8d8",
+      "side": "black",
+      "selectedSide": "white",
+      "role": "user",
+      "deltaCp": -403,
+      "oracleDepth": 12,
+      "buildShas": [
+        "dadf79a8fc20cdf0aa91e3f227e6e81fefb5f989"
+      ],
+      "gameIds": [
+        "game-mtjh19zk-2t5fh0hv"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "1r3k1r_2p2ppp_2Bbp3_3p1b2_3P4_P1P1PQqP_1B1N2P1_R4K1R_w_-_-:b2c1",
+      "tier": "refuted-played",
+      "fen": "1r3k1r/2p2ppp/2Bbp3/3p1b2/3P4/P1P1PQqP/1B1N2P1/R4K1R w - - 3 20",
+      "positionKey": "1r3k1r/2p2ppp/2Bbp3/3p1b2/3P4/P1P1PQqP/1B1N2P1/R4K1R w - -",
+      "move": "b2c1",
+      "side": "white",
+      "selectedSide": "black",
+      "role": "user",
+      "deltaCp": -635,
+      "oracleDepth": 12,
+      "buildShas": [
+        "dadf79a8fc20cdf0aa91e3f227e6e81fefb5f989"
+      ],
+      "gameIds": [
+        "game-mtjfpxtg-xrchxyfe"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "1r3k1r_2p2ppp_3bp3_3p2P1_3P3P_P1qbPQ2_3N1K2_2B4R_b_-_-:d3c4",
+      "tier": "refuted-recommendation",
+      "fen": "1r3k1r/2p2ppp/3bp3/3p2P1/3P3P/P1qbPQ2/3N1K2/2B4R b - - 0 27",
+      "positionKey": "1r3k1r/2p2ppp/3bp3/3p2P1/3P3P/P1qbPQ2/3N1K2/2B4R b - -",
+      "move": "d3c4",
+      "side": "black",
+      "selectedSide": "black",
+      "role": "user",
+      "deltaCp": -168,
+      "oracleDepth": 12,
+      "buildShas": [
+        "dadf79a8fc20cdf0aa91e3f227e6e81fefb5f989"
+      ],
+      "gameIds": [
+        "game-mtjfpxtg-xrchxyfe"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "1r4k1_1p4p1_3p3p_2p2p2_2b2P2_PqNBP3_1PR3PP_4K2R_w_K_-:d3f5",
+      "tier": "refuted-recommendation",
+      "fen": "1r4k1/1p4p1/3p3p/2p2p2/2b2P2/PqNBP3/1PR3PP/4K2R w K - 0 26",
+      "positionKey": "1r4k1/1p4p1/3p3p/2p2p2/2b2P2/PqNBP3/1PR3PP/4K2R w K -",
+      "move": "d3f5",
+      "side": "white",
+      "selectedSide": "white",
+      "role": "user",
+      "deltaCp": -162,
+      "oracleDepth": 12,
+      "buildShas": [
+        "ce576623a7f9672c281e287ec9d06f5624050192"
+      ],
+      "gameIds": [
+        "game-mtdd8yay-jnb4376i"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "1r4k1_q6p_2p1b1p1_1p1p1pP1_1R3P2_2QP2KP_r1B5_8_b_-_-:c6c5",
+      "tier": "refuted-played",
+      "fen": "1r4k1/q6p/2p1b1p1/1p1p1pP1/1R3P2/2QP2KP/r1B5/8 b - - 3 43",
+      "positionKey": "1r4k1/q6p/2p1b1p1/1p1p1pP1/1R3P2/2QP2KP/r1B5/8 b - -",
+      "move": "c6c5",
+      "side": "black",
+      "selectedSide": "white",
+      "role": "user",
+      "deltaCp": -437,
+      "oracleDepth": 12,
+      "buildShas": [
+        "5d3b057c624ef1912c121cf5eb234a3fd52e5d5e"
+      ],
+      "gameIds": [
+        "game-mtbul9ri-fedoie9o"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "1r4k1_q6p_2p1b1p1_1p1p1pP1_3R1P2_2QP2KP_r1B5_8_w_-_-:d4b4",
+      "tier": "refuted-recommendation",
+      "fen": "1r4k1/q6p/2p1b1p1/1p1p1pP1/3R1P2/2QP2KP/r1B5/8 w - - 2 43",
+      "positionKey": "1r4k1/q6p/2p1b1p1/1p1p1pP1/3R1P2/2QP2KP/r1B5/8 w - -",
+      "move": "d4b4",
+      "side": "white",
+      "selectedSide": "white",
+      "role": "user",
+      "deltaCp": -227,
+      "oracleDepth": 12,
+      "buildShas": [
+        "5d3b057c624ef1912c121cf5eb234a3fd52e5d5e"
+      ],
+      "gameIds": [
+        "game-mtbul9ri-fedoie9o"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "1r5Q_3k3p_1q2b1p1_2p2pP1_3p1P2_1p1P3P_7K_1B6_w_-_-:h8e5",
+      "tier": "refuted-recommendation",
+      "fen": "1r5Q/3k3p/1q2b1p1/2p2pP1/3p1P2/1p1P3P/7K/1B6 w - - 8 52",
+      "positionKey": "1r5Q/3k3p/1q2b1p1/2p2pP1/3p1P2/1p1P3P/7K/1B6 w - -",
+      "move": "h8e5",
+      "side": "white",
+      "selectedSide": "white",
+      "role": "user",
+      "deltaCp": -174,
+      "oracleDepth": 12,
+      "buildShas": [
+        "5d3b057c624ef1912c121cf5eb234a3fd52e5d5e"
+      ],
+      "gameIds": [
+        "game-mtbul9ri-fedoie9o"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "1r6_3k3p_1q2b1p1_2p1QpP1_3p1P2_3P3P_1p4K1_1B6_b_-_-:b6a6",
+      "tier": "refuted-played",
+      "fen": "1r6/3k3p/1q2b1p1/2p1QpP1/3p1P2/3P3P/1p4K1/1B6 b - - 1 53",
+      "positionKey": "1r6/3k3p/1q2b1p1/2p1QpP1/3p1P2/3P3P/1p4K1/1B6 b - -",
+      "move": "b6a6",
+      "side": "black",
+      "selectedSide": "white",
+      "role": "user",
+      "deltaCp": -436,
+      "oracleDepth": 12,
+      "buildShas": [
+        "5d3b057c624ef1912c121cf5eb234a3fd52e5d5e"
+      ],
+      "gameIds": [
+        "game-mtbul9ri-fedoie9o"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "1r6_3k3p_1q2b1p1_2p1QpP1_3p1P2_3P3P_1p5K_1B6_w_-_-:h2g2",
+      "tier": "refuted-recommendation",
+      "fen": "1r6/3k3p/1q2b1p1/2p1QpP1/3p1P2/3P3P/1p5K/1B6 w - - 0 53",
+      "positionKey": "1r6/3k3p/1q2b1p1/2p1QpP1/3p1P2/3P3P/1p5K/1B6 w - -",
+      "move": "h2g2",
+      "side": "white",
+      "selectedSide": "white",
+      "role": "user",
+      "deltaCp": -159,
+      "oracleDepth": 12,
+      "buildShas": [
+        "5d3b057c624ef1912c121cf5eb234a3fd52e5d5e"
+      ],
+      "gameIds": [
+        "game-mtbul9ri-fedoie9o"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "1R6_5pkp_6p1_3q4_5Pn1_6P1_7P_6K1_w_-_-:h2h3",
+      "tier": "refuted-recommendation",
+      "fen": "1R6/5pkp/6p1/3q4/5Pn1/6P1/7P/6K1 w - - 3 50",
+      "positionKey": "1R6/5pkp/6p1/3q4/5Pn1/6P1/7P/6K1 w - -",
+      "move": "h2h3",
+      "side": "white",
+      "selectedSide": "white",
+      "role": "user",
+      "deltaCp": -99210,
+      "oracleDepth": 12,
+      "buildShas": [
+        "1ca0f40806f6762f9355cf12cc96a097f256b1ed"
+      ],
+      "gameIds": [
+        "game-ms8f86xh-h0bda8e4"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "1R6_5pkp_6p1_3q4_5Pn1_6PP_8_6K1_b_-_-:g4e3",
+      "tier": "refuted-played",
+      "fen": "1R6/5pkp/6p1/3q4/5Pn1/6PP/8/6K1 b - - 0 50",
+      "positionKey": "1R6/5pkp/6p1/3q4/5Pn1/6PP/8/6K1 b - -",
+      "move": "g4e3",
+      "side": "black",
+      "selectedSide": "white",
+      "role": "user",
+      "deltaCp": -99351,
+      "oracleDepth": 12,
+      "buildShas": [
+        "1ca0f40806f6762f9355cf12cc96a097f256b1ed"
+      ],
+      "gameIds": [
+        "game-ms8f86xh-h0bda8e4"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "1rk4r_2p3p1_p6p_3Q1R2_7P_6PK_PPP1q3_3R4_b_-_-:b8b2",
+      "tier": "refuted-recommendation",
+      "fen": "1rk4r/2p3p1/p6p/3Q1R2/7P/6PK/PPP1q3/3R4 b - - 4 27",
+      "positionKey": "1rk4r/2p3p1/p6p/3Q1R2/7P/6PK/PPP1q3/3R4 b - -",
+      "move": "b8b2",
+      "side": "black",
+      "selectedSide": "black",
+      "role": "user",
+      "deltaCp": -356,
+      "oracleDepth": 12,
+      "buildShas": [
+        "6a2270fc65784f4c772d180afec5b9bc1ad2f812"
+      ],
+      "gameIds": [
+        "game-mtqhhpju-pdncnae4"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "1rq1kb1r_3n1ppp_p5b1_4p3_8_4PP2_PPPQ2PP_R1B1KBNR_w_KQk_-:c2c4",
+      "tier": "refuted-recommendation",
+      "fen": "1rq1kb1r/3n1ppp/p5b1/4p3/8/4PP2/PPPQ2PP/R1B1KBNR w KQk - 1 14",
+      "positionKey": "1rq1kb1r/3n1ppp/p5b1/4p3/8/4PP2/PPPQ2PP/R1B1KBNR w KQk -",
+      "move": "c2c4",
+      "side": "white",
+      "selectedSide": "white",
+      "role": "user",
+      "deltaCp": -635,
+      "oracleDepth": 12,
+      "buildShas": [
+        "b5af33eea8e8fd08e846cd92763817c2a053d241"
+      ],
+      "gameIds": [
+        "game-mrwziiol-ji5jxvm6"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "2bk3r_6pp_8_2Q1p3_1n6_5P2_rP2P1PP_3RKB1R_b_K_-:d8e8",
+      "tier": "refuted-played",
+      "fen": "2bk3r/6pp/8/2Q1p3/1n6/5P2/rP2P1PP/3RKB1R b K - 1 19",
+      "positionKey": "2bk3r/6pp/8/2Q1p3/1n6/5P2/rP2P1PP/3RKB1R b K -",
+      "move": "d8e8",
+      "side": "black",
+      "selectedSide": "white",
+      "role": "user",
+      "deltaCp": -99018,
+      "oracleDepth": 12,
+      "buildShas": [
+        "1ca0f40806f6762f9355cf12cc96a097f256b1ed"
+      ],
+      "gameIds": [
+        "game-ms8e1bxq-0z1o8hmg"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "2k1r3_1ppb2b1_pqn5_3p1n2_1P1P1Np1_N1PB3r_PB1Q1P1P_2RK3R_b_-_-:h3h6",
+      "tier": "refuted-played",
+      "fen": "2k1r3/1ppb2b1/pqn5/3p1n2/1P1P1Np1/N1PB3r/PB1Q1P1P/2RK3R b - - 10 25",
+      "positionKey": "2k1r3/1ppb2b1/pqn5/3p1n2/1P1P1Np1/N1PB3r/PB1Q1P1P/2RK3R b - -",
+      "move": "h3h6",
+      "side": "black",
+      "selectedSide": "white",
+      "role": "rival",
+      "deltaCp": -471,
+      "oracleDepth": 12,
+      "buildShas": [
+        "319aaf49c5c766c4e77fe594de53eda981d9b758"
+      ],
+      "gameIds": [
+        "game-mroqpr5r-yoo9wa4f"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "2k1r3_1ppbn1b1_pqn5_3p4_1P1P2p1_N1PB3r_PB1QNP1P_2R1K2R_w_K_-:e2f4",
+      "tier": "refuted-recommendation",
+      "fen": "2k1r3/1ppbn1b1/pqn5/3p4/1P1P2p1/N1PB3r/PB1QNP1P/2R1K2R w K - 7 24",
+      "positionKey": "2k1r3/1ppbn1b1/pqn5/3p4/1P1P2p1/N1PB3r/PB1QNP1P/2R1K2R w K -",
+      "move": "e2f4",
+      "side": "white",
+      "selectedSide": "white",
+      "role": "user",
+      "deltaCp": -187,
+      "oracleDepth": 12,
+      "buildShas": [
+        "319aaf49c5c766c4e77fe594de53eda981d9b758"
+      ],
+      "gameIds": [
+        "game-mroqpr5r-yoo9wa4f"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "2k2b1r_ppp4p_2b1p3_4PpB1_6r1_2NB2K1_PPP4P_5R2_w_-_-:g3h3",
+      "tier": "refuted-played",
+      "fen": "2k2b1r/ppp4p/2b1p3/4PpB1/6r1/2NB2K1/PPP4P/5R2 w - - 1 20",
+      "positionKey": "2k2b1r/ppp4p/2b1p3/4PpB1/6r1/2NB2K1/PPP4P/5R2 w - -",
+      "move": "g3h3",
+      "side": "white",
+      "selectedSide": "black",
+      "role": "user",
+      "deltaCp": -99321,
+      "oracleDepth": 12,
+      "buildShas": [
+        "1ca0f40806f6762f9355cf12cc96a097f256b1ed"
+      ],
+      "gameIds": [
+        "game-ms753wpp-rvw9f95m"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "2k2b1r_ppp4p_2b1p3_4PpB1_6r1_2NB3K_PPP4P_5R2_b_-_-:f8h6",
+      "tier": "refuted-played",
+      "fen": "2k2b1r/ppp4p/2b1p3/4PpB1/6r1/2NB3K/PPP4P/5R2 b - - 2 20",
+      "positionKey": "2k2b1r/ppp4p/2b1p3/4PpB1/6r1/2NB3K/PPP4P/5R2 b - -",
+      "move": "f8h6",
+      "side": "black",
+      "selectedSide": "black",
+      "role": "user",
+      "deltaCp": -99426,
+      "oracleDepth": 12,
+      "buildShas": [
+        "1ca0f40806f6762f9355cf12cc96a097f256b1ed"
+      ],
+      "gameIds": [
+        "game-ms753wpp-rvw9f95m"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "2k3r1_p1p1b3_2p5_3p4_4p2P_2r3P1_4PP2_1R2KB2_b_-_-:a7a5",
+      "tier": "refuted-played",
+      "fen": "2k3r1/p1p1b3/2p5/3p4/4p2P/2r3P1/4PP2/1R2KB2 b - - 0 37",
+      "positionKey": "2k3r1/p1p1b3/2p5/3p4/4p2P/2r3P1/4PP2/1R2KB2 b - -",
+      "move": "a7a5",
+      "side": "black",
+      "selectedSide": "white",
+      "role": "user",
+      "deltaCp": -100614,
+      "oracleDepth": 12,
+      "buildShas": [
+        "9dbe0520c8e4ab3e15f611c2c3abcd49bff4e6a6"
+      ],
+      "gameIds": [
+        "game-mssh81xd-01vcu2ry"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "2k4r_2p3p1_p6p_3Q1R2_7P_6PK_PrP1q3_3R4_w_-_-:d5a8",
+      "tier": "refuted-played",
+      "fen": "2k4r/2p3p1/p6p/3Q1R2/7P/6PK/PrP1q3/3R4 w - - 0 28",
+      "positionKey": "2k4r/2p3p1/p6p/3Q1R2/7P/6PK/PrP1q3/3R4 w - -",
+      "move": "d5a8",
+      "side": "white",
+      "selectedSide": "black",
+      "role": "rival",
+      "deltaCp": -457,
+      "oracleDepth": 12,
+      "buildShas": [
+        "6a2270fc65784f4c772d180afec5b9bc1ad2f812"
+      ],
+      "gameIds": [
+        "game-mtqhhpju-pdncnae4"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "2kr1bnr_pp1n2pp_2p2pb1_q3p3_P3P1P1_2N1BN1P_1PP2P2_R2QKB1R_w_KQ_-:a1a2",
+      "tier": "refuted-recommendation",
+      "fen": "2kr1bnr/pp1n2pp/2p2pb1/q3p3/P3P1P1/2N1BN1P/1PP2P2/R2QKB1R w KQ - 1 12",
+      "positionKey": "2kr1bnr/pp1n2pp/2p2pb1/q3p3/P3P1P1/2N1BN1P/1PP2P2/R2QKB1R w KQ -",
+      "move": "a1a2",
+      "side": "white",
+      "selectedSide": "white",
+      "role": "user",
+      "deltaCp": -204,
+      "oracleDepth": 12,
+      "buildShas": [
+        "3c5e0ed078157ce41cdce2f77e5c27926d8d0929"
+      ],
+      "gameIds": [
+        "game-ms0kk02g-z9k4kc0o"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "2kr1bnr_ppp1pppp_8_1N1P4_4q3_8_PP1nBP1P_R2Q1K1R_w_-_-:d1d2",
+      "tier": "refuted-played",
+      "fen": "2kr1bnr/ppp1pppp/8/1N1P4/4q3/8/PP1nBP1P/R2Q1K1R w - - 0 14",
+      "positionKey": "2kr1bnr/ppp1pppp/8/1N1P4/4q3/8/PP1nBP1P/R2Q1K1R w - -",
+      "move": "d1d2",
+      "side": "white",
+      "selectedSide": "black",
+      "role": "user",
+      "deltaCp": -99506,
+      "oracleDepth": 12,
+      "buildShas": [
+        "f365d3b92821f94721b05eab15b0325d2b81aff3"
+      ],
+      "gameIds": [
+        "game-mrzqbndp-u7a11lff"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "2kr1bnr_Qpp1pppp_4b3_8_3P4_2NqB3_PP3PPP_R3K1NR_b_KQ_-:g7g5",
+      "tier": "refuted-recommendation",
+      "fen": "2kr1bnr/Qpp1pppp/4b3/8/3P4/2NqB3/PP3PPP/R3K1NR b KQ - 0 10",
+      "positionKey": "2kr1bnr/Qpp1pppp/4b3/8/3P4/2NqB3/PP3PPP/R3K1NR b KQ -",
+      "move": "g7g5",
+      "side": "black",
+      "selectedSide": "black",
+      "role": "user",
+      "deltaCp": -224,
+      "oracleDepth": 12,
+      "buildShas": [
+        "8a870bab6973c4e6617927f0030c19c97476a6fc"
+      ],
+      "gameIds": [
+        "game-mrpotqxy-ftpoycw8"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "2kr3r_1ppnqp2_p3p1pB_b2p2Qn_3P4_N1P1P2P_PP3P2_3RKBR1_b_-_-:d8g8",
+      "tier": "refuted-played",
+      "fen": "2kr3r/1ppnqp2/p3p1pB/b2p2Qn/3P4/N1P1P2P/PP3P2/3RKBR1 b - - 2 17",
+      "positionKey": "2kr3r/1ppnqp2/p3p1pB/b2p2Qn/3P4/N1P1P2P/PP3P2/3RKBR1 b - -",
+      "move": "d8g8",
+      "side": "black",
+      "selectedSide": "white",
+      "role": "user",
+      "deltaCp": -859,
+      "oracleDepth": 12,
+      "buildShas": [
+        "a2d290ba8c7353ca9f5601222269a2a24eed5a76"
+      ],
+      "gameIds": [
+        "game-mryhoy7e-zlcjazul"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "2kr3r_2p1p2p_5p1b_1pP2q2_3P2p1_QP2P1B1_P4PPP_R4RK1_b_-_-:f5d5",
+      "tier": "refuted-recommendation",
+      "fen": "2kr3r/2p1p2p/5p1b/1pP2q2/3P2p1/QP2P1B1/P4PPP/R4RK1 b - - 0 22",
+      "positionKey": "2kr3r/2p1p2p/5p1b/1pP2q2/3P2p1/QP2P1B1/P4PPP/R4RK1 b - -",
+      "move": "f5d5",
+      "side": "black",
+      "selectedSide": "black",
+      "role": "user",
+      "deltaCp": -206,
+      "oracleDepth": 12,
+      "buildShas": [
+        "dadf79a8fc20cdf0aa91e3f227e6e81fefb5f989"
+      ],
+      "gameIds": [
+        "game-mtpoq5kp-e4kn1bzo"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "2kr3r_2p1p2p_Q4p1b_1pPq4_3P2p1_1P2P1B1_P4PPP_R4RK1_b_-_-:c8b8",
+      "tier": "refuted-recommendation",
+      "fen": "2kr3r/2p1p2p/Q4p1b/1pPq4/3P2p1/1P2P1B1/P4PPP/R4RK1 b - - 2 23",
+      "positionKey": "2kr3r/2p1p2p/Q4p1b/1pPq4/3P2p1/1P2P1B1/P4PPP/R4RK1 b - -",
+      "move": "c8b8",
+      "side": "black",
+      "selectedSide": "black",
+      "role": "user",
+      "deltaCp": -400,
+      "oracleDepth": 12,
+      "buildShas": [
+        "dadf79a8fc20cdf0aa91e3f227e6e81fefb5f989"
+      ],
+      "gameIds": [
+        "game-mtpoq5kp-e4kn1bzo"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "2kr3r_ppp1npb1_1qn1b1p1_1N1p3p_1P1P2P1_2P1P2Q_P3BP1P_R1B1K1NR_w_KQ_-:c1b2",
+      "tier": "refuted-recommendation",
+      "fen": "2kr3r/ppp1npb1/1qn1b1p1/1N1p3p/1P1P2P1/2P1P2Q/P3BP1P/R1B1K1NR w KQ - 1 14",
+      "positionKey": "2kr3r/ppp1npb1/1qn1b1p1/1N1p3p/1P1P2P1/2P1P2Q/P3BP1P/R1B1K1NR w KQ -",
+      "move": "c1b2",
+      "side": "white",
+      "selectedSide": "white",
+      "role": "user",
+      "deltaCp": -246,
+      "oracleDepth": 12,
+      "buildShas": [
+        "319aaf49c5c766c4e77fe594de53eda981d9b758"
+      ],
+      "gameIds": [
+        "game-mroqpr5r-yoo9wa4f"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "2kr3r_ppp1npb1_2nqb1p1_3p3p_3P2P1_2N1P2Q_PPP1BP1P_R1B1K1NR_w_KQ_-:c3b5",
+      "tier": "refuted-recommendation",
+      "fen": "2kr3r/ppp1npb1/2nqb1p1/3p3p/3P2P1/2N1P2Q/PPP1BP1P/R1B1K1NR w KQ - 2 11",
+      "positionKey": "2kr3r/ppp1npb1/2nqb1p1/3p3p/3P2P1/2N1P2Q/PPP1BP1P/R1B1K1NR w KQ -",
+      "move": "c3b5",
+      "side": "white",
+      "selectedSide": "white",
+      "role": "user",
+      "deltaCp": -161,
+      "oracleDepth": 12,
+      "buildShas": [
+        "319aaf49c5c766c4e77fe594de53eda981d9b758"
+      ],
+      "gameIds": [
+        "game-mroqpr5r-yoo9wa4f"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "2kr4_1p2Qp1p_1p6_6p1_6q1_3P4_2P2P2_R4K2_b_-_-:f7f6",
+      "tier": "refuted-played",
+      "fen": "2kr4/1p2Qp1p/1p6/6p1/6q1/3P4/2P2P2/R4K2 b - - 3 36",
+      "positionKey": "2kr4/1p2Qp1p/1p6/6p1/6q1/3P4/2P2P2/R4K2 b - -",
+      "move": "f7f6",
+      "side": "black",
+      "selectedSide": "black",
+      "role": "user",
+      "deltaCp": -100000,
+      "oracleDepth": 12,
+      "buildShas": [
+        "4ebc31b49d36a1e72b1dd33071d26019770af8d2"
+      ],
+      "gameIds": [
+        "game-mrwycwlm-svpx2whe"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "2Q4r_4k1pp_8_4p3_1n6_5P2_rP2P1PP_3RKB1R_w_K_-:c8h8",
+      "tier": "refuted-recommendation",
+      "fen": "2Q4r/4k1pp/8/4p3/1n6/5P2/rP2P1PP/3RKB1R w K - 1 21",
+      "positionKey": "2Q4r/4k1pp/8/4p3/1n6/5P2/rP2P1PP/3RKB1R w K -",
+      "move": "c8h8",
+      "side": "white",
+      "selectedSide": "white",
+      "role": "user",
+      "deltaCp": -98983,
+      "oracleDepth": 12,
+      "buildShas": [
+        "1ca0f40806f6762f9355cf12cc96a097f256b1ed"
+      ],
+      "gameIds": [
+        "game-ms8e1bxq-0z1o8hmg"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "2Q5_8_8_5P2_P3K1k1_8_8_8_b_-_-:g4h3",
+      "tier": "refuted-recommendation",
+      "fen": "2Q5/8/8/5P2/P3K1k1/8/8/8 b - - 0 61",
+      "positionKey": "2Q5/8/8/5P2/P3K1k1/8/8/8 b - -",
+      "move": "g4h3",
+      "side": "black",
+      "selectedSide": "black",
+      "role": "user",
+      "deltaCp": -98712,
+      "oracleDepth": 12,
+      "buildShas": [
+        "1ca0f40806f6762f9355cf12cc96a097f256b1ed"
+      ],
+      "gameIds": [
+        "game-ms0s1xq5-8r3t5tw5"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "2Q5_8_8_5P2_P3K3_7k_8_8_w_-_-:a4a5",
+      "tier": "refuted-played",
+      "fen": "2Q5/8/8/5P2/P3K3/7k/8/8 w - - 1 62",
+      "positionKey": "2Q5/8/8/5P2/P3K3/7k/8/8 w - -",
+      "move": "a4a5",
+      "side": "white",
+      "selectedSide": "black",
+      "role": "user",
+      "deltaCp": -99014,
+      "oracleDepth": 12,
+      "buildShas": [
+        "1ca0f40806f6762f9355cf12cc96a097f256b1ed"
+      ],
+      "gameIds": [
+        "game-ms0s1xq5-8r3t5tw5",
+        "game-ms0s25g2-pg9f93b6"
+      ],
+      "occurrences": 2,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "2Q5_8_8_P4P2_4K2k_8_8_8_w_-_-:a5a6",
+      "tier": "refuted-played",
+      "fen": "2Q5/8/8/P4P2/4K2k/8/8/8 w - - 1 63",
+      "positionKey": "2Q5/8/8/P4P2/4K2k/8/8/8 w - -",
+      "move": "a5a6",
+      "side": "white",
+      "selectedSide": "black",
+      "role": "user",
+      "deltaCp": -99033,
+      "oracleDepth": 12,
+      "buildShas": [
+        "1ca0f40806f6762f9355cf12cc96a097f256b1ed"
+      ],
+      "gameIds": [
+        "game-ms0s1xq5-8r3t5tw5",
+        "game-ms0s25g2-pg9f93b6"
+      ],
+      "occurrences": 2,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "2Q5_8_8_P4P2_4K3_7k_8_8_b_-_-:h3h4",
+      "tier": "refuted-recommendation",
+      "fen": "2Q5/8/8/P4P2/4K3/7k/8/8 b - - 0 62",
+      "positionKey": "2Q5/8/8/P4P2/4K3/7k/8/8 b - -",
+      "move": "h3h4",
+      "side": "black",
+      "selectedSide": "black",
+      "role": "user",
+      "deltaCp": -98678,
+      "oracleDepth": 12,
+      "buildShas": [
+        "1ca0f40806f6762f9355cf12cc96a097f256b1ed"
+      ],
+      "gameIds": [
+        "game-ms0s1xq5-8r3t5tw5"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "2Q5_8_P7_5P2_4K2k_8_8_8_b_-_-:h4h5",
+      "tier": "refuted-recommendation",
+      "fen": "2Q5/8/P7/5P2/4K2k/8/8/8 b - - 0 63",
+      "positionKey": "2Q5/8/P7/5P2/4K2k/8/8/8 b - -",
+      "move": "h4h5",
+      "side": "black",
+      "selectedSide": "black",
+      "role": "user",
+      "deltaCp": -98967,
+      "oracleDepth": 12,
+      "buildShas": [
+        "1ca0f40806f6762f9355cf12cc96a097f256b1ed"
+      ],
+      "gameIds": [
+        "game-ms0s1xq5-8r3t5tw5",
+        "game-ms0s25g2-pg9f93b6"
+      ],
+      "occurrences": 2,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "2Qbk2r_p1p3p1_2pq3p_3p4_4p2P_P7_1rPBPPP1_3RKB1R_w_Kk_-:d2c3",
+      "tier": "refuted-recommendation",
+      "fen": "2Qbk2r/p1p3p1/2pq3p/3p4/4p2P/P7/1rPBPPP1/3RKB1R w Kk - 2 22",
+      "positionKey": "2Qbk2r/p1p3p1/2pq3p/3p4/4p2P/P7/1rPBPPP1/3RKB1R w Kk -",
+      "move": "d2c3",
+      "side": "white",
+      "selectedSide": "white",
+      "role": "user",
+      "deltaCp": -283,
+      "oracleDepth": 12,
+      "buildShas": [
+        "9dbe0520c8e4ab3e15f611c2c3abcd49bff4e6a6"
+      ],
+      "gameIds": [
+        "game-mssh81xd-01vcu2ry"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "2qkrb1r_Q1p1p1pp_2p5_3p1b2_3P1Bn1_5NP1_PPP2P1P_RN3RK1_w_-_-:f4c7",
+      "tier": "refuted-played",
+      "fen": "2qkrb1r/Q1p1p1pp/2p5/3p1b2/3P1Bn1/5NP1/PPP2P1P/RN3RK1 w - - 1 14",
+      "positionKey": "2qkrb1r/Q1p1p1pp/2p5/3p1b2/3P1Bn1/5NP1/PPP2P1P/RN3RK1 w - -",
+      "move": "f4c7",
+      "side": "white",
+      "selectedSide": "black",
+      "role": "user",
+      "deltaCp": -482,
+      "oracleDepth": 12,
+      "buildShas": [
+        "dadf79a8fc20cdf0aa91e3f227e6e81fefb5f989"
+      ],
+      "gameIds": [
+        "game-mtkzddnp-6r731w0a"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "2r1kb1r_pp2pppp_3P4_8_2PQ4_1b3BB1_q4PPP_5RK1_b_k_-:e7d6",
+      "tier": "refuted-recommendation",
+      "fen": "2r1kb1r/pp2pppp/3P4/8/2PQ4/1b3BB1/q4PPP/5RK1 b k - 0 18",
+      "positionKey": "2r1kb1r/pp2pppp/3P4/8/2PQ4/1b3BB1/q4PPP/5RK1 b k -",
+      "move": "e7d6",
+      "side": "black",
+      "selectedSide": "black",
+      "role": "user",
+      "deltaCp": -191,
+      "oracleDepth": 12,
+      "buildShas": [
+        "dadf79a8fc20cdf0aa91e3f227e6e81fefb5f989"
+      ],
+      "gameIds": [
+        "game-mtknzu2n-2d1kbpzb"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "2r1kbnr_4pbpp_Q2p1p2_B1pP4_4P3_1P3N2_P1P2PPP_1R2K2R_b_Kk_-:e8d7",
+      "tier": "refuted-played",
+      "fen": "2r1kbnr/4pbpp/Q2p1p2/B1pP4/4P3/1P3N2/P1P2PPP/1R2K2R b Kk - 0 17",
+      "positionKey": "2r1kbnr/4pbpp/Q2p1p2/B1pP4/4P3/1P3N2/P1P2PPP/1R2K2R b Kk -",
+      "move": "e8d7",
+      "side": "black",
+      "selectedSide": "white",
+      "role": "rival",
+      "deltaCp": -99158,
+      "oracleDepth": 12,
+      "buildShas": [
+        "bf8355661e5015942243e16d2373d39704048f10"
+      ],
+      "gameIds": [
+        "game-mtqprdj8-7v9r675k"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "2R5_5pkp_6p1_3q1n2_5P2_7P_5K2_8_b_-_-:d5d6",
+      "tier": "refuted-played",
+      "fen": "2R5/5pkp/6p1/3q1n2/5P2/7P/5K2/8 b - - 3 54",
+      "positionKey": "2R5/5pkp/6p1/3q1n2/5P2/7P/5K2/8 b - -",
+      "move": "d5d6",
+      "side": "black",
+      "selectedSide": "white",
+      "role": "user",
+      "deltaCp": -99223,
+      "oracleDepth": 12,
+      "buildShas": [
+        "1ca0f40806f6762f9355cf12cc96a097f256b1ed"
+      ],
+      "gameIds": [
+        "game-ms8f86xh-h0bda8e4"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "2R5_5pkp_6p1_5n2_5P2_3q3P_5K2_8_b_-_-:d3g3",
+      "tier": "refuted-played",
+      "fen": "2R5/5pkp/6p1/5n2/5P2/3q3P/5K2/8 b - - 7 56",
+      "positionKey": "2R5/5pkp/6p1/5n2/5P2/3q3P/5K2/8 b - -",
+      "move": "d3g3",
+      "side": "black",
+      "selectedSide": "white",
+      "role": "user",
+      "deltaCp": -99225,
+      "oracleDepth": 12,
+      "buildShas": [
+        "1ca0f40806f6762f9355cf12cc96a097f256b1ed"
+      ],
+      "gameIds": [
+        "game-ms8f86xh-h0bda8e4"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "2rk1B1r_pp1q1ppp_8_8_2PQ4_1b3B2_5PPP_4R1K1_w_-_-:d4d7",
+      "tier": "refuted-played",
+      "fen": "2rk1B1r/pp1q1ppp/8/8/2PQ4/1b3B2/5PPP/4R1K1 w - - 1 22",
+      "positionKey": "2rk1B1r/pp1q1ppp/8/8/2PQ4/1b3B2/5PPP/4R1K1 w - -",
+      "move": "d4d7",
+      "side": "white",
+      "selectedSide": "black",
+      "role": "user",
+      "deltaCp": -100157,
+      "oracleDepth": 12,
+      "buildShas": [
+        "dadf79a8fc20cdf0aa91e3f227e6e81fefb5f989"
+      ],
+      "gameIds": [
+        "game-mtknzu2n-2d1kbpzb"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "2rqk2r_4bppp_7n_2pp4_5P2_2N1QN1B_PPP1P3_R3K2R_w_KQk_-:h3d7",
+      "tier": "refuted-recommendation",
+      "fen": "2rqk2r/4bppp/7n/2pp4/5P2/2N1QN1B/PPP1P3/R3K2R w KQk - 0 16",
+      "positionKey": "2rqk2r/4bppp/7n/2pp4/5P2/2N1QN1B/PPP1P3/R3K2R w KQk -",
+      "move": "h3d7",
+      "side": "white",
+      "selectedSide": "white",
+      "role": "user",
+      "deltaCp": -387,
+      "oracleDepth": 12,
+      "buildShas": [
+        "a1d8a190bd8be666482a0fc57af4b5e8ddc56b0b"
+      ],
+      "gameIds": [
+        "game-mt2dgvx8-zp5693f5"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "3k2r1_p1p1b3_2p5_q2p3Q_3Bp2P_2r5_4PPP1_3RKB2_w_-_-:h5e5",
+      "tier": "refuted-recommendation",
+      "fen": "3k2r1/p1p1b3/2p5/q2p3Q/3Bp2P/2r5/4PPP1/3RKB2 w - - 4 33",
+      "positionKey": "3k2r1/p1p1b3/2p5/q2p3Q/3Bp2P/2r5/4PPP1/3RKB2 w - -",
+      "move": "h5e5",
+      "side": "white",
+      "selectedSide": "white",
+      "role": "user",
+      "deltaCp": -318,
+      "oracleDepth": 12,
+      "buildShas": [
+        "9dbe0520c8e4ab3e15f611c2c3abcd49bff4e6a6"
+      ],
+      "gameIds": [
+        "game-mssh81xd-01vcu2ry"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "3k2r1_p1p1b3_2p5_q2pQ3_4p2P_2B5_2r1PPP1_3RKB2_b_-_-:a5c3",
+      "tier": "refuted-played",
+      "fen": "3k2r1/p1p1b3/2p5/q2pQ3/4p2P/2B5/2r1PPP1/3RKB2 b - - 7 34",
+      "positionKey": "3k2r1/p1p1b3/2p5/q2pQ3/4p2P/2B5/2r1PPP1/3RKB2 b - -",
+      "move": "a5c3",
+      "side": "black",
+      "selectedSide": "white",
+      "role": "user",
+      "deltaCp": -99434,
+      "oracleDepth": 12,
+      "buildShas": [
+        "9dbe0520c8e4ab3e15f611c2c3abcd49bff4e6a6"
+      ],
+      "gameIds": [
+        "game-mssh81xd-01vcu2ry"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "3kr3_1r2n2p_2p3b1_2B1R1p1_8_2N1R2P_PP4P1_K7_b_-_-:g6f5",
+      "tier": "refuted-recommendation",
+      "fen": "3kr3/1r2n2p/2p3b1/2B1R1p1/8/2N1R2P/PP4P1/K7 b - - 2 37",
+      "positionKey": "3kr3/1r2n2p/2p3b1/2B1R1p1/8/2N1R2P/PP4P1/K7 b - -",
+      "move": "g6f5",
+      "side": "black",
+      "selectedSide": "black",
+      "role": "user",
+      "deltaCp": -223,
+      "oracleDepth": 12,
+      "buildShas": [
+        "8a870bab6973c4e6617927f0030c19c97476a6fc"
+      ],
+      "gameIds": [
+        "game-mrpotqxy-ftpoycw8"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "3r1b1r_1kpn2pp_1p3n2_1N1ppp2_2P5_3P4_PP2PPPP_R1B1KB1R_w_KQ_-:c1d2",
+      "tier": "refuted-recommendation",
+      "fen": "3r1b1r/1kpn2pp/1p3n2/1N1ppp2/2P5/3P4/PP2PPPP/R1B1KB1R w KQ - 0 12",
+      "positionKey": "3r1b1r/1kpn2pp/1p3n2/1N1ppp2/2P5/3P4/PP2PPPP/R1B1KB1R w KQ -",
+      "move": "c1d2",
+      "side": "white",
+      "selectedSide": "white",
+      "role": "user",
+      "deltaCp": -167,
+      "oracleDepth": 12,
+      "buildShas": [
+        "dadf79a8fc20cdf0aa91e3f227e6e81fefb5f989"
+      ],
+      "gameIds": [
+        "game-mtq81tg7-bbqzcn1h"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "3r1r1k_1p3npp_B1b2pq1_P7_1Q2P3_5P2_1P3KPP_2R4R_w_-_-:a6b7",
+      "tier": "refuted-recommendation",
+      "fen": "3r1r1k/1p3npp/B1b2pq1/P7/1Q2P3/5P2/1P3KPP/2R4R w - - 1 27",
+      "positionKey": "3r1r1k/1p3npp/B1b2pq1/P7/1Q2P3/5P2/1P3KPP/2R4R w - -",
+      "move": "a6b7",
+      "side": "white",
+      "selectedSide": "white",
+      "role": "user",
+      "deltaCp": -175,
+      "oracleDepth": 12,
+      "buildShas": [
+        "731d56473cdcb790b338f1b96395cfae748562e9"
+      ],
+      "gameIds": [
+        "game-mt68gnry-4401w6kx"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "3r1r2_knQb1p2_1p2p1p1_4P2p_P1p1P3_3P4_1P2BPPP_R3K2R_b_-_-:c4d3",
+      "tier": "refuted-played",
+      "fen": "3r1r2/knQb1p2/1p2p1p1/4P2p/P1p1P3/3P4/1P2BPPP/R3K2R b - - 0 26",
+      "positionKey": "3r1r2/knQb1p2/1p2p1p1/4P2p/P1p1P3/3P4/1P2BPPP/R3K2R b - -",
+      "move": "c4d3",
+      "side": "black",
+      "selectedSide": "white",
+      "role": "user",
+      "deltaCp": -426,
+      "oracleDepth": 12,
+      "buildShas": [
+        "dadf79a8fc20cdf0aa91e3f227e6e81fefb5f989"
+      ],
+      "gameIds": [
+        "game-mtnso9ru-vheplxxq"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "3r1r2_knQb1p2_1p2p1p1_4P2p_P1p1P3_3p4_1PP1BPPP_R3K2R_w_-_-:c2d3",
+      "tier": "refuted-recommendation",
+      "fen": "3r1r2/knQb1p2/1p2p1p1/4P2p/P1p1P3/3p4/1PP1BPPP/R3K2R w - - 0 26",
+      "positionKey": "3r1r2/knQb1p2/1p2p1p1/4P2p/P1p1P3/3p4/1PP1BPPP/R3K2R w - -",
+      "move": "c2d3",
+      "side": "white",
+      "selectedSide": "white",
+      "role": "user",
+      "deltaCp": -99373,
+      "oracleDepth": 12,
+      "buildShas": [
+        "dadf79a8fc20cdf0aa91e3f227e6e81fefb5f989"
+      ],
+      "gameIds": [
+        "game-mtnso9ru-vheplxxq"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "3r1r2_knQb1p2_1p2p1p1_P3P2p_4P3_8_1P1KBPPP_R6R_b_-_-:b6b5",
+      "tier": "refuted-played",
+      "fen": "3r1r2/knQb1p2/1p2p1p1/P3P2p/4P3/8/1P1KBPPP/R6R b - - 0 28",
+      "positionKey": "3r1r2/knQb1p2/1p2p1p1/P3P2p/4P3/8/1P1KBPPP/R6R b - -",
+      "move": "b6b5",
+      "side": "black",
+      "selectedSide": "white",
+      "role": "user",
+      "deltaCp": -99227,
+      "oracleDepth": 12,
+      "buildShas": [
+        "dadf79a8fc20cdf0aa91e3f227e6e81fefb5f989"
+      ],
+      "gameIds": [
+        "game-mtnso9ru-vheplxxq"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "3r1r2_knQb1p2_1p2p1p1_P3P2p_4P3_8_1P1pBPPP_R3K2R_w_-_-:e1d2",
+      "tier": "refuted-recommendation",
+      "fen": "3r1r2/knQb1p2/1p2p1p1/P3P2p/4P3/8/1P1pBPPP/R3K2R w - - 0 28",
+      "positionKey": "3r1r2/knQb1p2/1p2p1p1/P3P2p/4P3/8/1P1pBPPP/R3K2R w - -",
+      "move": "e1d2",
+      "side": "white",
+      "selectedSide": "white",
+      "role": "user",
+      "deltaCp": -99269,
+      "oracleDepth": 12,
+      "buildShas": [
+        "dadf79a8fc20cdf0aa91e3f227e6e81fefb5f989"
+      ],
+      "gameIds": [
+        "game-mtnso9ru-vheplxxq"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "3r2k1_5pb1_2q1p1pp_R1P1P3_P2p1P2_3Q4_1r4PP_2R4K_w_-_-:c1c2",
+      "tier": "refuted-played",
+      "fen": "3r2k1/5pb1/2q1p1pp/R1P1P3/P2p1P2/3Q4/1r4PP/2R4K w - - 1 33",
+      "positionKey": "3r2k1/5pb1/2q1p1pp/R1P1P3/P2p1P2/3Q4/1r4PP/2R4K w - -",
+      "move": "c1c2",
+      "side": "white",
+      "selectedSide": "black",
+      "role": "user",
+      "deltaCp": -99567,
+      "oracleDepth": 12,
+      "buildShas": [
+        "dadf79a8fc20cdf0aa91e3f227e6e81fefb5f989"
+      ],
+      "gameIds": [
+        "game-mtkndpau-j2pzwl89"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "3r2k1_p1q2ppp_2p5_3r4_8_2Q5_PP3PPP_4RK1R_b_-_-:d5d3",
+      "tier": "refuted-played",
+      "fen": "3r2k1/p1q2ppp/2p5/3r4/8/2Q5/PP3PPP/4RK1R b - - 3 20",
+      "positionKey": "3r2k1/p1q2ppp/2p5/3r4/8/2Q5/PP3PPP/4RK1R b - -",
+      "move": "d5d3",
+      "side": "black",
+      "selectedSide": "white",
+      "role": "user",
+      "deltaCp": -536,
+      "oracleDepth": 12,
+      "buildShas": [
+        "a2d290ba8c7353ca9f5601222269a2a24eed5a76"
+      ],
+      "gameIds": [
+        "game-mrz20j07-t8ohfcnh"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "3r3k_3b3p_1p3Np1_2b1Pp2_3p1P2_8_PPP3PP_3RK2R_w_-_-:d1d3",
+      "tier": "refuted-recommendation",
+      "fen": "3r3k/3b3p/1p3Np1/2b1Pp2/3p1P2/8/PPP3PP/3RK2R w - - 3 28",
+      "positionKey": "3r3k/3b3p/1p3Np1/2b1Pp2/3p1P2/8/PPP3PP/3RK2R w - -",
+      "move": "d1d3",
+      "side": "white",
+      "selectedSide": "white",
+      "role": "user",
+      "deltaCp": -193,
+      "oracleDepth": 12,
+      "buildShas": [
+        "dadf79a8fc20cdf0aa91e3f227e6e81fefb5f989"
+      ],
+      "gameIds": [
+        "game-mtmdiw7m-5pv8mbhd"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "3r3r_1kpn2pp_1p1b1n2_1N2p3_4P3_8_PP1B1PPP_R3KB1R_w_KQ_-:f2f4",
+      "tier": "refuted-recommendation",
+      "fen": "3r3r/1kpn2pp/1p1b1n2/1N2p3/4P3/8/PP1B1PPP/R3KB1R w KQ - 1 16",
+      "positionKey": "3r3r/1kpn2pp/1p1b1n2/1N2p3/4P3/8/PP1B1PPP/R3KB1R w KQ -",
+      "move": "f2f4",
+      "side": "white",
+      "selectedSide": "white",
+      "role": "user",
+      "deltaCp": -242,
+      "oracleDepth": 12,
+      "buildShas": [
+        "dadf79a8fc20cdf0aa91e3f227e6e81fefb5f989"
+      ],
+      "gameIds": [
+        "game-mtq81tg7-bbqzcn1h"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "3r3r_1kpn2pp_1p3n2_1N2p3_1P1bPP2_8_P2B2PP_R3KB1R_w_KQ_-:a1c1",
+      "tier": "refuted-recommendation",
+      "fen": "3r3r/1kpn2pp/1p3n2/1N2p3/1P1bPP2/8/P2B2PP/R3KB1R w KQ - 1 18",
+      "positionKey": "3r3r/1kpn2pp/1p3n2/1N2p3/1P1bPP2/8/P2B2PP/R3KB1R w KQ -",
+      "move": "a1c1",
+      "side": "white",
+      "selectedSide": "white",
+      "role": "user",
+      "deltaCp": -218,
+      "oracleDepth": 12,
+      "buildShas": [
+        "dadf79a8fc20cdf0aa91e3f227e6e81fefb5f989"
+      ],
+      "gameIds": [
+        "game-mtq81tg7-bbqzcn1h"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "3r3r_1p2k3_1q2N2p_8_pb2NB2_1P5P_P3RRP1_5Q1K_b_-_-:e7e6",
+      "tier": "refuted-recommendation",
+      "fen": "3r3r/1p2k3/1q2N2p/8/pb2NB2/1P5P/P3RRP1/5Q1K b - - 0 24",
+      "positionKey": "3r3r/1p2k3/1q2N2p/8/pb2NB2/1P5P/P3RRP1/5Q1K b - -",
+      "move": "e7e6",
+      "side": "black",
+      "selectedSide": "black",
+      "role": "user",
+      "deltaCp": -277,
+      "oracleDepth": 12,
+      "buildShas": [
+        "dadf79a8fc20cdf0aa91e3f227e6e81fefb5f989"
+      ],
+      "gameIds": [
+        "game-mtnsxuf7-5jacrj6m"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "3r3r_1p6_1k5p_4R3_pb6_1P2q1NP_P1R3P1_3Q3K_w_-_-:e5e3",
+      "tier": "refuted-played",
+      "fen": "3r3r/1p6/1k5p/4R3/pb6/1P2q1NP/P1R3P1/3Q3K w - - 0 30",
+      "positionKey": "3r3r/1p6/1k5p/4R3/pb6/1P2q1NP/P1R3P1/3Q3K w - -",
+      "move": "e5e3",
+      "side": "white",
+      "selectedSide": "black",
+      "role": "user",
+      "deltaCp": -529,
+      "oracleDepth": 12,
+      "buildShas": [
+        "dadf79a8fc20cdf0aa91e3f227e6e81fefb5f989"
+      ],
+      "gameIds": [
+        "game-mtnsxuf7-5jacrj6m"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "3r3r_1p6_1q2k2p_8_pb2NB2_1P5P_P3RRP1_5Q1K_w_-_-:e4g3",
+      "tier": "refuted-played",
+      "fen": "3r3r/1p6/1q2k2p/8/pb2NB2/1P5P/P3RRP1/5Q1K w - - 0 25",
+      "positionKey": "3r3r/1p6/1q2k2p/8/pb2NB2/1P5P/P3RRP1/5Q1K w - -",
+      "move": "e4g3",
+      "side": "white",
+      "selectedSide": "black",
+      "role": "user",
+      "deltaCp": -506,
+      "oracleDepth": 12,
+      "buildShas": [
+        "dadf79a8fc20cdf0aa91e3f227e6e81fefb5f989"
+      ],
+      "gameIds": [
+        "game-mtnsxuf7-5jacrj6m"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "3r3r_1p6_1q2k2p_8_pb3B2_1P4NP_P3RRP1_5Q1K_b_-_-:e6d5",
+      "tier": "refuted-recommendation",
+      "fen": "3r3r/1p6/1q2k2p/8/pb3B2/1P4NP/P3RRP1/5Q1K b - - 1 25",
+      "positionKey": "3r3r/1p6/1q2k2p/8/pb3B2/1P4NP/P3RRP1/5Q1K b - -",
+      "move": "e6d5",
+      "side": "black",
+      "selectedSide": "black",
+      "role": "user",
+      "deltaCp": -303,
+      "oracleDepth": 12,
+      "buildShas": [
+        "dadf79a8fc20cdf0aa91e3f227e6e81fefb5f989"
+      ],
+      "gameIds": [
+        "game-mtnsxuf7-5jacrj6m"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "3r3r_1p6_1q5p_3k4_pb3B2_1P4NP_P3RRP1_5Q1K_w_-_-:f1d1",
+      "tier": "refuted-played",
+      "fen": "3r3r/1p6/1q5p/3k4/pb3B2/1P4NP/P3RRP1/5Q1K w - - 2 26",
+      "positionKey": "3r3r/1p6/1q5p/3k4/pb3B2/1P4NP/P3RRP1/5Q1K w - -",
+      "move": "f1d1",
+      "side": "white",
+      "selectedSide": "black",
+      "role": "user",
+      "deltaCp": -99277,
+      "oracleDepth": 12,
+      "buildShas": [
+        "dadf79a8fc20cdf0aa91e3f227e6e81fefb5f989"
+      ],
+      "gameIds": [
+        "game-mtnsxuf7-5jacrj6m"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "3r4_1p3pk1_4pp2_7p_p2P3P_Pr1K1NP1_5P2_1n1R4_w_-_-:d3c2",
+      "tier": "refuted-played",
+      "fen": "3r4/1p3pk1/4pp2/7p/p2P3P/Pr1K1NP1/5P2/1n1R4 w - - 4 38",
+      "positionKey": "3r4/1p3pk1/4pp2/7p/p2P3P/Pr1K1NP1/5P2/1n1R4 w - -",
+      "move": "d3c2",
+      "side": "white",
+      "selectedSide": "black",
+      "role": "user",
+      "deltaCp": -99105,
+      "oracleDepth": 12,
+      "buildShas": [
+        "1ca0f40806f6762f9355cf12cc96a097f256b1ed"
+      ],
+      "gameIds": [
+        "game-mscg4vks-2wg0wjiq"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "3R4_5ppk_7p_5P2_q7_1p6_3R2PP_7K_w_-_-:d2d4",
+      "tier": "refuted-recommendation",
+      "fen": "3R4/5ppk/7p/5P2/q7/1p6/3R2PP/7K w - - 0 36",
+      "positionKey": "3R4/5ppk/7p/5P2/q7/1p6/3R2PP/7K w - -",
+      "move": "d2d4",
+      "side": "white",
+      "selectedSide": "white",
+      "role": "user",
+      "deltaCp": -444,
+      "oracleDepth": 12,
+      "buildShas": [
+        "01c89ca328199cf30d57dcaff7f11500d912c4c5"
+      ],
+      "gameIds": [
+        "game-mrqlyff4-ms5xtxad"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "3r4_k1B4p_P1Q2p1b_8_3P2p1_8_1q3PPP_R5K1_w_-_-:a1c1",
+      "tier": "refuted-played",
+      "fen": "3r4/k1B4p/P1Q2p1b/8/3P2p1/8/1q3PPP/R5K1 w - - 3 39",
+      "positionKey": "3r4/k1B4p/P1Q2p1b/8/3P2p1/8/1q3PPP/R5K1 w - -",
+      "move": "a1c1",
+      "side": "white",
+      "selectedSide": "black",
+      "role": "rival",
+      "deltaCp": -447,
+      "oracleDepth": 12,
+      "buildShas": [
+        "dadf79a8fc20cdf0aa91e3f227e6e81fefb5f989"
+      ],
+      "gameIds": [
+        "game-mtpoq5kp-e4kn1bzo"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "3rk2r_1p4p1_1q2b2p_p6N_1b2NB2_1P5P_P3RRP1_5Q1K_b_k_-:a5a4",
+      "tier": "refuted-recommendation",
+      "fen": "3rk2r/1p4p1/1q2b2p/p6N/1b2NB2/1P5P/P3RRP1/5Q1K b k - 3 22",
+      "positionKey": "3rk2r/1p4p1/1q2b2p/p6N/1b2NB2/1P5P/P3RRP1/5Q1K b k -",
+      "move": "a5a4",
+      "side": "black",
+      "selectedSide": "black",
+      "role": "user",
+      "deltaCp": -289,
+      "oracleDepth": 12,
+      "buildShas": [
+        "dadf79a8fc20cdf0aa91e3f227e6e81fefb5f989"
+      ],
+      "gameIds": [
+        "game-mtnsxuf7-5jacrj6m"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "3rkb1r_1pp1pppp_2nq4_1B1p1b2_3P2n1_P1P1PN1P_1B1N1PP1_R2QK2R_b_KQ_-:g4e3",
+      "tier": "refuted-recommendation",
+      "fen": "3rkb1r/1pp1pppp/2nq4/1B1p1b2/3P2n1/P1P1PN1P/1B1N1PP1/R2QK2R b KQ - 0 13",
+      "positionKey": "3rkb1r/1pp1pppp/2nq4/1B1p1b2/3P2n1/P1P1PN1P/1B1N1PP1/R2QK2R b KQ -",
+      "move": "g4e3",
+      "side": "black",
+      "selectedSide": "black",
+      "role": "user",
+      "deltaCp": -154,
+      "oracleDepth": 12,
+      "buildShas": [
+        "dadf79a8fc20cdf0aa91e3f227e6e81fefb5f989"
+      ],
+      "gameIds": [
+        "game-mtjfpxtg-xrchxyfe"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "3rkb1r_p1p1ppp1_4b2p_q1p5_8_2P2NP1_P2BQPBP_R4RK1_b_k_-:e6a2",
+      "tier": "refuted-recommendation",
+      "fen": "3rkb1r/p1p1ppp1/4b2p/q1p5/8/2P2NP1/P2BQPBP/R4RK1 b k - 1 16",
+      "positionKey": "3rkb1r/p1p1ppp1/4b2p/q1p5/8/2P2NP1/P2BQPBP/R4RK1 b k -",
+      "move": "e6a2",
+      "side": "black",
+      "selectedSide": "black",
+      "role": "user",
+      "deltaCp": -249,
+      "oracleDepth": 12,
+      "buildShas": [
+        "03c92fae31516fbeac7a9c7359b38505e24b81a9"
+      ],
+      "gameIds": [
+        "game-mrx358uo-b441caz5"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "3rkb1r_p1p1pppp_2p1b3_q7_8_2P2NP1_P2BQP1P_R3KB1R_b_KQk_-:c6c5",
+      "tier": "refuted-recommendation",
+      "fen": "3rkb1r/p1p1pppp/2p1b3/q7/8/2P2NP1/P2BQP1P/R3KB1R b KQk - 2 14",
+      "positionKey": "3rkb1r/p1p1pppp/2p1b3/q7/8/2P2NP1/P2BQP1P/R3KB1R b KQk -",
+      "move": "c6c5",
+      "side": "black",
+      "selectedSide": "black",
+      "role": "user",
+      "deltaCp": -167,
+      "oracleDepth": 12,
+      "buildShas": [
+        "03c92fae31516fbeac7a9c7359b38505e24b81a9"
+      ],
+      "gameIds": [
+        "game-mrx358uo-b441caz5"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "3rkr2_3qb1QR_5p2_2p5_P4P2_2P2N2_2P1P3_R3K3_b_Q_-:f8f7",
+      "tier": "refuted-played",
+      "fen": "3rkr2/3qb1QR/5p2/2p5/P4P2/2P2N2/2P1P3/R3K3 b Q - 0 22",
+      "positionKey": "3rkr2/3qb1QR/5p2/2p5/P4P2/2P2N2/2P1P3/R3K3 b Q -",
+      "move": "f8f7",
+      "side": "black",
+      "selectedSide": "white",
+      "role": "user",
+      "deltaCp": -99625,
+      "oracleDepth": 12,
+      "buildShas": [
+        "a1d8a190bd8be666482a0fc57af4b5e8ddc56b0b"
+      ],
+      "gameIds": [
+        "game-mt2dgvx8-zp5693f5"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "4k1nr_1r5p_2p2pb1_2B1p3_7b_2N1R1NP_PP2R1P1_K7_b_-_-:h4g5",
+      "tier": "refuted-recommendation",
+      "fen": "4k1nr/1r5p/2p2pb1/2B1p3/7b/2N1R1NP/PP2R1P1/K7 b - - 3 32",
+      "positionKey": "4k1nr/1r5p/2p2pb1/2B1p3/7b/2N1R1NP/PP2R1P1/K7 b - -",
+      "move": "h4g5",
+      "side": "black",
+      "selectedSide": "black",
+      "role": "user",
+      "deltaCp": -163,
+      "oracleDepth": 12,
+      "buildShas": [
+        "8a870bab6973c4e6617927f0030c19c97476a6fc"
+      ],
+      "gameIds": [
+        "game-mrpotqxy-ftpoycw8"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "4k1nr_3r3p_1Bp2pb1_4p3_7b_2N1R1NP_PP2R1P1_K7_b_-_-:d7b7",
+      "tier": "refuted-recommendation",
+      "fen": "4k1nr/3r3p/1Bp2pb1/4p3/7b/2N1R1NP/PP2R1P1/K7 b - - 1 31",
+      "positionKey": "4k1nr/3r3p/1Bp2pb1/4p3/7b/2N1R1NP/PP2R1P1/K7 b - -",
+      "move": "d7b7",
+      "side": "black",
+      "selectedSide": "black",
+      "role": "user",
+      "deltaCp": -214,
+      "oracleDepth": 12,
+      "buildShas": [
+        "8a870bab6973c4e6617927f0030c19c97476a6fc"
+      ],
+      "gameIds": [
+        "game-mrpotqxy-ftpoycw8"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "4k1r1_p1p1b3_2p5_q2pQ3_3Bp2P_2r5_4PPP1_3RKB2_w_-_-:e5h5",
+      "tier": "refuted-recommendation",
+      "fen": "4k1r1/p1p1b3/2p5/q2pQ3/3Bp2P/2r5/4PPP1/3RKB2 w - - 2 32",
+      "positionKey": "4k1r1/p1p1b3/2p5/q2pQ3/3Bp2P/2r5/4PPP1/3RKB2 w - -",
+      "move": "e5h5",
+      "side": "white",
+      "selectedSide": "white",
+      "role": "user",
+      "deltaCp": -1034,
+      "oracleDepth": 12,
+      "buildShas": [
+        "9dbe0520c8e4ab3e15f611c2c3abcd49bff4e6a6"
+      ],
+      "gameIds": [
+        "game-mssh81xd-01vcu2ry"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "4kb1r_4p1pp_p7_1p6_3nK3_P2P1P2_2r4P_8_b_k_-:d4e2",
+      "tier": "refuted-recommendation",
+      "fen": "4kb1r/4p1pp/p7/1p6/3nK3/P2P1P2/2r4P/8 b k - 1 31",
+      "positionKey": "4kb1r/4p1pp/p7/1p6/3nK3/P2P1P2/2r4P/8 b k -",
+      "move": "d4e2",
+      "side": "black",
+      "selectedSide": "black",
+      "role": "user",
+      "deltaCp": -339,
+      "oracleDepth": 12,
+      "buildShas": [
+        "731d56473cdcb790b338f1b96395cfae748562e9"
+      ],
+      "gameIds": [
+        "game-mt6bbrdp-3wai3zbp"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "4kb1r_4p1pp_p7_3P4_2n2P2_r1K5_1p5P_8_w_k_-:c3c4",
+      "tier": "refuted-played",
+      "fen": "4kb1r/4p1pp/p7/3P4/2n2P2/r1K5/1p5P/8 w k - 0 41",
+      "positionKey": "4kb1r/4p1pp/p7/3P4/2n2P2/r1K5/1p5P/8 w k -",
+      "move": "c3c4",
+      "side": "white",
+      "selectedSide": "black",
+      "role": "user",
+      "deltaCp": -98501,
+      "oracleDepth": 12,
+      "buildShas": [
+        "731d56473cdcb790b338f1b96395cfae748562e9"
+      ],
+      "gameIds": [
+        "game-mt6bbrdp-3wai3zbp"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "4kb1r_p2B1ppp_4qn2_4p1B1_4P3_1Q6_PPP2PPP_2KR4_b_k_-:f6d7",
+      "tier": "refuted-played",
+      "fen": "4kb1r/p2B1ppp/4qn2/4p1B1/4P3/1Q6/PPP2PPP/2KR4 b k - 0 15",
+      "positionKey": "4kb1r/p2B1ppp/4qn2/4p1B1/4P3/1Q6/PPP2PPP/2KR4 b k -",
+      "move": "f6d7",
+      "side": "black",
+      "selectedSide": "white",
+      "role": "rival",
+      "deltaCp": -99732,
+      "oracleDepth": 12,
+      "buildShas": [
+        "319aaf49c5c766c4e77fe594de53eda981d9b758"
+      ],
+      "gameIds": [
+        "game-mrp9e07x-anoxa8uq"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "4kb1r_p2r1ppp_4qn2_1B2p1B1_4P3_1Q6_PPP2PPP_2KR4_w_k_-:b5d7",
+      "tier": "refuted-recommendation",
+      "fen": "4kb1r/p2r1ppp/4qn2/1B2p1B1/4P3/1Q6/PPP2PPP/2KR4 w k - 2 15",
+      "positionKey": "4kb1r/p2r1ppp/4qn2/1B2p1B1/4P3/1Q6/PPP2PPP/2KR4 w k -",
+      "move": "b5d7",
+      "side": "white",
+      "selectedSide": "white",
+      "role": "user",
+      "deltaCp": -346,
+      "oracleDepth": 12,
+      "buildShas": [
+        "319aaf49c5c766c4e77fe594de53eda981d9b758"
+      ],
+      "gameIds": [
+        "game-mrp9e07x-anoxa8uq"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "4kb1r_r1pn1pp1_2B1pn2_p7_3P1BP1_2N4P_P3N3_1R4K1_b_k_-:h8h3",
+      "tier": "refuted-recommendation",
+      "fen": "4kb1r/r1pn1pp1/2B1pn2/p7/3P1BP1/2N4P/P3N3/1R4K1 b k - 4 19",
+      "positionKey": "4kb1r/r1pn1pp1/2B1pn2/p7/3P1BP1/2N4P/P3N3/1R4K1 b k -",
+      "move": "h8h3",
+      "side": "black",
+      "selectedSide": "black",
+      "role": "user",
+      "deltaCp": -290,
+      "oracleDepth": 12,
+      "buildShas": [
+        "9dbe0520c8e4ab3e15f611c2c3abcd49bff4e6a6"
+      ],
+      "gameIds": [
+        "game-msshrvaj-dx9yrdrb"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "4kb2_r1pn1pp1_2B1pn2_p7_3P1BP1_2N4r_P3N3_1R4K1_w_-_-:b1b8",
+      "tier": "refuted-played",
+      "fen": "4kb2/r1pn1pp1/2B1pn2/p7/3P1BP1/2N4r/P3N3/1R4K1 w - - 0 20",
+      "positionKey": "4kb2/r1pn1pp1/2B1pn2/p7/3P1BP1/2N4r/P3N3/1R4K1 w - -",
+      "move": "b1b8",
+      "side": "white",
+      "selectedSide": "black",
+      "role": "user",
+      "deltaCp": -437,
+      "oracleDepth": 12,
+      "buildShas": [
+        "9dbe0520c8e4ab3e15f611c2c3abcd49bff4e6a6"
+      ],
+      "gameIds": [
+        "game-msshrvaj-dx9yrdrb"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "4N3_4R3_k1pB3p_6p1_8_1P1b3P_PK4P1_1n6_w_-_-:e8c7",
+      "tier": "refuted-played",
+      "fen": "4N3/4R3/k1pB3p/6p1/8/1P1b3P/PK4P1/1n6 w - - 4 53",
+      "positionKey": "4N3/4R3/k1pB3p/6p1/8/1P1b3P/PK4P1/1n6 w - -",
+      "move": "e8c7",
+      "side": "white",
+      "selectedSide": "black",
+      "role": "rival",
+      "deltaCp": -99254,
+      "oracleDepth": 12,
+      "buildShas": [
+        "8a870bab6973c4e6617927f0030c19c97476a6fc"
+      ],
+      "gameIds": [
+        "game-mrpotqxy-ftpoycw8"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "4N3_k3R3_2pB3p_6p1_8_1P1b3P_PK4P1_1n6_b_-_-:a7a6",
+      "tier": "refuted-recommendation",
+      "fen": "4N3/k3R3/2pB3p/6p1/8/1P1b3P/PK4P1/1n6 b - - 3 52",
+      "positionKey": "4N3/k3R3/2pB3p/6p1/8/1P1b3P/PK4P1/1n6 b - -",
+      "move": "a7a6",
+      "side": "black",
+      "selectedSide": "black",
+      "role": "user",
+      "deltaCp": -172,
+      "oracleDepth": 12,
+      "buildShas": [
+        "8a870bab6973c4e6617927f0030c19c97476a6fc"
+      ],
+      "gameIds": [
+        "game-mrpotqxy-ftpoycw8"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "4Q3_6pk_4pr1p_8_3PpB2_2P3PP_2q2PB1_5RK1_w_-_-:f1e1",
+      "tier": "refuted-recommendation",
+      "fen": "4Q3/6pk/4pr1p/8/3PpB2/2P3PP/2q2PB1/5RK1 w - - 0 36",
+      "positionKey": "4Q3/6pk/4pr1p/8/3PpB2/2P3PP/2q2PB1/5RK1 w - -",
+      "move": "f1e1",
+      "side": "white",
+      "selectedSide": "white",
+      "role": "user",
+      "deltaCp": -152,
+      "oracleDepth": 12,
+      "buildShas": [
+        "dadf79a8fc20cdf0aa91e3f227e6e81fefb5f989"
+      ],
+      "gameIds": [
+        "game-mtknqoxb-44fubcxi"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "4r1k1_2R2p1p_6pn_P7_4P3_1BB4P_5PP1_1K6_b_-_-:e8e4",
+      "tier": "refuted-played",
+      "fen": "4r1k1/2R2p1p/6pn/P7/4P3/1BB4P/5PP1/1K6 b - - 0 38",
+      "positionKey": "4r1k1/2R2p1p/6pn/P7/4P3/1BB4P/5PP1/1K6 b - -",
+      "move": "e8e4",
+      "side": "black",
+      "selectedSide": "white",
+      "role": "rival",
+      "deltaCp": -99207,
+      "oracleDepth": 12,
+      "buildShas": [
+        "6a2270fc65784f4c772d180afec5b9bc1ad2f812"
+      ],
+      "gameIds": [
+        "game-mtqj8puj-4gpasjyh"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "4r1k1_5q1p_2ppb1p1_1p3pP1_3R1P2_3P2KP_r1BQ4_8_w_-_-:d4b4",
+      "tier": "refuted-recommendation",
+      "fen": "4r1k1/5q1p/2ppb1p1/1p3pP1/3R1P2/3P2KP/r1BQ4/8 w - - 2 40",
+      "positionKey": "4r1k1/5q1p/2ppb1p1/1p3pP1/3R1P2/3P2KP/r1BQ4/8 w - -",
+      "move": "d4b4",
+      "side": "white",
+      "selectedSide": "white",
+      "role": "user",
+      "deltaCp": -158,
+      "oracleDepth": 12,
+      "buildShas": [
+        "5d3b057c624ef1912c121cf5eb234a3fd52e5d5e"
+      ],
+      "gameIds": [
+        "game-mtbul9ri-fedoie9o"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "4r1k1_r4ppp_1p1B2n1_p1p3PQ_4B2P_P6q_1PP1R3_2K1R3_b_-_-:f7f6",
+      "tier": "refuted-played",
+      "fen": "4r1k1/r4ppp/1p1B2n1/p1p3PQ/4B2P/P6q/1PP1R3/2K1R3 b - - 3 31",
+      "positionKey": "4r1k1/r4ppp/1p1B2n1/p1p3PQ/4B2P/P6q/1PP1R3/2K1R3 b - -",
+      "move": "f7f6",
+      "side": "black",
+      "selectedSide": "white",
+      "role": "user",
+      "deltaCp": -99496,
+      "oracleDepth": 12,
+      "buildShas": [
+        "cd4b7d21af79e8542c31f4445c97056a35018a4f"
+      ],
+      "gameIds": [
+        "game-mtqe17cz-un5ywbyy"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "4r1kr_5ppp_p4p2_1p1R4_2p3P1_7P_B5P1_2K5_b_-_-:c4c3",
+      "tier": "refuted-recommendation",
+      "fen": "4r1kr/5ppp/p4p2/1p1R4/2p3P1/7P/B5P1/2K5 b - - 0 28",
+      "positionKey": "4r1kr/5ppp/p4p2/1p1R4/2p3P1/7P/B5P1/2K5 b - -",
+      "move": "c4c3",
+      "side": "black",
+      "selectedSide": "black",
+      "role": "user",
+      "deltaCp": -164,
+      "oracleDepth": 12,
+      "buildShas": [
+        "bf8355661e5015942243e16d2373d39704048f10"
+      ],
+      "gameIds": [
+        "game-mtqpkwyj-xf0h29u0"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "4r2k_P5pp_5p2_8_3Qb3_5q2_1P5P_3R2K1_w_-_-:d1d2",
+      "tier": "refuted-recommendation",
+      "fen": "4r2k/P5pp/5p2/8/3Qb3/5q2/1P5P/3R2K1 w - - 0 38",
+      "positionKey": "4r2k/P5pp/5p2/8/3Qb3/5q2/1P5P/3R2K1 w - -",
+      "move": "d1d2",
+      "side": "white",
+      "selectedSide": "white",
+      "role": "user",
+      "deltaCp": -99220,
+      "oracleDepth": 12,
+      "buildShas": [
+        "731d56473cdcb790b338f1b96395cfae748562e9"
+      ],
+      "gameIds": [
+        "game-mt68gnry-4401w6kx"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "4r2k_P5pp_5p2_8_3Qb3_8_1P1R3q_5K2_b_-_-:h2f4",
+      "tier": "refuted-played",
+      "fen": "4r2k/P5pp/5p2/8/3Qb3/8/1P1R3q/5K2 b - - 1 40",
+      "positionKey": "4r2k/P5pp/5p2/8/3Qb3/8/1P1R3q/5K2 b - -",
+      "move": "h2f4",
+      "side": "black",
+      "selectedSide": "white",
+      "role": "user",
+      "deltaCp": -99534,
+      "oracleDepth": 12,
+      "buildShas": [
+        "731d56473cdcb790b338f1b96395cfae748562e9"
+      ],
+      "gameIds": [
+        "game-mt68gnry-4401w6kx"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "4r2k_P6p_5p2_6p1_4b3_8_1P1R1K2_8_w_-_-:d2e2",
+      "tier": "refuted-recommendation",
+      "fen": "4r2k/P6p/5p2/6p1/4b3/8/1P1R1K2/8 w - - 0 43",
+      "positionKey": "4r2k/P6p/5p2/6p1/4b3/8/1P1R1K2/8 w - -",
+      "move": "d2e2",
+      "side": "white",
+      "selectedSide": "white",
+      "role": "user",
+      "deltaCp": -189,
+      "oracleDepth": 12,
+      "buildShas": [
+        "731d56473cdcb790b338f1b96395cfae748562e9"
+      ],
+      "gameIds": [
+        "game-mt68gnry-4401w6kx"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "4rb2_p4Qpk_1p1pqp1p_2p5_8_4B3_PPPRPPPP_2K2B1R_w_-_-:f7a7",
+      "tier": "refuted-recommendation",
+      "fen": "4rb2/p4Qpk/1p1pqp1p/2p5/8/4B3/PPPRPPPP/2K2B1R w - - 6 23",
+      "positionKey": "4rb2/p4Qpk/1p1pqp1p/2p5/8/4B3/PPPRPPPP/2K2B1R w - -",
+      "move": "f7a7",
+      "side": "white",
+      "selectedSide": "white",
+      "role": "user",
+      "deltaCp": -161,
+      "oracleDepth": 12,
+      "buildShas": [
+        "bf8355661e5015942243e16d2373d39704048f10"
+      ],
+      "gameIds": [
+        "game-mtqqan0e-fwhf5afz"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "4rb2_p5pk_1p1p1p1p_2pQq3_8_4B3_PPPRPPPP_2K2B1R_w_-_-:d5f7",
+      "tier": "refuted-recommendation",
+      "fen": "4rb2/p5pk/1p1p1p1p/2pQq3/8/4B3/PPPRPPPP/2K2B1R w - - 4 22",
+      "positionKey": "4rb2/p5pk/1p1p1p1p/2pQq3/8/4B3/PPPRPPPP/2K2B1R w - -",
+      "move": "d5f7",
+      "side": "white",
+      "selectedSide": "white",
+      "role": "user",
+      "deltaCp": -164,
+      "oracleDepth": 12,
+      "buildShas": [
+        "bf8355661e5015942243e16d2373d39704048f10"
+      ],
+      "gameIds": [
+        "game-mtqqan0e-fwhf5afz"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "4rrk1_ppp3pp_5n2_8_5q2_3Q4_P1P1BPPP_1R2K1R1_w_-_-:b1b7",
+      "tier": "refuted-recommendation",
+      "fen": "4rrk1/ppp3pp/5n2/8/5q2/3Q4/P1P1BPPP/1R2K1R1 w - - 2 20",
+      "positionKey": "4rrk1/ppp3pp/5n2/8/5q2/3Q4/P1P1BPPP/1R2K1R1 w - -",
+      "move": "b1b7",
+      "side": "white",
+      "selectedSide": "white",
+      "role": "user",
+      "deltaCp": -336,
+      "oracleDepth": 12,
+      "buildShas": [
+        "bf8355661e5015942243e16d2373d39704048f10"
+      ],
+      "gameIds": [
+        "game-mtqpcbf1-m2nceqmp"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "5k1r_2p2ppp_3bp2P_3p2P1_2bP4_P3PQ2_3q4_6KR_b_-_-:g7h6",
+      "tier": "refuted-recommendation",
+      "fen": "5k1r/2p2ppp/3bp2P/3p2P1/2bP4/P3PQ2/3q4/6KR b - - 1 31",
+      "positionKey": "5k1r/2p2ppp/3bp2P/3p2P1/2bP4/P3PQ2/3q4/6KR b - -",
+      "move": "g7h6",
+      "side": "black",
+      "selectedSide": "black",
+      "role": "user",
+      "deltaCp": -164,
+      "oracleDepth": 12,
+      "buildShas": [
+        "dadf79a8fc20cdf0aa91e3f227e6e81fefb5f989"
+      ],
+      "gameIds": [
+        "game-mtjfpxtg-xrchxyfe"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "5k2_4R1R1_p1p5_4p2p_4P3_2N1PP1P_P6r_3K4_w_-_-:g7h7",
+      "tier": "refuted-played",
+      "fen": "5k2/4R1R1/p1p5/4p2p/4P3/2N1PP1P/P6r/3K4 w - - 9 31",
+      "positionKey": "5k2/4R1R1/p1p5/4p2p/4P3/2N1PP1P/P6r/3K4 w - -",
+      "move": "g7h7",
+      "side": "white",
+      "selectedSide": "white",
+      "role": "user",
+      "deltaCp": -99242,
+      "oracleDepth": 12,
+      "buildShas": [
+        "47293aefc49847860f0f835310d03ee9f7346ff8"
+      ],
+      "gameIds": [
+        "game-mtdme0p3-pkte8ybd"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "5k2_4R2R_p1p5_4p2p_4P3_4Pr2_P3N3_3K4_w_-_-:e7e5",
+      "tier": "refuted-recommendation",
+      "fen": "5k2/4R2R/p1p5/4p2p/4P3/4Pr2/P3N3/3K4 w - - 0 33",
+      "positionKey": "5k2/4R2R/p1p5/4p2p/4P3/4Pr2/P3N3/3K4 w - -",
+      "move": "e7e5",
+      "side": "white",
+      "selectedSide": "white",
+      "role": "user",
+      "deltaCp": -154,
+      "oracleDepth": 12,
+      "buildShas": [
+        "47293aefc49847860f0f835310d03ee9f7346ff8"
+      ],
+      "gameIds": [
+        "game-mtdme0p3-pkte8ybd"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "5k2_7R_p1p5_4R2p_4PN2_4r3_P7_3K4_b_-_-:e3a3",
+      "tier": "refuted-played",
+      "fen": "5k2/7R/p1p5/4R2p/4PN2/4r3/P7/3K4 b - - 1 34",
+      "positionKey": "5k2/7R/p1p5/4R2p/4PN2/4r3/P7/3K4 b - -",
+      "move": "e3a3",
+      "side": "black",
+      "selectedSide": "white",
+      "role": "user",
+      "deltaCp": -99320,
+      "oracleDepth": 12,
+      "buildShas": [
+        "47293aefc49847860f0f835310d03ee9f7346ff8"
+      ],
+      "gameIds": [
+        "game-mtdme0p3-pkte8ybd"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "5rk1_1pp5_p1n1p3_P2p2pp_1P1Pq3_2P1P1PP_3Q2N1_5RK1_b_-_-:f8f3",
+      "tier": "refuted-recommendation",
+      "fen": "5rk1/1pp5/p1n1p3/P2p2pp/1P1Pq3/2P1P1PP/3Q2N1/5RK1 b - - 1 25",
+      "positionKey": "5rk1/1pp5/p1n1p3/P2p2pp/1P1Pq3/2P1P1PP/3Q2N1/5RK1 b - -",
+      "move": "f8f3",
+      "side": "black",
+      "selectedSide": "black",
+      "role": "user",
+      "deltaCp": -196,
+      "oracleDepth": 12,
+      "buildShas": [
+        "dadf79a8fc20cdf0aa91e3f227e6e81fefb5f989"
+      ],
+      "gameIds": [
+        "game-mtjg0ngb-3swlh9zv"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "5rk1_p1R3p1_Q3prqp_3p1p2_3P1B2_2P3P1_2P1PPBP_4K2R_w_K_-:e1g1",
+      "tier": "refuted-recommendation",
+      "fen": "5rk1/p1R3p1/Q3prqp/3p1p2/3P1B2/2P3P1/2P1PPBP/4K2R w K - 2 26",
+      "positionKey": "5rk1/p1R3p1/Q3prqp/3p1p2/3P1B2/2P3P1/2P1PPBP/4K2R w K -",
+      "move": "e1g1",
+      "side": "white",
+      "selectedSide": "white",
+      "role": "user",
+      "deltaCp": -222,
+      "oracleDepth": 12,
+      "buildShas": [
+        "dadf79a8fc20cdf0aa91e3f227e6e81fefb5f989"
+      ],
+      "gameIds": [
+        "game-mtknqoxb-44fubcxi"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "6k1_1b3ppp_pb2p3_1p2P3_1P2BPnP_P1r5_1B1rQ2P_R4R1K_w_-_-:e2d2",
+      "tier": "refuted-played",
+      "fen": "6k1/1b3ppp/pb2p3/1p2P3/1P2BPnP/P1r5/1B1rQ2P/R4R1K w - - 1 24",
+      "positionKey": "6k1/1b3ppp/pb2p3/1p2P3/1P2BPnP/P1r5/1B1rQ2P/R4R1K w - -",
+      "move": "e2d2",
+      "side": "white",
+      "selectedSide": "black",
+      "role": "rival",
+      "deltaCp": -99090,
+      "oracleDepth": 12,
+      "buildShas": [
+        "319aaf49c5c766c4e77fe594de53eda981d9b758"
+      ],
+      "gameIds": [
+        "game-mrp9b90r-7wttu1a0"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "6k1_1pp5_p1n1p1r1_P2p3p_1P1P1R2_2P1P3_3Q2NK_1q6_w_-_-:g2h4",
+      "tier": "refuted-played",
+      "fen": "6k1/1pp5/p1n1p1r1/P2p3p/1P1P1R2/2P1P3/3Q2NK/1q6 w - - 4 30",
+      "positionKey": "6k1/1pp5/p1n1p1r1/P2p3p/1P1P1R2/2P1P3/3Q2NK/1q6 w - -",
+      "move": "g2h4",
+      "side": "white",
+      "selectedSide": "black",
+      "role": "user",
+      "deltaCp": -100368,
+      "oracleDepth": 12,
+      "buildShas": [
+        "dadf79a8fc20cdf0aa91e3f227e6e81fefb5f989"
+      ],
+      "gameIds": [
+        "game-mtjg0ngb-3swlh9zv"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "6k1_1pp5_p1n1p3_P2p2rp_1P1P1R2_2P1P3_3Q2NK_1q6_b_-_-:g5g6",
+      "tier": "refuted-recommendation",
+      "fen": "6k1/1pp5/p1n1p3/P2p2rp/1P1P1R2/2P1P3/3Q2NK/1q6 b - - 3 29",
+      "positionKey": "6k1/1pp5/p1n1p3/P2p2rp/1P1P1R2/2P1P3/3Q2NK/1q6 b - -",
+      "move": "g5g6",
+      "side": "black",
+      "selectedSide": "black",
+      "role": "user",
+      "deltaCp": -428,
+      "oracleDepth": 12,
+      "buildShas": [
+        "dadf79a8fc20cdf0aa91e3f227e6e81fefb5f989"
+      ],
+      "gameIds": [
+        "game-mtjg0ngb-3swlh9zv"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "6k1_3R2b1_p1p3R1_4p2p_4P3_2N1PP1P_Pr2K3_8_w_-_-:e2d1",
+      "tier": "refuted-recommendation",
+      "fen": "6k1/3R2b1/p1p3R1/4p2p/4P3/2N1PP1P/Pr2K3/8 w - - 0 25",
+      "positionKey": "6k1/3R2b1/p1p3R1/4p2p/4P3/2N1PP1P/Pr2K3/8 w - -",
+      "move": "e2d1",
+      "side": "white",
+      "selectedSide": "white",
+      "role": "user",
+      "deltaCp": -156,
+      "oracleDepth": 12,
+      "buildShas": [
+        "47293aefc49847860f0f835310d03ee9f7346ff8"
+      ],
+      "gameIds": [
+        "game-mtdme0p3-pkte8ybd"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "6k1_5ppp_p5P1_8_2P1P3_1P6_P2B4_2N1KRq1_b_-_-:g1g4",
+      "tier": "refuted-played",
+      "fen": "6k1/5ppp/p5P1/8/2P1P3/1P6/P2B4/2N1KRq1 b - - 5 35",
+      "positionKey": "6k1/5ppp/p5P1/8/2P1P3/1P6/P2B4/2N1KRq1 b - -",
+      "move": "g1g4",
+      "side": "black",
+      "selectedSide": "white",
+      "role": "user",
+      "deltaCp": -99935,
+      "oracleDepth": 12,
+      "buildShas": [
+        "b5af33eea8e8fd08e846cd92763817c2a053d241"
+      ],
+      "gameIds": [
+        "game-mrwziiol-ji5jxvm6"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "6k1_7p_p7_3r2pR_b3P3_P4P2_5KP1_5B2_b_-_-:d5b5",
+      "tier": "refuted-played",
+      "fen": "6k1/7p/p7/3r2pR/b3P3/P4P2/5KP1/5B2 b - - 0 32",
+      "positionKey": "6k1/7p/p7/3r2pR/b3P3/P4P2/5KP1/5B2 b - -",
+      "move": "d5b5",
+      "side": "black",
+      "selectedSide": "white",
+      "role": "user",
+      "deltaCp": -426,
+      "oracleDepth": 12,
+      "buildShas": [
+        "dadf79a8fc20cdf0aa91e3f227e6e81fefb5f989"
+      ],
+      "gameIds": [
+        "game-mtkyz3rj-uvbjy3ou"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "6kr_4n2p_1N1rpp2_3p2p1_3B4_3B4_PPP2PPP_R3K2R_w_KQ_-:b6d5",
+      "tier": "refuted-recommendation",
+      "fen": "6kr/4n2p/1N1rpp2/3p2p1/3B4/3B4/PPP2PPP/R3K2R w KQ - 0 20",
+      "positionKey": "6kr/4n2p/1N1rpp2/3p2p1/3B4/3B4/PPP2PPP/R3K2R w KQ -",
+      "move": "b6d5",
+      "side": "white",
+      "selectedSide": "white",
+      "role": "user",
+      "deltaCp": -179,
+      "oracleDepth": 12,
+      "buildShas": [
+        "9dbe0520c8e4ab3e15f611c2c3abcd49bff4e6a6"
+      ],
+      "gameIds": [
+        "game-msshipyg-w2g1xh3q"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "6kr_5pp1_5p2_K6p_6P1_2r4P_B1p3P1_8_w_-_-:g4h5",
+      "tier": "refuted-played",
+      "fen": "6kr/5pp1/5p2/K6p/6P1/2r4P/B1p3P1/8 w - - 0 35",
+      "positionKey": "6kr/5pp1/5p2/K6p/6P1/2r4P/B1p3P1/8 w - -",
+      "move": "g4h5",
+      "side": "white",
+      "selectedSide": "black",
+      "role": "rival",
+      "deltaCp": -99006,
+      "oracleDepth": 12,
+      "buildShas": [
+        "bf8355661e5015942243e16d2373d39704048f10"
+      ],
+      "gameIds": [
+        "game-mtqpkwyj-xf0h29u0"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "6nr_p1p2kpp_4p3_3pq3_Q7_3P2P1_Pr1K1PBP_R7_w_-_-:d2d1",
+      "tier": "refuted-played",
+      "fen": "6nr/p1p2kpp/4p3/3pq3/Q7/3P2P1/Pr1K1PBP/R7 w - - 1 22",
+      "positionKey": "6nr/p1p2kpp/4p3/3pq3/Q7/3P2P1/Pr1K1PBP/R7 w - -",
+      "move": "d2d1",
+      "side": "white",
+      "selectedSide": "black",
+      "role": "user",
+      "deltaCp": -99033,
+      "oracleDepth": 12,
+      "buildShas": [
+        "f365d3b92821f94721b05eab15b0325d2b81aff3"
+      ],
+      "gameIds": [
+        "game-mrzq8ekz-ssltv0nk"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "7Q_4k1pp_8_4p3_1n6_5P2_rP2P1PP_3RKB1R_b_K_-:a2b2",
+      "tier": "refuted-played",
+      "fen": "7Q/4k1pp/8/4p3/1n6/5P2/rP2P1PP/3RKB1R b K - 0 21",
+      "positionKey": "7Q/4k1pp/8/4p3/1n6/5P2/rP2P1PP/3RKB1R b K -",
+      "move": "a2b2",
+      "side": "black",
+      "selectedSide": "white",
+      "role": "user",
+      "deltaCp": -98997,
+      "oracleDepth": 12,
+      "buildShas": [
+        "1ca0f40806f6762f9355cf12cc96a097f256b1ed"
+      ],
+      "gameIds": [
+        "game-ms8e1bxq-0z1o8hmg"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "7r_1p6_1k5p_8_pb6_1P2R1NP_P1R3PK_3r4_b_-_-:a4b3",
+      "tier": "refuted-recommendation",
+      "fen": "7r/1p6/1k5p/8/pb6/1P2R1NP/P1R3PK/3r4 b - - 1 31",
+      "positionKey": "7r/1p6/1k5p/8/pb6/1P2R1NP/P1R3PK/3r4 b - -",
+      "move": "a4b3",
+      "side": "black",
+      "selectedSide": "black",
+      "role": "user",
+      "deltaCp": -189,
+      "oracleDepth": 12,
+      "buildShas": [
+        "dadf79a8fc20cdf0aa91e3f227e6e81fefb5f989"
+      ],
+      "gameIds": [
+        "game-mtnsxuf7-5jacrj6m"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "7r_1p6_k4N1p_8_1b1r4_1R5P_P1R3PK_8_w_-_-:c2c7",
+      "tier": "refuted-played",
+      "fen": "7r/1p6/k4N1p/8/1b1r4/1R5P/P1R3PK/8 w - - 5 35",
+      "positionKey": "7r/1p6/k4N1p/8/1b1r4/1R5P/P1R3PK/8 w - -",
+      "move": "c2c7",
+      "side": "white",
+      "selectedSide": "black",
+      "role": "user",
+      "deltaCp": -567,
+      "oracleDepth": 12,
+      "buildShas": [
+        "dadf79a8fc20cdf0aa91e3f227e6e81fefb5f989"
+      ],
+      "gameIds": [
+        "game-mtnsxuf7-5jacrj6m"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "7r_1pR5_k2b1N1p_8_3r4_1R5P_P5PK_8_w_-_-:h2h1",
+      "tier": "refuted-played",
+      "fen": "7r/1pR5/k2b1N1p/8/3r4/1R5P/P5PK/8 w - - 7 36",
+      "positionKey": "7r/1pR5/k2b1N1p/8/3r4/1R5P/P5PK/8 w - -",
+      "move": "h2h1",
+      "side": "white",
+      "selectedSide": "black",
+      "role": "user",
+      "deltaCp": -99512,
+      "oracleDepth": 12,
+      "buildShas": [
+        "dadf79a8fc20cdf0aa91e3f227e6e81fefb5f989"
+      ],
+      "gameIds": [
+        "game-mtnsxuf7-5jacrj6m"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "7r_2R1p1bk_6pp_8_2Q1B3_2q3P1_5P1P_5RK1_b_-_-:c3a5",
+      "tier": "refuted-recommendation",
+      "fen": "7r/2R1p1bk/6pp/8/2Q1B3/2q3P1/5P1P/5RK1 b - - 0 30",
+      "positionKey": "7r/2R1p1bk/6pp/8/2Q1B3/2q3P1/5P1P/5RK1 b - -",
+      "move": "c3a5",
+      "side": "black",
+      "selectedSide": "black",
+      "role": "user",
+      "deltaCp": -208,
+      "oracleDepth": 12,
+      "buildShas": [
+        "03c92fae31516fbeac7a9c7359b38505e24b81a9"
+      ],
+      "gameIds": [
+        "game-mrx358uo-b441caz5"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "7r_p4kpp_2Nn1q2_n7_Q7_2b1P3_P4PPP_1R4K1_b_-_-:f6f5",
+      "tier": "refuted-recommendation",
+      "fen": "7r/p4kpp/2Nn1q2/n7/Q7/2b1P3/P4PPP/1R4K1 b - - 0 23",
+      "positionKey": "7r/p4kpp/2Nn1q2/n7/Q7/2b1P3/P4PPP/1R4K1 b - -",
+      "move": "f6f5",
+      "side": "black",
+      "selectedSide": "black",
+      "role": "user",
+      "deltaCp": -163,
+      "oracleDepth": 12,
+      "buildShas": [
+        "01c89ca328199cf30d57dcaff7f11500d912c4c5"
+      ],
+      "gameIds": [
+        "game-mrqlewbl-hmuqs9cm"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "8_2Q4p_B3b1p1_3q1pP1_3k1P2_6KP_8_8_b_-_-:d4e3",
+      "tier": "refuted-played",
+      "fen": "8/2Q4p/B3b1p1/3q1pP1/3k1P2/6KP/8/8 b - - 8 64",
+      "positionKey": "8/2Q4p/B3b1p1/3q1pP1/3k1P2/6KP/8/8 b - -",
+      "move": "d4e3",
+      "side": "black",
+      "selectedSide": "white",
+      "role": "user",
+      "deltaCp": -99997,
+      "oracleDepth": 12,
+      "buildShas": [
+        "5d3b057c624ef1912c121cf5eb234a3fd52e5d5e"
+      ],
+      "gameIds": [
+        "game-mtbul9ri-fedoie9o"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "8_3k1p2_4p3_p1p5_1bP3P1_1P1K4_P2p4_3R4_b_-_-:e6e5",
+      "tier": "refuted-recommendation",
+      "fen": "8/3k1p2/4p3/p1p5/1bP3P1/1P1K4/P2p4/3R4 b - - 0 37",
+      "positionKey": "8/3k1p2/4p3/p1p5/1bP3P1/1P1K4/P2p4/3R4 b - -",
+      "move": "e6e5",
+      "side": "black",
+      "selectedSide": "black",
+      "role": "user",
+      "deltaCp": -194,
+      "oracleDepth": 12,
+      "buildShas": [
+        "1ca0f40806f6762f9355cf12cc96a097f256b1ed"
+      ],
+      "gameIds": [
+        "game-ms0s1xq5-8r3t5tw5",
+        "game-ms0s25g2-pg9f93b6"
+      ],
+      "occurrences": 2,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "8_5pk1_6p1_8_6q1_7p_1K6_8_w_-_-:b2a3",
+      "tier": "refuted-recommendation",
+      "fen": "8/5pk1/6p1/8/6q1/7p/1K6/8 w - - 0 66",
+      "positionKey": "8/5pk1/6p1/8/6q1/7p/1K6/8 w - -",
+      "move": "b2a3",
+      "side": "white",
+      "selectedSide": "white",
+      "role": "user",
+      "deltaCp": -176,
+      "oracleDepth": 12,
+      "buildShas": [
+        "1ca0f40806f6762f9355cf12cc96a097f256b1ed"
+      ],
+      "gameIds": [
+        "game-ms8f86xh-h0bda8e4"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "8_6k1_1p2P1p1_1RbN1p1p_8_8_PP3rPP_2KR4_w_-_-:e6e7",
+      "tier": "refuted-recommendation",
+      "fen": "8/6k1/1p2P1p1/1RbN1p1p/8/8/PP3rPP/2KR4 w - - 4 38",
+      "positionKey": "8/6k1/1p2P1p1/1RbN1p1p/8/8/PP3rPP/2KR4 w - -",
+      "move": "e6e7",
+      "side": "white",
+      "selectedSide": "white",
+      "role": "user",
+      "deltaCp": -199,
+      "oracleDepth": 12,
+      "buildShas": [
+        "dadf79a8fc20cdf0aa91e3f227e6e81fefb5f989"
+      ],
+      "gameIds": [
+        "game-mtmdiw7m-5pv8mbhd"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "8_6pk_5r1p_5P2_1p4PK_7P_1P3R2_3q1b2_w_-_-:f2h2",
+      "tier": "refuted-recommendation",
+      "fen": "8/6pk/5r1p/5P2/1p4PK/7P/1P3R2/3q1b2 w - - 1 44",
+      "positionKey": "8/6pk/5r1p/5P2/1p4PK/7P/1P3R2/3q1b2 w - -",
+      "move": "f2h2",
+      "side": "white",
+      "selectedSide": "white",
+      "role": "user",
+      "deltaCp": -99015,
+      "oracleDepth": 12,
+      "buildShas": [
+        "ce576623a7f9672c281e287ec9d06f5624050192"
+      ],
+      "gameIds": [
+        "game-mtdd8yay-jnb4376i"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "8_6pk_6rp_8_1pb2PPK_7P_1P3R2_3q4_b_-_-:c4f1",
+      "tier": "refuted-played",
+      "fen": "8/6pk/6rp/8/1pb2PPK/7P/1P3R2/3q4 b - - 0 42",
+      "positionKey": "8/6pk/6rp/8/1pb2PPK/7P/1P3R2/3q4 b - -",
+      "move": "c4f1",
+      "side": "black",
+      "selectedSide": "white",
+      "role": "user",
+      "deltaCp": -99227,
+      "oracleDepth": 12,
+      "buildShas": [
+        "ce576623a7f9672c281e287ec9d06f5624050192"
+      ],
+      "gameIds": [
+        "game-mtdd8yay-jnb4376i"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "8_7p_8_p1p5_2B1k3_1P2R3_1P3KPP_8_b_-_-:e4d4",
+      "tier": "refuted-played",
+      "fen": "8/7p/8/p1p5/2B1k3/1P2R3/1P3KPP/8 b - - 0 35",
+      "positionKey": "8/7p/8/p1p5/2B1k3/1P2R3/1P3KPP/8 b - -",
+      "move": "e4d4",
+      "side": "black",
+      "selectedSide": "white",
+      "role": "rival",
+      "deltaCp": -99158,
+      "oracleDepth": 12,
+      "buildShas": [
+        "dadf79a8fc20cdf0aa91e3f227e6e81fefb5f989"
+      ],
+      "gameIds": [
+        "game-mtq97ymo-vj2ewg03"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "8_8_1R6_5p2_4bkp1_8_r7_4K3_w_-_-:e1f1",
+      "tier": "refuted-recommendation",
+      "fen": "8/8/1R6/5p2/4bkp1/8/r7/4K3 w - - 16 60",
+      "positionKey": "8/8/1R6/5p2/4bkp1/8/r7/4K3 w - -",
+      "move": "e1f1",
+      "side": "white",
+      "selectedSide": "white",
+      "role": "user",
+      "deltaCp": -177,
+      "oracleDepth": 12,
+      "buildShas": [
+        "731d56473cdcb790b338f1b96395cfae748562e9"
+      ],
+      "gameIds": [
+        "game-mt68gnry-4401w6kx"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "8_8_6R1_5p2_4b3_5kp1_r7_5K2_w_-_-:f1e1",
+      "tier": "refuted-recommendation",
+      "fen": "8/8/6R1/5p2/4b3/5kp1/r7/5K2 w - - 2 62",
+      "positionKey": "8/8/6R1/5p2/4b3/5kp1/r7/5K2 w - -",
+      "move": "f1e1",
+      "side": "white",
+      "selectedSide": "white",
+      "role": "user",
+      "deltaCp": -239,
+      "oracleDepth": 12,
+      "buildShas": [
+        "731d56473cdcb790b338f1b96395cfae748562e9"
+      ],
+      "gameIds": [
+        "game-mt68gnry-4401w6kx"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "8_8_8_p1P2P2_4K2k_1P6_8_8_b_-_-:h4g4",
+      "tier": "refuted-recommendation",
+      "fen": "8/8/8/p1P2P2/4K2k/1P6/8/8 b - - 0 57",
+      "positionKey": "8/8/8/p1P2P2/4K2k/1P6/8/8 b - -",
+      "move": "h4g4",
+      "side": "black",
+      "selectedSide": "black",
+      "role": "user",
+      "deltaCp": -223,
+      "oracleDepth": 12,
+      "buildShas": [
+        "1ca0f40806f6762f9355cf12cc96a097f256b1ed"
+      ],
+      "gameIds": [
+        "game-ms0s25g2-pg9f93b6"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "8_p2k1p2_4p3_2p5_1bP5_1P1p2P1_P4Kb1_3R4_w_-_-:f2g2",
+      "tier": "refuted-played",
+      "fen": "8/p2k1p2/4p3/2p5/1bP5/1P1p2P1/P4Kb1/3R4 w - - 0 33",
+      "positionKey": "8/p2k1p2/4p3/2p5/1bP5/1P1p2P1/P4Kb1/3R4 w - -",
+      "move": "f2g2",
+      "side": "white",
+      "selectedSide": "black",
+      "role": "user",
+      "deltaCp": -205,
+      "oracleDepth": 12,
+      "buildShas": [
+        "1ca0f40806f6762f9355cf12cc96a097f256b1ed"
+      ],
+      "gameIds": [
+        "game-ms0s1xq5-8r3t5tw5",
+        "game-ms0s25g2-pg9f93b6"
+      ],
+      "occurrences": 2,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "8_pb1k1p2_4p3_2p5_1bP5_1P1p2P1_P4KP1_3R4_b_-_-:b7g2",
+      "tier": "refuted-recommendation",
+      "fen": "8/pb1k1p2/4p3/2p5/1bP5/1P1p2P1/P4KP1/3R4 b - - 1 32",
+      "positionKey": "8/pb1k1p2/4p3/2p5/1bP5/1P1p2P1/P4KP1/3R4 b - -",
+      "move": "b7g2",
+      "side": "black",
+      "selectedSide": "black",
+      "role": "user",
+      "deltaCp": -793,
+      "oracleDepth": 12,
+      "buildShas": [
+        "1ca0f40806f6762f9355cf12cc96a097f256b1ed"
+      ],
+      "gameIds": [
+        "game-ms0s1xq5-8r3t5tw5",
+        "game-ms0s25g2-pg9f93b6"
+      ],
+      "occurrences": 2,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "8_pB3pkp_2p4p_4n3_8_1P4PP_P1P2P2_7K_w_-_-:c2c4",
+      "tier": "refuted-recommendation",
+      "fen": "8/pB3pkp/2p4p/4n3/8/1P4PP/P1P2P2/7K w - - 1 25",
+      "positionKey": "8/pB3pkp/2p4p/4n3/8/1P4PP/P1P2P2/7K w - -",
+      "move": "c2c4",
+      "side": "white",
+      "selectedSide": "white",
+      "role": "user",
+      "deltaCp": -166,
+      "oracleDepth": 12,
+      "buildShas": [
+        "dadf79a8fc20cdf0aa91e3f227e6e81fefb5f989"
+      ],
+      "gameIds": [
+        "game-mtgn8j5r-qjibqv7l"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "b3r2k_P5pp_5p2_8_1Q2P3_4q3_1P5P_3R1K2_w_-_-:b4d4",
+      "tier": "refuted-recommendation",
+      "fen": "b3r2k/P5pp/5p2/8/1Q2P3/4q3/1P5P/3R1K2 w - - 3 36",
+      "positionKey": "b3r2k/P5pp/5p2/8/1Q2P3/4q3/1P5P/3R1K2 w - -",
+      "move": "b4d4",
+      "side": "white",
+      "selectedSide": "white",
+      "role": "user",
+      "deltaCp": -214,
+      "oracleDepth": 12,
+      "buildShas": [
+        "731d56473cdcb790b338f1b96395cfae748562e9"
+      ],
+      "gameIds": [
+        "game-mt68gnry-4401w6kx"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "k2r4_1qp4p_P4p1b_1PPr4_2QP2p1_6B1_5PPP_R2R2K1_b_-_-:b7a7",
+      "tier": "refuted-recommendation",
+      "fen": "k2r4/1qp4p/P4p1b/1PPr4/2QP2p1/6B1/5PPP/R2R2K1 b - - 0 32",
+      "positionKey": "k2r4/1qp4p/P4p1b/1PPr4/2QP2p1/6B1/5PPP/R2R2K1 b - -",
+      "move": "b7a7",
+      "side": "black",
+      "selectedSide": "black",
+      "role": "user",
+      "deltaCp": -183,
+      "oracleDepth": 12,
+      "buildShas": [
+        "dadf79a8fc20cdf0aa91e3f227e6e81fefb5f989"
+      ],
+      "gameIds": [
+        "game-mtpoq5kp-e4kn1bzo"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "N4b1r_p2k1pp1_b1ppp3_8_4P1Q1_1P6_PqP2PPP_R3R1K1_b_-_-:f8e7",
+      "tier": "refuted-recommendation",
+      "fen": "N4b1r/p2k1pp1/b1ppp3/8/4P1Q1/1P6/PqP2PPP/R3R1K1 b - - 0 18",
+      "positionKey": "N4b1r/p2k1pp1/b1ppp3/8/4P1Q1/1P6/PqP2PPP/R3R1K1 b - -",
+      "move": "f8e7",
+      "side": "black",
+      "selectedSide": "black",
+      "role": "user",
+      "deltaCp": -236,
+      "oracleDepth": 12,
+      "buildShas": [
+        "1ca0f40806f6762f9355cf12cc96a097f256b1ed"
+      ],
+      "gameIds": [
+        "game-ms0s1xq5-8r3t5tw5",
+        "game-ms0s25g2-pg9f93b6"
+      ],
+      "occurrences": 2,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "Qrk4r_2p3p1_p6p_5R2_7P_6PK_P1P1q3_3R4_w_-_-:a8a6",
+      "tier": "refuted-played",
+      "fen": "Qrk4r/2p3p1/p6p/5R2/7P/6PK/P1P1q3/3R4 w - - 2 29",
+      "positionKey": "Qrk4r/2p3p1/p6p/5R2/7P/6PK/P1P1q3/3R4 w - -",
+      "move": "a8a6",
+      "side": "white",
+      "selectedSide": "black",
+      "role": "rival",
+      "deltaCp": -671,
+      "oracleDepth": 12,
+      "buildShas": [
+        "6a2270fc65784f4c772d180afec5b9bc1ad2f812"
+      ],
+      "gameIds": [
+        "game-mtqhhpju-pdncnae4"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "r1b1k1nr_pppp1ppp_2n1p3_4P3_1b1Pq3_5N2_PPPBBPPP_RN1QK2R_b_KQkq_-:c6d4",
+      "tier": "refuted-recommendation",
+      "fen": "r1b1k1nr/pppp1ppp/2n1p3/4P3/1b1Pq3/5N2/PPPBBPPP/RN1QK2R b KQkq - 6 6",
+      "positionKey": "r1b1k1nr/pppp1ppp/2n1p3/4P3/1b1Pq3/5N2/PPPBBPPP/RN1QK2R b KQkq -",
+      "move": "c6d4",
+      "side": "black",
+      "selectedSide": "black",
+      "role": "user",
+      "deltaCp": -246,
+      "oracleDepth": 12,
+      "buildShas": [
+        "1ca0f40806f6762f9355cf12cc96a097f256b1ed"
+      ],
+      "gameIds": [
+        "game-ms8e45jz-d543ink2"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "r1b1k1nr_pppp1ppp_4p3_4P3_1B1nq3_5N2_PPP1BPPP_RN1QK2R_b_KQkq_-:d4c2",
+      "tier": "refuted-recommendation",
+      "fen": "r1b1k1nr/pppp1ppp/4p3/4P3/1B1nq3/5N2/PPP1BPPP/RN1QK2R b KQkq - 0 7",
+      "positionKey": "r1b1k1nr/pppp1ppp/4p3/4P3/1B1nq3/5N2/PPP1BPPP/RN1QK2R b KQkq -",
+      "move": "d4c2",
+      "side": "black",
+      "selectedSide": "black",
+      "role": "user",
+      "deltaCp": -160,
+      "oracleDepth": 12,
+      "buildShas": [
+        "1ca0f40806f6762f9355cf12cc96a097f256b1ed"
+      ],
+      "gameIds": [
+        "game-ms8e45jz-d543ink2"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "r1b1k1nr_pppp1ppp_4p3_4P3_1b1nq3_5N2_PPPBBPPP_RN1QK2R_w_KQkq_-:d2b4",
+      "tier": "refuted-played",
+      "fen": "r1b1k1nr/pppp1ppp/4p3/4P3/1b1nq3/5N2/PPPBBPPP/RN1QK2R w KQkq - 0 7",
+      "positionKey": "r1b1k1nr/pppp1ppp/4p3/4P3/1b1nq3/5N2/PPPBBPPP/RN1QK2R w KQkq -",
+      "move": "d2b4",
+      "side": "white",
+      "selectedSide": "black",
+      "role": "user",
+      "deltaCp": -607,
+      "oracleDepth": 12,
+      "buildShas": [
+        "1ca0f40806f6762f9355cf12cc96a097f256b1ed"
+      ],
+      "gameIds": [
+        "game-ms8e45jz-d543ink2"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "r1b1k1r1_pp1p1np1_3bp1QB_q1p2p2_8_1PNP3N_PP3PPP_R4RK1_b_q_-:a5c7",
+      "tier": "refuted-recommendation",
+      "fen": "r1b1k1r1/pp1p1np1/3bp1QB/q1p2p2/8/1PNP3N/PP3PPP/R4RK1 b q - 0 17",
+      "positionKey": "r1b1k1r1/pp1p1np1/3bp1QB/q1p2p2/8/1PNP3N/PP3PPP/R4RK1 b q -",
+      "move": "a5c7",
+      "side": "black",
+      "selectedSide": "black",
+      "role": "user",
+      "deltaCp": -237,
+      "oracleDepth": 12,
+      "buildShas": [
+        "47293aefc49847860f0f835310d03ee9f7346ff8"
+      ],
+      "gameIds": [
+        "game-mtdm6df3-d8d1mih4"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "r1b1k2r_1ppqnpbp_p1n1p1p1_3p4_P4Q1P_2NBPN2_1PPP1PP1_R1B1K2R_b_KQkq_-:c6b4",
+      "tier": "refuted-played",
+      "fen": "r1b1k2r/1ppqnpbp/p1n1p1p1/3p4/P4Q1P/2NBPN2/1PPP1PP1/R1B1K2R b KQkq - 3 9",
+      "positionKey": "r1b1k2r/1ppqnpbp/p1n1p1p1/3p4/P4Q1P/2NBPN2/1PPP1PP1/R1B1K2R b KQkq -",
+      "move": "c6b4",
+      "side": "black",
+      "selectedSide": "white",
+      "role": "user",
+      "deltaCp": -619,
+      "oracleDepth": 12,
+      "buildShas": [
+        "4ebc31b49d36a1e72b1dd33071d26019770af8d2"
+      ],
+      "gameIds": [
+        "game-mrwyh3ck-gshvjuwd"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "r1b1k2r_pp1p1np1_3bp1Qp_q1p2p2_8_1PNPB2N_PP3PPP_R4RK1_b_kq_-:h8g8",
+      "tier": "refuted-recommendation",
+      "fen": "r1b1k2r/pp1p1np1/3bp1Qp/q1p2p2/8/1PNPB2N/PP3PPP/R4RK1 b kq - 9 16",
+      "positionKey": "r1b1k2r/pp1p1np1/3bp1Qp/q1p2p2/8/1PNPB2N/PP3PPP/R4RK1 b kq -",
+      "move": "h8g8",
+      "side": "black",
+      "selectedSide": "black",
+      "role": "user",
+      "deltaCp": -216,
+      "oracleDepth": 12,
+      "buildShas": [
+        "47293aefc49847860f0f835310d03ee9f7346ff8"
+      ],
+      "gameIds": [
+        "game-mtdm6df3-d8d1mih4"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "r1b1k2r_ppp2ppp_5n2_4pq2_8_2N5_PPQ1BPPP_R1B1K2R_w_KQkq_-:e1g1",
+      "tier": "refuted-played",
+      "fen": "r1b1k2r/ppp2ppp/5n2/4pq2/8/2N5/PPQ1BPPP/R1B1K2R w KQkq - 0 13",
+      "positionKey": "r1b1k2r/ppp2ppp/5n2/4pq2/8/2N5/PPQ1BPPP/R1B1K2R w KQkq -",
+      "move": "e1g1",
+      "side": "white",
+      "selectedSide": "black",
+      "role": "rival",
+      "deltaCp": -833,
+      "oracleDepth": 12,
+      "buildShas": [
+        "bf8355661e5015942243e16d2373d39704048f10"
+      ],
+      "gameIds": [
+        "game-mtqpz1cn-l1kqene3"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "r1b1k2r_ppp2ppp_5p2_1B6_3n4_8_P2B1PPP_1R2K2R_b_Kkq_-:e8f8",
+      "tier": "refuted-recommendation",
+      "fen": "r1b1k2r/ppp2ppp/5p2/1B6/3n4/8/P2B1PPP/1R2K2R b Kkq - 1 14",
+      "positionKey": "r1b1k2r/ppp2ppp/5p2/1B6/3n4/8/P2B1PPP/1R2K2R b Kkq -",
+      "move": "e8f8",
+      "side": "black",
+      "selectedSide": "black",
+      "role": "user",
+      "deltaCp": -175,
+      "oracleDepth": 12,
+      "buildShas": [
+        "bf8355661e5015942243e16d2373d39704048f10"
+      ],
+      "gameIds": [
+        "game-mtqpkwyj-xf0h29u0"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "r1b1k2r_pppp2pp_3b1p2_5Bq1_8_2B5_PPP2PPP_R2QR1K1_b_kq_-:e8f8",
+      "tier": "refuted-recommendation",
+      "fen": "r1b1k2r/pppp2pp/3b1p2/5Bq1/8/2B5/PPP2PPP/R2QR1K1 b kq - 0 17",
+      "positionKey": "r1b1k2r/pppp2pp/3b1p2/5Bq1/8/2B5/PPP2PPP/R2QR1K1 b kq -",
+      "move": "e8f8",
+      "side": "black",
+      "selectedSide": "black",
+      "role": "user",
+      "deltaCp": -164,
+      "oracleDepth": 12,
+      "buildShas": [
+        "6a2270fc65784f4c772d180afec5b9bc1ad2f812"
+      ],
+      "gameIds": [
+        "game-mtqiox0x-cfxvkmkj"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "r1b1k2r_ppppnppp_3b4_3q4_4B3_5N2_PPPB1PPP_R2QR1K1_b_kq_-:d5b5",
+      "tier": "refuted-recommendation",
+      "fen": "r1b1k2r/ppppnppp/3b4/3q4/4B3/5N2/PPPB1PPP/R2QR1K1 b kq - 5 13",
+      "positionKey": "r1b1k2r/ppppnppp/3b4/3q4/4B3/5N2/PPPB1PPP/R2QR1K1 b kq -",
+      "move": "d5b5",
+      "side": "black",
+      "selectedSide": "black",
+      "role": "user",
+      "deltaCp": -154,
+      "oracleDepth": 12,
+      "buildShas": [
+        "6a2270fc65784f4c772d180afec5b9bc1ad2f812"
+      ],
+      "gameIds": [
+        "game-mtqiox0x-cfxvkmkj"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "r1b1kb1r_pp1np1pp_1qp5_3p4_4n2N_1P1B4_PBPP1PPP_RN1Q1RK1_b_kq_-:e4d2",
+      "tier": "refuted-recommendation",
+      "fen": "r1b1kb1r/pp1np1pp/1qp5/3p4/4n2N/1P1B4/PBPP1PPP/RN1Q1RK1 b kq - 5 10",
+      "positionKey": "r1b1kb1r/pp1np1pp/1qp5/3p4/4n2N/1P1B4/PBPP1PPP/RN1Q1RK1 b kq -",
+      "move": "e4d2",
+      "side": "black",
+      "selectedSide": "black",
+      "role": "user",
+      "deltaCp": -374,
+      "oracleDepth": 12,
+      "buildShas": [
+        "dadf79a8fc20cdf0aa91e3f227e6e81fefb5f989"
+      ],
+      "gameIds": [
+        "game-mtkqhf5m-mt3enqbg"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "r1b1kb1r_ppp2ppp_2n2n2_4p3_5q2_2NB1N2_PPPP1PPP_R1BQR1K1_b_kq_-:f8c5",
+      "tier": "refuted-recommendation",
+      "fen": "r1b1kb1r/ppp2ppp/2n2n2/4p3/5q2/2NB1N2/PPPP1PPP/R1BQR1K1 b kq - 7 8",
+      "positionKey": "r1b1kb1r/ppp2ppp/2n2n2/4p3/5q2/2NB1N2/PPPP1PPP/R1BQR1K1 b kq -",
+      "move": "f8c5",
+      "side": "black",
+      "selectedSide": "black",
+      "role": "user",
+      "deltaCp": -329,
+      "oracleDepth": 12,
+      "buildShas": [
+        "01c89ca328199cf30d57dcaff7f11500d912c4c5"
+      ],
+      "gameIds": [
+        "game-mrqlloel-4agz0m3q"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "r1b1kb1r_pppp2pp_4pn2_5p2_1n1Pq3_2Q2N2_PPP1BPPP_RNB1R1K1_b_kq_-:f6d5",
+      "tier": "refuted-recommendation",
+      "fen": "r1b1kb1r/pppp2pp/4pn2/5p2/1n1Pq3/2Q2N2/PPP1BPPP/RNB1R1K1 b kq - 7 8",
+      "positionKey": "r1b1kb1r/pppp2pp/4pn2/5p2/1n1Pq3/2Q2N2/PPP1BPPP/RNB1R1K1 b kq -",
+      "move": "f6d5",
+      "side": "black",
+      "selectedSide": "black",
+      "role": "user",
+      "deltaCp": -270,
+      "oracleDepth": 12,
+      "buildShas": [
+        "ddeb906a6de44cd95632488f9e4a76b3e06d07ae"
+      ],
+      "gameIds": [
+        "game-mso2k500-omzh8nxb"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "r1b1kbnr_ppp1p1pp_8_5p2_1n1p4_3PPNN1_PqPB1PPP_R2QKB1R_w_KQkq_-:e3d4",
+      "tier": "refuted-played",
+      "fen": "r1b1kbnr/ppp1p1pp/8/5p2/1n1p4/3PPNN1/PqPB1PPP/R2QKB1R w KQkq - 2 9",
+      "positionKey": "r1b1kbnr/ppp1p1pp/8/5p2/1n1p4/3PPNN1/PqPB1PPP/R2QKB1R w KQkq -",
+      "move": "e3d4",
+      "side": "white",
+      "selectedSide": "black",
+      "role": "user",
+      "deltaCp": -478,
+      "oracleDepth": 12,
+      "buildShas": [
+        "731d56473cdcb790b338f1b96395cfae748562e9"
+      ],
+      "gameIds": [
+        "game-mt6bbrdp-3wai3zbp"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "r1b1kbnr_ppp1pppp_2n5_3q4_3P4_5N2_PP2PPPP_RNBQKB1R_b_KQkq_-:c8f5",
+      "tier": "refuted-recommendation",
+      "fen": "r1b1kbnr/ppp1pppp/2n5/3q4/3P4/5N2/PP2PPPP/RNBQKB1R b KQkq - 1 4",
+      "positionKey": "r1b1kbnr/ppp1pppp/2n5/3q4/3P4/5N2/PP2PPPP/RNBQKB1R b KQkq -",
+      "move": "c8f5",
+      "side": "black",
+      "selectedSide": "black",
+      "role": "user",
+      "deltaCp": -199,
+      "oracleDepth": 12,
+      "buildShas": [
+        "f365d3b92821f94721b05eab15b0325d2b81aff3"
+      ],
+      "gameIds": [
+        "game-mrzqbndp-u7a11lff"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "r1b2k1r_pppp2pp_3b1p2_6q1_8_2BB4_PPP2PPP_R2QR1K1_b_-_-:f8g8",
+      "tier": "refuted-recommendation",
+      "fen": "r1b2k1r/pppp2pp/3b1p2/6q1/8/2BB4/PPP2PPP/R2QR1K1 b - - 2 18",
+      "positionKey": "r1b2k1r/pppp2pp/3b1p2/6q1/8/2BB4/PPP2PPP/R2QR1K1 b - -",
+      "move": "f8g8",
+      "side": "black",
+      "selectedSide": "black",
+      "role": "user",
+      "deltaCp": -364,
+      "oracleDepth": 12,
+      "buildShas": [
+        "6a2270fc65784f4c772d180afec5b9bc1ad2f812"
+      ],
+      "gameIds": [
+        "game-mtqiox0x-cfxvkmkj"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "r1b2k1r_pppp2pp_3b1p2_8_2B4q_8_PPPB1PPP_R2QR1K1_w_-_-:g2g3",
+      "tier": "refuted-played",
+      "fen": "r1b2k1r/pppp2pp/3b1p2/8/2B4q/8/PPPB1PPP/R2QR1K1 w - - 7 21",
+      "positionKey": "r1b2k1r/pppp2pp/3b1p2/8/2B4q/8/PPPB1PPP/R2QR1K1 w - -",
+      "move": "g2g3",
+      "side": "white",
+      "selectedSide": "black",
+      "role": "rival",
+      "deltaCp": -430,
+      "oracleDepth": 12,
+      "buildShas": [
+        "6a2270fc65784f4c772d180afec5b9bc1ad2f812"
+      ],
+      "gameIds": [
+        "game-mtqiox0x-cfxvkmkj"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "r1b2k2_pp1p4_4p3_2p2pQ1_8_1PNq2P1_PP1n1PKP_R4R2_w_-_-:g2g1",
+      "tier": "refuted-played",
+      "fen": "r1b2k2/pp1p4/4p3/2p2pQ1/8/1PNq2P1/PP1n1PKP/R4R2 w - - 1 33",
+      "positionKey": "r1b2k2/pp1p4/4p3/2p2pQ1/8/1PNq2P1/PP1n1PKP/R4R2 w - -",
+      "move": "g2g1",
+      "side": "white",
+      "selectedSide": "black",
+      "role": "user",
+      "deltaCp": -859,
+      "oracleDepth": 12,
+      "buildShas": [
+        "47293aefc49847860f0f835310d03ee9f7346ff8"
+      ],
+      "gameIds": [
+        "game-mtdm6df3-d8d1mih4"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "r1b2kr1_pp1p3Q_3qp3_2p2ppN_8_1PNP1nP1_PP3PKP_R4R2_b_-_-:d6d3",
+      "tier": "refuted-recommendation",
+      "fen": "r1b2kr1/pp1p3Q/3qp3/2p2ppN/8/1PNP1nP1/PP3PKP/R4R2 b - - 3 24",
+      "positionKey": "r1b2kr1/pp1p3Q/3qp3/2p2ppN/8/1PNP1nP1/PP3PKP/R4R2 b - -",
+      "move": "d6d3",
+      "side": "black",
+      "selectedSide": "black",
+      "role": "user",
+      "deltaCp": -274,
+      "oracleDepth": 12,
+      "buildShas": [
+        "47293aefc49847860f0f835310d03ee9f7346ff8"
+      ],
+      "gameIds": [
+        "game-mtdm6df3-d8d1mih4"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "r1bk1b1r_6pp_1p3p2_4p3_1n1P4_2Q1pP2_PP2P1PP_R1B1KB1R_w_KQ_-:d4e5",
+      "tier": "refuted-recommendation",
+      "fen": "r1bk1b1r/6pp/1p3p2/4p3/1n1P4/2Q1pP2/PP2P1PP/R1B1KB1R w KQ - 0 15",
+      "positionKey": "r1bk1b1r/6pp/1p3p2/4p3/1n1P4/2Q1pP2/PP2P1PP/R1B1KB1R w KQ -",
+      "move": "d4e5",
+      "side": "white",
+      "selectedSide": "white",
+      "role": "user",
+      "deltaCp": -151,
+      "oracleDepth": 12,
+      "buildShas": [
+        "1ca0f40806f6762f9355cf12cc96a097f256b1ed"
+      ],
+      "gameIds": [
+        "game-ms8e1bxq-0z1o8hmg"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "r1bk3r_pppp1ppp_2n1pnq1_1N4N1_3P3P_8_PPP1BPP1_R2Q1RK1_b_-_-:d7d5",
+      "tier": "refuted-recommendation",
+      "fen": "r1bk3r/pppp1ppp/2n1pnq1/1N4N1/3P3P/8/PPP1BPP1/R2Q1RK1 b - - 0 11",
+      "positionKey": "r1bk3r/pppp1ppp/2n1pnq1/1N4N1/3P3P/8/PPP1BPP1/R2Q1RK1 b - -",
+      "move": "d7d5",
+      "side": "black",
+      "selectedSide": "black",
+      "role": "user",
+      "deltaCp": -270,
+      "oracleDepth": 12,
+      "buildShas": [
+        "6a2270fc65784f4c772d180afec5b9bc1ad2f812"
+      ],
+      "gameIds": [
+        "game-mtqhhpju-pdncnae4"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "r1bq1rk1_1ppn1pbp_p3p1p1_3p2Nn_3P1B2_2N1P2Q_PPP2PPP_3RKB1R_b_K_-:f7f6",
+      "tier": "refuted-played",
+      "fen": "r1bq1rk1/1ppn1pbp/p3p1p1/3p2Nn/3P1B2/2N1P2Q/PPP2PPP/3RKB1R b K - 3 10",
+      "positionKey": "r1bq1rk1/1ppn1pbp/p3p1p1/3p2Nn/3P1B2/2N1P2Q/PPP2PPP/3RKB1R b K -",
+      "move": "f7f6",
+      "side": "black",
+      "selectedSide": "white",
+      "role": "user",
+      "deltaCp": -512,
+      "oracleDepth": 12,
+      "buildShas": [
+        "dadf79a8fc20cdf0aa91e3f227e6e81fefb5f989"
+      ],
+      "gameIds": [
+        "game-mtmdiw7m-5pv8mbhd"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "r1bq1rk1_1ppn1pbp_p3pnp1_3p2N1_3P1B2_2N1PQ2_PPP2PPP_3RKB1R_w_K_-:f3g3",
+      "tier": "refuted-recommendation",
+      "fen": "r1bq1rk1/1ppn1pbp/p3pnp1/3p2N1/3P1B2/2N1PQ2/PPP2PPP/3RKB1R w K - 0 9",
+      "positionKey": "r1bq1rk1/1ppn1pbp/p3pnp1/3p2N1/3P1B2/2N1PQ2/PPP2PPP/3RKB1R w K -",
+      "move": "f3g3",
+      "side": "white",
+      "selectedSide": "white",
+      "role": "user",
+      "deltaCp": -152,
+      "oracleDepth": 12,
+      "buildShas": [
+        "dadf79a8fc20cdf0aa91e3f227e6e81fefb5f989"
+      ],
+      "gameIds": [
+        "game-mtmdiw7m-5pv8mbhd"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "r1bq1rk1_pp1p1p1p_2p3p1_4P3_5Q2_8_PPP1PPP1_2KR1B1R_b_-_-:d8a5",
+      "tier": "refuted-played",
+      "fen": "r1bq1rk1/pp1p1p1p/2p3p1/4P3/5Q2/8/PPP1PPP1/2KR1B1R b - - 1 15",
+      "positionKey": "r1bq1rk1/pp1p1p1p/2p3p1/4P3/5Q2/8/PPP1PPP1/2KR1B1R b - -",
+      "move": "d8a5",
+      "side": "black",
+      "selectedSide": "white",
+      "role": "user",
+      "deltaCp": -99718,
+      "oracleDepth": 12,
+      "buildShas": [
+        "dadf79a8fc20cdf0aa91e3f227e6e81fefb5f989"
+      ],
+      "gameIds": [
+        "game-mtjg70qs-2zhhc7xk"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "r1bq1rk1_ppp3pp_2n1p3_nQ1pNp2_P2P4_2P1B1P1_2P1PP1P_1R2KB1R_b_K_-:b7b6",
+      "tier": "refuted-played",
+      "fen": "r1bq1rk1/ppp3pp/2n1p3/nQ1pNp2/P2P4/2P1B1P1/2P1PP1P/1R2KB1R b K - 4 13",
+      "positionKey": "r1bq1rk1/ppp3pp/2n1p3/nQ1pNp2/P2P4/2P1B1P1/2P1PP1P/1R2KB1R b K -",
+      "move": "b7b6",
+      "side": "black",
+      "selectedSide": "white",
+      "role": "user",
+      "deltaCp": -432,
+      "oracleDepth": 12,
+      "buildShas": [
+        "dadf79a8fc20cdf0aa91e3f227e6e81fefb5f989"
+      ],
+      "gameIds": [
+        "game-mtknqoxb-44fubcxi"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "r1bq1rk1_ppppbppp_2n2n2_8_8_2N1QN2_PPPBPPPP_R3KB1R_w_KQ_-:e3d3",
+      "tier": "refuted-recommendation",
+      "fen": "r1bq1rk1/ppppbppp/2n2n2/8/8/2N1QN2/PPPBPPPP/R3KB1R w KQ - 7 7",
+      "positionKey": "r1bq1rk1/ppppbppp/2n2n2/8/8/2N1QN2/PPPBPPPP/R3KB1R w KQ -",
+      "move": "e3d3",
+      "side": "white",
+      "selectedSide": "white",
+      "role": "user",
+      "deltaCp": -326,
+      "oracleDepth": 12,
+      "buildShas": [
+        "bf8355661e5015942243e16d2373d39704048f10"
+      ],
+      "gameIds": [
+        "game-mtqqan0e-fwhf5afz"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "r1bq3k_1pp2Qbp_pn4p1_3p1p2_3P1P2_2NB4_PPP2PPP_3RK2R_w_K_-:e1e2",
+      "tier": "refuted-recommendation",
+      "fen": "r1bq3k/1pp2Qbp/pn4p1/3p1p2/3P1P2/2NB4/PPP2PPP/3RK2R w K - 0 16",
+      "positionKey": "r1bq3k/1pp2Qbp/pn4p1/3p1p2/3P1P2/2NB4/PPP2PPP/3RK2R w K -",
+      "move": "e1e2",
+      "side": "white",
+      "selectedSide": "white",
+      "role": "user",
+      "deltaCp": -177,
+      "oracleDepth": 12,
+      "buildShas": [
+        "dadf79a8fc20cdf0aa91e3f227e6e81fefb5f989"
+      ],
+      "gameIds": [
+        "game-mtmdiw7m-5pv8mbhd"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "r1bqk1nr_pppp1ppp_2nbp3_8_4P3_2PP1N2_PP3PPP_RNBQKB1R_b_KQkq_-:d6h2",
+      "tier": "refuted-recommendation",
+      "fen": "r1bqk1nr/pppp1ppp/2nbp3/8/4P3/2PP1N2/PP3PPP/RNBQKB1R b KQkq - 0 4",
+      "positionKey": "r1bqk1nr/pppp1ppp/2nbp3/8/4P3/2PP1N2/PP3PPP/RNBQKB1R b KQkq -",
+      "move": "d6h2",
+      "side": "black",
+      "selectedSide": "black",
+      "role": "user",
+      "deltaCp": -363,
+      "oracleDepth": 12,
+      "buildShas": [
+        "1ca0f40806f6762f9355cf12cc96a097f256b1ed"
+      ],
+      "gameIds": [
+        "game-ms8eopy6-95lrl1pl"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "r1bqk2r_ppp1b2p_3p1pp1_8_Pn6_1Q6_1PPP1PPP_R1B1KBNR_w_KQkq_-:f1b5",
+      "tier": "refuted-recommendation",
+      "fen": "r1bqk2r/ppp1b2p/3p1pp1/8/Pn6/1Q6/1PPP1PPP/R1B1KBNR w KQkq - 0 10",
+      "positionKey": "r1bqk2r/ppp1b2p/3p1pp1/8/Pn6/1Q6/1PPP1PPP/R1B1KBNR w KQkq -",
+      "move": "f1b5",
+      "side": "white",
+      "selectedSide": "white",
+      "role": "user",
+      "deltaCp": -306,
+      "oracleDepth": 12,
+      "buildShas": [
+        "6a2270fc65784f4c772d180afec5b9bc1ad2f812"
+      ],
+      "gameIds": [
+        "game-mtqh7rbn-66h3v0f9"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "r1bqk2r_ppp2pp1_3p2np_4nN2_1b2P3_1BN5_PPP2PPP_1RBQK2R_w_Kkq_-:b3a4",
+      "tier": "refuted-recommendation",
+      "fen": "r1bqk2r/ppp2pp1/3p2np/4nN2/1b2P3/1BN5/PPP2PPP/1RBQK2R w Kkq - 0 10",
+      "positionKey": "r1bqk2r/ppp2pp1/3p2np/4nN2/1b2P3/1BN5/PPP2PPP/1RBQK2R w Kkq -",
+      "move": "b3a4",
+      "side": "white",
+      "selectedSide": "white",
+      "role": "user",
+      "deltaCp": -162,
+      "oracleDepth": 12,
+      "buildShas": [
+        "dadf79a8fc20cdf0aa91e3f227e6e81fefb5f989"
+      ],
+      "gameIds": [
+        "game-mtjgkaap-a7zr4xne"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "r1bqk2r_ppp3pp_2n2n2_2bppP2_8_2NB1N2_PPPP1PPP_R1BQR1K1_b_kq_-:f6e4",
+      "tier": "refuted-recommendation",
+      "fen": "r1bqk2r/ppp3pp/2n2n2/2bppP2/8/2NB1N2/PPPP1PPP/R1BQR1K1 b kq - 1 7",
+      "positionKey": "r1bqk2r/ppp3pp/2n2n2/2bppP2/8/2NB1N2/PPPP1PPP/R1BQR1K1 b kq -",
+      "move": "f6e4",
+      "side": "black",
+      "selectedSide": "black",
+      "role": "user",
+      "deltaCp": -378,
+      "oracleDepth": 12,
+      "buildShas": [
+        "dadf79a8fc20cdf0aa91e3f227e6e81fefb5f989"
+      ],
+      "gameIds": [
+        "game-mtgmv92g-hag8t00w"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "r1bqk2r_ppppbppp_2n2n2_8_2P5_4Q3_PP1NPPPP_R1B1KBNR_w_KQkq_-:a1b1",
+      "tier": "refuted-recommendation",
+      "fen": "r1bqk2r/ppppbppp/2n2n2/8/2P5/4Q3/PP1NPPPP/R1B1KBNR w KQkq - 5 6",
+      "positionKey": "r1bqk2r/ppppbppp/2n2n2/8/2P5/4Q3/PP1NPPPP/R1B1KBNR w KQkq -",
+      "move": "a1b1",
+      "side": "white",
+      "selectedSide": "white",
+      "role": "user",
+      "deltaCp": -171,
+      "oracleDepth": 12,
+      "buildShas": [
+        "ce576623a7f9672c281e287ec9d06f5624050192",
+        "dadf79a8fc20cdf0aa91e3f227e6e81fefb5f989"
+      ],
+      "gameIds": [
+        "game-mtdd8yay-jnb4376i",
+        "game-mtq97ymo-vj2ewg03"
+      ],
+      "occurrences": 2,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "r1bqkb1r_ppp1pppp_5n2_8_3n4_2NQ4_PPPP1PPP_R1B1KBNR_b_KQkq_-:d4c2",
+      "tier": "refuted-recommendation",
+      "fen": "r1bqkb1r/ppp1pppp/5n2/8/3n4/2NQ4/PPPP1PPP/R1B1KBNR b KQkq - 4 6",
+      "positionKey": "r1bqkb1r/ppp1pppp/5n2/8/3n4/2NQ4/PPPP1PPP/R1B1KBNR b KQkq -",
+      "move": "d4c2",
+      "side": "black",
+      "selectedSide": "black",
+      "role": "user",
+      "deltaCp": -845,
+      "oracleDepth": 12,
+      "buildShas": [
+        "bf8355661e5015942243e16d2373d39704048f10"
+      ],
+      "gameIds": [
+        "game-mtqpz1cn-l1kqene3"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "r1bqkb1r_pppppppp_5n2_4P3_2B5_5Q2_PPPP1PPP_RNB1K2R_b_KQkq_-:e7e6",
+      "tier": "refuted-recommendation",
+      "fen": "r1bqkb1r/pppppppp/5n2/4P3/2B5/5Q2/PPPP1PPP/RNB1K2R b KQkq - 0 5",
+      "positionKey": "r1bqkb1r/pppppppp/5n2/4P3/2B5/5Q2/PPPP1PPP/RNB1K2R b KQkq -",
+      "move": "e7e6",
+      "side": "black",
+      "selectedSide": "black",
+      "role": "user",
+      "deltaCp": -266,
+      "oracleDepth": 12,
+      "buildShas": [
+        "ce576623a7f9672c281e287ec9d06f5624050192"
+      ],
+      "gameIds": [
+        "game-mtdcv0rj-nana8nn0"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "r1bqkbnr_pp1p1ppp_2p1p3_8_3nP3_3PB3_PPP2PPP_RN1QKBNR_b_KQkq_-:f8c5",
+      "tier": "refuted-recommendation",
+      "fen": "r1bqkbnr/pp1p1ppp/2p1p3/8/3nP3/3PB3/PPP2PPP/RN1QKBNR b KQkq - 1 5",
+      "positionKey": "r1bqkbnr/pp1p1ppp/2p1p3/8/3nP3/3PB3/PPP2PPP/RN1QKBNR b KQkq -",
+      "move": "f8c5",
+      "side": "black",
+      "selectedSide": "black",
+      "role": "user",
+      "deltaCp": -323,
+      "oracleDepth": 12,
+      "buildShas": [
+        "1ca0f40806f6762f9355cf12cc96a097f256b1ed"
+      ],
+      "gameIds": [
+        "game-mscg4vks-2wg0wjiq"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "r1bqkbnr_pppp1ppp_6n1_8_5P2_2N5_PPP1P1PP_R1BQKBNR_w_KQkq_-:e2e3",
+      "tier": "refuted-recommendation",
+      "fen": "r1bqkbnr/pppp1ppp/6n1/8/5P2/2N5/PPP1P1PP/R1BQKBNR w KQkq - 1 5",
+      "positionKey": "r1bqkbnr/pppp1ppp/6n1/8/5P2/2N5/PPP1P1PP/R1BQKBNR w KQkq -",
+      "move": "e2e3",
+      "side": "white",
+      "selectedSide": "white",
+      "role": "user",
+      "deltaCp": -172,
+      "oracleDepth": 12,
+      "buildShas": [
+        "cd4b7d21af79e8542c31f4445c97056a35018a4f"
+      ],
+      "gameIds": [
+        "game-mtqe17cz-un5ywbyy"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "r1bqkbnr_pppp1ppp_8_8_5Pn1_2N5_PPP1P1PP_R1BQKBNR_w_KQkq_-:d1d3",
+      "tier": "refuted-recommendation",
+      "fen": "r1bqkbnr/pppp1ppp/8/8/5Pn1/2N5/PPP1P1PP/R1BQKBNR w KQkq - 1 5",
+      "positionKey": "r1bqkbnr/pppp1ppp/8/8/5Pn1/2N5/PPP1P1PP/R1BQKBNR w KQkq -",
+      "move": "d1d3",
+      "side": "white",
+      "selectedSide": "white",
+      "role": "user",
+      "deltaCp": -177,
+      "oracleDepth": 12,
+      "buildShas": [
+        "a1d8a190bd8be666482a0fc57af4b5e8ddc56b0b"
+      ],
+      "gameIds": [
+        "game-mt2dgvx8-zp5693f5"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "r1bqr1k1_1p2bppp_3p1n2_2p5_p1P5_P2Q1N2_1P1NPPPP_2R1KB1R_w_K_-:d2e4",
+      "tier": "refuted-recommendation",
+      "fen": "r1bqr1k1/1p2bppp/3p1n2/2p5/p1P5/P2Q1N2/1P1NPPPP/2R1KB1R w K - 0 15",
+      "positionKey": "r1bqr1k1/1p2bppp/3p1n2/2p5/p1P5/P2Q1N2/1P1NPPPP/2R1KB1R w K -",
+      "move": "d2e4",
+      "side": "white",
+      "selectedSide": "white",
+      "role": "user",
+      "deltaCp": -252,
+      "oracleDepth": 12,
+      "buildShas": [
+        "ce576623a7f9672c281e287ec9d06f5624050192"
+      ],
+      "gameIds": [
+        "game-mtdd8yay-jnb4376i"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "r1br2k1_p5pp_5p2_2B5_8_2n5_P1P1PPPP_R3KB1R_w_KQ_-:c5e3",
+      "tier": "refuted-recommendation",
+      "fen": "r1br2k1/p5pp/5p2/2B5/8/2n5/P1P1PPPP/R3KB1R w KQ - 0 18",
+      "positionKey": "r1br2k1/p5pp/5p2/2B5/8/2n5/P1P1PPPP/R3KB1R w KQ -",
+      "move": "c5e3",
+      "side": "white",
+      "selectedSide": "white",
+      "role": "user",
+      "deltaCp": -194,
+      "oracleDepth": 12,
+      "buildShas": [
+        "dadf79a8fc20cdf0aa91e3f227e6e81fefb5f989"
+      ],
+      "gameIds": [
+        "game-mtkyz3rj-uvbjy3ou"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "r2k1b1r_pb2p2p_5p2_7Q_7N_1P1q1N2_P4PPP_2R2RK1_b_-_-:b7f3",
+      "tier": "refuted-recommendation",
+      "fen": "r2k1b1r/pb2p2p/5p2/7Q/7N/1P1q1N2/P4PPP/2R2RK1 b - - 3 19",
+      "positionKey": "r2k1b1r/pb2p2p/5p2/7Q/7N/1P1q1N2/P4PPP/2R2RK1 b - -",
+      "move": "b7f3",
+      "side": "black",
+      "selectedSide": "black",
+      "role": "user",
+      "deltaCp": -155,
+      "oracleDepth": 12,
+      "buildShas": [
+        "dadf79a8fc20cdf0aa91e3f227e6e81fefb5f989"
+      ],
+      "gameIds": [
+        "game-mtkqhf5m-mt3enqbg"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "r2k1br1_p3p2p_5p2_7Q_8_1P1q1N2_P4PPP_2RR2K1_b_-_-:d3d1",
+      "tier": "refuted-recommendation",
+      "fen": "r2k1br1/p3p2p/5p2/7Q/8/1P1q1N2/P4PPP/2RR2K1 b - - 2 21",
+      "positionKey": "r2k1br1/p3p2p/5p2/7Q/8/1P1q1N2/P4PPP/2RR2K1 b - -",
+      "move": "d3d1",
+      "side": "black",
+      "selectedSide": "black",
+      "role": "user",
+      "deltaCp": -99100,
+      "oracleDepth": 12,
+      "buildShas": [
+        "dadf79a8fc20cdf0aa91e3f227e6e81fefb5f989"
+      ],
+      "gameIds": [
+        "game-mtkqhf5m-mt3enqbg"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "r2q1k1r_1bppb1p1_ppn1p2p_4P2Q_8_2PBB3_PPP2PPP_R3K2R_w_KQ_-:h5f3",
+      "tier": "refuted-recommendation",
+      "fen": "r2q1k1r/1bppb1p1/ppn1p2p/4P2Q/8/2PBB3/PPP2PPP/R3K2R w KQ - 2 15",
+      "positionKey": "r2q1k1r/1bppb1p1/ppn1p2p/4P2Q/8/2PBB3/PPP2PPP/R3K2R w KQ -",
+      "move": "h5f3",
+      "side": "white",
+      "selectedSide": "white",
+      "role": "user",
+      "deltaCp": -259,
+      "oracleDepth": 12,
+      "buildShas": [
+        "dadf79a8fc20cdf0aa91e3f227e6e81fefb5f989"
+      ],
+      "gameIds": [
+        "game-mtgmmioi-ucofew3i"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "r2q1k1r_pp3p2_2pp3p_4nP2_Bb5n_2N5_PPP2PPP_1RBQK2R_w_K_-:a2a3",
+      "tier": "refuted-recommendation",
+      "fen": "r2q1k1r/pp3p2/2pp3p/4nP2/Bb5n/2N5/PPP2PPP/1RBQK2R w K - 1 14",
+      "positionKey": "r2q1k1r/pp3p2/2pp3p/4nP2/Bb5n/2N5/PPP2PPP/1RBQK2R w K -",
+      "move": "a2a3",
+      "side": "white",
+      "selectedSide": "white",
+      "role": "user",
+      "deltaCp": -167,
+      "oracleDepth": 12,
+      "buildShas": [
+        "dadf79a8fc20cdf0aa91e3f227e6e81fefb5f989"
+      ],
+      "gameIds": [
+        "game-mtjgkaap-a7zr4xne"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "r2q1rk1_p1p3pp_2p5_2b1Nb2_8_8_PPPP1PPP_R1BQR1K1_w_-_-:c2c3",
+      "tier": "refuted-played",
+      "fen": "r2q1rk1/p1p3pp/2p5/2b1Nb2/8/8/PPPP1PPP/R1BQR1K1 w - - 0 12",
+      "positionKey": "r2q1rk1/p1p3pp/2p5/2b1Nb2/8/8/PPPP1PPP/R1BQR1K1 w - -",
+      "move": "c2c3",
+      "side": "white",
+      "selectedSide": "black",
+      "role": "user",
+      "deltaCp": -509,
+      "oracleDepth": 12,
+      "buildShas": [
+        "dadf79a8fc20cdf0aa91e3f227e6e81fefb5f989"
+      ],
+      "gameIds": [
+        "game-mtgmv92g-hag8t00w"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "r2q1rk1_p1p3pp_2p5_4N3_8_2P5_PP1P2PP_R1BR2K1_b_-_-:d8d5",
+      "tier": "refuted-recommendation",
+      "fen": "r2q1rk1/p1p3pp/2p5/4N3/8/2P5/PP1P2PP/R1BR2K1 b - - 0 15",
+      "positionKey": "r2q1rk1/p1p3pp/2p5/4N3/8/2P5/PP1P2PP/R1BR2K1 b - -",
+      "move": "d8d5",
+      "side": "black",
+      "selectedSide": "black",
+      "role": "user",
+      "deltaCp": -164,
+      "oracleDepth": 12,
+      "buildShas": [
+        "dadf79a8fc20cdf0aa91e3f227e6e81fefb5f989"
+      ],
+      "gameIds": [
+        "game-mtgmv92g-hag8t00w"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "r2q1rk1_p1pb2pp_1pn2b2_3n4_4N3_1N6_PP3PPP_1RBQKB1R_b_K_-:f8e8",
+      "tier": "refuted-played",
+      "fen": "r2q1rk1/p1pb2pp/1pn2b2/3n4/4N3/1N6/PP3PPP/1RBQKB1R b K - 0 16",
+      "positionKey": "r2q1rk1/p1pb2pp/1pn2b2/3n4/4N3/1N6/PP3PPP/1RBQKB1R b K -",
+      "move": "f8e8",
+      "side": "black",
+      "selectedSide": "white",
+      "role": "rival",
+      "deltaCp": -445,
+      "oracleDepth": 12,
+      "buildShas": [
+        "dadf79a8fc20cdf0aa91e3f227e6e81fefb5f989"
+      ],
+      "gameIds": [
+        "game-mtq97ymo-vj2ewg03"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "r2q1rk1_pQp3pp_1p2p3_3p1p2_b2P4_2P1B1P1_2P1PP1P_1R2KB1R_w_K_-:b1b2",
+      "tier": "refuted-recommendation",
+      "fen": "r2q1rk1/pQp3pp/1p2p3/3p1p2/b2P4/2P1B1P1/2P1PP1P/1R2KB1R w K - 0 17",
+      "positionKey": "r2q1rk1/pQp3pp/1p2p3/3p1p2/b2P4/2P1B1P1/2P1PP1P/1R2KB1R w K -",
+      "move": "b1b2",
+      "side": "white",
+      "selectedSide": "white",
+      "role": "user",
+      "deltaCp": -186,
+      "oracleDepth": 12,
+      "buildShas": [
+        "dadf79a8fc20cdf0aa91e3f227e6e81fefb5f989"
+      ],
+      "gameIds": [
+        "game-mtknqoxb-44fubcxi"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "r2q2r1_pp2kp2_2pp3B_2b1nP2_B6n_P1N5_1PP2PPP_1R1Q1RK1_w_-_-:f5f6",
+      "tier": "refuted-recommendation",
+      "fen": "r2q2r1/pp2kp2/2pp3B/2b1nP2/B6n/P1N5/1PP2PPP/1R1Q1RK1 w - - 1 17",
+      "positionKey": "r2q2r1/pp2kp2/2pp3B/2b1nP2/B6n/P1N5/1PP2PPP/1R1Q1RK1 w - -",
+      "move": "f5f6",
+      "side": "white",
+      "selectedSide": "white",
+      "role": "user",
+      "deltaCp": -201,
+      "oracleDepth": 12,
+      "buildShas": [
+        "dadf79a8fc20cdf0aa91e3f227e6e81fefb5f989"
+      ],
+      "gameIds": [
+        "game-mtjgkaap-a7zr4xne"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "r2qk1nr_pppbb1pp_8_3p1p2_1n5P_1QN1BN2_PPP1PPP1_R3KB1R_w_KQkq_-:f3e5",
+      "tier": "refuted-recommendation",
+      "fen": "r2qk1nr/pppbb1pp/8/3p1p2/1n5P/1QN1BN2/PPP1PPP1/R3KB1R w KQkq - 0 11",
+      "positionKey": "r2qk1nr/pppbb1pp/8/3p1p2/1n5P/1QN1BN2/PPP1PPP1/R3KB1R w KQkq -",
+      "move": "f3e5",
+      "side": "white",
+      "selectedSide": "white",
+      "role": "user",
+      "deltaCp": -273,
+      "oracleDepth": 12,
+      "buildShas": [
+        "9dbe0520c8e4ab3e15f611c2c3abcd49bff4e6a6"
+      ],
+      "gameIds": [
+        "game-mssh81xd-01vcu2ry"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "r2qk2r_ppp1b1p1_2b4p_3pN3_1n2p2P_1Q2B3_PPP1PPP1_3RKB1R_w_Kkq_-:e3d2",
+      "tier": "refuted-recommendation",
+      "fen": "r2qk2r/ppp1b1p1/2b4p/3pN3/1n2p2P/1Q2B3/PPP1PPP1/3RKB1R w Kkq - 0 16",
+      "positionKey": "r2qk2r/ppp1b1p1/2b4p/3pN3/1n2p2P/1Q2B3/PPP1PPP1/3RKB1R w Kkq -",
+      "move": "e3d2",
+      "side": "white",
+      "selectedSide": "white",
+      "role": "user",
+      "deltaCp": -254,
+      "oracleDepth": 12,
+      "buildShas": [
+        "9dbe0520c8e4ab3e15f611c2c3abcd49bff4e6a6"
+      ],
+      "gameIds": [
+        "game-mssh81xd-01vcu2ry"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "r2qk2r_pppbb1p1_5n1p_3pNp2_1n5P_1QN1B3_PPP1PPP1_R3KB1R_b_KQkq_-:f6e4",
+      "tier": "refuted-played",
+      "fen": "r2qk2r/pppbb1p1/5n1p/3pNp2/1n5P/1QN1B3/PPP1PPP1/R3KB1R b KQkq - 1 13",
+      "positionKey": "r2qk2r/pppbb1p1/5n1p/3pNp2/1n5P/1QN1B3/PPP1PPP1/R3KB1R b KQkq -",
+      "move": "f6e4",
+      "side": "black",
+      "selectedSide": "white",
+      "role": "user",
+      "deltaCp": -401,
+      "oracleDepth": 12,
+      "buildShas": [
+        "9dbe0520c8e4ab3e15f611c2c3abcd49bff4e6a6"
+      ],
+      "gameIds": [
+        "game-mssh81xd-01vcu2ry"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "r2qk2r_pppbb1p1_5n1p_3pNpB1_1n5P_1QN5_PPP1PPP1_R3KB1R_w_KQkq_-:g5e3",
+      "tier": "refuted-recommendation",
+      "fen": "r2qk2r/pppbb1p1/5n1p/3pNpB1/1n5P/1QN5/PPP1PPP1/R3KB1R w KQkq - 0 13",
+      "positionKey": "r2qk2r/pppbb1p1/5n1p/3pNpB1/1n5P/1QN5/PPP1PPP1/R3KB1R w KQkq -",
+      "move": "g5e3",
+      "side": "white",
+      "selectedSide": "white",
+      "role": "user",
+      "deltaCp": -415,
+      "oracleDepth": 12,
+      "buildShas": [
+        "9dbe0520c8e4ab3e15f611c2c3abcd49bff4e6a6"
+      ],
+      "gameIds": [
+        "game-mssh81xd-01vcu2ry"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "r2qkb1r_1pp2ppp_p1n1pn2_3p1b2_P2P1B2_2N2N1P_1PP1PPP1_R2QKB1R_w_KQkq_-:c3d5",
+      "tier": "refuted-recommendation",
+      "fen": "r2qkb1r/1pp2ppp/p1n1pn2/3p1b2/P2P1B2/2N2N1P/1PP1PPP1/R2QKB1R w KQkq - 0 7",
+      "positionKey": "r2qkb1r/1pp2ppp/p1n1pn2/3p1b2/P2P1B2/2N2N1P/1PP1PPP1/R2QKB1R w KQkq -",
+      "move": "c3d5",
+      "side": "white",
+      "selectedSide": "white",
+      "role": "user",
+      "deltaCp": -409,
+      "oracleDepth": 12,
+      "buildShas": [
+        "dadf79a8fc20cdf0aa91e3f227e6e81fefb5f989"
+      ],
+      "gameIds": [
+        "game-mtjh19zk-2t5fh0hv"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "r2qkb1r_2p2ppp_p1n1bn2_1p2p3_3pP3_PP1P3P_1BPNNPP1_R2QKB1R_b_KQkq_-:f6e4",
+      "tier": "refuted-recommendation",
+      "fen": "r2qkb1r/2p2ppp/p1n1bn2/1p2p3/3pP3/PP1P3P/1BPNNPP1/R2QKB1R b KQkq - 1 9",
+      "positionKey": "r2qkb1r/2p2ppp/p1n1bn2/1p2p3/3pP3/PP1P3P/1BPNNPP1/R2QKB1R b KQkq -",
+      "move": "f6e4",
+      "side": "black",
+      "selectedSide": "black",
+      "role": "user",
+      "deltaCp": -361,
+      "oracleDepth": 12,
+      "buildShas": [
+        "6a2270fc65784f4c772d180afec5b9bc1ad2f812"
+      ],
+      "gameIds": [
+        "game-mtqi3wx7-qzav3wu2"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "r2qkb1r_2p3pp_p1n1b3_1p2p3_3p4_PP1P2NP_1BPN1P2_R2QKB1R_b_KQkq_-:d8f6",
+      "tier": "refuted-recommendation",
+      "fen": "r2qkb1r/2p3pp/p1n1b3/1p2p3/3p4/PP1P2NP/1BPN1P2/R2QKB1R b KQkq - 0 13",
+      "positionKey": "r2qkb1r/2p3pp/p1n1b3/1p2p3/3p4/PP1P2NP/1BPN1P2/R2QKB1R b KQkq -",
+      "move": "d8f6",
+      "side": "black",
+      "selectedSide": "black",
+      "role": "user",
+      "deltaCp": -167,
+      "oracleDepth": 12,
+      "buildShas": [
+        "6a2270fc65784f4c772d180afec5b9bc1ad2f812"
+      ],
+      "gameIds": [
+        "game-mtqi3wx7-qzav3wu2"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "r2qkb1r_p4ppp_2p1b3_2Pp4_2P5_8_PP3PPP_R1BQK1NR_w_KQkq_-:d1b3",
+      "tier": "refuted-recommendation",
+      "fen": "r2qkb1r/p4ppp/2p1b3/2Pp4/2P5/8/PP3PPP/R1BQK1NR w KQkq - 0 10",
+      "positionKey": "r2qkb1r/p4ppp/2p1b3/2Pp4/2P5/8/PP3PPP/R1BQK1NR w KQkq -",
+      "move": "d1b3",
+      "side": "white",
+      "selectedSide": "white",
+      "role": "user",
+      "deltaCp": -158,
+      "oracleDepth": 12,
+      "buildShas": [
+        "a2d290ba8c7353ca9f5601222269a2a24eed5a76"
+      ],
+      "gameIds": [
+        "game-mrz20j07-t8ohfcnh"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "r2qkb1r_pp3ppp_2p1p3_3pN3_3Pn3_N1PQP2P_PP3P1B_R3K2R_w_KQkq_-:f2f3",
+      "tier": "refuted-played",
+      "fen": "r2qkb1r/pp3ppp/2p1p3/3pN3/3Pn3/N1PQP2P/PP3P1B/R3K2R w KQkq - 2 13",
+      "positionKey": "r2qkb1r/pp3ppp/2p1p3/3pN3/3Pn3/N1PQP2P/PP3P1B/R3K2R w KQkq -",
+      "move": "f2f3",
+      "side": "white",
+      "selectedSide": "black",
+      "role": "user",
+      "deltaCp": -442,
+      "oracleDepth": 12,
+      "buildShas": [
+        "dadf79a8fc20cdf0aa91e3f227e6e81fefb5f989"
+      ],
+      "gameIds": [
+        "game-mtkzkevp-1f7qimma"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "r2qkb1r_pp3ppp_2P5_n4n2_Q1p5_4PN2_PP3PPP_R1B1KB1R_b_KQkq_-:b7c6",
+      "tier": "refuted-recommendation",
+      "fen": "r2qkb1r/pp3ppp/2P5/n4n2/Q1p5/4PN2/PP3PPP/R1B1KB1R b KQkq - 0 11",
+      "positionKey": "r2qkb1r/pp3ppp/2P5/n4n2/Q1p5/4PN2/PP3PPP/R1B1KB1R b KQkq -",
+      "move": "b7c6",
+      "side": "black",
+      "selectedSide": "black",
+      "role": "user",
+      "deltaCp": -293,
+      "oracleDepth": 12,
+      "buildShas": [
+        "01c89ca328199cf30d57dcaff7f11500d912c4c5"
+      ],
+      "gameIds": [
+        "game-mrqlewbl-hmuqs9cm"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "r2qkb1r_ppp1pppp_5n2_3p1b2_1n1P4_N2BPN1P_PPP2PPB_R2QK2R_b_KQkq_-:f5h3",
+      "tier": "refuted-recommendation",
+      "fen": "r2qkb1r/ppp1pppp/5n2/3p1b2/1n1P4/N2BPN1P/PPP2PPB/R2QK2R b KQkq - 6 8",
+      "positionKey": "r2qkb1r/ppp1pppp/5n2/3p1b2/1n1P4/N2BPN1P/PPP2PPB/R2QK2R b KQkq -",
+      "move": "f5h3",
+      "side": "black",
+      "selectedSide": "black",
+      "role": "user",
+      "deltaCp": -400,
+      "oracleDepth": 12,
+      "buildShas": [
+        "dadf79a8fc20cdf0aa91e3f227e6e81fefb5f989"
+      ],
+      "gameIds": [
+        "game-mtkzkevp-1f7qimma"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "r2qkb1r_pppb1ppp_2n2n2_1B1p4_Q3p3_2N1PN2_PPPP1PPP_R1B1K2R_w_KQkq_-:f3g5",
+      "tier": "refuted-recommendation",
+      "fen": "r2qkb1r/pppb1ppp/2n2n2/1B1p4/Q3p3/2N1PN2/PPPP1PPP/R1B1K2R w KQkq - 0 7",
+      "positionKey": "r2qkb1r/pppb1ppp/2n2n2/1B1p4/Q3p3/2N1PN2/PPPP1PPP/R1B1K2R w KQkq -",
+      "move": "f3g5",
+      "side": "white",
+      "selectedSide": "white",
+      "role": "user",
+      "deltaCp": -163,
+      "oracleDepth": 12,
+      "buildShas": [
+        "01c89ca328199cf30d57dcaff7f11500d912c4c5"
+      ],
+      "gameIds": [
+        "game-mrqlyff4-ms5xtxad"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "r2qkb2_p1p1pp1p_2p1b2p_3p4_3P4_2N2N2_PPP1QPrP_R3K2R_b_KQq_-:g2g1",
+      "tier": "refuted-recommendation",
+      "fen": "r2qkb2/p1p1pp1p/2p1b2p/3p4/3P4/2N2N2/PPP1QPrP/R3K2R b KQq - 1 10",
+      "positionKey": "r2qkb2/p1p1pp1p/2p1b2p/3p4/3P4/2N2N2/PPP1QPrP/R3K2R b KQq -",
+      "move": "g2g1",
+      "side": "black",
+      "selectedSide": "black",
+      "role": "user",
+      "deltaCp": -704,
+      "oracleDepth": 12,
+      "buildShas": [
+        "dadf79a8fc20cdf0aa91e3f227e6e81fefb5f989"
+      ],
+      "gameIds": [
+        "game-mtmcytyr-i76mptzt"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "r2qkbnr_ppp1pbpp_2np1p2_1B6_3PP3_2N1B3_PPP2PPP_R2QK1NR_w_KQkq_-:b5c6",
+      "tier": "refuted-recommendation",
+      "fen": "r2qkbnr/ppp1pbpp/2np1p2/1B6/3PP3/2N1B3/PPP2PPP/R2QK1NR w KQkq - 5 7",
+      "positionKey": "r2qkbnr/ppp1pbpp/2np1p2/1B6/3PP3/2N1B3/PPP2PPP/R2QK1NR w KQkq -",
+      "move": "b5c6",
+      "side": "white",
+      "selectedSide": "white",
+      "role": "user",
+      "deltaCp": -368,
+      "oracleDepth": 12,
+      "buildShas": [
+        "bf8355661e5015942243e16d2373d39704048f10"
+      ],
+      "gameIds": [
+        "game-mtqprdj8-7v9r675k"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "r2qr1k1_p1p1b1p1_1pQpbp1p_8_8_4BN2_PPP1PPPP_2KR1B1R_w_-_-:c6e4",
+      "tier": "refuted-recommendation",
+      "fen": "r2qr1k1/p1p1b1p1/1pQpbp1p/8/8/4BN2/PPP1PPPP/2KR1B1R w - - 0 14",
+      "positionKey": "r2qr1k1/p1p1b1p1/1pQpbp1p/8/8/4BN2/PPP1PPPP/2KR1B1R w - -",
+      "move": "c6e4",
+      "side": "white",
+      "selectedSide": "white",
+      "role": "user",
+      "deltaCp": -166,
+      "oracleDepth": 12,
+      "buildShas": [
+        "bf8355661e5015942243e16d2373d39704048f10"
+      ],
+      "gameIds": [
+        "game-mtqqan0e-fwhf5afz"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "r2qr1k1_ppp1bpp1_2npb2p_1Q6_8_4BN2_PPP1PPPP_2KR1B1R_b_-_-:b7b6",
+      "tier": "refuted-played",
+      "fen": "r2qr1k1/ppp1bpp1/2npb2p/1Q6/8/4BN2/PPP1PPPP/2KR1B1R b - - 2 12",
+      "positionKey": "r2qr1k1/ppp1bpp1/2npb2p/1Q6/8/4BN2/PPP1PPPP/2KR1B1R b - -",
+      "move": "b7b6",
+      "side": "black",
+      "selectedSide": "white",
+      "role": "rival",
+      "deltaCp": -411,
+      "oracleDepth": 12,
+      "buildShas": [
+        "bf8355661e5015942243e16d2373d39704048f10"
+      ],
+      "gameIds": [
+        "game-mtqqan0e-fwhf5afz"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "r2r2k1_1b3p2_2pPpQ1p_p7_1p6_3R3B_PPP2P2_4K3_b_-_-:h6h5",
+      "tier": "refuted-played",
+      "fen": "r2r2k1/1b3p2/2pPpQ1p/p7/1p6/3R3B/PPP2P2/4K3 b - - 2 27",
+      "positionKey": "r2r2k1/1b3p2/2pPpQ1p/p7/1p6/3R3B/PPP2P2/4K3 b - -",
+      "move": "h6h5",
+      "side": "black",
+      "selectedSide": "white",
+      "role": "user",
+      "deltaCp": -99231,
+      "oracleDepth": 12,
+      "buildShas": [
+        "731d56473cdcb790b338f1b96395cfae748562e9"
+      ],
+      "gameIds": [
+        "game-mt67zkf5-wak9m7nn"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "r3k1nr_1p2q1pp_p1n1pp2_P4b2_3P4_1QP2N2_1P2PPPP_R3KB1R_w_KQkq_-:d4d5",
+      "tier": "refuted-recommendation",
+      "fen": "r3k1nr/1p2q1pp/p1n1pp2/P4b2/3P4/1QP2N2/1P2PPPP/R3KB1R w KQkq - 2 12",
+      "positionKey": "r3k1nr/1p2q1pp/p1n1pp2/P4b2/3P4/1QP2N2/1P2PPPP/R3KB1R w KQkq -",
+      "move": "d4d5",
+      "side": "white",
+      "selectedSide": "white",
+      "role": "user",
+      "deltaCp": -180,
+      "oracleDepth": 12,
+      "buildShas": [
+        "731d56473cdcb790b338f1b96395cfae748562e9"
+      ],
+      "gameIds": [
+        "game-mt68gnry-4401w6kx"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "r3k2r_1pp1ppbp_p1nq2p1_3pNb2_3P1QP1_P1N1P3_1PP2P1P_2KR1B1R_b_kq_-:f5e4",
+      "tier": "refuted-played",
+      "fen": "r3k2r/1pp1ppbp/p1nq2p1/3pNb2/3P1QP1/P1N1P3/1PP2P1P/2KR1B1R b kq - 0 13",
+      "positionKey": "r3k2r/1pp1ppbp/p1nq2p1/3pNb2/3P1QP1/P1N1P3/1PP2P1P/2KR1B1R b kq -",
+      "move": "f5e4",
+      "side": "black",
+      "selectedSide": "white",
+      "role": "user",
+      "deltaCp": -681,
+      "oracleDepth": 12,
+      "buildShas": [
+        "a2d290ba8c7353ca9f5601222269a2a24eed5a76"
+      ],
+      "gameIds": [
+        "game-mrz2bcj9-dl1vkqv4"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "r3k2r_ppp1ppbp_2n1q1p1_2Pp1b2_1P1P4_P3PN2_1B1QBPPP_R3K2R_b_KQkq_-:e8c8",
+      "tier": "refuted-recommendation",
+      "fen": "r3k2r/ppp1ppbp/2n1q1p1/2Pp1b2/1P1P4/P3PN2/1B1QBPPP/R3K2R b KQkq - 2 11",
+      "positionKey": "r3k2r/ppp1ppbp/2n1q1p1/2Pp1b2/1P1P4/P3PN2/1B1QBPPP/R3K2R b KQkq -",
+      "move": "e8c8",
+      "side": "black",
+      "selectedSide": "black",
+      "role": "user",
+      "deltaCp": -180,
+      "oracleDepth": 12,
+      "buildShas": [
+        "dadf79a8fc20cdf0aa91e3f227e6e81fefb5f989"
+      ],
+      "gameIds": [
+        "game-mtq7j1gd-am6skq2s"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "r3k2r_ppp2ppp_2n2q2_2b1pb2_4R3_3B1N2_PPPPQPPP_R1B3K1_w_kq_-:e4f4",
+      "tier": "refuted-played",
+      "fen": "r3k2r/ppp2ppp/2n2q2/2b1pb2/4R3/3B1N2/PPPPQPPP/R1B3K1 w kq - 3 12",
+      "positionKey": "r3k2r/ppp2ppp/2n2q2/2b1pb2/4R3/3B1N2/PPPPQPPP/R1B3K1 w kq -",
+      "move": "e4f4",
+      "side": "white",
+      "selectedSide": "black",
+      "role": "rival",
+      "deltaCp": -411,
+      "oracleDepth": 12,
+      "buildShas": [
+        "01c89ca328199cf30d57dcaff7f11500d912c4c5"
+      ],
+      "gameIds": [
+        "game-mrqlloel-4agz0m3q"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "r3kb1r_1p4pp_pq2pp2_3p1b2_2p2Q2_2N5_PPnB1PPP_2KR1B1R_b_kq_-:f8b4",
+      "tier": "refuted-recommendation",
+      "fen": "r3kb1r/1p4pp/pq2pp2/3p1b2/2p2Q2/2N5/PPnB1PPP/2KR1B1R b kq - 1 17",
+      "positionKey": "r3kb1r/1p4pp/pq2pp2/3p1b2/2p2Q2/2N5/PPnB1PPP/2KR1B1R b kq -",
+      "move": "f8b4",
+      "side": "black",
+      "selectedSide": "black",
+      "role": "user",
+      "deltaCp": -377,
+      "oracleDepth": 12,
+      "buildShas": [
+        "dadf79a8fc20cdf0aa91e3f227e6e81fefb5f989"
+      ],
+      "gameIds": [
+        "game-mtmdwo6f-j8cokjtq"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "r3kb1r_2p2pp1_p1N1q3_3p1b1p_1P1PNP2_P7_2P3PP_R1BQR1K1_b_kq_-:d5e4",
+      "tier": "refuted-recommendation",
+      "fen": "r3kb1r/2p2pp1/p1N1q3/3p1b1p/1P1PNP2/P7/2P3PP/R1BQR1K1 b kq - 0 16",
+      "positionKey": "r3kb1r/2p2pp1/p1N1q3/3p1b1p/1P1PNP2/P7/2P3PP/R1BQR1K1 b kq -",
+      "move": "d5e4",
+      "side": "black",
+      "selectedSide": "black",
+      "role": "user",
+      "deltaCp": -232,
+      "oracleDepth": 12,
+      "buildShas": [
+        "bf8355661e5015942243e16d2373d39704048f10"
+      ],
+      "gameIds": [
+        "game-mtqos60m-vkz6v05v"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "r3kb1r_pbq2p1p_1p2pp2_1P1p4_P1p5_2P1QNP1_4PP1P_R2N1RK1_b_kq_-:c7g3",
+      "tier": "refuted-recommendation",
+      "fen": "r3kb1r/pbq2p1p/1p2pp2/1P1p4/P1p5/2P1QNP1/4PP1P/R2N1RK1 b kq - 0 21",
+      "positionKey": "r3kb1r/pbq2p1p/1p2pp2/1P1p4/P1p5/2P1QNP1/4PP1P/R2N1RK1 b kq -",
+      "move": "c7g3",
+      "side": "black",
+      "selectedSide": "black",
+      "role": "user",
+      "deltaCp": -622,
+      "oracleDepth": 12,
+      "buildShas": [
+        "9dbe0520c8e4ab3e15f611c2c3abcd49bff4e6a6"
+      ],
+      "gameIds": [
+        "game-mssjo0pu-3n259vzq"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "r3kb1r_ppp1pppp_2n1b3_7q_3N2n1_2N5_PPPPBPPP_R1BQ1RK1_w_kq_-:d4c6",
+      "tier": "refuted-played",
+      "fen": "r3kb1r/ppp1pppp/2n1b3/7q/3N2n1/2N5/PPPPBPPP/R1BQ1RK1 w kq - 12 9",
+      "positionKey": "r3kb1r/ppp1pppp/2n1b3/7q/3N2n1/2N5/PPPPBPPP/R1BQ1RK1 w kq -",
+      "move": "d4c6",
+      "side": "white",
+      "selectedSide": "black",
+      "role": "rival",
+      "deltaCp": -100082,
+      "oracleDepth": 12,
+      "buildShas": [
+        "319aaf49c5c766c4e77fe594de53eda981d9b758"
+      ],
+      "gameIds": [
+        "game-mroqfxtp-bs34znhz"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "r3kb1r_ppp1pppp_2P1b3_8_4n1q1_2N2N2_PP3PPP_R1BQKB1R_b_KQkq_-:a8d8",
+      "tier": "refuted-recommendation",
+      "fen": "r3kb1r/ppp1pppp/2P1b3/8/4n1q1/2N2N2/PP3PPP/R1BQKB1R b KQkq - 0 9",
+      "positionKey": "r3kb1r/ppp1pppp/2P1b3/8/4n1q1/2N2N2/PP3PPP/R1BQKB1R b KQkq -",
+      "move": "a8d8",
+      "side": "black",
+      "selectedSide": "black",
+      "role": "user",
+      "deltaCp": -174,
+      "oracleDepth": 12,
+      "buildShas": [
+        "03c92fae31516fbeac7a9c7359b38505e24b81a9"
+      ],
+      "gameIds": [
+        "game-mrx358uo-b441caz5"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "r3kb1r_pppbpppp_8_3P4_2P2B2_1P6_P3BPPP_q2Q1RK1_b_kq_-:a1a2",
+      "tier": "refuted-recommendation",
+      "fen": "r3kb1r/pppbpppp/8/3P4/2P2B2/1P6/P3BPPP/q2Q1RK1 b kq - 1 13",
+      "positionKey": "r3kb1r/pppbpppp/8/3P4/2P2B2/1P6/P3BPPP/q2Q1RK1 b kq -",
+      "move": "a1a2",
+      "side": "black",
+      "selectedSide": "black",
+      "role": "user",
+      "deltaCp": -188,
+      "oracleDepth": 12,
+      "buildShas": [
+        "dadf79a8fc20cdf0aa91e3f227e6e81fefb5f989"
+      ],
+      "gameIds": [
+        "game-mtknzu2n-2d1kbpzb"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "r3kb1r_pppbpppp_8_3Pq3_2P5_8_PP2BPPP_R1BQ1RK1_w_kq_-:b2b3",
+      "tier": "refuted-played",
+      "fen": "r3kb1r/pppbpppp/8/3Pq3/2P5/8/PP2BPPP/R1BQ1RK1 w kq - 0 12",
+      "positionKey": "r3kb1r/pppbpppp/8/3Pq3/2P5/8/PP2BPPP/R1BQ1RK1 w kq -",
+      "move": "b2b3",
+      "side": "white",
+      "selectedSide": "black",
+      "role": "user",
+      "deltaCp": -486,
+      "oracleDepth": 12,
+      "buildShas": [
+        "dadf79a8fc20cdf0aa91e3f227e6e81fefb5f989"
+      ],
+      "gameIds": [
+        "game-mtknzu2n-2d1kbpzb"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "r3kb1r_pppq2pp_4bn2_8_8_2PPBQ2_P1P2PPP_R3KB1R_w_KQkq_-:e3f4",
+      "tier": "refuted-recommendation",
+      "fen": "r3kb1r/pppq2pp/4bn2/8/8/2PPBQ2/P1P2PPP/R3KB1R w KQkq - 0 11",
+      "positionKey": "r3kb1r/pppq2pp/4bn2/8/8/2PPBQ2/P1P2PPP/R3KB1R w KQkq -",
+      "move": "e3f4",
+      "side": "white",
+      "selectedSide": "white",
+      "role": "user",
+      "deltaCp": -167,
+      "oracleDepth": 12,
+      "buildShas": [
+        "bf8355661e5015942243e16d2373d39704048f10"
+      ],
+      "gameIds": [
+        "game-mtqpcbf1-m2nceqmp"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "r3kbnr_1ppqp1pp_p1n2p2_P2p1b2_3P1B2_2N2N2_1PP1PPPP_R2QKB1R_w_KQkq_-:c3d5",
+      "tier": "refuted-recommendation",
+      "fen": "r3kbnr/1ppqp1pp/p1n2p2/P2p1b2/3P1B2/2N2N2/1PP1PPPP/R2QKB1R w KQkq - 0 7",
+      "positionKey": "r3kbnr/1ppqp1pp/p1n2p2/P2p1b2/3P1B2/2N2N2/1PP1PPPP/R2QKB1R w KQkq -",
+      "move": "c3d5",
+      "side": "white",
+      "selectedSide": "white",
+      "role": "user",
+      "deltaCp": -242,
+      "oracleDepth": 12,
+      "buildShas": [
+        "731d56473cdcb790b338f1b96395cfae748562e9"
+      ],
+      "gameIds": [
+        "game-mt68gnry-4401w6kx"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "r3kbnr_p1p1pbpp_2pp1p2_8_1q1PP3_1PN1BN2_P1P2PPP_1R1QK2R_b_Kkq_-:b4c3",
+      "tier": "refuted-played",
+      "fen": "r3kbnr/p1p1pbpp/2pp1p2/8/1q1PP3/1PN1BN2/P1P2PPP/1R1QK2R b Kkq - 2 10",
+      "positionKey": "r3kbnr/p1p1pbpp/2pp1p2/8/1q1PP3/1PN1BN2/P1P2PPP/1R1QK2R b Kkq -",
+      "move": "b4c3",
+      "side": "black",
+      "selectedSide": "white",
+      "role": "rival",
+      "deltaCp": -445,
+      "oracleDepth": 12,
+      "buildShas": [
+        "bf8355661e5015942243e16d2373d39704048f10"
+      ],
+      "gameIds": [
+        "game-mtqprdj8-7v9r675k"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "r3kbnr_ppp1pppp_2n5_3p1b2_2qP1P2_2N2NP1_PPP1P1BP_R1BQK2R_w_KQkq_-:b2b3",
+      "tier": "refuted-played",
+      "fen": "r3kbnr/ppp1pppp/2n5/3p1b2/2qP1P2/2N2NP1/PPP1P1BP/R1BQK2R w KQkq - 1 7",
+      "positionKey": "r3kbnr/ppp1pppp/2n5/3p1b2/2qP1P2/2N2NP1/PPP1P1BP/R1BQK2R w KQkq -",
+      "move": "b2b3",
+      "side": "white",
+      "selectedSide": "black",
+      "role": "rival",
+      "deltaCp": -577,
+      "oracleDepth": 12,
+      "buildShas": [
+        "bf8355661e5015942243e16d2373d39704048f10"
+      ],
+      "gameIds": [
+        "game-mtqpvc5a-z2c9r0th"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "r3kbnr_ppp1pppp_2n5_3q1b2_3P1P2_6P1_3QP2P_2B1K2R_w_Kkq_-:c1a3",
+      "tier": "refuted-played",
+      "fen": "r3kbnr/ppp1pppp/2n5/3q1b2/3P1P2/6P1/3QP2P/2B1K2R w Kkq - 0 14",
+      "positionKey": "r3kbnr/ppp1pppp/2n5/3q1b2/3P1P2/6P1/3QP2P/2B1K2R w Kkq -",
+      "move": "c1a3",
+      "side": "white",
+      "selectedSide": "black",
+      "role": "rival",
+      "deltaCp": -661,
+      "oracleDepth": 12,
+      "buildShas": [
+        "bf8355661e5015942243e16d2373d39704048f10"
+      ],
+      "gameIds": [
+        "game-mtqpvc5a-z2c9r0th"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "r3r1k1_2pb1q1p_3p2p1_1pbP1pP1_p2p1P2_3P2KP_P1B3Q1_R1B3R1_w_-_-:g1d1",
+      "tier": "refuted-recommendation",
+      "fen": "r3r1k1/2pb1q1p/3p2p1/1pbP1pP1/p2p1P2/3P2KP/P1B3Q1/R1B3R1 w - - 1 28",
+      "positionKey": "r3r1k1/2pb1q1p/3p2p1/1pbP1pP1/p2p1P2/3P2KP/P1B3Q1/R1B3R1 w - -",
+      "move": "g1d1",
+      "side": "white",
+      "selectedSide": "white",
+      "role": "user",
+      "deltaCp": -183,
+      "oracleDepth": 12,
+      "buildShas": [
+        "5d3b057c624ef1912c121cf5eb234a3fd52e5d5e"
+      ],
+      "gameIds": [
+        "game-mtbul9ri-fedoie9o"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "r3r1k1_pppqbppp_8_8_1n2Q3_2N1P3_PPP2PPP_R1B2RK1_w_-_-:f2f4",
+      "tier": "refuted-recommendation",
+      "fen": "r3r1k1/pppqbppp/8/8/1n2Q3/2N1P3/PPP2PPP/R1B2RK1 w - - 0 14",
+      "positionKey": "r3r1k1/pppqbppp/8/8/1n2Q3/2N1P3/PPP2PPP/R1B2RK1 w - -",
+      "move": "f2f4",
+      "side": "white",
+      "selectedSide": "white",
+      "role": "user",
+      "deltaCp": -279,
+      "oracleDepth": 12,
+      "buildShas": [
+        "01c89ca328199cf30d57dcaff7f11500d912c4c5"
+      ],
+      "gameIds": [
+        "game-mrqlyff4-ms5xtxad"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "r4b1r_p1Nk1pp1_b1ppp3_8_4P1Q1_1P6_PqP2PPP_R3R1K1_w_-_-:c7a8",
+      "tier": "refuted-played",
+      "fen": "r4b1r/p1Nk1pp1/b1ppp3/8/4P1Q1/1P6/PqP2PPP/R3R1K1 w - - 2 18",
+      "positionKey": "r4b1r/p1Nk1pp1/b1ppp3/8/4P1Q1/1P6/PqP2PPP/R3R1K1 w - -",
+      "move": "c7a8",
+      "side": "white",
+      "selectedSide": "black",
+      "role": "user",
+      "deltaCp": -256,
+      "oracleDepth": 12,
+      "buildShas": [
+        "1ca0f40806f6762f9355cf12cc96a097f256b1ed"
+      ],
+      "gameIds": [
+        "game-ms0s1xq5-8r3t5tw5",
+        "game-ms0s25g2-pg9f93b6"
+      ],
+      "occurrences": 2,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "r4b1r_pbk1p2p_5p2_7Q_7N_1P1q4_P2N1PPP_2R2RK1_b_-_-:c7d8",
+      "tier": "refuted-recommendation",
+      "fen": "r4b1r/pbk1p2p/5p2/7Q/7N/1P1q4/P2N1PPP/2R2RK1 b - - 1 18",
+      "positionKey": "r4b1r/pbk1p2p/5p2/7Q/7N/1P1q4/P2N1PPP/2R2RK1 b - -",
+      "move": "c7d8",
+      "side": "black",
+      "selectedSide": "black",
+      "role": "user",
+      "deltaCp": -217,
+      "oracleDepth": 12,
+      "buildShas": [
+        "dadf79a8fc20cdf0aa91e3f227e6e81fefb5f989"
+      ],
+      "gameIds": [
+        "game-mtkqhf5m-mt3enqbg"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "r4bn1_ppk5_4pq2_2pp4_Q7_2N5_PPPP1PPP_R1B1K1NR_w_KQ_-:f2f4",
+      "tier": "refuted-recommendation",
+      "fen": "r4bn1/ppk5/4pq2/2pp4/Q7/2N5/PPPP1PPP/R1B1K1NR w KQ - 4 14",
+      "positionKey": "r4bn1/ppk5/4pq2/2pp4/Q7/2N5/PPPP1PPP/R1B1K1NR w KQ -",
+      "move": "f2f4",
+      "side": "white",
+      "selectedSide": "white",
+      "role": "user",
+      "deltaCp": -250,
+      "oracleDepth": 12,
+      "buildShas": [
+        "6a2270fc65784f4c772d180afec5b9bc1ad2f812"
+      ],
+      "gameIds": [
+        "game-mtqibk0d-vpkyqcpq"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "r4br1_pk2p2p_5p2_2Q5_8_1P3N2_P4PPP_3R2K1_w_-_-:c5d5",
+      "tier": "refuted-played",
+      "fen": "r4br1/pk2p2p/5p2/2Q5/8/1P3N2/P4PPP/3R2K1 w - - 3 24",
+      "positionKey": "r4br1/pk2p2p/5p2/2Q5/8/1P3N2/P4PPP/3R2K1 w - -",
+      "move": "c5d5",
+      "side": "white",
+      "selectedSide": "black",
+      "role": "user",
+      "deltaCp": -99016,
+      "oracleDepth": 12,
+      "buildShas": [
+        "dadf79a8fc20cdf0aa91e3f227e6e81fefb5f989"
+      ],
+      "gameIds": [
+        "game-mtkqhf5m-mt3enqbg"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "r4br1_pk2p2p_5p2_3Q4_8_1P3N2_P4PPP_3R2K1_b_-_-:b7b8",
+      "tier": "refuted-played",
+      "fen": "r4br1/pk2p2p/5p2/3Q4/8/1P3N2/P4PPP/3R2K1 b - - 4 24",
+      "positionKey": "r4br1/pk2p2p/5p2/3Q4/8/1P3N2/P4PPP/3R2K1 b - -",
+      "move": "b7b8",
+      "side": "black",
+      "selectedSide": "black",
+      "role": "user",
+      "deltaCp": -98999,
+      "oracleDepth": 12,
+      "buildShas": [
+        "dadf79a8fc20cdf0aa91e3f227e6e81fefb5f989"
+      ],
+      "gameIds": [
+        "game-mtkqhf5m-mt3enqbg"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "r4k1r_1pp2ppp_3p1n2_p4bN1_1nPp1B2_8_PP1N1PPR_2KR1B2_w_-_-:g5e4",
+      "tier": "refuted-played",
+      "fen": "r4k1r/1pp2ppp/3p1n2/p4bN1/1nPp1B2/8/PP1N1PPR/2KR1B2 w - - 4 17",
+      "positionKey": "r4k1r/1pp2ppp/3p1n2/p4bN1/1nPp1B2/8/PP1N1PPR/2KR1B2 w - -",
+      "move": "g5e4",
+      "side": "white",
+      "selectedSide": "black",
+      "role": "user",
+      "deltaCp": -410,
+      "oracleDepth": 12,
+      "buildShas": [
+        "1ca0f40806f6762f9355cf12cc96a097f256b1ed"
+      ],
+      "gameIds": [
+        "game-ms8eopy6-95lrl1pl"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "r4k1r_1pp2ppp_3p4_p4b2_1nPpnB2_8_PP1N1PPR_2KR1B2_w_-_-:f1d3",
+      "tier": "refuted-played",
+      "fen": "r4k1r/1pp2ppp/3p4/p4b2/1nPpnB2/8/PP1N1PPR/2KR1B2 w - - 0 18",
+      "positionKey": "r4k1r/1pp2ppp/3p4/p4b2/1nPpnB2/8/PP1N1PPR/2KR1B2 w - -",
+      "move": "f1d3",
+      "side": "white",
+      "selectedSide": "black",
+      "role": "user",
+      "deltaCp": -548,
+      "oracleDepth": 12,
+      "buildShas": [
+        "1ca0f40806f6762f9355cf12cc96a097f256b1ed"
+      ],
+      "gameIds": [
+        "game-ms8eopy6-95lrl1pl"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "r4r1k_pppb1p1p_6p1_3pqnB1_8_4PQ2_PPP2PPP_3RKB1R_w_K_-:d1d5",
+      "tier": "refuted-recommendation",
+      "fen": "r4r1k/pppb1p1p/6p1/3pqnB1/8/4PQ2/PPP2PPP/3RKB1R w K - 0 15",
+      "positionKey": "r4r1k/pppb1p1p/6p1/3pqnB1/8/4PQ2/PPP2PPP/3RKB1R w K -",
+      "move": "d1d5",
+      "side": "white",
+      "selectedSide": "white",
+      "role": "user",
+      "deltaCp": -171,
+      "oracleDepth": 12,
+      "buildShas": [
+        "6a2270fc65784f4c772d180afec5b9bc1ad2f812"
+      ],
+      "gameIds": [
+        "game-mtqj8puj-4gpasjyh"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "r4r1k_pppbnp1p_3q2p1_3pb1B1_8_3NPQ2_PPP2PPP_R3KB1R_w_KQ_-:a1d1",
+      "tier": "refuted-recommendation",
+      "fen": "r4r1k/pppbnp1p/3q2p1/3pb1B1/8/3NPQ2/PPP2PPP/R3KB1R w KQ - 0 13",
+      "positionKey": "r4r1k/pppbnp1p/3q2p1/3pb1B1/8/3NPQ2/PPP2PPP/R3KB1R w KQ -",
+      "move": "a1d1",
+      "side": "white",
+      "selectedSide": "white",
+      "role": "user",
+      "deltaCp": -413,
+      "oracleDepth": 12,
+      "buildShas": [
+        "6a2270fc65784f4c772d180afec5b9bc1ad2f812"
+      ],
+      "gameIds": [
+        "game-mtqj8puj-4gpasjyh"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "r4rk1_2p2pp1_p2b1q2_3PNb1p_1P1QpP2_P3R3_1BP3PP_1R4K1_b_-_-:h5h4",
+      "tier": "refuted-recommendation",
+      "fen": "r4rk1/2p2pp1/p2b1q2/3PNb1p/1P1QpP2/P3R3/1BP3PP/1R4K1 b - - 10 22",
+      "positionKey": "r4rk1/2p2pp1/p2b1q2/3PNb1p/1P1QpP2/P3R3/1BP3PP/1R4K1 b - -",
+      "move": "h5h4",
+      "side": "black",
+      "selectedSide": "black",
+      "role": "user",
+      "deltaCp": -173,
+      "oracleDepth": 12,
+      "buildShas": [
+        "bf8355661e5015942243e16d2373d39704048f10"
+      ],
+      "gameIds": [
+        "game-mtqos60m-vkz6v05v"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "r4rk1_2p3p1_p1n5_4p2q_PpNpN2p_1P1P1P2_2P3Q1_1K4RR_b_-_-:f8f3",
+      "tier": "refuted-recommendation",
+      "fen": "r4rk1/2p3p1/p1n5/4p2q/PpNpN2p/1P1P1P2/2P3Q1/1K4RR b - - 2 30",
+      "positionKey": "r4rk1/2p3p1/p1n5/4p2q/PpNpN2p/1P1P1P2/2P3Q1/1K4RR b - -",
+      "move": "f8f3",
+      "side": "black",
+      "selectedSide": "black",
+      "role": "user",
+      "deltaCp": -99371,
+      "oracleDepth": 12,
+      "buildShas": [
+        "6a2270fc65784f4c772d180afec5b9bc1ad2f812"
+      ],
+      "gameIds": [
+        "game-mtqi3wx7-qzav3wu2"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "r4rk1_2pbb1pp_p1n4q_1p2p3_3pN3_PP1P3P_2PNQPB1_1KBR2R1_b_-_-:d7h3",
+      "tier": "refuted-recommendation",
+      "fen": "r4rk1/2pbb1pp/p1n4q/1p2p3/3pN3/PP1P3P/2PNQPB1/1KBR2R1 b - - 14 20",
+      "positionKey": "r4rk1/2pbb1pp/p1n4q/1p2p3/3pN3/PP1P3P/2PNQPB1/1KBR2R1 b - -",
+      "move": "d7h3",
+      "side": "black",
+      "selectedSide": "black",
+      "role": "user",
+      "deltaCp": -192,
+      "oracleDepth": 12,
+      "buildShas": [
+        "6a2270fc65784f4c772d180afec5b9bc1ad2f812"
+      ],
+      "gameIds": [
+        "game-mtqi3wx7-qzav3wu2"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "r4rk1_ppp2ppp_1q3n2_3p1b2_3P3N_1P1pP1P1_PB1Q1P1P_R3K1NR_b_KQ_-:b6e6",
+      "tier": "refuted-recommendation",
+      "fen": "r4rk1/ppp2ppp/1q3n2/3p1b2/3P3N/1P1pP1P1/PB1Q1P1P/R3K1NR b KQ - 7 16",
+      "positionKey": "r4rk1/ppp2ppp/1q3n2/3p1b2/3P3N/1P1pP1P1/PB1Q1P1P/R3K1NR b KQ -",
+      "move": "b6e6",
+      "side": "black",
+      "selectedSide": "black",
+      "role": "user",
+      "deltaCp": -184,
+      "oracleDepth": 12,
+      "buildShas": [
+        "a2d290ba8c7353ca9f5601222269a2a24eed5a76"
+      ],
+      "gameIds": [
+        "game-mrz1q710-4yu1vaqm"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "r4rk1_pppb1p1p_3p2p1_3Pq3_1b1p4_3B4_PPQP1PPP_R1B2R1K_w_-_-:f1g1",
+      "tier": "refuted-recommendation",
+      "fen": "r4rk1/pppb1p1p/3p2p1/3Pq3/1b1p4/3B4/PPQP1PPP/R1B2R1K w - - 0 15",
+      "positionKey": "r4rk1/pppb1p1p/3p2p1/3Pq3/1b1p4/3B4/PPQP1PPP/R1B2R1K w - -",
+      "move": "f1g1",
+      "side": "white",
+      "selectedSide": "white",
+      "role": "user",
+      "deltaCp": -209,
+      "oracleDepth": 12,
+      "buildShas": [
+        "5d3b057c624ef1912c121cf5eb234a3fd52e5d5e"
+      ],
+      "gameIds": [
+        "game-mtbul9ri-fedoie9o"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "r4rk1_pppb1ppp_3p1q2_3P4_1b1pP3_8_PPQPBPPP_R1B2R1K_w_-_-:e4e5",
+      "tier": "refuted-recommendation",
+      "fen": "r4rk1/pppb1ppp/3p1q2/3P4/1b1pP3/8/PPQPBPPP/R1B2R1K w - - 3 13",
+      "positionKey": "r4rk1/pppb1ppp/3p1q2/3P4/1b1pP3/8/PPQPBPPP/R1B2R1K w - -",
+      "move": "e4e5",
+      "side": "white",
+      "selectedSide": "white",
+      "role": "user",
+      "deltaCp": -278,
+      "oracleDepth": 12,
+      "buildShas": [
+        "5d3b057c624ef1912c121cf5eb234a3fd52e5d5e"
+      ],
+      "gameIds": [
+        "game-mtbul9ri-fedoie9o"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "r4rk1_pQpq2pp_1p2p3_3p1p2_b2P4_2P1B1P1_1RP1PP1P_4KB1R_w_K_-:f1g2",
+      "tier": "refuted-recommendation",
+      "fen": "r4rk1/pQpq2pp/1p2p3/3p1p2/b2P4/2P1B1P1/1RP1PP1P/4KB1R w K - 2 18",
+      "positionKey": "r4rk1/pQpq2pp/1p2p3/3p1p2/b2P4/2P1B1P1/1RP1PP1P/4KB1R w K -",
+      "move": "f1g2",
+      "side": "white",
+      "selectedSide": "white",
+      "role": "user",
+      "deltaCp": -327,
+      "oracleDepth": 12,
+      "buildShas": [
+        "dadf79a8fc20cdf0aa91e3f227e6e81fefb5f989"
+      ],
+      "gameIds": [
+        "game-mtknqoxb-44fubcxi"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "r5k1_2p2p2_3b1qp1_3PNb2_1PPQpP2_2B3R1_1R4KP_r7_w_-_-:h2h4",
+      "tier": "refuted-played",
+      "fen": "r5k1/2p2p2/3b1qp1/3PNb2/1PPQpP2/2B3R1/1R4KP/r7 w - - 6 30",
+      "positionKey": "r5k1/2p2p2/3b1qp1/3PNb2/1PPQpP2/2B3R1/1R4KP/r7 w - -",
+      "move": "h2h4",
+      "side": "white",
+      "selectedSide": "black",
+      "role": "rival",
+      "deltaCp": -677,
+      "oracleDepth": 12,
+      "buildShas": [
+        "bf8355661e5015942243e16d2373d39704048f10"
+      ],
+      "gameIds": [
+        "game-mtqos60m-vkz6v05v"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "r5k1_2p2p2_3b2p1_3PNb2_1PPQpP1q_2B3R1_1R4K1_r7_w_-_-:e5g4",
+      "tier": "refuted-played",
+      "fen": "r5k1/2p2p2/3b2p1/3PNb2/1PPQpP1q/2B3R1/1R4K1/r7 w - - 0 31",
+      "positionKey": "r5k1/2p2p2/3b2p1/3PNb2/1PPQpP1q/2B3R1/1R4K1/r7 w - -",
+      "move": "e5g4",
+      "side": "white",
+      "selectedSide": "black",
+      "role": "rival",
+      "deltaCp": -99534,
+      "oracleDepth": 12,
+      "buildShas": [
+        "bf8355661e5015942243e16d2373d39704048f10"
+      ],
+      "gameIds": [
+        "game-mtqos60m-vkz6v05v"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "r5k1_p1p3pp_2p5_8_3P4_2P5_PP2q2P_R1B2RK1_b_-_-:a8d8",
+      "tier": "refuted-recommendation",
+      "fen": "r5k1/p1p3pp/2p5/8/3P4/2P5/PP2q2P/R1B2RK1 b - - 0 19",
+      "positionKey": "r5k1/p1p3pp/2p5/8/3P4/2P5/PP2q2P/R1B2RK1 b - -",
+      "move": "a8d8",
+      "side": "black",
+      "selectedSide": "black",
+      "role": "user",
+      "deltaCp": -211,
+      "oracleDepth": 12,
+      "buildShas": [
+        "dadf79a8fc20cdf0aa91e3f227e6e81fefb5f989"
+      ],
+      "gameIds": [
+        "game-mtgmv92g-hag8t00w"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "r5k1_p1p3pp_2p5_8_8_2P2q2_PP1P3P_R1B2RK1_b_-_-:f3e2",
+      "tier": "refuted-recommendation",
+      "fen": "r5k1/p1p3pp/2p5/8/8/2P2q2/PP1P3P/R1B2RK1 b - - 1 18",
+      "positionKey": "r5k1/p1p3pp/2p5/8/8/2P2q2/PP1P3P/R1B2RK1 b - -",
+      "move": "f3e2",
+      "side": "black",
+      "selectedSide": "black",
+      "role": "user",
+      "deltaCp": -99593,
+      "oracleDepth": 12,
+      "buildShas": [
+        "dadf79a8fc20cdf0aa91e3f227e6e81fefb5f989"
+      ],
+      "gameIds": [
+        "game-mtgmv92g-hag8t00w"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "r6r_pR3p1p_1p2kp2_1B2n3_4PP2_6B1_PPP3PP_2K4R_b_-_-:e5g4",
+      "tier": "refuted-played",
+      "fen": "r6r/pR3p1p/1p2kp2/1B2n3/4PP2/6B1/PPP3PP/2K4R b - - 0 20",
+      "positionKey": "r6r/pR3p1p/1p2kp2/1B2n3/4PP2/6B1/PPP3PP/2K4R b - -",
+      "move": "e5g4",
+      "side": "black",
+      "selectedSide": "black",
+      "role": "user",
+      "deltaCp": -99132,
+      "oracleDepth": 12,
+      "buildShas": [
+        "dadf79a8fc20cdf0aa91e3f227e6e81fefb5f989"
+      ],
+      "gameIds": [
+        "game-mtkz80wg-gmlhg4v0"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "r7_p2kbpp1_b1ppp3_4P3_6Q1_1P6_PqP2PPP_R3R1K1_w_-_-:g4g7",
+      "tier": "refuted-played",
+      "fen": "r7/p2kbpp1/b1ppp3/4P3/6Q1/1P6/PqP2PPP/R3R1K1 w - - 0 20",
+      "positionKey": "r7/p2kbpp1/b1ppp3/4P3/6Q1/1P6/PqP2PPP/R3R1K1 w - -",
+      "move": "g4g7",
+      "side": "white",
+      "selectedSide": "black",
+      "role": "user",
+      "deltaCp": -193,
+      "oracleDepth": 12,
+      "buildShas": [
+        "1ca0f40806f6762f9355cf12cc96a097f256b1ed"
+      ],
+      "gameIds": [
+        "game-ms0s1xq5-8r3t5tw5",
+        "game-ms0s25g2-pg9f93b6"
+      ],
+      "occurrences": 2,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "rk3br1_p3p2p_5p2_3Q4_8_1P3N2_P4PPP_3R2K1_w_-_-:d5f7",
+      "tier": "refuted-played",
+      "fen": "rk3br1/p3p2p/5p2/3Q4/8/1P3N2/P4PPP/3R2K1 w - - 5 25",
+      "positionKey": "rk3br1/p3p2p/5p2/3Q4/8/1P3N2/P4PPP/3R2K1 w - -",
+      "move": "d5f7",
+      "side": "white",
+      "selectedSide": "black",
+      "role": "user",
+      "deltaCp": -99087,
+      "oracleDepth": 12,
+      "buildShas": [
+        "dadf79a8fc20cdf0aa91e3f227e6e81fefb5f989"
+      ],
+      "gameIds": [
+        "game-mtkqhf5m-mt3enqbg"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "rn1qk2r_ppp1bppp_4pn2_3p1b2_3P1B2_2N1PN2_PPP2PPP_R2QKB1R_w_KQkq_-:g2g4",
+      "tier": "refuted-recommendation",
+      "fen": "rn1qk2r/ppp1bppp/4pn2/3p1b2/3P1B2/2N1PN2/PPP2PPP/R2QKB1R w KQkq - 1 6",
+      "positionKey": "rn1qk2r/ppp1bppp/4pn2/3p1b2/3P1B2/2N1PN2/PPP2PPP/R2QKB1R w KQkq -",
+      "move": "g2g4",
+      "side": "white",
+      "selectedSide": "white",
+      "role": "user",
+      "deltaCp": -182,
+      "oracleDepth": 12,
+      "buildShas": [
+        "a2d290ba8c7353ca9f5601222269a2a24eed5a76"
+      ],
+      "gameIds": [
+        "game-mryhoy7e-zlcjazul"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "rn1qkb1r_pbpp2p1_1p2p2p_1B2P3_7Q_2P5_PPP2PPP_R1B1K2R_w_KQ_-:c1g5",
+      "tier": "refuted-played",
+      "fen": "rn1qkb1r/pbpp2p1/1p2p2p/1B2P3/7Q/2P5/PPP2PPP/R1B1K2R w KQ - 4 11",
+      "positionKey": "rn1qkb1r/pbpp2p1/1p2p2p/1B2P3/7Q/2P5/PPP2PPP/R1B1K2R w KQ -",
+      "move": "c1g5",
+      "side": "white",
+      "selectedSide": "white",
+      "role": "user",
+      "deltaCp": -601,
+      "oracleDepth": 12,
+      "buildShas": [
+        "dadf79a8fc20cdf0aa91e3f227e6e81fefb5f989"
+      ],
+      "gameIds": [
+        "game-mtgmmioi-ucofew3i"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "rn1qkbnr_ppp2p1p_3p2p1_4N3_2B1P1b1_2N5_PPPP1PPP_R1BQK2R_b_KQkq_-:g4d1",
+      "tier": "refuted-played",
+      "fen": "rn1qkbnr/ppp2p1p/3p2p1/4N3/2B1P1b1/2N5/PPPP1PPP/R1BQK2R b KQkq - 0 5",
+      "positionKey": "rn1qkbnr/ppp2p1p/3p2p1/4N3/2B1P1b1/2N5/PPPP1PPP/R1BQK2R b KQkq -",
+      "move": "g4d1",
+      "side": "black",
+      "selectedSide": "white",
+      "role": "rival",
+      "deltaCp": -99817,
+      "oracleDepth": 12,
+      "buildShas": [
+        "319aaf49c5c766c4e77fe594de53eda981d9b758"
+      ],
+      "gameIds": [
+        "game-mrp9bwga-clqng2d2"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "rn2kb1r_1Bp2pp1_4pn2_p7_3P1BP1_2N4P_P3N3_1R4K1_b_kq_-:a8a7",
+      "tier": "refuted-recommendation",
+      "fen": "rn2kb1r/1Bp2pp1/4pn2/p7/3P1BP1/2N4P/P3N3/1R4K1 b kq - 0 17",
+      "positionKey": "rn2kb1r/1Bp2pp1/4pn2/p7/3P1BP1/2N4P/P3N3/1R4K1 b kq -",
+      "move": "a8a7",
+      "side": "black",
+      "selectedSide": "black",
+      "role": "user",
+      "deltaCp": -201,
+      "oracleDepth": 12,
+      "buildShas": [
+        "9dbe0520c8e4ab3e15f611c2c3abcd49bff4e6a6"
+      ],
+      "gameIds": [
+        "game-msshrvaj-dx9yrdrb"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "rn2kb1r_1pp2pp1_1q2pnb1_p7_3P1BP1_2N4P_PPP1N1B1_R2Q1RK1_b_kq_-:b6b2",
+      "tier": "refuted-recommendation",
+      "fen": "rn2kb1r/1pp2pp1/1q2pnb1/p7/3P1BP1/2N4P/PPP1N1B1/R2Q1RK1 b kq - 0 13",
+      "positionKey": "rn2kb1r/1pp2pp1/1q2pnb1/p7/3P1BP1/2N4P/PPP1N1B1/R2Q1RK1 b kq -",
+      "move": "b6b2",
+      "side": "black",
+      "selectedSide": "black",
+      "role": "user",
+      "deltaCp": -230,
+      "oracleDepth": 12,
+      "buildShas": [
+        "9dbe0520c8e4ab3e15f611c2c3abcd49bff4e6a6"
+      ],
+      "gameIds": [
+        "game-msshrvaj-dx9yrdrb"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "rn2kr2_pp2q1Q1_2pbp1P1_3p4_3P4_2N1P3_PPP2PP1_R3K2R_w_KQ_-:h1h6",
+      "tier": "refuted-played",
+      "fen": "rn2kr2/pp2q1Q1/2pbp1P1/3p4/3P4/2N1P3/PPP2PP1/R3K2R w KQ - 1 17",
+      "positionKey": "rn2kr2/pp2q1Q1/2pbp1P1/3p4/3P4/2N1P3/PPP2PP1/R3K2R w KQ -",
+      "move": "h1h6",
+      "side": "white",
+      "selectedSide": "white",
+      "role": "user",
+      "deltaCp": -620,
+      "oracleDepth": 12,
+      "buildShas": [
+        "dadf79a8fc20cdf0aa91e3f227e6e81fefb5f989"
+      ],
+      "gameIds": [
+        "game-mtkykv51-r9lhszjv"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "rnb1kb1r_pp1ppppp_1qp5_3nP3_2B5_5N2_PPPP1PPP_RNBQ1RK1_b_kq_-:f7f5",
+      "tier": "refuted-recommendation",
+      "fen": "rnb1kb1r/pp1ppppp/1qp5/3nP3/2B5/5N2/PPPP1PPP/RNBQ1RK1 b kq - 4 5",
+      "positionKey": "rnb1kb1r/pp1ppppp/1qp5/3nP3/2B5/5N2/PPPP1PPP/RNBQ1RK1 b kq -",
+      "move": "f7f5",
+      "side": "black",
+      "selectedSide": "black",
+      "role": "user",
+      "deltaCp": -154,
+      "oracleDepth": 12,
+      "buildShas": [
+        "dadf79a8fc20cdf0aa91e3f227e6e81fefb5f989"
+      ],
+      "gameIds": [
+        "game-mtkqhf5m-mt3enqbg"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "rnb1kb1r_pppp2pp_4pn2_5p2_3Pq3_3Q1N2_PPP1BPPP_RNB2RK1_b_kq_-:b8c6",
+      "tier": "refuted-recommendation",
+      "fen": "rnb1kb1r/pppp2pp/4pn2/5p2/3Pq3/3Q1N2/PPP1BPPP/RNB2RK1 b kq - 3 6",
+      "positionKey": "rnb1kb1r/pppp2pp/4pn2/5p2/3Pq3/3Q1N2/PPP1BPPP/RNB2RK1 b kq -",
+      "move": "b8c6",
+      "side": "black",
+      "selectedSide": "black",
+      "role": "user",
+      "deltaCp": -231,
+      "oracleDepth": 12,
+      "buildShas": [
+        "ddeb906a6de44cd95632488f9e4a76b3e06d07ae"
+      ],
+      "gameIds": [
+        "game-mso2k500-omzh8nxb"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "rnb2r1k_ppp1npbp_3qpNp1_3pN1B1_3P4_4P3_PPP2PPP_R2QKB1R_w_KQ_-:e5d3",
+      "tier": "refuted-recommendation",
+      "fen": "rnb2r1k/ppp1npbp/3qpNp1/3pN1B1/3P4/4P3/PPP2PPP/R2QKB1R w KQ - 2 9",
+      "positionKey": "rnb2r1k/ppp1npbp/3qpNp1/3pN1B1/3P4/4P3/PPP2PPP/R2QKB1R w KQ -",
+      "move": "e5d3",
+      "side": "white",
+      "selectedSide": "white",
+      "role": "user",
+      "deltaCp": -161,
+      "oracleDepth": 12,
+      "buildShas": [
+        "6a2270fc65784f4c772d180afec5b9bc1ad2f812"
+      ],
+      "gameIds": [
+        "game-mtqj8puj-4gpasjyh"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "rnbqk2r_ppppnpbp_4p1p1_8_7P_2N1PQ2_PPPP1PP1_R1B1KBNR_w_KQkq_-:a2a4",
+      "tier": "refuted-recommendation",
+      "fen": "rnbqk2r/ppppnpbp/4p1p1/8/7P/2N1PQ2/PPPP1PP1/R1B1KBNR w KQkq - 1 5",
+      "positionKey": "rnbqk2r/ppppnpbp/4p1p1/8/7P/2N1PQ2/PPPP1PP1/R1B1KBNR w KQkq -",
+      "move": "a2a4",
+      "side": "white",
+      "selectedSide": "white",
+      "role": "user",
+      "deltaCp": -166,
+      "oracleDepth": 12,
+      "buildShas": [
+        "4ebc31b49d36a1e72b1dd33071d26019770af8d2"
+      ],
+      "gameIds": [
+        "game-mrwyh3ck-gshvjuwd"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "rnbqkb1r_pp2pppp_2p2n2_3p4_3P4_2NQ1N2_PPP1PPPP_R1B1KB1R_b_KQkq_-:c8f5",
+      "tier": "refuted-played",
+      "fen": "rnbqkb1r/pp2pppp/2p2n2/3p4/3P4/2NQ1N2/PPP1PPPP/R1B1KB1R b KQkq - 3 4",
+      "positionKey": "rnbqkb1r/pp2pppp/2p2n2/3p4/3P4/2NQ1N2/PPP1PPPP/R1B1KB1R b KQkq -",
+      "move": "c8f5",
+      "side": "black",
+      "selectedSide": "white",
+      "role": "user",
+      "deltaCp": -422,
+      "oracleDepth": 12,
+      "buildShas": [
+        "a2d290ba8c7353ca9f5601222269a2a24eed5a76"
+      ],
+      "gameIds": [
+        "game-mrz256ar-uhyu15qz"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "rnbqkb1r_ppp3pp_5n2_3ppP2_8_2NP4_PPP2PPP_R1BQKBNR_w_KQkq_-:c1e3",
+      "tier": "refuted-recommendation",
+      "fen": "rnbqkb1r/ppp3pp/5n2/3ppP2/8/2NP4/PPP2PPP/R1BQKBNR w KQkq - 0 5",
+      "positionKey": "rnbqkb1r/ppp3pp/5n2/3ppP2/8/2NP4/PPP2PPP/R1BQKBNR w KQkq -",
+      "move": "c1e3",
+      "side": "white",
+      "selectedSide": "white",
+      "role": "user",
+      "deltaCp": -403,
+      "oracleDepth": 12,
+      "buildShas": [
+        "bf8355661e5015942243e16d2373d39704048f10"
+      ],
+      "gameIds": [
+        "game-mtqpcbf1-m2nceqmp"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "rnbqkbnr_pppp1ppp_4p3_4P3_8_8_PPPP1PPP_RNBQKBNR_b_KQkq_-:d8h4",
+      "tier": "refuted-recommendation",
+      "fen": "rnbqkbnr/pppp1ppp/4p3/4P3/8/8/PPPP1PPP/RNBQKBNR b KQkq - 0 2",
+      "positionKey": "rnbqkbnr/pppp1ppp/4p3/4P3/8/8/PPPP1PPP/RNBQKBNR b KQkq -",
+      "move": "d8h4",
+      "side": "black",
+      "selectedSide": "black",
+      "role": "user",
+      "deltaCp": -153,
+      "oracleDepth": 12,
+      "buildShas": [
+        "1ca0f40806f6762f9355cf12cc96a097f256b1ed"
+      ],
+      "gameIds": [
+        "game-ms8e45jz-d543ink2"
+      ],
+      "occurrences": 1,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    },
+    {
+      "id": "rr1n1k2_2R1bp2_3p2Pp_p2p4_Pp1P4_3BPN1P_P5P1_5RK1_b_-_-:f7f6",
+      "tier": "refuted-played",
+      "fen": "rr1n1k2/2R1bp2/3p2Pp/p2p4/Pp1P4/3BPN1P/P5P1/5RK1 b - - 0 27",
+      "positionKey": "rr1n1k2/2R1bp2/3p2Pp/p2p4/Pp1P4/3BPN1P/P5P1/5RK1 b - -",
+      "move": "f7f6",
+      "side": "black",
+      "selectedSide": "white",
+      "role": "rival",
+      "deltaCp": -333,
+      "oracleDepth": 12,
+      "buildShas": [
+        "319aaf49c5c766c4e77fe594de53eda981d9b758"
+      ],
+      "gameIds": [
+        "game-mroqwaib-3l8y3pa4",
+        "game-mroqwcoh-tifz01c8"
+      ],
+      "occurrences": 2,
+      "advice": "do-not-prefer-without-new-tactical-proof"
+    }
+  ]
+}

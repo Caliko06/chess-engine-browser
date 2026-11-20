@@ -1,0 +1,37 @@
+<!--{"pair":"best-move","order":1,"date":"2026-11-20","title":"Calculadora de la mejor jugada de ajedrez: analiza cualquier posición gratis en tu navegador","h1":"Encuentra la mejor jugada de ajedrez en cualquier posición, gratis, en tu navegador","description":"Arma una posición de ajedrez y obtén la mejor jugada, su puntaje, tres alternativas y una razón en palabras simples. Gratis, sin cuenta y sin internet.","faq":[["¿Es gratis?","Sí. No hay cuenta, ni límite, ni anuncios. El motor corre en tu propia computadora, así que servirlo no cuesta nada."],["¿Funciona sin conexión?","Sí. Una vez que la página cargó, el motor corre dentro de tu navegador. Nada de lo que juegas se envía a ningún lado."],["¿Qué tan fuerte es el motor?","Alrededor de 3039 Elo en la escala CCRL Blitz, medido en 600 partidas contra motores con rating conocido. Es mucho más fuerte que cualquier jugador de club."],["¿Qué significa +64 cp?","cp son centipeones, centésimas de peón. +64 significa que tu bando va arriba por cerca de dos tercios de peón. +100 es más o menos un peón extra completo."],["¿Puedo usarlo durante una partida en línea?","No. Usar un motor mientras juegas una partida con rating es trampa en todos los sitios de ajedrez. Úsalo para estudiar tus partidas después."]]}-->
+<p class="lede">Abre <a href="/">calichess.cc</a>, juega las jugadas en el tablero y te dice qué jugar después, qué tan buena es esa jugada y por qué. Sin descargas ni cuenta.</p>
+
+<div class="eli5"><b>En corto</b>Un motor de ajedrez es un programa que imagina millones de formas en que puede seguir la partida, le pone puntaje a cada una y elige la jugada que lleva al mejor futuro que puede demostrar. Este corre dentro de la pestaña de tu navegador.</div>
+
+<figure><img src="/img/explore-dark.webp" alt="CaliChess después de la Italiana recomienda c3 con +64 centipeones, con tres alternativas dibujadas como flechas numeradas" width="1600" height="1000"><figcaption>Después de la Italiana (1.e4 e5 2.Cf3 Cc6 3.Ac4 Ac5), recomienda c3 y muestra otras tres opciones.</figcaption></figure>
+
+<h2>Cómo usarlo, paso a paso</h2>
+<ol>
+<li><b>Elige tu bando.</b> Blancas o Negras, arriba a la derecha. El motor siempre responde por ese bando.</li>
+<li><b>Juega las jugadas en el tablero.</b> Haz clic en una pieza y luego en la casilla. Mueves los dos bandos, así que puedes reconstruir cualquier partida.</li>
+<li><b>Lee el panel.</b> Después de cada jugada, el lado derecho muestra qué jugar ahora. Tarda cerca de un quinto de segundo.</li>
+</ol>
+
+<h2>Qué significa cada parte del panel</h2>
+<table>
+<thead><tr><th>Parte</th><th>Qué te dice</th></tr></thead>
+<tbody>
+<tr><td>Qué jugar ahora</td><td>Una frase con la razón, por ejemplo "Juega h5→f7: da jaque mate."</td></tr>
+<tr><td>Mejor idea</td><td>La jugada que recomienda, con su puntaje en centipeones (centésimas de peón). Más es bueno para ti, menos es malo.</td></tr>
+<tr><td>Otras jugadas</td><td>Tres alternativas, numeradas del 2 al 4, también dibujadas como flechas en el tablero.</td></tr>
+<tr><td>Línea</td><td>Cómo espera que siga la partida si ambos bandos juegan bien.</td></tr>
+<tr><td>Profundidad y nodos</td><td>Qué tan adelante miró (profundidad 8 significa 8 jugadas) y cuántas posiciones revisó.</td></tr>
+</tbody>
+</table>
+
+<h2>Explica la jugada, no solo el puntaje</h2>
+<p>La mayoría de los motores te dan un número y una jugada. Este además escribe una frase: qué amenaza tu rival, qué captura o ataca tu jugada, y si es jaque o mate.</p>
+<figure><img src="/img/explore-fork.webp" alt="En el Ataque del Hígado Frito el motor recomienda el sacrificio de caballo en f7 y explica que ataca a la dama" width="1600" height="1000"><figcaption>"Tu rival amenaza tu caballo en g5. Juega g5→f7: captura el peón en f7 y ataca a la dama en d8."</figcaption></figure>
+<p>Cuando hay un mate forzado, lo dice en lugar de mostrar un puntaje:</p>
+<figure><img src="/img/explore-mate.webp" alt="El motor encuentra Dxf7 jaque mate y lo marca como mate forzado" width="1600" height="1000"><figcaption>Después de 1.e4 e5 2.Ac4 Cc6 3.Dh5 Cf6, encuentra Dxf7 jaque mate.</figcaption></figure>
+
+<h2>Modo Agresivo</h2>
+<p>Con <b>Agresivo</b> activado, el motor sigue revisando todas las opciones, pero cuando dos jugadas son casi iguales (a media peón de diferencia), prefiere la que ataca al rey enemigo. Nunca cedes más de medio peón a cambio de una partida más filosa.</p>
+
+<h2>Por qué corre en tu navegador</h2>
+<p>El motor está escrito en Rust y compilado a WebAssembly, un formato que los navegadores ejecutan casi tan rápido como un programa normal. El motor completo pesa 191 KB de descarga. En el navegador revisa de 1 a 1.5 millones de posiciones por segundo; por eso no necesita servidor ni cuenta, y sigue funcionando sin internet.</p>

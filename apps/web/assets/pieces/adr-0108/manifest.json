@@ -1,0 +1,25 @@
+{
+  "schema": "chess-piece-candidates.v1",
+  "adr": "docs/adr/0108-review-only-generated-piece-source-candidates.md",
+  "status": "review-only",
+  "candidateSet": "adr-0108-staunton-v1",
+  "queryParam": "generatedPieceReview=adr-0108-staunton-v1",
+  "runtimePromotion": "blocked pending explicit human approval",
+  "fallback": "Default runtime remains glyph-based when the query param is absent or unknown.",
+  "sourceMode": "built-in image_gen plus local chroma-key alpha removal",
+  "sharedPromptTemplate": "Single <COLOR> <PIECE> chess piece from a classic Staunton-inspired set. Straight-on orthographic front view, centered, upright, full piece visible, generous padding, readable at small size, no board, no floor, no shadow, no reflection, no text, no extra objects, perfectly flat #00ff00 background for removal.",
+  "assets": [
+    { "color": "white", "kind": "king", "file": "apps/web/assets/pieces/adr-0108/white-king-review-v1.png", "sourceGeneratedImage": "$CODEX_HOME/generated_images/019e6647-9376-7e61-aad2-2dc14ba311b8/ig_0da9f7a43ccfed26016a16a11d9c3c8198a55ef98957eab87e.png" },
+    { "color": "white", "kind": "queen", "file": "apps/web/assets/pieces/adr-0108/white-queen-review-v1.png", "sourceGeneratedImage": "$CODEX_HOME/generated_images/019e6647-9376-7e61-aad2-2dc14ba311b8/ig_0da9f7a43ccfed26016a16a14c503c8198a0561faf4114936d.png" },
+    { "color": "white", "kind": "rook", "file": "apps/web/assets/pieces/adr-0108/white-rook-review-v1.png", "sourceGeneratedImage": "$CODEX_HOME/generated_images/019e6647-9376-7e61-aad2-2dc14ba311b8/ig_0da9f7a43ccfed26016a16a181648c81989357b87c0bb1913d.png" },
+    { "color": "white", "kind": "bishop", "file": "apps/web/assets/pieces/adr-0108/white-bishop-review-v1.png", "sourceGeneratedImage": "$CODEX_HOME/generated_images/019e6647-9376-7e61-aad2-2dc14ba311b8/ig_0da9f7a43ccfed26016a16a1c123548198a9911f8acacd6f06.png" },
+    { "color": "white", "kind": "knight", "file": "apps/web/assets/pieces/adr-0108/white-knight-review-v1.png", "sourceGeneratedImage": "$CODEX_HOME/generated_images/019e6647-9376-7e61-aad2-2dc14ba311b8/ig_0da9f7a43ccfed26016a16a2042dc08198b9aefd370e1411ed.png" },
+    { "color": "white", "kind": "pawn", "file": "apps/web/assets/pieces/adr-0108/white-pawn-review-v1.png", "sourceGeneratedImage": "$CODEX_HOME/generated_images/019e6647-9376-7e61-aad2-2dc14ba311b8/ig_0da9f7a43ccfed26016a16a253c1748198801d4a28dd924597.png" },
+    { "color": "black", "kind": "king", "file": "apps/web/assets/pieces/adr-0108/black-king-review-v1.png", "sourceGeneratedImage": "$CODEX_HOME/generated_images/019e6647-9376-7e61-aad2-2dc14ba311b8/ig_0da9f7a43ccfed26016a16a297bd208198a03ce83829748605.png" },
+    { "color": "black", "kind": "queen", "file": "apps/web/assets/pieces/adr-0108/black-queen-review-v1.png", "sourceGeneratedImage": "$CODEX_HOME/generated_images/019e6647-9376-7e61-aad2-2dc14ba311b8/ig_0da9f7a43ccfed26016a16a2e8bc348198aaef984750590b16.png" },
+    { "color": "black", "kind": "rook", "file": "apps/web/assets/pieces/adr-0108/black-rook-review-v1.png", "sourceGeneratedImage": "$CODEX_HOME/generated_images/019e6647-9376-7e61-aad2-2dc14ba311b8/ig_0da9f7a43ccfed26016a16a31ca6888198bb2ebd820d40d906.png" },
+    { "color": "black", "kind": "bishop", "file": "apps/web/assets/pieces/adr-0108/black-bishop-review-v1.png", "sourceGeneratedImage": "$CODEX_HOME/generated_images/019e6647-9376-7e61-aad2-2dc14ba311b8/ig_0da9f7a43ccfed26016a16a37a4bf8819897bb0ffdce596acf.png" },
+    { "color": "black", "kind": "knight", "file": "apps/web/assets/pieces/adr-0108/black-knight-review-v1.png", "sourceGeneratedImage": "$CODEX_HOME/generated_images/019e6647-9376-7e61-aad2-2dc14ba311b8/ig_0da9f7a43ccfed26016a16a410fd388198b5fab5041ea7950f.png" },
+    { "color": "black", "kind": "pawn", "file": "apps/web/assets/pieces/adr-0108/black-pawn-review-v1.png", "sourceGeneratedImage": "$CODEX_HOME/generated_images/019e6647-9376-7e61-aad2-2dc14ba311b8/ig_0da9f7a43ccfed26016a16a4347e148198b450928e824dd8e5.png" }
+  ]
+}

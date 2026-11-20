@@ -1,0 +1,24 @@
+{
+  "name": "web",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Phase 0 headless TypeScript harness for the future local chess trainer frontend.",
+  "license": "MIT",
+  "scripts": {
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "lint": "eslint \"src/**/*.{ts,tsx,mts,cts}\" --max-warnings=0",
+    "test": "node scripts/smoke-test.mjs && node scripts/review-store-test.mjs && node scripts/review-workflow-test.mjs && node scripts/review-ui-test.mjs && node scripts/analyzer-ui-test.mjs && node scripts/review-wasm-executor-test.mjs && node scripts/review-browser-edge-test.mjs && node scripts/play-evidence-store-test.mjs && node scripts/play-wasm-executor-test.mjs && node scripts/move-explanation-test.mjs && node scripts/play-engine-test.mjs && node scripts/play-worker-engine-test.mjs && node scripts/play-ui-test.mjs && node scripts/app-test.mjs",
+    "coverage": "node scripts/coverage-test.mjs",
+    "dev": "node scripts/phase-zero-dev.mjs",
+    "build": "node -e \"require('fs').rmSync('dist',{recursive:true,force:true})\" && tsc -p tsconfig.build.json",
+    "proof:explore-aggressive": "node scripts/proof-explore-aggressive-board-first.mjs",
+    "proof:analyzer": "node scripts/proof-analyzer-surface.mjs"
+  },
+  "devDependencies": {
+    "@eslint/js": "9.39.1",
+    "eslint": "9.39.1",
+    "typescript": "5.9.3",
+    "typescript-eslint": "8.46.4"
+  }
+}

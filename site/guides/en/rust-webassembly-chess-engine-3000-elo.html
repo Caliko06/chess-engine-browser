@@ -1,0 +1,53 @@
+<!--{"pair":"devlog","order":3,"date":"2026-11-20","title":"Building a 3000 Elo Chess Engine in Rust and WebAssembly","description":"How a chess engine written in Rust reached about 3039 Elo and runs in the browser through WebAssembly: every change tested in real games, the speed work, and what failed.","faq":[["How was the Elo measured?","600 games at 8 seconds plus 0.08 s per move against five versions of the open-source engine Stash, whose CCRL ratings are known. The result was about 3039 CCRL Blitz, with a 95% range of 3007 to 3071."],["Why Rust?","It is as fast as C for this kind of work, it catches many bugs before the program runs, and it compiles to WebAssembly without changes."],["How fast is it in the browser?","1.0 to 1.5 million positions per second. Native, on an Apple M4, it does 1.9 to 3.3 million on one thread."],["Is the code open?","Yes, under the MIT license, at github.com/Caliko06/chess-engine-browser."]]}-->
+<p class="lede">The engine behind <a href="/">calichess.cc</a> was written from scratch in Rust, measured at about 3039 Elo on the CCRL Blitz scale, and compiled to WebAssembly so it runs in a browser tab. This is how, with the numbers.</p>
+
+<div class="eli5"><b>In one breath</b>Every change to the engine had to win a match of real games against the previous version before it was kept. Changes that could not prove they helped were thrown away, even when they looked smart.</div>
+
+<h2>The rule: games decide, not intuition</h2>
+<p>Chess engines are full of ideas that sound good and make the engine weaker. So each change played the previous version in a <b>sequential probability ratio test</b> (SPRT): keep playing games until the statistics can say "better" or "not better" with set confidence.</p>
+<figure><picture><source media="(prefers-color-scheme: dark)" srcset="/img/elo-gains-dark.png"><img src="/img/elo-gains-light.png" alt="Bar chart of Elo added per engine version, from +315 for the tuned evaluation to +13 for new king safety terms" width="2000" height="1200"></picture><figcaption>Elo added by each accepted change. The first version, written from scratch, beat the old search 100 games to 0.</figcaption></figure>
+
+<h2>Measuring strength honestly</h2>
+<p>Beating your own older versions only says you improved, not how strong you are. For that, the engine played 120 games against each of five versions of <a href="https://gitlab.com/mhouppin/stash-bot">Stash</a>, an open-source engine with known ratings.</p>
+<table>
+<thead><tr><th>Opponent</th><th class="n">Its CCRL rating</th><th class="n">Rating our result implies</th></tr></thead>
+<tbody>
+<tr><td>Stash 21</td><td class="n">2713</td><td class="n">3072</td></tr>
+<tr><td>Stash 25</td><td class="n">2932</td><td class="n">3008</td></tr>
+<tr><td>Stash 28</td><td class="n">3082</td><td class="n">3059</td></tr>
+<tr><td>Stash 31</td><td class="n">3207</td><td class="n">3083</td></tr>
+<tr><td>Stash 34</td><td class="n">3314</td><td class="n">2948</td></tr>
+<tr><td><b>All 600 games</b></td><td></td><td class="n"><b>~3039</b></td></tr>
+</tbody>
+</table>
+
+<h2>Speed: same thinking, less time</h2>
+<p>The biggest single gain did not change what the engine thinks at all. It searched the exact same tree of moves, node for node, about 1.9 times faster: hopeless moves are now thrown out before they are played on the board, memory is reused instead of cleared at every step, and scores already computed are kept. A fixed benchmark visited exactly 6,891,892 positions before and after, which proves the thinking did not change. That alone was worth about 117 Elo.</p>
+<table>
+<thead><tr><th>Position (5 s each, one thread, Apple M4)</th><th class="n">Depth</th><th class="n">Positions / s</th></tr></thead>
+<tbody>
+<tr><td>Starting position</td><td class="n">19</td><td class="n">2.28 M</td></tr>
+<tr><td>Closed d4 middlegame</td><td class="n">20</td><td class="n">2.40 M</td></tr>
+<tr><td>Kiwipete</td><td class="n">20</td><td class="n">1.86 M</td></tr>
+<tr><td>Sicilian middlegame</td><td class="n">19</td><td class="n">2.30 M</td></tr>
+<tr><td>Bishop endgame</td><td class="n">31</td><td class="n">3.34 M</td></tr>
+<tr><td>Italian middlegame</td><td class="n">23</td><td class="n">2.74 M</td></tr>
+</tbody>
+</table>
+
+<h2>Into the browser</h2>
+<p>Rust compiles to WebAssembly with no code changes. The engine runs in a background thread (a Web Worker), so the board never freezes while it thinks. The download is 191 KB compressed. In the browser it reaches 1.0 to 1.5 million positions per second, and the move finder answers at depth 9 to 10 in about 0.2 seconds.</p>
+<p>Your moves stay in your browser: the build fails if any network call appears in the engine, the app or the build scripts. The site itself only counts visits, with Cloudflare Web Analytics and no cookies.</p>
+
+<h2>What did not work</h2>
+<table>
+<thead><tr><th>Idea</th><th class="n">Result</th></tr></thead>
+<tbody>
+<tr><td>Singular extensions</td><td class="n">−8 ± 16</td></tr>
+<tr><td>Evaluation re-trained on deep engine scores of Lichess positions</td><td class="n">−159 ± 43</td></tr>
+<tr><td>Evaluation re-trained on its own search scores</td><td class="n">−21 ± 17</td></tr>
+<tr><td>An evaluation cache</td><td class="n">+2% speed, inside the noise</td></tr>
+</tbody>
+</table>
+<p>One bug taught the biggest lesson: adding "skip captures that lose material" first <i>cost</i> 80 Elo. The idea was right; the function that judges a trade had a bug. After fixing it, the same idea gained +60.</p>
+<p>The full write-up, with every commit and test, is in the <a href="https://github.com/Caliko06/chess-engine-browser/blob/main/docs/case-study-2026-11.md">case study on GitHub</a>.</p>

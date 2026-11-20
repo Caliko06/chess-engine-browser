@@ -1,0 +1,159 @@
+{
+  "schema_version": 2,
+  "generated_on": "2026-06-23",
+  "notes": [
+    "Small local-only perft manifest for M7 validation.",
+    "Chessprogramming Perft Results content is CC BY-SA 3.0 unless otherwise noted on the source page.",
+    "owned_engine_nodes records the value observed when this manifest was introduced; just oracle recomputes and must compare actual owned-engine nodes against expected_nodes.",
+    "Selected rule fixtures include exact root divides so compensating branch errors cannot pass on aggregate nodes alone."
+  ],
+  "fixtures": [
+    {
+      "id": "startpos",
+      "source": "Chessprogramming wiki Perft Results, Initial Position",
+      "source_url": "https://www.chessprogramming.org/Perft_Results#Initial_Position",
+      "license_status": "CC BY-SA 3.0 source page; standard chess initial position",
+      "fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+      "depths": [
+        { "depth": 1, "expected_nodes": 20, "stockfish_nodes": 20, "owned_engine_nodes": 20 },
+        { "depth": 2, "expected_nodes": 400, "stockfish_nodes": 400, "owned_engine_nodes": 400 },
+        { "depth": 3, "expected_nodes": 8902, "stockfish_nodes": 8902, "owned_engine_nodes": 8902 },
+        { "depth": 4, "expected_nodes": 197281, "stockfish_nodes": 197281, "owned_engine_nodes": 197281 }
+      ]
+    },
+    {
+      "id": "kiwipete",
+      "source": "Chessprogramming wiki Perft Results, Position 2",
+      "source_url": "https://www.chessprogramming.org/Perft_Results#Position_2",
+      "license_status": "CC BY-SA 3.0 source page",
+      "fen": "r3k2r/p1ppqpb1/bn2pnp1/3PN3/1p2P3/2N2Q1p/PPPBBPPP/R3K2R w KQkq - 0 1",
+      "depths": [
+        { "depth": 1, "expected_nodes": 48, "stockfish_nodes": 48, "owned_engine_nodes": 48 },
+        { "depth": 2, "expected_nodes": 2039, "stockfish_nodes": 2039, "owned_engine_nodes": 2039 },
+        { "depth": 3, "expected_nodes": 97862, "stockfish_nodes": 97862, "owned_engine_nodes": 97862 }
+      ]
+    },
+    {
+      "id": "cpw_position_3",
+      "source": "Chessprogramming wiki Perft Results, Position 3",
+      "source_url": "https://www.chessprogramming.org/Perft_Results#Position_3",
+      "license_status": "CC BY-SA 3.0 source page",
+      "fen": "8/2p5/3p4/KP5r/1R3p1k/8/4P1P1/8 w - - 0 1",
+      "depths": [
+        { "depth": 1, "expected_nodes": 14, "stockfish_nodes": 14, "owned_engine_nodes": 14 },
+        { "depth": 2, "expected_nodes": 191, "stockfish_nodes": 191, "owned_engine_nodes": 191 },
+        { "depth": 3, "expected_nodes": 2812, "stockfish_nodes": 2812, "owned_engine_nodes": 2812 }
+      ]
+    },
+    {
+      "id": "cpw_position_4",
+      "source": "Chessprogramming wiki Perft Results, Position 4",
+      "source_url": "https://www.chessprogramming.org/Perft_Results#Position_4",
+      "license_status": "CC BY-SA 3.0 source page",
+      "fen": "r3k2r/Pppp1ppp/1b3nbN/nP6/BBP1P3/q4N2/Pp1P2PP/R2Q1RK1 w kq - 0 1",
+      "depths": [
+        { "depth": 1, "expected_nodes": 6, "stockfish_nodes": 6, "owned_engine_nodes": 6 },
+        { "depth": 2, "expected_nodes": 264, "stockfish_nodes": 264, "owned_engine_nodes": 264 },
+        { "depth": 3, "expected_nodes": 9467, "stockfish_nodes": 9467, "owned_engine_nodes": 9467 }
+      ]
+    },
+    {
+      "id": "cpw_position_4_mirrored",
+      "source": "Chessprogramming wiki Perft Results, Position 4 mirrored",
+      "source_url": "https://www.chessprogramming.org/Perft_Results#Position_4",
+      "license_status": "CC BY-SA 3.0 source page",
+      "fen": "r2q1rk1/pP1p2pp/Q4n2/bbp1p3/Np6/1B3NBn/pPPP1PPP/R3K2R b KQ - 0 1",
+      "depths": [
+        { "depth": 1, "expected_nodes": 6, "stockfish_nodes": 6, "owned_engine_nodes": 6 },
+        { "depth": 2, "expected_nodes": 264, "stockfish_nodes": 264, "owned_engine_nodes": 264 },
+        { "depth": 3, "expected_nodes": 9467, "stockfish_nodes": 9467, "owned_engine_nodes": 9467 }
+      ]
+    },
+    {
+      "id": "cpw_position_5",
+      "source": "Chessprogramming wiki Perft Results, Position 5",
+      "source_url": "https://www.chessprogramming.org/Perft_Results#Position_5",
+      "license_status": "CC BY-SA 3.0 source page",
+      "fen": "rnbq1k1r/pp1Pbppp/2p5/8/2B5/8/PPP1NnPP/RNBQK2R w KQ - 1 8",
+      "depths": [
+        { "depth": 1, "expected_nodes": 44, "stockfish_nodes": 44, "owned_engine_nodes": 44 },
+        { "depth": 2, "expected_nodes": 1486, "stockfish_nodes": 1486, "owned_engine_nodes": 1486 },
+        { "depth": 3, "expected_nodes": 62379, "stockfish_nodes": 62379, "owned_engine_nodes": 62379 }
+      ]
+    },
+    {
+      "id": "cpw_position_6",
+      "source": "Chessprogramming wiki Perft Results, Position 6",
+      "source_url": "https://www.chessprogramming.org/Perft_Results#Position_6",
+      "license_status": "CC BY-SA 3.0 source page",
+      "fen": "r4rk1/1pp1qppp/p1np1n2/2b1p1B1/2B1P1b1/P1NP1N2/1PP1QPPP/R4RK1 w - - 0 10",
+      "depths": [
+        { "depth": 1, "expected_nodes": 46, "stockfish_nodes": 46, "owned_engine_nodes": 46 },
+        { "depth": 2, "expected_nodes": 2079, "stockfish_nodes": 2079, "owned_engine_nodes": 2079 },
+        { "depth": 3, "expected_nodes": 89890, "stockfish_nodes": 89890, "owned_engine_nodes": 89890 }
+      ]
+    },
+    {
+      "id": "local_bare_castling",
+      "source": "Local M7 castling regression fixture",
+      "source_url": null,
+      "license_status": "Repository-authored FEN; expected nodes generated with python-chess 1.11.2 and must be cross-checked by Stockfish in just oracle",
+      "fen": "r3k2r/8/8/8/8/8/8/R3K2R w KQkq - 0 1",
+      "depths": [
+        { "depth": 1, "expected_nodes": 26, "stockfish_nodes": 26, "owned_engine_nodes": 26 },
+        { "depth": 2, "expected_nodes": 568, "stockfish_nodes": 568, "owned_engine_nodes": 568 },
+        { "depth": 3, "expected_nodes": 13744, "stockfish_nodes": 13744, "owned_engine_nodes": 13744 }
+      ]
+    },
+    {
+      "id": "local_en_passant_divide",
+      "source": "Local Foundation Phase 2 en-passant divide fixture",
+      "source_url": null,
+      "license_status": "Repository-authored FEN; expected nodes and divide cross-checked with Stockfish 18",
+      "fen": "4k3/8/8/3pP3/8/8/8/4K3 w - d6 0 1",
+      "depths": [
+        {
+          "depth": 3,
+          "expected_nodes": 276,
+          "stockfish_nodes": 276,
+          "owned_engine_nodes": 276,
+          "divide": [
+            { "move": "e1d1", "nodes": 36 },
+            { "move": "e1d2", "nodes": 52 },
+            { "move": "e1e2", "nodes": 53 },
+            { "move": "e1f1", "nodes": 36 },
+            { "move": "e1f2", "nodes": 53 },
+            { "move": "e5d6", "nodes": 23 },
+            { "move": "e5e6", "nodes": 23 }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "local_promotion_divide",
+      "source": "Local Foundation Phase 2 promotion divide fixture",
+      "source_url": null,
+      "license_status": "Repository-authored FEN; expected nodes and divide cross-checked with Stockfish 18",
+      "fen": "4k3/P7/8/8/8/8/7p/4K3 w - - 0 1",
+      "depths": [
+        {
+          "depth": 3,
+          "expected_nodes": 699,
+          "stockfish_nodes": 699,
+          "owned_engine_nodes": 699,
+          "divide": [
+            { "move": "a7a8b", "nodes": 91 },
+            { "move": "a7a8n", "nodes": 54 },
+            { "move": "a7a8q", "nodes": 78 },
+            { "move": "a7a8r", "nodes": 57 },
+            { "move": "e1d1", "nodes": 69 },
+            { "move": "e1d2", "nodes": 102 },
+            { "move": "e1e2", "nodes": 99 },
+            { "move": "e1f1", "nodes": 61 },
+            { "move": "e1f2", "nodes": 88 }
+          ]
+        }
+      ]
+    }
+  ]
+}

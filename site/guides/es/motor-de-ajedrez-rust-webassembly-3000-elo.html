@@ -1,0 +1,53 @@
+<!--{"pair":"devlog","order":3,"date":"2026-11-20","title":"Cómo hice un motor de ajedrez de 3000 Elo en Rust y WebAssembly","description":"Cómo un motor de ajedrez en Rust llegó a unos 3039 Elo y corre en el navegador con WebAssembly: cada cambio probado en partidas reales, la velocidad y lo que falló.","faq":[["¿Cómo se midió el Elo?","600 partidas a 8 segundos más 0.08 s por jugada contra cinco versiones del motor de código abierto Stash, cuyos ratings CCRL se conocen. El resultado fue cerca de 3039 CCRL Blitz, con un rango del 95% de 3007 a 3071."],["¿Por qué Rust?","Es tan rápido como C para este tipo de trabajo, atrapa muchos errores antes de ejecutar el programa y compila a WebAssembly sin cambios."],["¿Qué tan rápido es en el navegador?","De 1.0 a 1.5 millones de posiciones por segundo. Nativo, en un Apple M4, hace de 1.9 a 3.3 millones en un solo hilo."],["¿El código es abierto?","Sí, con licencia MIT, en github.com/Caliko06/chess-engine-browser."]]}-->
+<p class="lede">El motor detrás de <a href="/">calichess.cc</a> se escribió desde cero en Rust, se midió en unos 3039 Elo en la escala CCRL Blitz y se compiló a WebAssembly para que corra en una pestaña del navegador. Así fue, con los números.</p>
+
+<div class="eli5"><b>En corto</b>Cada cambio al motor tenía que ganar un match de partidas reales contra la versión anterior para quedarse. Los cambios que no podían demostrar que ayudaban se tiraron, aunque se vieran ingeniosos.</div>
+
+<h2>La regla: deciden las partidas, no la intuición</h2>
+<p>Los motores de ajedrez están llenos de ideas que suenan bien y los vuelven más débiles. Por eso cada cambio jugó contra la versión anterior en una <b>prueba secuencial de razón de probabilidades</b> (SPRT): se siguen jugando partidas hasta que la estadística puede decir "mejor" o "no mejor" con una confianza fijada.</p>
+<figure><picture><source media="(prefers-color-scheme: dark)" srcset="/img/elo-gains-dark.png"><img src="/img/elo-gains-light.png" alt="Gráfica de barras con el Elo añadido por cada versión del motor, de +315 por la evaluación ajustada a +13 por los nuevos términos de seguridad del rey" width="2000" height="1200"></picture><figcaption>Elo añadido por cada cambio aceptado. La primera versión, escrita desde cero, venció a la búsqueda anterior 100 partidas a 0.</figcaption></figure>
+
+<h2>Medir la fuerza con honestidad</h2>
+<p>Ganarle a tus propias versiones viejas solo dice que mejoraste, no qué tan fuerte eres. Para eso, el motor jugó 120 partidas contra cada una de cinco versiones de <a href="https://gitlab.com/mhouppin/stash-bot">Stash</a>, un motor de código abierto con ratings conocidos.</p>
+<table>
+<thead><tr><th>Rival</th><th class="n">Su rating CCRL</th><th class="n">Rating que implica nuestro resultado</th></tr></thead>
+<tbody>
+<tr><td>Stash 21</td><td class="n">2713</td><td class="n">3072</td></tr>
+<tr><td>Stash 25</td><td class="n">2932</td><td class="n">3008</td></tr>
+<tr><td>Stash 28</td><td class="n">3082</td><td class="n">3059</td></tr>
+<tr><td>Stash 31</td><td class="n">3207</td><td class="n">3083</td></tr>
+<tr><td>Stash 34</td><td class="n">3314</td><td class="n">2948</td></tr>
+<tr><td><b>Las 600 partidas</b></td><td></td><td class="n"><b>~3039</b></td></tr>
+</tbody>
+</table>
+
+<h2>Velocidad: el mismo pensamiento, en menos tiempo</h2>
+<p>La mayor ganancia individual no cambió en nada lo que el motor piensa. Buscó exactamente el mismo árbol de jugadas, nodo por nodo, unas 1.9 veces más rápido: las jugadas sin esperanza ahora se descartan antes de jugarlas en el tablero, la memoria se reutiliza en vez de borrarse en cada paso y se guardan los puntajes ya calculados. Un benchmark fijo visitó exactamente 6,891,892 posiciones antes y después, lo que demuestra que el pensamiento no cambió. Solo eso valió unos 117 Elo.</p>
+<table>
+<thead><tr><th>Posición (5 s cada una, un hilo, Apple M4)</th><th class="n">Profundidad</th><th class="n">Posiciones / s</th></tr></thead>
+<tbody>
+<tr><td>Posición inicial</td><td class="n">19</td><td class="n">2.28 M</td></tr>
+<tr><td>Medio juego cerrado con d4</td><td class="n">20</td><td class="n">2.40 M</td></tr>
+<tr><td>Kiwipete</td><td class="n">20</td><td class="n">1.86 M</td></tr>
+<tr><td>Medio juego siciliano</td><td class="n">19</td><td class="n">2.30 M</td></tr>
+<tr><td>Final de alfiles</td><td class="n">31</td><td class="n">3.34 M</td></tr>
+<tr><td>Medio juego italiano</td><td class="n">23</td><td class="n">2.74 M</td></tr>
+</tbody>
+</table>
+
+<h2>Al navegador</h2>
+<p>Rust compila a WebAssembly sin cambiar el código. El motor corre en un hilo en segundo plano (un Web Worker), así que el tablero nunca se congela mientras piensa. La descarga pesa 191 KB comprimida. En el navegador llega a 1.0 a 1.5 millones de posiciones por segundo, y la calculadora de la mejor jugada responde a profundidad 9 a 10 en unos 0.2 segundos.</p>
+<p>Tus jugadas se quedan en tu navegador: la compilación falla si aparece cualquier llamada de red en el motor, la app o los scripts de compilación. El sitio solo cuenta visitas, con Cloudflare Web Analytics y sin cookies.</p>
+
+<h2>Lo que no funcionó</h2>
+<table>
+<thead><tr><th>Idea</th><th class="n">Resultado</th></tr></thead>
+<tbody>
+<tr><td>Extensiones singulares</td><td class="n">−8 ± 16</td></tr>
+<tr><td>Evaluación reentrenada con puntajes de un motor profundo sobre posiciones de Lichess</td><td class="n">−159 ± 43</td></tr>
+<tr><td>Evaluación reentrenada con sus propios puntajes de búsqueda</td><td class="n">−21 ± 17</td></tr>
+<tr><td>Un caché de evaluación</td><td class="n">+2% de velocidad, dentro del ruido</td></tr>
+</tbody>
+</table>
+<p>Un error dejó la mayor lección: añadir "saltar capturas que pierden material" primero <i>costó</i> 80 Elo. La idea era correcta; la función que juzga un intercambio tenía un error. Al corregirlo, la misma idea ganó +60.</p>
+<p>El análisis completo, con cada commit y prueba, está en el <a href="https://github.com/Caliko06/chess-engine-browser/blob/main/docs/case-study-2026-11.md">caso de estudio en GitHub</a>.</p>

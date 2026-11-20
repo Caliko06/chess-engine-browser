@@ -1,0 +1,11 @@
+{
+  "schema_version": 1,
+  "generated_on": "2026-11-18",
+  "hardware": "local development machine",
+  "command": "cargo run --release --quiet -p chess-search --example m8_bench",
+  "position_set": ["startpos", "kiwipete", "recapture_trap", "stalemate_trap", "back_rank_mate"],
+  "depth": 3,
+  "total_nodes": 53996,
+  "elapsed_ms": 225,
+  "nodes_per_second": 239982
+}

@@ -1,0 +1,2357 @@
+/* Hallmark · direction: custom (by request: liquid glass, gradients) · redesign: full · shape: app screen · scope: app · idea: "the board floats on a lit aurora; every control is a pane of glass over it" · vibe: "liquid glass, lit aurora, calm board" · paper: light aurora (mint, aqua, gold, peach) · accent: emerald oklch(52% 0.13 165) · faces: system SF Pro Display/Text, SF Mono · posture: light/grotesk/chromatic-emerald · signature: the board in a thick glass bezel over the aurora */
+/* Hallmark · critique: was flat cream paper, a serif display and one forest green, so it read as a school poster; now one token system, translucent panes with a lit rim, and the colour lives in the ground, not on the controls */
+/* Hallmark · waive 24b · off-scale gaps and paddings are the existing play board layout rhythm · this redesign recomposes the panes and controls of the chess board, not the layout spacing that the play-ui tests pin */
+
+:root {
+  color-scheme: light;
+
+  /* Faces: the system face is the material of liquid glass; the CSP allows no web fonts. */
+  --font-body: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", system-ui, sans-serif;
+  --font-display: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", system-ui, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, monospace;
+  --font-pieces: "Apple Symbols", "Segoe UI Symbol", "Noto Sans Symbols 2", sans-serif;
+
+  /* Neutrals: a cool green-grey so ink and glass sit in the aurora's family. */
+  --white: oklch(100% 0 0);
+  --ink: oklch(23% 0.022 190);
+  --ink-soft: oklch(43% 0.024 190);
+  --ink-faint: oklch(54% 0.02 190);
+  --line: oklch(88% 0.014 190);
+  --line-strong: oklch(66% 0.024 190);
+  --page: oklch(92.5% 0.035 182);
+  --surface: oklch(99.3% 0.004 175);
+  --surface-quiet: oklch(95.5% 0.012 175);
+  --shadow-ink: oklch(28% 0.045 210);
+  --on-accent: oklch(98.5% 0.01 165);
+
+  /* Signals. */
+  --accent: oklch(52% 0.13 165);
+  --accent-strong: oklch(40% 0.1 172);
+  --accent-soft: oklch(93% 0.05 165);
+  --mate: oklch(60% 0.17 150);
+  --blue: oklch(50% 0.11 232);
+  --blue-soft: oklch(93% 0.04 232);
+  --warn: oklch(54% 0.19 27);
+  --warn-strong: oklch(44% 0.16 27);
+  --warn-soft: oklch(94% 0.035 27);
+  --warm: oklch(60% 0.16 48);
+  --warm-soft: oklch(94% 0.045 65);
+  --caution: oklch(66% 0.15 72);
+  --gold: oklch(86% 0.13 88);
+  --sacrifice: oklch(52% 0.16 310);
+  --focus: oklch(55% 0.19 255);
+
+  /* The board. */
+  --board-light: oklch(94% 0.03 150);
+  --board-dark: oklch(63% 0.085 168);
+  --board-edge: oklch(30% 0.035 190);
+  --board-ink: oklch(22% 0.02 190);
+
+  /* The aurora behind the glass, and the deep pane for the one decision. */
+  --aurora-mint: oklch(84% 0.13 166);
+  --aurora-aqua: oklch(82% 0.11 214);
+  --aurora-gold: oklch(90% 0.13 86);
+  --aurora-peach: oklch(84% 0.11 32);
+  --deep-1: oklch(40% 0.1 168);
+  --deep-2: oklch(31% 0.075 205);
+
+  /* Glass. */
+  --glass-fill: oklch(100% 0 0 / 0.38);
+  --glass-fill-strong: oklch(100% 0 0 / 0.64);
+  --glass-fill-faint: oklch(100% 0 0 / 0.24);
+  --glass-edge: oklch(100% 0 0 / 0.72);
+  --glass-blur: blur(26px) saturate(175%);
+  --glass-tint: oklch(23% 0.022 190 / 0.06);
+  --glass-hairline: oklch(23% 0.022 190 / 0.11);
+  --glass-rim: inset 0 1px 0 oklch(100% 0 0 / 0.9), inset 0 -1px 0 oklch(100% 0 0 / 0.28);
+  --glass-shadow: 0 1px 2px oklch(28% 0.045 210 / 0.08), 0 22px 50px -18px oklch(28% 0.06 210 / 0.34);
+  --glass-shadow-lift: 0 2px 4px oklch(28% 0.045 210 / 0.1), 0 30px 64px -20px oklch(28% 0.06 210 / 0.42);
+
+  /* Legacy names, kept so every existing rule reads the one system. */
+  --surface-strong: var(--surface);
+  --path-main: var(--accent);
+  --path-alternative: var(--blue);
+  --path-caution: var(--caution);
+  --path-hanging: var(--warn);
+  --path-mate: var(--mate);
+  --path-sacrifice: var(--sacrifice);
+  --path-reply: var(--ink-faint);
+  --shadow: var(--glass-shadow);
+  --radius: 14px;
+  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+  --board-light-material: none;
+  --board-dark-material: none;
+
+  --ui-background: var(--page);
+  --ui-surface: var(--glass-fill-strong);
+  --ui-surface-muted: var(--glass-fill-faint);
+  --ui-surface-raised: var(--glass-fill-strong);
+  --ui-ink: var(--ink);
+  --ui-ink-muted: var(--ink-soft);
+  --ui-ink-faint: var(--ink-faint);
+  --ui-line: var(--glass-edge);
+  --ui-line-strong: var(--line-strong);
+  --ui-primary: var(--accent);
+  --ui-primary-hover: var(--accent-strong);
+  --ui-primary-soft: var(--accent-soft);
+  --ui-warm: var(--warm);
+  --ui-warm-soft: var(--warm-soft);
+  --ui-danger: var(--warn);
+  --ui-danger-soft: var(--warn-soft);
+  --ui-focus: var(--focus);
+  --ui-board-light: var(--board-light);
+  --ui-board-dark: var(--board-dark);
+  --ui-board-edge: var(--board-edge);
+  --ui-shadow-sm: var(--glass-shadow);
+  --ui-shadow-md: var(--glass-shadow-lift);
+  --ui-radius-sm: 10px;
+  --ui-radius-md: 16px;
+  --ui-radius-lg: 24px;
+  --ui-ease: cubic-bezier(0.25, 1, 0.5, 1);
+
+  --play-ink: var(--ink);
+  --play-ink-muted: var(--ink-soft);
+  --play-ink-faint: var(--ink-faint);
+  --play-line: var(--glass-edge);
+  --play-line-strong: var(--line-strong);
+  --play-surface: var(--glass-fill);
+  --play-surface-muted: var(--glass-fill-faint);
+  --play-surface-raised: var(--glass-fill-strong);
+  --play-primary: var(--accent);
+  --play-primary-hover: var(--accent-strong);
+  --play-primary-soft: var(--accent-soft);
+  --play-warm: var(--warm);
+  --play-warm-soft: var(--warm-soft);
+  --play-danger: var(--warn);
+  --play-danger-soft: var(--warn-soft);
+  --play-focus: var(--focus);
+  --play-board-light: var(--board-light);
+  --play-board-dark: var(--board-dark);
+  --play-board-edge: var(--board-edge);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  min-height: 100%;
+  background: var(--page);
+}
+
+body {
+  min-height: 100%;
+  margin: 0;
+  background:
+    linear-gradient(180deg, color-mix(in oklab, var(--accent) 8%, transparent), color-mix(in oklab, var(--accent) 0%, transparent) 210px),
+    linear-gradient(90deg, color-mix(in oklab, var(--blue) 7%, transparent), color-mix(in oklab, var(--surface) 0%, transparent) 42%, color-mix(in oklab, var(--warn-strong) 5%, transparent)),
+    var(--page);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.45;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+#chess-review-app {
+  width: min(1480px, 100%);
+  margin: 0 auto;
+  padding: clamp(24px, 4vw, 48px) clamp(16px, 3vw, 40px) 56px;
+}
+
+[data-app-ui="root"] {
+  display: grid;
+  gap: 28px;
+}
+
+[data-app-ui="post-game-review"] {
+  display: grid;
+  gap: 14px;
+}
+
+[data-app-ui="post-game-review"][hidden] {
+  display: none;
+}
+
+[data-app-ui="post-game-review-title"] {
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+[data-play-ui="board"] {
+  display: grid;
+  grid-template-columns: 22px minmax(0, 1fr);
+  gap: 6px;
+  width: min(100%, 820px, calc(100vh - 332px));
+  margin-inline: auto;
+}
+
+[data-play-ui="board"][data-board-state="loading"] {
+  aspect-ratio: 1;
+  overflow: hidden;
+  border: 1px solid var(--play-board-edge);
+  border-radius: 14px;
+  background:
+    linear-gradient(110deg, transparent 20%, color-mix(in oklab, var(--white) 42%, transparent) 48%, transparent 76%),
+    repeating-linear-gradient(45deg, var(--play-board-light) 0 12.5%, var(--play-board-dark) 12.5% 25%);
+  background-size: 220% 100%, 100% 100%;
+  box-shadow:
+    0 16px 32px color-mix(in oklab, var(--ink) 10%, transparent),
+    0 0 0 7px var(--play-surface-muted);
+  animation: play-board-loading 1.8s ease-in-out infinite;
+}
+
+[data-play-ui="board-grid"] {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(8, minmax(0, 1fr));
+  grid-template-rows: repeat(8, minmax(0, 1fr));
+  aspect-ratio: 1;
+  overflow: hidden;
+  border: 1px solid var(--play-board-edge);
+  border-radius: 14px;
+  background: var(--line-strong);
+  box-shadow:
+    0 16px 32px color-mix(in oklab, var(--ink) 12%, transparent),
+    0 0 0 7px var(--play-surface-muted);
+}
+
+[data-play-ui="reaction-arrows"] {
+  position: absolute;
+  inset: 0;
+  z-index: 6;
+  inline-size: 100%;
+  block-size: 100%;
+  pointer-events: none;
+}
+
+[data-play-ui="candidate-arrows"] {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  inline-size: 100%;
+  block-size: 100%;
+  pointer-events: none;
+}
+
+[data-play-ui="reply-arrows"] {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  inline-size: 100%;
+  block-size: 100%;
+  pointer-events: none;
+}
+
+[data-play-ui="lens-arrow"] {
+  position: absolute;
+  inset: 0;
+  z-index: 7;
+  inline-size: 100%;
+  block-size: 100%;
+  pointer-events: none;
+}
+
+[data-play-ui="reaction-arrow"] line {
+  stroke: var(--path-main);
+  stroke-width: 0.18;
+  stroke-linecap: round;
+}
+
+[data-play-ui="reaction-arrow"] polygon {
+  fill: var(--path-main);
+}
+
+[data-play-ui="reaction-arrow"][data-reaction-primary="false"] line,
+[data-play-ui="reaction-arrow"][data-reaction-primary="false"] polygon {
+  opacity: 0.42;
+}
+
+[data-play-ui="reaction-arrow"][data-reaction-order="3"] line,
+[data-play-ui="reaction-arrow"][data-reaction-order="3"] polygon {
+  opacity: 0.3;
+}
+
+[data-play-ui="reaction-arrow"][data-reaction-order="4"] line,
+[data-play-ui="reaction-arrow"][data-reaction-order="4"] polygon {
+  opacity: 0.22;
+}
+
+/* Off-turn the lead arrow is the opponent's assumed reply, not a selected-side recommendation. */
+[data-play-ui="reaction-arrow"][data-reaction-rival="true"] line {
+  stroke: var(--path-reply);
+  stroke-dasharray: 0.18 0.14;
+  opacity: 0.82;
+}
+
+[data-play-ui="reaction-arrow"][data-reaction-rival="true"] polygon {
+  fill: var(--path-reply);
+  opacity: 0.82;
+}
+
+[data-play-ui="reaction-arrow"][data-reaction-rival="true"][data-reaction-safety="mating"] line {
+  stroke: var(--path-mate);
+}
+
+[data-play-ui="reaction-arrow"][data-reaction-rival="true"][data-reaction-safety="mating"] polygon {
+  fill: var(--path-mate);
+}
+
+[data-play-ui="reaction-arrow"][data-reaction-rival="true"][data-reaction-sacrifice="true"] line {
+  stroke: var(--path-sacrifice);
+  stroke-dasharray: 0.28 0.12;
+}
+
+[data-play-ui="reaction-arrow"][data-reaction-rival="true"][data-reaction-sacrifice="true"] polygon {
+  fill: var(--path-sacrifice);
+}
+
+/* The engine's static exchange check marks the primary move as a piece-dropping blunder. It is the
+   recommended move, so it stays at full strength but flips to red as a warning. */
+[data-play-ui="reaction-arrow"][data-reaction-hanging="true"] line {
+  stroke: var(--path-hanging);
+}
+
+[data-play-ui="reaction-arrow"][data-reaction-hanging="true"] polygon {
+  fill: var(--path-hanging);
+}
+
+/* A forced mate within reach is the strongest verdict in the lens. The lead arrow turns vivid green
+   — a colour used nowhere else here, reserved for "this finishes the game" — and reads over the
+   hanging warning. */
+[data-play-ui="reaction-arrow"][data-reaction-mating="true"] line {
+  stroke: var(--path-mate);
+}
+
+[data-play-ui="reaction-arrow"][data-reaction-mating="true"] polygon {
+  fill: var(--path-mate);
+}
+
+[data-play-ui="candidate-arrow"] line {
+  stroke: var(--path-alternative);
+  stroke-width: 0.12;
+  stroke-dasharray: 0.22 0.16;
+  stroke-linecap: round;
+}
+
+[data-play-ui="candidate-arrow"] polygon {
+  fill: var(--path-alternative);
+}
+
+[data-play-ui="candidate-arrow"][data-path-role="diagnostic"] line {
+  stroke-dasharray: 0.08 0.1;
+  stroke-width: 0.11;
+}
+
+[data-play-ui="candidate-arrow"][data-path-role="diagnostic"] line,
+[data-play-ui="candidate-arrow"][data-path-role="diagnostic"] polygon {
+  opacity: 0.56;
+}
+
+/* Safety colouring overrides the default blue: amber for a move that concedes about a pawn, red
+   for one that hangs material. A hanging suggestion stays on the board but reads as a warning. */
+[data-play-ui="candidate-arrow"][data-candidate-safety="caution"] line {
+  stroke: var(--path-caution);
+}
+
+[data-play-ui="candidate-arrow"][data-candidate-safety="caution"] polygon {
+  fill: var(--path-caution);
+}
+
+[data-play-ui="candidate-arrow"][data-candidate-safety="hanging"] line {
+  stroke: var(--path-hanging);
+  stroke-dasharray: none;
+}
+
+[data-play-ui="candidate-arrow"][data-candidate-safety="hanging"] polygon {
+  fill: var(--path-hanging);
+}
+
+/* Arrow strategy roles: the top risky try must stay board-visible even when it is still bad.
+   It gets a heavier amber-red lane; secondary avoid arrows stay red and subordinate. */
+[data-play-ui="candidate-arrow"][data-candidate-risk-label="least-bad-risk"] line {
+  stroke: color-mix(in srgb, var(--path-caution) 58%, var(--path-hanging));
+  stroke-width: 0.18;
+  stroke-dasharray: 0.34 0.1;
+}
+
+[data-play-ui="candidate-arrow"][data-candidate-risk-label="least-bad-risk"] polygon {
+  fill: color-mix(in srgb, var(--path-caution) 58%, var(--path-hanging));
+}
+
+[data-play-ui="candidate-arrow"][data-candidate-risk-label="avoid"] line {
+  stroke-width: 0.1;
+}
+
+/* An alternative that forces mate within reach gets the same vivid green as the lead arrow, plus a
+   touch more weight so the finishing move stands out from the ordinary candidates. */
+[data-play-ui="candidate-arrow"][data-candidate-safety="mating"] line {
+  stroke: var(--path-mate);
+  stroke-width: 0.16;
+  stroke-dasharray: none;
+}
+
+[data-play-ui="candidate-arrow"][data-candidate-safety="mating"] polygon {
+  fill: var(--path-mate);
+}
+
+/* Verified sacrifice: sound despite piece concession. Purple distinguishes it from a plain safe
+   move; the dashed stroke signals the tactical intent without reading as a warning. */
+[data-play-ui="candidate-arrow"][data-candidate-sacrifice="true"] line {
+  stroke: var(--path-sacrifice);
+  stroke-dasharray: 0.28 0.12;
+}
+
+[data-play-ui="candidate-arrow"][data-candidate-sacrifice="true"] polygon {
+  fill: var(--path-sacrifice);
+}
+
+/* Sacrifice aftermath (ADR-0154 Packet C): colour stays sacrifice-purple; the shape tells the
+   story. Accepted: the opponent recaptures and the line still holds, so the arrow goes solid, a
+   concrete offer that works when taken. Defended: the opponent must decline, so the arrow keeps a
+   finer dash; the offer remains latent pressure rather than a line that is actually walked. */
+[data-play-ui="candidate-arrow"][data-candidate-aftermath="accepted"] line {
+  stroke-dasharray: none;
+}
+
+[data-play-ui="candidate-arrow"][data-candidate-aftermath="defended"] line {
+  stroke-dasharray: 0.16 0.16;
+}
+
+[data-play-ui="candidate-arrow"][data-candidate-rank="2"] line,
+[data-play-ui="candidate-arrow"][data-candidate-rank="2"] polygon {
+  opacity: 0.55;
+}
+
+[data-play-ui="candidate-arrow"][data-candidate-rank="3"] line,
+[data-play-ui="candidate-arrow"][data-candidate-rank="3"] polygon {
+  opacity: 0.38;
+}
+
+[data-play-ui="candidate-arrow"][data-candidate-rank="4"] line,
+[data-play-ui="candidate-arrow"][data-candidate-rank="4"] polygon {
+  opacity: 0.24;
+}
+
+[data-play-ui="candidate-arrow"][data-candidate-rank="5"] line,
+[data-play-ui="candidate-arrow"][data-candidate-rank="5"] polygon {
+  opacity: 0.2;
+}
+
+[data-play-ui="candidate-arrow"][data-candidate-rank="6"] line,
+[data-play-ui="candidate-arrow"][data-candidate-rank="6"] polygon {
+  opacity: 0.16;
+}
+
+[data-play-ui="candidate-arrow"][data-candidate-rank="7"] line,
+[data-play-ui="candidate-arrow"][data-candidate-rank="7"] polygon {
+  opacity: 0.12;
+}
+
+/* A risky alternative must stay legible even when ranked low, otherwise the warning fades out at
+   the same rate as the rank dimming. These follow the rank rules so the tie resolves to a floor. */
+[data-play-ui="candidate-arrow"][data-candidate-safety="caution"] line,
+[data-play-ui="candidate-arrow"][data-candidate-safety="caution"] polygon {
+  opacity: 0.62;
+}
+
+[data-play-ui="candidate-arrow"][data-candidate-safety="hanging"] line,
+[data-play-ui="candidate-arrow"][data-candidate-safety="hanging"] polygon {
+  opacity: 0.7;
+}
+
+[data-play-ui="candidate-arrow"][data-candidate-risk-label="least-bad-risk"] line,
+[data-play-ui="candidate-arrow"][data-candidate-risk-label="least-bad-risk"] polygon {
+  opacity: 0.96;
+}
+
+[data-play-ui="candidate-arrow"][data-candidate-risk-label="avoid"] line,
+[data-play-ui="candidate-arrow"][data-candidate-risk-label="avoid"] polygon {
+  opacity: 0.58;
+}
+
+/* A mating alternative is the best news on the board — keep it at full strength regardless of rank. */
+[data-play-ui="candidate-arrow"][data-candidate-safety="mating"] line,
+[data-play-ui="candidate-arrow"][data-candidate-safety="mating"] polygon {
+  opacity: 0.95;
+}
+
+[data-play-ui="lens-arrow"] line {
+  stroke: color-mix(in oklab, var(--mate) 94%, transparent);
+  stroke-width: 0.17;
+  stroke-linecap: round;
+}
+
+[data-play-ui="lens-arrow"] polygon {
+  fill: color-mix(in oklab, var(--mate) 94%, transparent);
+}
+
+[data-play-ui="reply-arrows"] line {
+  stroke: var(--path-alternative);
+  stroke-width: 0.1;
+  stroke-dasharray: 0.18 0.14;
+  stroke-linecap: round;
+  opacity: 0.82;
+}
+
+[data-play-ui="reply-arrows"] polygon {
+  fill: var(--path-alternative);
+  opacity: 0.82;
+}
+
+[data-play-ui="candidate-arrow-marker"] circle,
+[data-play-ui="reply-arrow-marker"] circle {
+  fill: var(--play-surface-raised);
+  stroke: var(--path-alternative);
+  stroke-width: 0.035;
+}
+
+[data-play-ui="candidate-arrow-marker"] text,
+[data-play-ui="reply-arrow-marker"] text {
+  fill: var(--path-alternative);
+  dominant-baseline: central;
+  font-family: var(--font-mono);
+  font-weight: 900;
+  text-anchor: middle;
+}
+
+[data-play-ui="candidate-arrow-marker"][data-marker-safety="caution"] circle {
+  stroke: var(--path-caution);
+}
+
+[data-play-ui="candidate-arrow-marker"][data-marker-safety="caution"] text {
+  fill: var(--path-caution);
+}
+
+[data-play-ui="candidate-arrow-marker"][data-marker-safety="hanging"] circle {
+  stroke: var(--path-hanging);
+}
+
+[data-play-ui="candidate-arrow-marker"][data-marker-safety="hanging"] text {
+  fill: var(--path-hanging);
+}
+
+[data-play-ui="candidate-arrow-marker"][data-marker-safety="mating"] circle,
+[data-play-ui="reply-arrow-marker"][data-marker-safety="mating"] circle {
+  stroke: var(--path-mate);
+}
+
+[data-play-ui="candidate-arrow-marker"][data-marker-safety="mating"] text,
+[data-play-ui="reply-arrow-marker"][data-marker-safety="mating"] text {
+  fill: var(--path-mate);
+}
+
+[data-play-ui="reply-arrow-marker"] circle {
+  stroke: var(--path-reply);
+}
+
+[data-play-ui="reply-arrow-marker"] text {
+  fill: var(--path-reply);
+}
+
+[data-play-ui="reply-arrows"] [data-reply-safety="mating"] line {
+  stroke: var(--path-mate);
+}
+
+[data-play-ui="reply-arrows"] [data-reply-safety="mating"] polygon {
+  fill: var(--path-mate);
+}
+
+[data-play-ui="reply-arrows"] [data-reply-sacrifice="true"] line {
+  stroke: var(--path-sacrifice);
+  stroke-dasharray: 0.28 0.12;
+}
+
+[data-play-ui="reply-arrows"] [data-reply-sacrifice="true"] polygon {
+  fill: var(--path-sacrifice);
+}
+
+[data-play-ui="rank-labels"],
+[data-play-ui="file-labels"] {
+  display: grid;
+  color: var(--ink-soft);
+  font-size: 0.76rem;
+  font-weight: 800;
+}
+
+[data-play-ui="rank-labels"] {
+  grid-template-rows: repeat(8, minmax(0, 1fr));
+  align-items: center;
+  text-align: right;
+}
+
+[data-play-ui="file-labels"] {
+  grid-column: 2;
+  grid-template-columns: repeat(8, minmax(0, 1fr));
+  text-align: center;
+}
+
+[data-play-ui="board-square"] {
+  position: relative;
+  display: grid;
+  container-type: size;
+  inline-size: 100%;
+  block-size: 100%;
+  min-inline-size: 0;
+  min-block-size: 0;
+  aspect-ratio: 1;
+  place-items: center;
+  isolation: isolate;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  color: var(--ink);
+  cursor: pointer;
+  touch-action: none;
+}
+
+[data-play-ui="board-square"][data-board-draggable="true"] {
+  cursor: grab;
+}
+
+[data-play-ui="board-square"][data-board-dragging="true"] {
+  cursor: grabbing;
+}
+
+[data-play-ui="board-square"][data-board-drag-active="true"] > [data-play-ui="board-piece"] {
+  opacity: 0;
+}
+
+[data-play-ui="board-drag-piece"] {
+  position: fixed;
+  z-index: 30;
+  display: grid;
+  container-type: size;
+  place-items: center;
+  pointer-events: none;
+  background: transparent;
+  background-image: none;
+  border: 0;
+  box-shadow: none;
+  transform: translateZ(0);
+  will-change: left, top;
+}
+
+[data-play-ui="board-square"][data-board-motion-from="true"] {
+  z-index: 5;
+}
+
+[data-play-ui="board-square"][data-board-motion-from="true"] > [data-play-ui="board-piece"] {
+  opacity: 0;
+}
+
+[data-play-ui="board-square"][data-board-motion-from="true"]::after,
+[data-play-ui="board-square"][data-board-motion-to="true"]::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  box-shadow: inset 0 0 0 4px color-mix(in oklab, var(--blue) 62%, transparent);
+  pointer-events: none;
+}
+
+[data-play-ui="board-square"][data-board-shade="light"] {
+  background: var(--play-board-light);
+  background-image: none;
+}
+
+[data-play-ui="board-square"][data-board-shade="dark"] {
+  background: var(--play-board-dark);
+  background-image: none;
+}
+
+[data-play-ui="board-square"][data-board-selected="true"] {
+  box-shadow: inset 0 0 0 4px var(--play-focus);
+}
+
+[data-play-ui="board-square"][data-board-last-move="true"] {
+  box-shadow: inset 0 0 0 4px color-mix(in oklab, var(--blue) 66%, transparent);
+}
+
+[data-play-ui="board-square"][data-board-selected="true"][data-board-last-move="true"] {
+  box-shadow:
+    inset 0 0 0 3px var(--play-focus),
+    inset 0 0 0 7px color-mix(in oklab, var(--blue) 58%, transparent);
+}
+
+[data-play-ui="legal-dot"] {
+  grid-area: 1 / 1;
+  z-index: 2;
+  inline-size: 28cqi;
+  block-size: 28cqi;
+  border-radius: 999px;
+  background: color-mix(in oklab, var(--ink) 28%, transparent);
+  box-shadow: 0 0 0 1px color-mix(in oklab, var(--white) 22%, transparent);
+  pointer-events: none;
+}
+
+[data-play-ui="board-square"][data-board-piece][data-board-legal-target="true"] [data-play-ui="legal-dot"] {
+  inline-size: 68cqi;
+  block-size: 68cqi;
+  border: 3px solid color-mix(in oklab, var(--on-accent) 90%, transparent);
+  border-color: color-mix(in oklab, var(--on-accent) 90%, transparent);
+  background: color-mix(in oklab, var(--ink) 8%, transparent);
+  box-shadow:
+    0 0 0 1px color-mix(in oklab, var(--ink) 28%, transparent),
+    inset 0 0 0 1px color-mix(in oklab, var(--ink) 18%, transparent);
+}
+
+[data-play-ui="board-piece"] {
+  grid-area: 1 / 1;
+  z-index: 1;
+  font-family: var(--font-display);
+  font-size: clamp(1.45rem, 72cqi, 4.35rem);
+  line-height: 0.95;
+  pointer-events: none;
+  transform: translateY(-0.02em);
+}
+
+[data-play-ui="board-motion-piece"] {
+  position: absolute;
+  inset: 0;
+  z-index: 6;
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+  transform: translate(0, 0);
+  animation: board-motion-travel var(--board-motion-duration) var(--ease-out-quart) forwards;
+  will-change: transform;
+}
+
+[data-play-ui="board-motion-piece"][data-board-motion-duration-ms="180"] {
+  --board-motion-duration: 180ms;
+}
+
+[data-play-ui="board-motion-piece"][data-board-motion-duration-ms="220"] {
+  --board-motion-duration: 220ms;
+}
+
+[data-play-ui="board-motion-piece"][data-board-motion-duration-ms="260"] {
+  --board-motion-duration: 260ms;
+}
+
+[data-play-ui="board-motion-piece"][data-board-motion-delta-column="-7"] { --board-motion-delta-column: -7; }
+[data-play-ui="board-motion-piece"][data-board-motion-delta-column="-6"] { --board-motion-delta-column: -6; }
+[data-play-ui="board-motion-piece"][data-board-motion-delta-column="-5"] { --board-motion-delta-column: -5; }
+[data-play-ui="board-motion-piece"][data-board-motion-delta-column="-4"] { --board-motion-delta-column: -4; }
+[data-play-ui="board-motion-piece"][data-board-motion-delta-column="-3"] { --board-motion-delta-column: -3; }
+[data-play-ui="board-motion-piece"][data-board-motion-delta-column="-2"] { --board-motion-delta-column: -2; }
+[data-play-ui="board-motion-piece"][data-board-motion-delta-column="-1"] { --board-motion-delta-column: -1; }
+[data-play-ui="board-motion-piece"][data-board-motion-delta-column="0"] { --board-motion-delta-column: 0; }
+[data-play-ui="board-motion-piece"][data-board-motion-delta-column="1"] { --board-motion-delta-column: 1; }
+[data-play-ui="board-motion-piece"][data-board-motion-delta-column="2"] { --board-motion-delta-column: 2; }
+[data-play-ui="board-motion-piece"][data-board-motion-delta-column="3"] { --board-motion-delta-column: 3; }
+[data-play-ui="board-motion-piece"][data-board-motion-delta-column="4"] { --board-motion-delta-column: 4; }
+[data-play-ui="board-motion-piece"][data-board-motion-delta-column="5"] { --board-motion-delta-column: 5; }
+[data-play-ui="board-motion-piece"][data-board-motion-delta-column="6"] { --board-motion-delta-column: 6; }
+[data-play-ui="board-motion-piece"][data-board-motion-delta-column="7"] { --board-motion-delta-column: 7; }
+[data-play-ui="board-motion-piece"][data-board-motion-delta-row="-7"] { --board-motion-delta-row: -7; }
+[data-play-ui="board-motion-piece"][data-board-motion-delta-row="-6"] { --board-motion-delta-row: -6; }
+[data-play-ui="board-motion-piece"][data-board-motion-delta-row="-5"] { --board-motion-delta-row: -5; }
+[data-play-ui="board-motion-piece"][data-board-motion-delta-row="-4"] { --board-motion-delta-row: -4; }
+[data-play-ui="board-motion-piece"][data-board-motion-delta-row="-3"] { --board-motion-delta-row: -3; }
+[data-play-ui="board-motion-piece"][data-board-motion-delta-row="-2"] { --board-motion-delta-row: -2; }
+[data-play-ui="board-motion-piece"][data-board-motion-delta-row="-1"] { --board-motion-delta-row: -1; }
+[data-play-ui="board-motion-piece"][data-board-motion-delta-row="0"] { --board-motion-delta-row: 0; }
+[data-play-ui="board-motion-piece"][data-board-motion-delta-row="1"] { --board-motion-delta-row: 1; }
+[data-play-ui="board-motion-piece"][data-board-motion-delta-row="2"] { --board-motion-delta-row: 2; }
+[data-play-ui="board-motion-piece"][data-board-motion-delta-row="3"] { --board-motion-delta-row: 3; }
+[data-play-ui="board-motion-piece"][data-board-motion-delta-row="4"] { --board-motion-delta-row: 4; }
+[data-play-ui="board-motion-piece"][data-board-motion-delta-row="5"] { --board-motion-delta-row: 5; }
+[data-play-ui="board-motion-piece"][data-board-motion-delta-row="6"] { --board-motion-delta-row: 6; }
+[data-play-ui="board-motion-piece"][data-board-motion-delta-row="7"] { --board-motion-delta-row: 7; }
+
+[data-play-ui="board-motion-piece"][data-board-piece-color="black"] [data-play-ui="board-piece"],
+[data-play-ui="board-drag-piece"][data-board-piece-color="black"] [data-play-ui="board-piece"] {
+  color: var(--ink);
+  text-shadow:
+    0 1px 1px color-mix(in oklab, var(--surface) 34%, transparent),
+    0 0 1px color-mix(in oklab, var(--surface) 28%, transparent);
+}
+
+[data-play-ui="board-motion-piece"][data-board-piece-color="white"] [data-play-ui="board-piece"],
+[data-play-ui="board-drag-piece"][data-board-piece-color="white"] [data-play-ui="board-piece"] {
+  color: var(--on-accent);
+  text-shadow: 0 1px 2px color-mix(in oklab, var(--ink) 48%, transparent);
+}
+
+@keyframes board-motion-travel {
+  to {
+    transform: translate(
+      calc(var(--board-motion-delta-column) * 100%),
+      calc(var(--board-motion-delta-row) * 100%)
+    );
+  }
+}
+
+@keyframes play-board-loading {
+  0% {
+    background-position: 120% 0, 0 0;
+  }
+  100% {
+    background-position: -20% 0, 0 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-play-ui="board-motion-piece"] {
+    animation: none;
+    transform: translate(
+      calc(var(--board-motion-delta-column) * 100%),
+      calc(var(--board-motion-delta-row) * 100%)
+    );
+  }
+}
+
+[data-play-ui="promotion-choice"] {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+  width: min(100%, 720px);
+}
+
+[data-play-ui="promotion-button"] {
+  min-height: 38px;
+  border: 1px solid var(--accent-strong);
+  border-radius: var(--radius);
+  background: var(--board-light);
+  color: var(--accent-strong);
+  cursor: pointer;
+  font-weight: 800;
+}
+
+[data-play-ui="board-square"][data-board-piece-color="black"] [data-play-ui="board-piece"] {
+  color: var(--ink);
+  text-shadow:
+    0 1px 1px color-mix(in oklab, var(--surface) 34%, transparent),
+    0 0 1px color-mix(in oklab, var(--surface) 28%, transparent);
+}
+
+[data-play-ui="board-square"][data-board-piece-color="white"] [data-play-ui="board-piece"] {
+  color: var(--on-accent);
+  text-shadow: 0 1px 2px color-mix(in oklab, var(--ink) 48%, transparent);
+}
+
+[data-piece-set="adr-0137-staunton-sheet-v1"] [data-play-ui="board-piece"] {
+  display: block;
+  inline-size: 92cqi;
+  block-size: 92cqi;
+  font-size: 0;
+  color: transparent;
+  text-shadow: none;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  transform: none;
+}
+
+[data-piece-set="adr-0137-staunton-sheet-v1"] [data-play-ui="board-motion-piece"],
+[data-piece-set="adr-0137-staunton-sheet-v1"] [data-play-ui="board-drag-piece"] {
+  background: transparent;
+  background-image: none;
+}
+
+[data-piece-set="adr-0137-staunton-sheet-v1"]
+  [data-play-ui="board-square"][data-board-piece-color="white"]
+  > [data-play-ui="board-piece"],
+[data-piece-set="adr-0137-staunton-sheet-v1"]
+  [data-play-ui="board-motion-piece"][data-board-piece-color="white"]
+  > [data-play-ui="board-piece"],
+[data-piece-set="adr-0137-staunton-sheet-v1"]
+  [data-play-ui="board-drag-piece"][data-board-piece-color="white"]
+  > [data-play-ui="board-piece"] {
+  filter:
+    drop-shadow(0 0 1px color-mix(in oklab, var(--shadow-ink) 82%, transparent))
+    drop-shadow(0 1px 2px color-mix(in oklab, var(--shadow-ink) 46%, transparent))
+    contrast(1.05);
+}
+
+[data-piece-set="adr-0137-staunton-sheet-v1"]
+  [data-play-ui="board-square"][data-board-piece-color="black"]
+  > [data-play-ui="board-piece"],
+[data-piece-set="adr-0137-staunton-sheet-v1"]
+  [data-play-ui="board-motion-piece"][data-board-piece-color="black"]
+  > [data-play-ui="board-piece"],
+[data-piece-set="adr-0137-staunton-sheet-v1"]
+  [data-play-ui="board-drag-piece"][data-board-piece-color="black"]
+  > [data-play-ui="board-piece"] {
+  filter:
+    drop-shadow(0 0 1px color-mix(in oklab, var(--surface) 36%, transparent))
+    drop-shadow(0 1px 1px color-mix(in oklab, var(--surface) 22%, transparent))
+    contrast(1.08);
+}
+
+[data-piece-set="adr-0137-staunton-sheet-v1"] [data-play-ui="board-square"][data-board-piece-color="white"][data-board-piece-kind="king"] > [data-play-ui="board-piece"],
+[data-piece-set="adr-0137-staunton-sheet-v1"] [data-play-ui="board-motion-piece"][data-board-piece-color="white"][data-board-piece-kind="king"] > [data-play-ui="board-piece"] { background-image: url("./assets/pieces/adr-0137/white-king-review-v1.png"); }
+[data-piece-set="adr-0137-staunton-sheet-v1"] [data-play-ui="board-square"][data-board-piece-color="white"][data-board-piece-kind="queen"] > [data-play-ui="board-piece"],
+[data-piece-set="adr-0137-staunton-sheet-v1"] [data-play-ui="board-motion-piece"][data-board-piece-color="white"][data-board-piece-kind="queen"] > [data-play-ui="board-piece"] { background-image: url("./assets/pieces/adr-0137/white-queen-review-v1.png"); }
+[data-piece-set="adr-0137-staunton-sheet-v1"] [data-play-ui="board-square"][data-board-piece-color="white"][data-board-piece-kind="rook"] > [data-play-ui="board-piece"],
+[data-piece-set="adr-0137-staunton-sheet-v1"] [data-play-ui="board-motion-piece"][data-board-piece-color="white"][data-board-piece-kind="rook"] > [data-play-ui="board-piece"] { background-image: url("./assets/pieces/adr-0137/white-rook-review-v1.png"); }
+[data-piece-set="adr-0137-staunton-sheet-v1"] [data-play-ui="board-square"][data-board-piece-color="white"][data-board-piece-kind="bishop"] > [data-play-ui="board-piece"],
+[data-piece-set="adr-0137-staunton-sheet-v1"] [data-play-ui="board-motion-piece"][data-board-piece-color="white"][data-board-piece-kind="bishop"] > [data-play-ui="board-piece"] { background-image: url("./assets/pieces/adr-0137/white-bishop-review-v1.png"); }
+[data-piece-set="adr-0137-staunton-sheet-v1"] [data-play-ui="board-square"][data-board-piece-color="white"][data-board-piece-kind="knight"] > [data-play-ui="board-piece"],
+[data-piece-set="adr-0137-staunton-sheet-v1"] [data-play-ui="board-motion-piece"][data-board-piece-color="white"][data-board-piece-kind="knight"] > [data-play-ui="board-piece"] { background-image: url("./assets/pieces/adr-0137/white-knight-review-v1.png"); }
+[data-piece-set="adr-0137-staunton-sheet-v1"] [data-play-ui="board-square"][data-board-piece-color="white"][data-board-piece-kind="pawn"] > [data-play-ui="board-piece"],
+[data-piece-set="adr-0137-staunton-sheet-v1"] [data-play-ui="board-motion-piece"][data-board-piece-color="white"][data-board-piece-kind="pawn"] > [data-play-ui="board-piece"] { background-image: url("./assets/pieces/adr-0137/white-pawn-review-v1.png"); }
+[data-piece-set="adr-0137-staunton-sheet-v1"] [data-play-ui="board-square"][data-board-piece-color="black"][data-board-piece-kind="king"] > [data-play-ui="board-piece"],
+[data-piece-set="adr-0137-staunton-sheet-v1"] [data-play-ui="board-motion-piece"][data-board-piece-color="black"][data-board-piece-kind="king"] > [data-play-ui="board-piece"] { background-image: url("./assets/pieces/adr-0137/black-king-review-v1.png"); }
+[data-piece-set="adr-0137-staunton-sheet-v1"] [data-play-ui="board-square"][data-board-piece-color="black"][data-board-piece-kind="queen"] > [data-play-ui="board-piece"],
+[data-piece-set="adr-0137-staunton-sheet-v1"] [data-play-ui="board-motion-piece"][data-board-piece-color="black"][data-board-piece-kind="queen"] > [data-play-ui="board-piece"] { background-image: url("./assets/pieces/adr-0137/black-queen-review-v1.png"); }
+[data-piece-set="adr-0137-staunton-sheet-v1"] [data-play-ui="board-square"][data-board-piece-color="black"][data-board-piece-kind="rook"] > [data-play-ui="board-piece"],
+[data-piece-set="adr-0137-staunton-sheet-v1"] [data-play-ui="board-motion-piece"][data-board-piece-color="black"][data-board-piece-kind="rook"] > [data-play-ui="board-piece"] { background-image: url("./assets/pieces/adr-0137/black-rook-review-v1.png"); }
+[data-piece-set="adr-0137-staunton-sheet-v1"] [data-play-ui="board-square"][data-board-piece-color="black"][data-board-piece-kind="bishop"] > [data-play-ui="board-piece"],
+[data-piece-set="adr-0137-staunton-sheet-v1"] [data-play-ui="board-motion-piece"][data-board-piece-color="black"][data-board-piece-kind="bishop"] > [data-play-ui="board-piece"] { background-image: url("./assets/pieces/adr-0137/black-bishop-review-v1.png"); }
+[data-piece-set="adr-0137-staunton-sheet-v1"] [data-play-ui="board-square"][data-board-piece-color="black"][data-board-piece-kind="knight"] > [data-play-ui="board-piece"],
+[data-piece-set="adr-0137-staunton-sheet-v1"] [data-play-ui="board-motion-piece"][data-board-piece-color="black"][data-board-piece-kind="knight"] > [data-play-ui="board-piece"] { background-image: url("./assets/pieces/adr-0137/black-knight-review-v1.png"); }
+[data-piece-set="adr-0137-staunton-sheet-v1"] [data-play-ui="board-square"][data-board-piece-color="black"][data-board-piece-kind="pawn"] > [data-play-ui="board-piece"],
+[data-piece-set="adr-0137-staunton-sheet-v1"] [data-play-ui="board-motion-piece"][data-board-piece-color="black"][data-board-piece-kind="pawn"] > [data-play-ui="board-piece"] { background-image: url("./assets/pieces/adr-0137/black-pawn-review-v1.png"); }
+
+[data-piece-set="adr-0137-staunton-sheet-v1"] [data-play-ui="board-drag-piece"][data-board-piece-color="white"][data-board-piece-kind="king"] > [data-play-ui="board-piece"] { background-image: url("./assets/pieces/adr-0137/white-king-review-v1.png"); }
+[data-piece-set="adr-0137-staunton-sheet-v1"] [data-play-ui="board-drag-piece"][data-board-piece-color="white"][data-board-piece-kind="queen"] > [data-play-ui="board-piece"] { background-image: url("./assets/pieces/adr-0137/white-queen-review-v1.png"); }
+[data-piece-set="adr-0137-staunton-sheet-v1"] [data-play-ui="board-drag-piece"][data-board-piece-color="white"][data-board-piece-kind="rook"] > [data-play-ui="board-piece"] { background-image: url("./assets/pieces/adr-0137/white-rook-review-v1.png"); }
+[data-piece-set="adr-0137-staunton-sheet-v1"] [data-play-ui="board-drag-piece"][data-board-piece-color="white"][data-board-piece-kind="bishop"] > [data-play-ui="board-piece"] { background-image: url("./assets/pieces/adr-0137/white-bishop-review-v1.png"); }
+[data-piece-set="adr-0137-staunton-sheet-v1"] [data-play-ui="board-drag-piece"][data-board-piece-color="white"][data-board-piece-kind="knight"] > [data-play-ui="board-piece"] { background-image: url("./assets/pieces/adr-0137/white-knight-review-v1.png"); }
+[data-piece-set="adr-0137-staunton-sheet-v1"] [data-play-ui="board-drag-piece"][data-board-piece-color="white"][data-board-piece-kind="pawn"] > [data-play-ui="board-piece"] { background-image: url("./assets/pieces/adr-0137/white-pawn-review-v1.png"); }
+[data-piece-set="adr-0137-staunton-sheet-v1"] [data-play-ui="board-drag-piece"][data-board-piece-color="black"][data-board-piece-kind="king"] > [data-play-ui="board-piece"] { background-image: url("./assets/pieces/adr-0137/black-king-review-v1.png"); }
+[data-piece-set="adr-0137-staunton-sheet-v1"] [data-play-ui="board-drag-piece"][data-board-piece-color="black"][data-board-piece-kind="queen"] > [data-play-ui="board-piece"] { background-image: url("./assets/pieces/adr-0137/black-queen-review-v1.png"); }
+[data-piece-set="adr-0137-staunton-sheet-v1"] [data-play-ui="board-drag-piece"][data-board-piece-color="black"][data-board-piece-kind="rook"] > [data-play-ui="board-piece"] { background-image: url("./assets/pieces/adr-0137/black-rook-review-v1.png"); }
+[data-piece-set="adr-0137-staunton-sheet-v1"] [data-play-ui="board-drag-piece"][data-board-piece-color="black"][data-board-piece-kind="bishop"] > [data-play-ui="board-piece"] { background-image: url("./assets/pieces/adr-0137/black-bishop-review-v1.png"); }
+[data-piece-set="adr-0137-staunton-sheet-v1"] [data-play-ui="board-drag-piece"][data-board-piece-color="black"][data-board-piece-kind="knight"] > [data-play-ui="board-piece"] { background-image: url("./assets/pieces/adr-0137/black-knight-review-v1.png"); }
+[data-piece-set="adr-0137-staunton-sheet-v1"] [data-play-ui="board-drag-piece"][data-board-piece-color="black"][data-board-piece-kind="pawn"] > [data-play-ui="board-piece"] { background-image: url("./assets/pieces/adr-0137/black-pawn-review-v1.png"); }
+
+[data-piece-set^="adr-0206-"] [data-play-ui="board-square"][data-board-shade="light"] {
+  background: var(--board-light);
+  background-image: none;
+  background-size: auto;
+}
+
+[data-piece-set^="adr-0206-"] [data-play-ui="board-square"][data-board-shade="dark"] {
+  background: var(--board-dark);
+  background-image: none;
+  background-size: auto;
+}
+
+[data-piece-set="adr-0206-cburnett-v1"] [data-play-ui="board-piece"] {
+  display: block;
+  inline-size: 92cqi;
+  block-size: 92cqi;
+  font-size: 0;
+  color: transparent;
+  text-shadow: none;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  transform: none;
+}
+
+[data-piece-set="adr-0206-cburnett-v1"] [data-play-ui="board-motion-piece"],
+[data-piece-set="adr-0206-cburnett-v1"] [data-play-ui="board-drag-piece"] {
+  background: transparent;
+  background-image: none;
+}
+
+[data-piece-set="adr-0206-cburnett-v1"]
+  [data-play-ui="board-square"][data-board-piece-color="white"]
+  > [data-play-ui="board-piece"],
+[data-piece-set="adr-0206-cburnett-v1"]
+  [data-play-ui="board-motion-piece"][data-board-piece-color="white"]
+  > [data-play-ui="board-piece"],
+[data-piece-set="adr-0206-cburnett-v1"]
+  [data-play-ui="board-drag-piece"][data-board-piece-color="white"]
+  > [data-play-ui="board-piece"] {
+  filter:
+    drop-shadow(0 0 1px color-mix(in oklab, var(--shadow-ink) 88%, transparent))
+    drop-shadow(0 1px 1px color-mix(in oklab, var(--shadow-ink) 42%, transparent));
+}
+
+[data-piece-set="adr-0206-cburnett-v1"]
+  [data-play-ui="board-square"][data-board-piece-color="black"]
+  > [data-play-ui="board-piece"],
+[data-piece-set="adr-0206-cburnett-v1"]
+  [data-play-ui="board-motion-piece"][data-board-piece-color="black"]
+  > [data-play-ui="board-piece"],
+[data-piece-set="adr-0206-cburnett-v1"]
+  [data-play-ui="board-drag-piece"][data-board-piece-color="black"]
+  > [data-play-ui="board-piece"] {
+  filter:
+    drop-shadow(0 0 1px color-mix(in oklab, var(--on-accent) 38%, transparent))
+    drop-shadow(0 1px 1px color-mix(in oklab, var(--on-accent) 24%, transparent));
+}
+
+[data-piece-set="adr-0206-cburnett-v1"] [data-play-ui="board-square"][data-board-piece-color="white"][data-board-piece-kind="king"] > [data-play-ui="board-piece"],
+[data-piece-set="adr-0206-cburnett-v1"] [data-play-ui="board-motion-piece"][data-board-piece-color="white"][data-board-piece-kind="king"] > [data-play-ui="board-piece"] { background-image: url("./assets/pieces/adr-0206-cburnett/white-king-v1.svg"); }
+[data-piece-set="adr-0206-cburnett-v1"] [data-play-ui="board-square"][data-board-piece-color="white"][data-board-piece-kind="queen"] > [data-play-ui="board-piece"],
+[data-piece-set="adr-0206-cburnett-v1"] [data-play-ui="board-motion-piece"][data-board-piece-color="white"][data-board-piece-kind="queen"] > [data-play-ui="board-piece"] { background-image: url("./assets/pieces/adr-0206-cburnett/white-queen-v1.svg"); }
+[data-piece-set="adr-0206-cburnett-v1"] [data-play-ui="board-square"][data-board-piece-color="white"][data-board-piece-kind="rook"] > [data-play-ui="board-piece"],
+[data-piece-set="adr-0206-cburnett-v1"] [data-play-ui="board-motion-piece"][data-board-piece-color="white"][data-board-piece-kind="rook"] > [data-play-ui="board-piece"] { background-image: url("./assets/pieces/adr-0206-cburnett/white-rook-v1.svg"); }
+[data-piece-set="adr-0206-cburnett-v1"] [data-play-ui="board-square"][data-board-piece-color="white"][data-board-piece-kind="bishop"] > [data-play-ui="board-piece"],
+[data-piece-set="adr-0206-cburnett-v1"] [data-play-ui="board-motion-piece"][data-board-piece-color="white"][data-board-piece-kind="bishop"] > [data-play-ui="board-piece"] { background-image: url("./assets/pieces/adr-0206-cburnett/white-bishop-v1.svg"); }
+[data-piece-set="adr-0206-cburnett-v1"] [data-play-ui="board-square"][data-board-piece-color="white"][data-board-piece-kind="knight"] > [data-play-ui="board-piece"],
+[data-piece-set="adr-0206-cburnett-v1"] [data-play-ui="board-motion-piece"][data-board-piece-color="white"][data-board-piece-kind="knight"] > [data-play-ui="board-piece"] { background-image: url("./assets/pieces/adr-0206-cburnett/white-knight-v1.svg"); }
+[data-piece-set="adr-0206-cburnett-v1"] [data-play-ui="board-square"][data-board-piece-color="white"][data-board-piece-kind="pawn"] > [data-play-ui="board-piece"],
+[data-piece-set="adr-0206-cburnett-v1"] [data-play-ui="board-motion-piece"][data-board-piece-color="white"][data-board-piece-kind="pawn"] > [data-play-ui="board-piece"] { background-image: url("./assets/pieces/adr-0206-cburnett/white-pawn-v1.svg"); }
+[data-piece-set="adr-0206-cburnett-v1"] [data-play-ui="board-square"][data-board-piece-color="black"][data-board-piece-kind="king"] > [data-play-ui="board-piece"],
+[data-piece-set="adr-0206-cburnett-v1"] [data-play-ui="board-motion-piece"][data-board-piece-color="black"][data-board-piece-kind="king"] > [data-play-ui="board-piece"] { background-image: url("./assets/pieces/adr-0206-cburnett/black-king-v1.svg"); }
+[data-piece-set="adr-0206-cburnett-v1"] [data-play-ui="board-square"][data-board-piece-color="black"][data-board-piece-kind="queen"] > [data-play-ui="board-piece"],
+[data-piece-set="adr-0206-cburnett-v1"] [data-play-ui="board-motion-piece"][data-board-piece-color="black"][data-board-piece-kind="queen"] > [data-play-ui="board-piece"] { background-image: url("./assets/pieces/adr-0206-cburnett/black-queen-v1.svg"); }
+[data-piece-set="adr-0206-cburnett-v1"] [data-play-ui="board-square"][data-board-piece-color="black"][data-board-piece-kind="rook"] > [data-play-ui="board-piece"],
+[data-piece-set="adr-0206-cburnett-v1"] [data-play-ui="board-motion-piece"][data-board-piece-color="black"][data-board-piece-kind="rook"] > [data-play-ui="board-piece"] { background-image: url("./assets/pieces/adr-0206-cburnett/black-rook-v1.svg"); }
+[data-piece-set="adr-0206-cburnett-v1"] [data-play-ui="board-square"][data-board-piece-color="black"][data-board-piece-kind="bishop"] > [data-play-ui="board-piece"],
+[data-piece-set="adr-0206-cburnett-v1"] [data-play-ui="board-motion-piece"][data-board-piece-color="black"][data-board-piece-kind="bishop"] > [data-play-ui="board-piece"] { background-image: url("./assets/pieces/adr-0206-cburnett/black-bishop-v1.svg"); }
+[data-piece-set="adr-0206-cburnett-v1"] [data-play-ui="board-square"][data-board-piece-color="black"][data-board-piece-kind="knight"] > [data-play-ui="board-piece"],
+[data-piece-set="adr-0206-cburnett-v1"] [data-play-ui="board-motion-piece"][data-board-piece-color="black"][data-board-piece-kind="knight"] > [data-play-ui="board-piece"] { background-image: url("./assets/pieces/adr-0206-cburnett/black-knight-v1.svg"); }
+[data-piece-set="adr-0206-cburnett-v1"] [data-play-ui="board-square"][data-board-piece-color="black"][data-board-piece-kind="pawn"] > [data-play-ui="board-piece"],
+[data-piece-set="adr-0206-cburnett-v1"] [data-play-ui="board-motion-piece"][data-board-piece-color="black"][data-board-piece-kind="pawn"] > [data-play-ui="board-piece"] { background-image: url("./assets/pieces/adr-0206-cburnett/black-pawn-v1.svg"); }
+
+[data-piece-set="adr-0206-cburnett-v1"] [data-play-ui="board-drag-piece"][data-board-piece-color="white"][data-board-piece-kind="king"] > [data-play-ui="board-piece"] { background-image: url("./assets/pieces/adr-0206-cburnett/white-king-v1.svg"); }
+[data-piece-set="adr-0206-cburnett-v1"] [data-play-ui="board-drag-piece"][data-board-piece-color="white"][data-board-piece-kind="queen"] > [data-play-ui="board-piece"] { background-image: url("./assets/pieces/adr-0206-cburnett/white-queen-v1.svg"); }
+[data-piece-set="adr-0206-cburnett-v1"] [data-play-ui="board-drag-piece"][data-board-piece-color="white"][data-board-piece-kind="rook"] > [data-play-ui="board-piece"] { background-image: url("./assets/pieces/adr-0206-cburnett/white-rook-v1.svg"); }
+[data-piece-set="adr-0206-cburnett-v1"] [data-play-ui="board-drag-piece"][data-board-piece-color="white"][data-board-piece-kind="bishop"] > [data-play-ui="board-piece"] { background-image: url("./assets/pieces/adr-0206-cburnett/white-bishop-v1.svg"); }
+[data-piece-set="adr-0206-cburnett-v1"] [data-play-ui="board-drag-piece"][data-board-piece-color="white"][data-board-piece-kind="knight"] > [data-play-ui="board-piece"] { background-image: url("./assets/pieces/adr-0206-cburnett/white-knight-v1.svg"); }
+[data-piece-set="adr-0206-cburnett-v1"] [data-play-ui="board-drag-piece"][data-board-piece-color="white"][data-board-piece-kind="pawn"] > [data-play-ui="board-piece"] { background-image: url("./assets/pieces/adr-0206-cburnett/white-pawn-v1.svg"); }
+[data-piece-set="adr-0206-cburnett-v1"] [data-play-ui="board-drag-piece"][data-board-piece-color="black"][data-board-piece-kind="king"] > [data-play-ui="board-piece"] { background-image: url("./assets/pieces/adr-0206-cburnett/black-king-v1.svg"); }
+[data-piece-set="adr-0206-cburnett-v1"] [data-play-ui="board-drag-piece"][data-board-piece-color="black"][data-board-piece-kind="queen"] > [data-play-ui="board-piece"] { background-image: url("./assets/pieces/adr-0206-cburnett/black-queen-v1.svg"); }
+[data-piece-set="adr-0206-cburnett-v1"] [data-play-ui="board-drag-piece"][data-board-piece-color="black"][data-board-piece-kind="rook"] > [data-play-ui="board-piece"] { background-image: url("./assets/pieces/adr-0206-cburnett/black-rook-v1.svg"); }
+[data-piece-set="adr-0206-cburnett-v1"] [data-play-ui="board-drag-piece"][data-board-piece-color="black"][data-board-piece-kind="bishop"] > [data-play-ui="board-piece"] { background-image: url("./assets/pieces/adr-0206-cburnett/black-bishop-v1.svg"); }
+[data-piece-set="adr-0206-cburnett-v1"] [data-play-ui="board-drag-piece"][data-board-piece-color="black"][data-board-piece-kind="knight"] > [data-play-ui="board-piece"] { background-image: url("./assets/pieces/adr-0206-cburnett/black-knight-v1.svg"); }
+[data-piece-set="adr-0206-cburnett-v1"] [data-play-ui="board-drag-piece"][data-board-piece-color="black"][data-board-piece-kind="pawn"] > [data-play-ui="board-piece"] { background-image: url("./assets/pieces/adr-0206-cburnett/black-pawn-v1.svg"); }
+
+[data-play-ui="setup-palette"] {
+  display: grid;
+  gap: 4px;
+}
+
+[data-play-ui="setup-palette-row"] {
+  display: flex;
+  gap: 4px;
+}
+
+[data-play-ui="setup-palette-piece"] {
+  font-size: 1.4rem;
+  line-height: 1;
+  padding: 4px 6px;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  cursor: pointer;
+  background: var(--surface);
+  flex: 1;
+}
+
+[data-play-ui="setup-palette-piece"][aria-pressed="true"] {
+  border-color: var(--ink);
+  background: var(--line);
+}
+
+[data-play-ui="selected-square"],
+[data-play-ui="selection-legal-targets"] {
+  font-family: var(--font-mono);
+}
+
+@media (max-width: 760px) {
+  #chess-review-app {
+    padding: 8px 6px 24px;
+  }
+
+  [data-play-ui="board"] {
+    grid-template-columns: 16px minmax(0, 1fr);
+    gap: 4px;
+    width: min(100%, 356px);
+  }
+
+  [data-play-ui="board-piece"] {
+    font-size: clamp(1.35rem, 70cqi, 2.65rem);
+  }
+
+  [data-play-ui="rank-labels"],
+  [data-play-ui="file-labels"] {
+    font-size: 0.7rem;
+  }
+}
+
+[data-review-ui="root"] {
+  display: grid;
+  grid-template-columns: minmax(280px, 0.92fr) minmax(0, 1.55fr);
+  gap: 18px;
+  align-items: start;
+}
+
+[data-review-ui="product-header"] {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 4px 12px;
+  align-items: end;
+  padding: 2px 2px 8px;
+}
+
+[data-review-ui="product-title"] {
+  margin: 0;
+  color: var(--ink);
+  font-size: 1.85rem;
+  line-height: 1.05;
+}
+
+[data-review-ui="release-badge"] {
+  align-self: center;
+  padding: 4px 9px;
+  border: 1px solid var(--accent);
+  border-radius: var(--radius);
+  background: var(--accent-soft);
+  color: var(--accent-strong);
+  font-size: 0.78rem;
+  font-weight: 800;
+  text-transform: none;
+}
+
+[data-review-ui="release-scope"] {
+  grid-column: 1 / -1;
+}
+
+[data-review-ui="review-form"],
+[data-review-ui="clear-confirmation"],
+[data-review-ui="recover-store"],
+[data-review-ui="recover-store-confirmation"],
+[data-review-ui="summary"],
+[data-review-ui="move-list"],
+[data-review-ui="coach-artifacts"],
+[data-review-ui="profile"],
+[data-review-ui="saved-retry-route"],
+[data-review-ui="stored-review-list"],
+[data-review-ui="saved-review-detail"] {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+[data-review-ui="review-form"] {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 10px;
+  position: sticky;
+  top: 18px;
+  padding: 18px;
+}
+
+[data-review-ui="pgn-label"],
+[data-review-ui="depth-label"] {
+  color: var(--ink-soft);
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: none;
+}
+
+[data-review-ui="pgn-label"],
+[data-review-ui="pgn-input"] {
+  grid-column: 1 / -1;
+}
+
+[data-review-ui="retry-practice-input"],
+[data-review-ui="saved-review-detail-practice-input"] {
+  width: 100%;
+  min-height: 40px;
+  padding: 9px 10px;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+  background: var(--surface);
+  color: var(--ink);
+}
+
+[data-review-ui="pgn-input"] {
+  min-height: 240px;
+  resize: vertical;
+  padding: 12px;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+  background: var(--surface);
+  color: var(--ink);
+}
+
+[data-review-ui="depth-control"] {
+  min-width: 86px;
+  padding: 9px 32px 9px 10px;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+  background-color: var(--surface);
+  color: var(--ink);
+}
+
+[data-review-ui="review-button"],
+[data-review-ui="save-button"],
+[data-review-ui="clear-button"],
+[data-review-ui="cancel-clear-button"],
+[data-review-ui="confirm-clear-button"],
+[data-review-ui="recover-store-button"],
+[data-review-ui="cancel-recover-store-button"],
+[data-review-ui="confirm-recover-store-button"],
+[data-review-ui="current-review-copy-pgn-button"],
+[data-review-ui="saved-review-detail-copy-pgn-button"],
+[data-review-ui="view-review-button"],
+[data-review-ui="delete-review-button"],
+[data-review-ui="retry-practice-prev-button"],
+[data-review-ui="retry-practice-next-button"],
+[data-review-ui="retry-practice-submit-button"],
+[data-review-ui="retry-practice-reveal-button"],
+[data-review-ui="retry-practice-reset-button"],
+[data-review-ui="open-saved-retry-route-button"],
+[data-review-ui="open-filtered-saved-retry-route-button"],
+[data-review-ui="saved-review-detail-practice-prev-button"],
+[data-review-ui="saved-review-detail-practice-next-button"],
+[data-review-ui="saved-review-detail-practice-submit-button"],
+[data-review-ui="saved-review-detail-practice-reveal-button"],
+[data-review-ui="saved-review-detail-practice-reset-button"],
+[data-review-ui="retry-practice-orientation-button"],
+[data-review-ui="saved-review-detail-practice-orientation-button"],
+[data-review-ui="retry-practice-copy-fen-button"],
+[data-review-ui="saved-review-detail-practice-copy-fen-button"] {
+  min-height: 40px;
+  border: 1px solid var(--accent-strong);
+  border-radius: var(--radius);
+  background: var(--accent);
+  color: var(--on-accent);
+  cursor: pointer;
+  font-weight: 700;
+}
+
+[data-review-ui="save-button"],
+[data-review-ui="clear-button"],
+[data-review-ui="cancel-clear-button"],
+[data-review-ui="cancel-recover-store-button"],
+[data-review-ui="current-review-copy-pgn-button"],
+[data-review-ui="saved-review-detail-copy-pgn-button"],
+[data-review-ui="view-review-button"],
+[data-review-ui="delete-review-button"],
+[data-review-ui="retry-practice-prev-button"],
+[data-review-ui="retry-practice-next-button"],
+[data-review-ui="retry-practice-reveal-button"],
+[data-review-ui="retry-practice-reset-button"],
+[data-review-ui="saved-review-detail-practice-prev-button"],
+[data-review-ui="saved-review-detail-practice-next-button"],
+[data-review-ui="saved-review-detail-practice-reveal-button"],
+[data-review-ui="saved-review-detail-practice-reset-button"],
+[data-review-ui="retry-practice-orientation-button"],
+[data-review-ui="saved-review-detail-practice-orientation-button"],
+[data-review-ui="retry-practice-copy-fen-button"],
+[data-review-ui="saved-review-detail-practice-copy-fen-button"] {
+  background: transparent;
+  color: var(--accent-strong);
+}
+
+[data-review-ui="delete-review-button"] {
+  border-color: var(--warn);
+  color: var(--warn);
+}
+
+[data-review-ui="confirm-clear-button"],
+[data-review-ui="confirm-recover-store-button"] {
+  border-color: var(--warn);
+  background: var(--warn);
+}
+
+button:focus,
+input:focus,
+select:focus,
+textarea:focus {
+  outline: 3px solid var(--focus);
+  outline-offset: 2px;
+}
+
+[data-play-ui="board-square"]:focus {
+  z-index: 3;
+  outline: 3px solid var(--focus);
+  outline-offset: -3px;
+}
+
+button:disabled,
+select:disabled {
+  cursor: not-allowed;
+  opacity: 0.56;
+}
+
+[data-review-ui="status"],
+[data-review-ui="error"] {
+  grid-column: 2;
+  display: block;
+  min-height: 34px;
+  padding: 8px 12px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--accent-soft);
+  color: var(--accent-strong);
+  font-weight: 700;
+}
+
+[data-review-ui="error"][hidden] {
+  display: none;
+}
+
+[data-review-ui="clear-confirmation"],
+[data-review-ui="recover-store"],
+[data-review-ui="recover-store-confirmation"] {
+  grid-column: 1;
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  gap: 10px;
+  align-items: center;
+  padding: 14px 18px;
+}
+
+[data-review-ui="recover-store"] {
+  grid-template-columns: 1fr auto;
+}
+
+[data-review-ui="clear-confirmation"] p,
+[data-review-ui="recover-store"] p,
+[data-review-ui="recover-store-confirmation"] p {
+  color: var(--warn);
+  font-weight: 800;
+}
+
+[data-review-ui="error"]:not(:empty) {
+  background: var(--warn-soft);
+  border-color: var(--warn);
+  color: var(--warn);
+}
+
+[data-review-ui="summary"],
+[data-review-ui="move-list"],
+[data-review-ui="coach-artifacts"],
+[data-review-ui="profile"],
+[data-review-ui="saved-retry-route"],
+[data-review-ui="stored-review-list"],
+[data-review-ui="saved-review-detail"] {
+  grid-column: 2;
+  padding: 18px;
+}
+
+h2 {
+  margin: 0 0 14px;
+  color: var(--ink);
+  font-size: 1.1rem;
+  line-height: 1.2;
+}
+
+p {
+  margin: 0;
+  color: var(--ink-soft);
+}
+
+dl {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  margin: 0;
+}
+
+dt {
+  color: var(--ink-soft);
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: none;
+}
+
+dd {
+  margin: 2px 0 0;
+  color: var(--ink);
+  font-size: 1.22rem;
+  font-weight: 800;
+}
+
+[data-review-ui="summary"] dl > div,
+[data-review-ui="profile"] dl > div,
+[data-review-ui="observed-patterns"] dl > div,
+[data-review-ui="saved-retry-route"] dl > div,
+[data-review-ui="saved-review-detail"] dl > div,
+[data-review-ui="stored-review-row"] dl > div,
+[data-review-ui="profile-bucket-row"] dl > div {
+  padding: 10px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface-quiet);
+}
+
+[data-review-ui="move-list"],
+[data-review-ui="saved-review-detail"] {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  min-width: 760px;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  padding: 9px 10px;
+  border-bottom: 1px solid var(--line);
+  text-align: left;
+  white-space: nowrap;
+}
+
+th {
+  color: var(--ink-soft);
+  font-size: 0.76rem;
+  text-transform: none;
+}
+
+tbody tr:nth-child(even) {
+  background: var(--on-accent);
+}
+
+[data-review-ui="move-label"],
+[data-review-ui="saved-review-detail-move-label"] {
+  display: inline-block;
+  min-width: 76px;
+  padding: 3px 8px;
+  border-radius: 999px;
+  background: var(--blue);
+  color: var(--surface);
+  text-align: center;
+}
+
+[data-review-ui="move-label"][data-label="best"],
+[data-review-ui="saved-review-detail-move-label"][data-label="best"] {
+  background: var(--accent);
+}
+
+[data-review-ui="move-label"][data-label="good"],
+[data-review-ui="saved-review-detail-move-label"][data-label="good"] {
+  background: var(--accent);
+}
+
+[data-review-ui="move-label"][data-label="inaccuracy"],
+[data-review-ui="saved-review-detail-move-label"][data-label="inaccuracy"] {
+  background: var(--warm);
+}
+
+[data-review-ui="move-label"][data-label="mistake"],
+[data-review-ui="saved-review-detail-move-label"][data-label="mistake"] {
+  background: var(--warm);
+}
+
+[data-review-ui="move-label"][data-label="blunder"],
+[data-review-ui="saved-review-detail-move-label"][data-label="blunder"] {
+  background: var(--warn);
+}
+
+[data-review-ui="coach-artifacts"] {
+  display: grid;
+  gap: 18px;
+}
+
+[data-review-ui="coach-artifacts"] > h2 {
+  margin-bottom: 0;
+}
+
+[data-review-ui="key-moments"],
+[data-review-ui="evidence"],
+[data-review-ui="fork-candidates"],
+[data-review-ui="early-divergences"],
+[data-review-ui="retry-positions"],
+[data-review-ui="saved-review-detail-fork-candidates"] {
+  display: grid;
+  gap: 10px;
+  padding-top: 16px;
+  border-top: 1px solid var(--line);
+}
+
+[data-review-ui="key-moments"] h3,
+[data-review-ui="evidence"] h3,
+[data-review-ui="fork-candidates"] h3,
+[data-review-ui="early-divergences"] h3,
+[data-review-ui="retry-positions"] h3,
+[data-review-ui="saved-review-detail-fork-candidates"] h3 {
+  margin: 0;
+  color: var(--accent-strong);
+  font-size: 0.9rem;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+[data-review-ui="key-moment-row"],
+[data-review-ui="evidence-row"],
+[data-review-ui="fork-candidate-row"],
+[data-review-ui="early-divergence-row"],
+[data-review-ui="retry-position-row"],
+[data-review-ui="saved-review-detail-fork-candidate-row"] {
+  display: grid;
+  gap: 10px;
+  padding: 12px 0;
+  border-top: 1px solid var(--line);
+}
+
+[data-review-ui="key-moment-row"] dl,
+[data-review-ui="evidence-row"] dl,
+[data-review-ui="fork-candidate-row"] dl,
+[data-review-ui="early-divergence-row"] dl,
+[data-review-ui="retry-position-row"] dl,
+[data-review-ui="saved-review-detail-fork-candidate-row"] dl {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+[data-review-ui="key-moment-row"] dd,
+[data-review-ui="evidence-row"] dd,
+[data-review-ui="fork-candidate-row"] dd,
+[data-review-ui="early-divergence-row"] dd,
+[data-review-ui="retry-position-row"] dd,
+[data-review-ui="saved-review-detail-fork-candidate-row"] dd {
+  font-size: 1rem;
+}
+
+[data-review-ui="fork-candidate-targets"],
+[data-review-ui="saved-review-detail-fork-candidate-targets"] {
+  grid-column: 1 / -1;
+}
+
+[data-review-ui="fork-candidate-targets"] dd,
+[data-review-ui="saved-review-detail-fork-candidate-targets"] dd {
+  max-width: 100%;
+  padding: 8px 10px;
+  border-radius: calc(var(--radius) - 2px);
+  background: var(--surface);
+  overflow-wrap: anywhere;
+  white-space: normal;
+}
+
+[data-review-ui="retry-position-fen"] {
+  grid-column: 1 / -1;
+}
+
+[data-review-ui="retry-position-fen"] dd {
+  max-width: 100%;
+  padding: 8px 10px;
+  border-radius: calc(var(--radius) - 2px);
+  background: var(--surface);
+  overflow-wrap: anywhere;
+  white-space: normal;
+}
+
+[data-review-ui="retry-practice"],
+[data-review-ui="saved-review-detail-practice"] {
+  display: grid;
+  gap: 10px;
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface-quiet);
+}
+
+[data-review-ui="retry-practice"] h3,
+[data-review-ui="saved-review-detail-practice"] h3 {
+  margin: 0;
+  color: var(--accent-strong);
+  font-size: 0.9rem;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+[data-review-ui="retry-practice-index"],
+[data-review-ui="saved-review-detail-practice-index"],
+[data-review-ui="retry-practice-feedback"],
+[data-review-ui="saved-review-detail-practice-feedback"] {
+  margin: 0;
+  color: var(--ink-soft);
+  font-weight: 700;
+}
+
+[data-review-ui="retry-practice-input-label"],
+[data-review-ui="saved-review-detail-practice-input-label"] {
+  color: var(--ink);
+  font-weight: 700;
+}
+
+[data-review-ui="retry-practice-input-hint"],
+[data-review-ui="saved-review-detail-practice-input-hint"] {
+  margin: -4px 0 0;
+  color: var(--ink-soft);
+  font-size: 0.9rem;
+}
+
+[data-review-ui="retry-practice-board"],
+[data-review-ui="saved-review-detail-practice-board"] {
+  display: grid;
+  gap: 6px;
+  inline-size: min(100%, 28rem);
+  max-inline-size: 100%;
+}
+
+[data-review-ui="retry-practice-board-caption"],
+[data-review-ui="saved-review-detail-practice-board-caption"] {
+  margin: 0;
+  color: var(--ink-soft);
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0;
+}
+
+[data-review-ui="retry-practice-board-controls"],
+[data-review-ui="saved-review-detail-practice-board-controls"] {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+[data-review-ui="retry-practice-orientation-controls"],
+[data-review-ui="saved-review-detail-practice-orientation-controls"] {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+[data-review-ui="retry-practice-orientation-button"][aria-pressed="true"],
+[data-review-ui="saved-review-detail-practice-orientation-button"][aria-pressed="true"] {
+  background: var(--accent-soft);
+  color: var(--accent-strong);
+  box-shadow: inset 0 0 0 2px var(--accent);
+}
+
+[data-review-ui="retry-practice-board-frame"],
+[data-review-ui="saved-review-detail-practice-board-frame"] {
+  display: grid;
+  grid-template-columns: 1rem minmax(0, 1fr);
+  gap: 4px;
+  inline-size: 100%;
+}
+
+[data-review-ui="retry-practice-board-rank-labels"],
+[data-review-ui="saved-review-detail-practice-board-rank-labels"] {
+  display: grid;
+  grid-template-rows: repeat(8, minmax(0, 1fr));
+  color: var(--ink-soft);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0;
+}
+
+[data-review-ui="retry-practice-board-rank-label"],
+[data-review-ui="saved-review-detail-practice-board-rank-label"] {
+  display: grid;
+  place-items: center;
+  min-block-size: 0;
+}
+
+[data-review-ui="retry-practice-board-grid"],
+[data-review-ui="saved-review-detail-practice-board-grid"] {
+  display: grid;
+  grid-template-columns: repeat(8, minmax(0, 1fr));
+  inline-size: 100%;
+  aspect-ratio: 1;
+  overflow: hidden;
+  border: 1px solid var(--line-strong);
+  border-radius: calc(var(--radius) - 2px);
+  background: var(--line-strong);
+}
+
+[data-review-ui="retry-practice-board-file-labels"],
+[data-review-ui="saved-review-detail-practice-board-file-labels"] {
+  display: grid;
+  grid-template-columns: repeat(8, minmax(0, 1fr));
+  color: var(--ink-soft);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0;
+  text-align: center;
+}
+
+[data-review-ui="retry-practice-board-square"],
+[data-review-ui="saved-review-detail-practice-board-square"] {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-inline-size: 0;
+  min-block-size: 0;
+  aspect-ratio: 1;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  color: var(--ink);
+  cursor: pointer;
+  font-family: var(--font-pieces);
+  font-size: 1.55rem;
+  font-weight: 900;
+  line-height: 1;
+}
+
+[data-review-ui="retry-practice-board-piece"],
+[data-review-ui="saved-review-detail-practice-board-piece"] {
+  line-height: 1;
+  pointer-events: none;
+}
+
+[data-review-ui="retry-practice-board-square"][data-board-shade="light"],
+[data-review-ui="saved-review-detail-practice-board-square"][data-board-shade="light"] {
+  background: var(--board-light);
+}
+
+[data-review-ui="retry-practice-board-square"][data-board-shade="dark"],
+[data-review-ui="saved-review-detail-practice-board-square"][data-board-shade="dark"] {
+  background: var(--board-dark);
+}
+
+[data-review-ui="retry-practice-board-square"][data-board-piece-color="black"],
+[data-review-ui="saved-review-detail-practice-board-square"][data-board-piece-color="black"] {
+  color: var(--ink);
+}
+
+[data-review-ui="retry-practice-board-square"][data-board-piece-color="white"],
+[data-review-ui="saved-review-detail-practice-board-square"][data-board-piece-color="white"] {
+  color: var(--on-accent);
+  text-shadow: 0 1px 2px color-mix(in oklab, var(--ink) 42%, transparent);
+}
+
+[data-review-ui="retry-practice-board-square"][data-board-selected="true"],
+[data-review-ui="saved-review-detail-practice-board-square"][data-board-selected="true"] {
+  box-shadow: inset 0 0 0 3px var(--focus);
+}
+
+[data-review-ui="retry-practice-board-square"][data-board-arrow="from"]::after,
+[data-review-ui="saved-review-detail-practice-board-square"][data-board-arrow="from"]::after {
+  position: absolute;
+  inset-block-start: 3px;
+  inset-inline-end: 3px;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  inline-size: 1.15rem;
+  block-size: 1.15rem;
+  border-radius: 999px;
+  background: color-mix(in oklab, var(--ink-soft) 92%, transparent);
+  color: var(--surface);
+  box-shadow: 0 1px 3px color-mix(in oklab, var(--ink) 24%, transparent);
+  font-family: var(--font-pieces);
+  font-size: 0.86rem;
+  font-weight: 900;
+  line-height: 1;
+  pointer-events: none;
+}
+
+[data-review-ui="retry-practice-board-square"][data-board-arrow="from"][data-board-arrow-direction="n"]::after,
+[data-review-ui="saved-review-detail-practice-board-square"][data-board-arrow="from"][data-board-arrow-direction="n"]::after {
+  content: "↑";
+}
+
+[data-review-ui="retry-practice-board-square"][data-board-arrow="from"][data-board-arrow-direction="ne"]::after,
+[data-review-ui="saved-review-detail-practice-board-square"][data-board-arrow="from"][data-board-arrow-direction="ne"]::after {
+  content: "↗";
+}
+
+[data-review-ui="retry-practice-board-square"][data-board-arrow="from"][data-board-arrow-direction="e"]::after,
+[data-review-ui="saved-review-detail-practice-board-square"][data-board-arrow="from"][data-board-arrow-direction="e"]::after {
+  content: "→";
+}
+
+[data-review-ui="retry-practice-board-square"][data-board-arrow="from"][data-board-arrow-direction="se"]::after,
+[data-review-ui="saved-review-detail-practice-board-square"][data-board-arrow="from"][data-board-arrow-direction="se"]::after {
+  content: "↘";
+}
+
+[data-review-ui="retry-practice-board-square"][data-board-arrow="from"][data-board-arrow-direction="s"]::after,
+[data-review-ui="saved-review-detail-practice-board-square"][data-board-arrow="from"][data-board-arrow-direction="s"]::after {
+  content: "↓";
+}
+
+[data-review-ui="retry-practice-board-square"][data-board-arrow="from"][data-board-arrow-direction="sw"]::after,
+[data-review-ui="saved-review-detail-practice-board-square"][data-board-arrow="from"][data-board-arrow-direction="sw"]::after {
+  content: "↙";
+}
+
+[data-review-ui="retry-practice-board-square"][data-board-arrow="from"][data-board-arrow-direction="w"]::after,
+[data-review-ui="saved-review-detail-practice-board-square"][data-board-arrow="from"][data-board-arrow-direction="w"]::after {
+  content: "←";
+}
+
+[data-review-ui="retry-practice-board-square"][data-board-arrow="from"][data-board-arrow-direction="nw"]::after,
+[data-review-ui="saved-review-detail-practice-board-square"][data-board-arrow="from"][data-board-arrow-direction="nw"]::after {
+  content: "↖";
+}
+
+[data-review-ui="retry-practice-board-square"][data-board-arrow="to"]::before,
+[data-review-ui="saved-review-detail-practice-board-square"][data-board-arrow="to"]::before {
+  content: "";
+  position: absolute;
+  inset: 17%;
+  z-index: 2;
+  border: 3px solid color-mix(in oklab, var(--ink-soft) 88%, transparent);
+  border-radius: 999px;
+  box-shadow:
+    inset 0 0 0 2px color-mix(in oklab, var(--surface) 74%, transparent),
+    0 1px 3px color-mix(in oklab, var(--ink) 24%, transparent);
+  pointer-events: none;
+}
+
+[data-review-ui="retry-practice-board-square"]:disabled,
+[data-review-ui="saved-review-detail-practice-board-square"]:disabled {
+  cursor: not-allowed;
+}
+
+[data-review-ui="retry-practice-board-square"]:focus-visible,
+[data-review-ui="saved-review-detail-practice-board-square"]:focus-visible {
+  position: relative;
+  z-index: 1;
+  outline: 3px solid var(--focus);
+  outline-offset: -3px;
+}
+
+[data-review-ui="retry-practice-position"] dl,
+[data-review-ui="saved-review-detail-practice-position"] dl {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+[data-review-ui="retry-practice-fen"],
+[data-review-ui="saved-review-detail-practice-fen"] {
+  grid-column: 1 / -1;
+}
+
+[data-review-ui="retry-practice-fen"] dd,
+[data-review-ui="saved-review-detail-practice-fen"] dd,
+[data-review-ui="retry-practice-answer"],
+[data-review-ui="saved-review-detail-practice-answer"] {
+  max-width: 100%;
+  margin: 0;
+  padding: 8px 10px;
+  border-radius: calc(var(--radius) - 2px);
+  background: var(--surface);
+  overflow-wrap: anywhere;
+}
+
+[data-review-ui="retry-practice-actions"],
+[data-review-ui="saved-review-detail-practice-actions"] {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+[data-review-ui="profile-bucket-list"] {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  margin: 14px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+[data-review-ui="observed-patterns"] {
+  display: grid;
+  gap: 10px;
+  margin-top: 14px;
+  padding-top: 16px;
+  border-top: 1px solid var(--line);
+}
+
+[data-review-ui="observed-patterns"] h3 {
+  margin: 0;
+  color: var(--accent-strong);
+  font-size: 0.9rem;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+[data-review-ui="saved-retry-route"] {
+  display: grid;
+  gap: 14px;
+}
+
+[data-review-ui="saved-retry-route"][hidden] {
+  display: none;
+}
+
+[data-review-ui="saved-retry-route-filters"],
+[data-review-ui="saved-retry-route-filter"] {
+  display: grid;
+  gap: 12px;
+}
+
+[data-review-ui="saved-retry-route-filter"] {
+  padding-top: 12px;
+  border-top: 1px solid var(--line);
+}
+
+[data-review-ui="saved-retry-route-filter"] h3 {
+  margin: 0;
+  font-size: 1rem;
+}
+
+[data-review-ui="open-saved-retry-route-button"] {
+  justify-self: start;
+}
+
+[data-review-ui="open-filtered-saved-retry-route-button"] {
+  justify-self: start;
+}
+
+[data-review-ui="profile-bucket-row"] dl,
+[data-review-ui="stored-review-row"] dl {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+[data-review-ui="stored-review-row"] {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  gap: 12px;
+  align-items: center;
+  padding: 12px 0;
+  border-top: 1px solid var(--line);
+}
+
+[data-review-ui="stored-review-row"][data-review-selected="true"] {
+  margin-inline: -10px;
+  padding-inline: 10px;
+  border: 1px solid var(--accent);
+  border-radius: var(--radius);
+  background: var(--accent-soft);
+}
+
+[data-review-ui="stored-review-selected"] {
+  color: var(--accent-strong);
+  font-size: 0.78rem;
+  font-weight: 800;
+  text-transform: none;
+}
+
+[data-review-ui="saved-review-detail"] table {
+  margin-top: 14px;
+}
+
+@media (max-width: 760px) {
+  #chess-review-app {
+    padding: 14px 10px 30px;
+  }
+
+  [data-review-ui="root"] {
+    grid-template-columns: 1fr;
+  }
+
+  [data-review-ui="product-header"] {
+    grid-template-columns: 1fr;
+    align-items: start;
+  }
+
+  [data-review-ui="product-title"] {
+    font-size: 1.55rem;
+  }
+
+  [data-review-ui="release-badge"] {
+    justify-self: start;
+  }
+
+  [data-review-ui="review-form"],
+  [data-review-ui="clear-confirmation"],
+  [data-review-ui="recover-store"],
+  [data-review-ui="recover-store-confirmation"],
+  [data-review-ui="status"],
+  [data-review-ui="error"],
+  [data-review-ui="summary"],
+  [data-review-ui="move-list"],
+  [data-review-ui="coach-artifacts"],
+  [data-review-ui="profile"],
+  [data-review-ui="saved-retry-route"],
+  [data-review-ui="stored-review-list"],
+  [data-review-ui="saved-review-detail"] {
+    grid-column: 1;
+  }
+
+  [data-review-ui="review-form"] {
+    position: static;
+    grid-template-columns: 1fr;
+  }
+
+  [data-review-ui="pgn-input"] {
+    min-height: 190px;
+  }
+
+  dl,
+  [data-review-ui="profile-bucket-list"],
+  [data-review-ui="stored-review-row"],
+  [data-review-ui="key-moment-row"] dl,
+  [data-review-ui="evidence-row"] dl,
+  [data-review-ui="fork-candidate-row"] dl,
+  [data-review-ui="early-divergence-row"] dl,
+  [data-review-ui="retry-position-row"] dl,
+  [data-review-ui="saved-review-detail-fork-candidate-row"] dl,
+  [data-review-ui="retry-practice-position"] dl,
+  [data-review-ui="saved-review-detail-practice-position"] dl,
+  [data-review-ui="observed-patterns"] dl,
+  [data-review-ui="profile-bucket-row"] dl,
+  [data-review-ui="stored-review-row"] dl {
+    grid-template-columns: 1fr;
+  }
+
+  [data-review-ui="review-button"],
+  [data-review-ui="save-button"],
+  [data-review-ui="clear-button"],
+  [data-review-ui="cancel-clear-button"],
+  [data-review-ui="confirm-clear-button"],
+  [data-review-ui="recover-store-button"],
+  [data-review-ui="cancel-recover-store-button"],
+  [data-review-ui="confirm-recover-store-button"],
+  [data-review-ui="view-review-button"],
+  [data-review-ui="delete-review-button"],
+  [data-review-ui="retry-practice-prev-button"],
+  [data-review-ui="retry-practice-next-button"],
+  [data-review-ui="retry-practice-submit-button"],
+  [data-review-ui="retry-practice-reveal-button"],
+  [data-review-ui="retry-practice-reset-button"],
+  [data-review-ui="open-saved-retry-route-button"],
+  [data-review-ui="open-filtered-saved-retry-route-button"],
+  [data-review-ui="saved-review-detail-practice-prev-button"],
+  [data-review-ui="saved-review-detail-practice-next-button"],
+  [data-review-ui="saved-review-detail-practice-submit-button"],
+  [data-review-ui="saved-review-detail-practice-reveal-button"],
+  [data-review-ui="saved-review-detail-practice-reset-button"],
+  [data-review-ui="depth-control"] {
+    width: 100%;
+  }
+
+  [data-review-ui="retry-practice-actions"],
+  [data-review-ui="saved-review-detail-practice-actions"] {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  [data-review-ui="clear-confirmation"],
+  [data-review-ui="recover-store"],
+  [data-review-ui="recover-store-confirmation"] {
+    grid-template-columns: 1fr;
+  }
+}
+
+html,
+body {
+  min-height: 100%;
+  background: var(--ui-background);
+}
+
+body {
+  color: var(--ui-ink);
+  font-family: var(--font-body);
+  font-kerning: normal;
+  line-height: 1.45;
+}
+
+#chess-review-app {
+  width: min(1480px, 100%);
+  padding: clamp(24px, 4vw, 64px) clamp(20px, 4vw, 56px) max(48px, env(safe-area-inset-bottom));
+}
+
+[data-app-ui="root"] {
+  gap: clamp(32px, 5vw, 64px);
+}
+
+/* The review surface shares the same quiet tokens when a finished game enters Review. */
+[data-review-ui="root"] {
+  display: grid;
+  gap: 22px;
+  color: var(--ui-ink);
+  font-family: inherit;
+}
+
+[data-review-ui="product-header"] {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 8px 18px;
+  align-items: end;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--ui-line);
+}
+
+[data-review-ui="product-title"] {
+  grid-column: 1;
+  margin: 0;
+  color: var(--ui-ink);
+  font-size: clamp(1.8rem, 4vw, 3rem);
+  font-weight: 720;
+  letter-spacing: -0.06em;
+}
+
+[data-review-ui="release-badge"],
+[data-review-ui="release-scope"] {
+  color: var(--ui-ink-muted);
+  font-size: 0.78rem;
+}
+
+[data-review-ui="release-scope"] {
+  grid-column: 1;
+  margin: 0;
+}
+
+[data-review-ui="locale-toggle"] {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+  padding-inline: 12px;
+}
+
+[data-review-ui="review-form"],
+[data-review-ui="summary"],
+[data-review-ui="status"],
+[data-review-ui="error"],
+[data-review-ui="coach-artifacts"],
+[data-review-ui="profile"],
+[data-review-ui="stored-review-list"],
+[data-review-ui="saved-review-detail"] {
+  padding: 20px;
+  border: 1px solid var(--ui-line);
+  border-radius: var(--ui-radius-md);
+  background: var(--ui-surface);
+  box-shadow: var(--ui-shadow-sm);
+}
+
+[data-review-ui="status"] {
+  color: var(--ui-primary);
+  font-weight: 700;
+}
+
+[data-review-ui="error"] {
+  color: var(--ui-danger);
+}
+
+[data-review-ui] h2,
+[data-review-ui] h3 {
+  color: var(--ui-ink);
+  letter-spacing: -0.025em;
+}
+
+@media (max-width: 760px) {
+  #chess-review-app {
+    padding: max(18px, env(safe-area-inset-top)) 14px max(32px, env(safe-area-inset-bottom));
+  }
+
+  [data-review-ui="product-header"] {
+    grid-template-columns: 1fr;
+    align-items: start;
+  }
+
+  [data-review-ui="locale-toggle"] {
+    grid-column: 1;
+    grid-row: auto;
+    justify-self: start;
+  }
+}
+
+/* The board is the decision map: the primary line leads, while classified alternatives and
+   rival replies remain visible beside it instead of being hidden behind a disclosure. */
+[data-play-mode="reaction-lens"] [data-play-ui="candidate-arrows"],
+[data-play-mode="reaction-lens"] [data-play-ui="reply-arrows"] {
+  visibility: visible;
+}
+
+[data-play-ui="reaction-lens"] [data-play-ui="reaction-line"] dd,
+[data-play-ui="reaction-lens"] [data-play-ui="reaction-rival-best"] dd,
+[data-play-ui="reaction-lens"] [data-play-ui="reaction-side-follow-up"] dd {
+  font-family: var(--font-mono);
+}
+
+[data-play-ui="reaction-lens"] [data-play-ui="reaction-line"] dd {
+  font-size: 0.76rem;
+}
+
+
+
+@media (max-width: 760px) {
+
+  [data-play-ui="board"] {
+    grid-template-columns: 14px minmax(0, 1fr);
+    gap: 3px;
+    width: min(100%, 520px);
+  }
+
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-play-ui="board"][data-board-state="loading"] {
+    animation: none;
+  }
+
+}
+
+[data-review-ui="analysis-report"] {
+  grid-column: 2;
+  display: grid;
+  gap: 14px;
+  padding: 18px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+[data-review-ui="analysis-report-label"] {
+  grid-column: 1 / -1;
+}
+
+[data-review-ui="analysis-report-input"] {
+  grid-column: 1 / -1;
+  width: 100%;
+  padding: 9px 10px;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+  background: var(--surface);
+  color: var(--ink);
+}
+
+[data-review-ui="analysis-game"] {
+  display: grid;
+  gap: 12px;
+  padding-top: 12px;
+  border-top: 1px solid var(--line);
+}
+
+[data-review-ui="analysis-game"] summary,
+[data-review-ui="analysis-move"] summary,
+[data-review-ui="analysis-move-evidence"] summary {
+  cursor: pointer;
+  color: var(--accent-strong);
+  font-weight: 800;
+}
+
+[data-review-ui="analysis-move"] {
+  display: grid;
+  gap: 10px;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface-quiet);
+}
+
+[data-review-ui="analysis-move"] dl {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+[data-review-ui="analysis-move"] dd {
+  font-size: 1rem;
+}
+
+[data-review-ui="analysis-candidates"] {
+  display: grid;
+  gap: 6px;
+  margin: 0;
+  padding-left: 28px;
+}
+
+[data-review-ui="analysis-candidate"] {
+  padding: 8px 10px;
+  border: 1px solid var(--line);
+  border-radius: calc(var(--radius) - 2px);
+  background: var(--surface);
+  overflow-wrap: anywhere;
+}
+
+[data-review-ui="analysis-candidate"][data-played="true"] {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+}
+
+[data-review-ui="analysis-candidate-rank"] {
+  display: inline-block;
+  min-width: 1.4rem;
+  color: var(--accent-strong);
+  font-weight: 900;
+}
+
+[data-review-ui="analysis-candidate-played"] {
+  color: var(--accent-strong);
+}
+
+[data-review-ui="analysis-move-evidence"] {
+  padding-top: 8px;
+  border-top: 1px solid var(--line);
+}
+
+[data-review-ui="analysis-move-fen"] {
+  overflow-wrap: anywhere;
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+}
+
+@media (max-width: 760px) {
+  [data-review-ui="analysis-report"] {
+    grid-column: 1;
+  }
+
+  [data-review-ui="analysis-move"] dl {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 520px) {
+  [data-review-ui="analysis-move"] dl {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (min-width: 1121px) {
+  [data-play-ui="root"][data-play-mode="reaction-lens"] [data-play-ui="board"] {
+    width: min(100%, 920px, calc(100vh - 250px));
+  }
+}
+
+[data-play-ui="root"] [data-play-ui="board-grid"] {
+  overflow: clip;
+  border: 0;
+  border-radius: 14px;
+  box-shadow:
+    0 0 0 1px color-mix(in oklab, var(--board-edge) 30%, transparent),
+    0 18px 40px -16px color-mix(in oklab, var(--shadow-ink) 55%, transparent);
+}
+
+[data-piece-set^="adr-0206-"] [data-play-ui="board-square"][data-board-shade="light"] {
+  background: linear-gradient(145deg, var(--board-light), color-mix(in oklab, var(--board-light) 88%, var(--aurora-aqua)));
+}
+
+[data-piece-set^="adr-0206-"] [data-play-ui="board-square"][data-board-shade="dark"] {
+  background: linear-gradient(145deg, color-mix(in oklab, var(--board-dark) 88%, var(--aurora-mint)), var(--board-dark));
+}
+
+/* Analyzer and review: the same pane. */
+[data-review-ui="root"] {
+  border: 1px solid var(--glass-edge);
+  border-radius: 28px;
+  background: var(--glass-fill);
+  -webkit-backdrop-filter: var(--glass-blur);
+  backdrop-filter: var(--glass-blur);
+  box-shadow: var(--glass-rim), var(--glass-shadow);
+}
+
+@media (max-width: 760px) {
+
+  [data-play-ui="root"] [data-play-ui="board"] {
+    width: 100%;
+    max-width: 100%;
+  }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  :root {
+    --glass-fill: var(--surface);
+    --glass-fill-faint: var(--surface);
+    --glass-fill-strong: var(--surface);
+  }
+}
+
+/* Review-only rules that used to share selectors with the play screen (play styles live in play.css). */
+[data-review-ui="locale-toggle"] {
+  min-height: 38px;
+  padding: 0 16px;
+  border: 1px solid var(--glass-hairline);
+  border-radius: 999px;
+  background: var(--glass-tint);
+  color: var(--ink);
+  font-size: 0.86rem;
+  font-weight: 560;
+  box-shadow: var(--glass-rim);
+  transition: background-color 160ms var(--ui-ease), transform 120ms var(--ui-ease), box-shadow 160ms var(--ui-ease);
+}
+
+[data-review-ui="root"] button:focus-visible,
+[data-analyzer-ui="section"] button:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+  transition: none;
+}

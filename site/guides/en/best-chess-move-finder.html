@@ -1,0 +1,37 @@
+<!--{"pair":"best-move","order":1,"date":"2026-11-20","title":"Best Move Finder: Analyze Any Chess Position Free in Your Browser","h1":"Find the best chess move in any position, free, in your browser","description":"Set up a chess position and get the best move, its score, three alternatives and a plain-English reason. Free, no account, runs offline on a 3000 Elo engine.","faq":[["Is it free?","Yes. There is no account, no limit and no ads. The engine runs on your own computer, so it costs nothing to serve."],["Does it work offline?","Yes. Once the page has loaded, the engine runs inside your browser. Nothing you play is sent anywhere."],["How strong is the engine?","About 3039 Elo on the CCRL Blitz scale, measured over 600 games against rated engines. That is far stronger than any club player."],["What does +64 cp mean?","cp means centipawns, hundredths of a pawn. +64 means your side is ahead by about two thirds of a pawn. +100 is roughly a full extra pawn."],["Can I use it during an online game?","No. Using an engine while you play a rated game is cheating on every chess site. Use it to study your games afterwards."]]}-->
+<p class="lede">Open <a href="/">calichess.cc</a>, play the moves on the board, and it tells you what to play next, how good that move is, and why. No download, no account.</p>
+
+<div class="eli5"><b>In one breath</b>A chess engine is a program that imagines millions of ways the game could go, scores each one, and picks the move that leads to the best future it can prove. This one runs inside your browser tab.</div>
+
+<figure><img src="/img/explore-dark.webp" alt="CaliChess after the Italian Game recommends c3 at +64 centipawns, with three alternatives drawn as numbered arrows" width="1600" height="1000"><figcaption>After the Italian Game (1.e4 e5 2.Nf3 Nc6 3.Bc4 Bc5), it recommends c3 and shows three other options.</figcaption></figure>
+
+<h2>How to use it, step by step</h2>
+<ol>
+<li><b>Pick your side.</b> White or Black, top right. The engine always answers for that side.</li>
+<li><b>Play the moves on the board.</b> Click a piece, then the square. You move both sides, so you can rebuild any game.</li>
+<li><b>Read the panel.</b> After each move, the right side shows what to play now. It takes about a fifth of a second.</li>
+</ol>
+
+<h2>What each part of the panel means</h2>
+<table>
+<thead><tr><th>Part</th><th>What it tells you</th></tr></thead>
+<tbody>
+<tr><td>What to play now</td><td>One sentence with the reason, for example "Play h5→f7: delivers checkmate."</td></tr>
+<tr><td>Best idea</td><td>The move it recommends, with its score in centipawns (hundredths of a pawn). Plus is good for you, minus is bad.</td></tr>
+<tr><td>Other moves</td><td>Three alternatives, numbered 2 to 4, also drawn as arrows on the board.</td></tr>
+<tr><td>Line</td><td>How it expects the game to continue if both sides play well.</td></tr>
+<tr><td>Depth and nodes</td><td>How far ahead it looked (depth 8 means 8 moves) and how many positions it checked.</td></tr>
+</tbody>
+</table>
+
+<h2>It explains the move, not only the score</h2>
+<p>Most engines give you a number and a move. This one also writes a sentence: what your opponent threatens, what your move captures or attacks, and whether it is check or mate.</p>
+<figure><img src="/img/explore-fork.webp" alt="In the Fried Liver Attack the engine recommends the knight sacrifice on f7 and explains that it attacks the queen" width="1600" height="1000"><figcaption>"Your opponent threatens your knight on g5. Play g5→f7: captures the pawn on f7 and attacks the queen on d8."</figcaption></figure>
+<p>When there is a forced mate, it says so instead of showing a score:</p>
+<figure><img src="/img/explore-mate.webp" alt="The engine finds Qxf7 checkmate and marks it as forced mate" width="1600" height="1000"><figcaption>After 1.e4 e5 2.Bc4 Nc6 3.Qh5 Nf6, it finds Qxf7 checkmate.</figcaption></figure>
+
+<h2>Aggressive mode</h2>
+<p>With <b>Aggressive</b> on, the engine still checks every option, but when two moves are almost equal (within half a pawn), it prefers the one that attacks the enemy king. You never give up more than half a pawn for a sharper game.</p>
+
+<h2>Why it runs in your browser</h2>
+<p>The engine is written in Rust and compiled to WebAssembly, a format browsers run almost as fast as a normal program. The whole engine is a 191 KB download. In the browser it checks 1 to 1.5 million positions per second; that is why it has no server, needs no account, and keeps working without internet.</p>

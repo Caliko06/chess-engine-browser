@@ -1,0 +1,6 @@
+{"name":"startpos","best_move":"b1c3","score":24,"depth":3,"nodes":1042}
+{"name":"kiwipete","best_move":"e2a6","score":73,"depth":3,"nodes":52049}
+{"name":"recapture_trap","best_move":"b1a1","score":0,"depth":3,"nodes":62}
+{"name":"stalemate_trap","best_move":"b6c6","score":1182,"depth":3,"nodes":556}
+{"name":"back_rank_mate","best_move":"a1a8","score":29999,"depth":3,"nodes":287}
+{"command":"cargo run --release --quiet -p chess-search --example m8_bench","position_set":["startpos","kiwipete","recapture_trap","stalemate_trap","back_rank_mate"],"depth":3,"total_nodes":53996,"elapsed_ms":453,"nodes_per_second":119196}
