@@ -1,0 +1,511 @@
+{
+ "engine": "1aa06023",
+ "budget": 10000000,
+ "date": "2026-11-20",
+ "positions": [
+  {
+   "key": "start-position",
+   "moves": "",
+   "fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+   "side": "white",
+   "depth": 16,
+   "nodes": 10000000,
+   "candidates": [
+    {
+     "san": "e4",
+     "uci": "e2e4",
+     "cp": 27,
+     "mate": null
+    },
+    {
+     "san": "Nf3",
+     "uci": "g1f3",
+     "cp": 14,
+     "mate": null
+    },
+    {
+     "san": "d4",
+     "uci": "d2d4",
+     "cp": 14,
+     "mate": null
+    },
+    {
+     "san": "e3",
+     "uci": "e2e3",
+     "cp": 12,
+     "mate": null
+    }
+   ],
+   "line": [
+    "e4",
+    "e6",
+    "d4",
+    "d5",
+    "exd5",
+    "exd5"
+   ]
+  },
+  {
+   "key": "after-e4",
+   "moves": "e4",
+   "fen": "rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq - 0 1",
+   "side": "black",
+   "depth": 16,
+   "nodes": 10000000,
+   "candidates": [
+    {
+     "san": "e5",
+     "uci": "e7e5",
+     "cp": -25,
+     "mate": null
+    },
+    {
+     "san": "e6",
+     "uci": "e7e6",
+     "cp": -29,
+     "mate": null
+    },
+    {
+     "san": "c5",
+     "uci": "c7c5",
+     "cp": -31,
+     "mate": null
+    },
+    {
+     "san": "c6",
+     "uci": "c7c6",
+     "cp": -37,
+     "mate": null
+    }
+   ],
+   "line": [
+    "e5",
+    "Nf3",
+    "Nc6",
+    "Nc3",
+    "Nf6",
+    "Bb5"
+   ]
+  },
+  {
+   "key": "after-d4",
+   "moves": "d4",
+   "fen": "rnbqkbnr/pppppppp/8/8/3P4/8/PPP1PPPP/RNBQKBNR b KQkq - 0 1",
+   "side": "black",
+   "depth": 15,
+   "nodes": 10000000,
+   "candidates": [
+    {
+     "san": "Nf6",
+     "uci": "g8f6",
+     "cp": -14,
+     "mate": null
+    },
+    {
+     "san": "d5",
+     "uci": "d7d5",
+     "cp": -17,
+     "mate": null
+    },
+    {
+     "san": "e6",
+     "uci": "e7e6",
+     "cp": -17,
+     "mate": null
+    },
+    {
+     "san": "c5",
+     "uci": "c7c5",
+     "cp": -36,
+     "mate": null
+    }
+   ],
+   "line": [
+    "Nf6",
+    "Nf3",
+    "e6",
+    "e3",
+    "d5",
+    "c4"
+   ]
+  },
+  {
+   "key": "after-e4-e5",
+   "moves": "e4 e5",
+   "fen": "rnbqkbnr/pppp1ppp/8/4p3/4P3/8/PPPP1PPP/RNBQKBNR w KQkq - 0 2",
+   "side": "white",
+   "depth": 16,
+   "nodes": 10000000,
+   "candidates": [
+    {
+     "san": "Nf3",
+     "uci": "g1f3",
+     "cp": 34,
+     "mate": null
+    },
+    {
+     "san": "Bc4",
+     "uci": "f1c4",
+     "cp": 34,
+     "mate": null
+    },
+    {
+     "san": "Nc3",
+     "uci": "b1c3",
+     "cp": 34,
+     "mate": null
+    },
+    {
+     "san": "d4",
+     "uci": "d2d4",
+     "cp": 4,
+     "mate": null
+    }
+   ],
+   "line": [
+    "Nf3",
+    "Nc6",
+    "Nc3",
+    "Nf6",
+    "Bc4",
+    "Nxe4"
+   ]
+  },
+  {
+   "key": "italian-game",
+   "moves": "e4 e5 Nf3 Nc6 Bc4",
+   "fen": "r1bqkbnr/pppp1ppp/2n5/4p3/2B1P3/5N2/PPPP1PPP/RNBQK2R b KQkq - 3 3",
+   "side": "black",
+   "depth": 15,
+   "nodes": 10000000,
+   "candidates": [
+    {
+     "san": "Nf6",
+     "uci": "g8f6",
+     "cp": -25,
+     "mate": null
+    },
+    {
+     "san": "d6",
+     "uci": "d7d6",
+     "cp": -34,
+     "mate": null
+    },
+    {
+     "san": "Be7",
+     "uci": "f8e7",
+     "cp": -36,
+     "mate": null
+    },
+    {
+     "san": "Bd6",
+     "uci": "f8d6",
+     "cp": -36,
+     "mate": null
+    }
+   ],
+   "line": [
+    "Nf6",
+    "d3",
+    "Bc5",
+    "c3",
+    "Bb6",
+    "b4"
+   ]
+  },
+  {
+   "key": "ruy-lopez",
+   "moves": "e4 e5 Nf3 Nc6 Bb5",
+   "fen": "r1bqkbnr/pppp1ppp/2n5/1B2p3/4P3/5N2/PPPP1PPP/RNBQK2R b KQkq - 3 3",
+   "side": "black",
+   "depth": 16,
+   "nodes": 10000000,
+   "candidates": [
+    {
+     "san": "Nf6",
+     "uci": "g8f6",
+     "cp": -16,
+     "mate": null
+    },
+    {
+     "san": "Bd6",
+     "uci": "f8d6",
+     "cp": -37,
+     "mate": null
+    },
+    {
+     "san": "Bc5",
+     "uci": "f8c5",
+     "cp": -42,
+     "mate": null
+    },
+    {
+     "san": "Nge7",
+     "uci": "g8e7",
+     "cp": -48,
+     "mate": null
+    }
+   ],
+   "line": [
+    "Nf6",
+    "O-O",
+    "Nxe4",
+    "Bxc6",
+    "dxc6",
+    "Qe2"
+   ]
+  },
+  {
+   "key": "sicilian-defense",
+   "moves": "e4 c5",
+   "fen": "rnbqkbnr/pp1ppppp/8/2p5/4P3/8/PPPP1PPP/RNBQKBNR w KQkq - 0 2",
+   "side": "white",
+   "depth": 16,
+   "nodes": 10000000,
+   "candidates": [
+    {
+     "san": "Be2",
+     "uci": "f1e2",
+     "cp": 36,
+     "mate": null
+    },
+    {
+     "san": "Nc3",
+     "uci": "b1c3",
+     "cp": 36,
+     "mate": null
+    },
+    {
+     "san": "Nf3",
+     "uci": "g1f3",
+     "cp": 36,
+     "mate": null
+    },
+    {
+     "san": "Bd3",
+     "uci": "f1d3",
+     "cp": 17,
+     "mate": null
+    }
+   ],
+   "line": [
+    "Be2",
+    "Nc6",
+    "Nf3",
+    "Nf6",
+    "Nc3",
+    "e6"
+   ]
+  },
+  {
+   "key": "french-defense",
+   "moves": "e4 e6",
+   "fen": "rnbqkbnr/pppp1ppp/4p3/8/4P3/8/PPPP1PPP/RNBQKBNR w KQkq - 0 2",
+   "side": "white",
+   "depth": 16,
+   "nodes": 10000000,
+   "candidates": [
+    {
+     "san": "Nc3",
+     "uci": "b1c3",
+     "cp": 30,
+     "mate": null
+    },
+    {
+     "san": "d4",
+     "uci": "d2d4",
+     "cp": 30,
+     "mate": null
+    },
+    {
+     "san": "Nf3",
+     "uci": "g1f3",
+     "cp": 25,
+     "mate": null
+    },
+    {
+     "san": "Be2",
+     "uci": "f1e2",
+     "cp": 9,
+     "mate": null
+    }
+   ],
+   "line": [
+    "Nc3",
+    "d5",
+    "d4",
+    "Nf6",
+    "e5",
+    "Ne4"
+   ]
+  },
+  {
+   "key": "caro-kann-defense",
+   "moves": "e4 c6",
+   "fen": "rnbqkbnr/pp1ppppp/2p5/8/4P3/8/PPPP1PPP/RNBQKBNR w KQkq - 0 2",
+   "side": "white",
+   "depth": 17,
+   "nodes": 10000000,
+   "candidates": [
+    {
+     "san": "Be2",
+     "uci": "f1e2",
+     "cp": 31,
+     "mate": null
+    },
+    {
+     "san": "Nc3",
+     "uci": "b1c3",
+     "cp": 29,
+     "mate": null
+    },
+    {
+     "san": "Nf3",
+     "uci": "g1f3",
+     "cp": 26,
+     "mate": null
+    },
+    {
+     "san": "d4",
+     "uci": "d2d4",
+     "cp": 26,
+     "mate": null
+    }
+   ],
+   "line": [
+    "Be2",
+    "d5",
+    "e5",
+    "c5",
+    "Nf3",
+    "Nc6"
+   ]
+  },
+  {
+   "key": "scandinavian-defense",
+   "moves": "e4 d5",
+   "fen": "rnbqkbnr/ppp1pppp/8/3p4/4P3/8/PPPP1PPP/RNBQKBNR w KQkq - 0 2",
+   "side": "white",
+   "depth": 16,
+   "nodes": 10000000,
+   "candidates": [
+    {
+     "san": "exd5",
+     "uci": "e4d5",
+     "cp": 35,
+     "mate": null
+    },
+    {
+     "san": "d3",
+     "uci": "d2d3",
+     "cp": -4,
+     "mate": null
+    },
+    {
+     "san": "e5",
+     "uci": "e4e5",
+     "cp": -7,
+     "mate": null
+    },
+    {
+     "san": "Nc3",
+     "uci": "b1c3",
+     "cp": -16,
+     "mate": null
+    }
+   ],
+   "line": [
+    "exd5",
+    "Qxd5",
+    "Nf3",
+    "Qe4+",
+    "Be2",
+    "Qg6"
+   ]
+  },
+  {
+   "key": "queens-gambit",
+   "moves": "d4 d5 c4",
+   "fen": "rnbqkbnr/ppp1pppp/8/3p4/2PP4/8/PP2PPPP/RNBQKBNR b KQkq - 0 2",
+   "side": "black",
+   "depth": 15,
+   "nodes": 10000000,
+   "candidates": [
+    {
+     "san": "e6",
+     "uci": "e7e6",
+     "cp": -26,
+     "mate": null
+    },
+    {
+     "san": "dxc4",
+     "uci": "d5c4",
+     "cp": -29,
+     "mate": null
+    },
+    {
+     "san": "Nc6",
+     "uci": "b8c6",
+     "cp": -31,
+     "mate": null
+    },
+    {
+     "san": "c6",
+     "uci": "c7c6",
+     "cp": -33,
+     "mate": null
+    }
+   ],
+   "line": [
+    "e6",
+    "e3",
+    "Nf6",
+    "Nf3",
+    "Be7",
+    "cxd5"
+   ]
+  },
+  {
+   "key": "london-system",
+   "moves": "d4 d5 Bf4",
+   "fen": "rnbqkbnr/ppp1pppp/8/3p4/3P1B2/8/PPP1PPPP/RN1QKBNR b KQkq - 1 2",
+   "side": "black",
+   "depth": 15,
+   "nodes": 10000000,
+   "candidates": [
+    {
+     "san": "e6",
+     "uci": "e7e6",
+     "cp": 0,
+     "mate": null
+    },
+    {
+     "san": "c5",
+     "uci": "c7c5",
+     "cp": 0,
+     "mate": null
+    },
+    {
+     "san": "Nf6",
+     "uci": "g8f6",
+     "cp": -9,
+     "mate": null
+    },
+    {
+     "san": "Nc6",
+     "uci": "b8c6",
+     "cp": -15,
+     "mate": null
+    }
+   ],
+   "line": [
+    "e6",
+    "e3",
+    "c5",
+    "Nf3",
+    "cxd4",
+    "Bxb8"
+   ]
+  }
+ ]
+}

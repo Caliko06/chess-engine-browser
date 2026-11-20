@@ -39,6 +39,7 @@ export type ReviewAppOptions = {
   readonly metadataHost?: BrowserMetadataHost;
   readonly importModule?: ReviewWasmDynamicImporter;
   readonly locationSearch?: string;
+  readonly locationHash?: string;
   readonly playBestMoveProvider?: PlayBestMoveProvider;
   readonly playEvidenceSink?: PlayAutomaticEvidenceSink;
   readonly playGameArchiveSink?: PlayGameArchiveSink;
@@ -208,7 +209,7 @@ export function mountReviewApp(options: ReviewAppOptions = {}): ChessAppHandle {
   let reviewHandle: ReviewUiHandle | null = null;
   const ownedPlayEngine =
     typeof Worker !== "undefined"
-      ? createPlayWorkerEngine("./dist/play-move-worker.js", "./dist/play-worker.js")
+      ? createPlayWorkerEngine(new URL("./play-move-worker.js", import.meta.url).href, new URL("./play-worker.js", import.meta.url).href)
       : createPlayWasmExecutor(wasmModule);
   const ownedEngineOnly = spectatorLens || reactionLens;
   const playEngine = ownedEngineOnly
@@ -217,7 +218,7 @@ export function mountReviewApp(options: ReviewAppOptions = {}): ChessAppHandle {
         owned: ownedPlayEngine,
         stockfishProvider: options.playBestMoveProvider
       });
-  // The page language picks the UI language: index.html says "es"; calichess.cc sets it from the browser.
+  // The page language picks the UI language: index.html says "es"; calichess.cc serves / in "en" and /es/ in "es".
   const locale = ownerDocument.documentElement?.lang.startsWith("en") === true ? "en" : "es";
   const play = mountPlayUi(playRoot, {
     engine: playEngine,
@@ -241,6 +242,11 @@ export function mountReviewApp(options: ReviewAppOptions = {}): ChessAppHandle {
     },
     gameArchiveSink: options.playGameArchiveSink ?? createBrowserPlayGameArchiveSink()
   });
+  // Deep link from the guides: /#fen=<FEN> opens that position (a hash keeps the query-free Explore mount).
+  const linkedFen = new URLSearchParams((options.locationHash ?? (typeof window === "undefined" ? "" : window.location.hash)).slice(1)).get("fen");
+  if (linkedFen !== null && linkedFen.trim() !== "") {
+    void play.ready.then(() => play.loadPosition(linkedFen.trim()));
+  }
   const reviewPgn = createReviewWasmArtifactExecutor(wasmModule);
   const review = mountReviewUi(reviewRoot, {
     storage,

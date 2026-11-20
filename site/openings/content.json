@@ -1,0 +1,638 @@
+[
+  {
+    "key": "start-position",
+    "moves": "",
+    "eco": "",
+    "en": {
+      "slug": "best-first-move-in-chess",
+      "name": "Starting Position",
+      "title": "Best First Move in Chess: What to Play as White",
+      "h1": "What is the best first move in chess?",
+      "description": "See the engine's best first move in chess with its score and alternatives, explained in plain words. Free in your browser, offline, no account.",
+      "intro": "This is the starting position, with White to make the first move. Every game begins here, and four moves cover most of what strong players choose: 1.e4, 1.d4, 1.Nf3 and 1.c4. All of them fight for the center and open lines for the pieces.",
+      "plans": [
+        "Take space in the center with a pawn on e4 or d4.",
+        "Develop the knights and bishops quickly, then castle.",
+        "Keep the queen at home until the minor pieces are out."
+      ],
+      "pitfall": "Beginners often push flank pawns like 1.f3 or 1.g4, which weaken the king and do nothing for the center. After 1.f3 e5 2.g4 Black even has the fastest checkmate, 2...Qh4#.",
+      "faq": [
+        [
+          "Is 1.e4 or 1.d4 better?",
+          "Both are fully sound and top players use both. 1.e4 leads to open, tactical games, while 1.d4 tends to give slower, more strategic ones."
+        ],
+        [
+          "Does the first move decide the game?",
+          "No. Any of the main first moves gives a balanced position, and the result is decided by the plans and mistakes that follow."
+        ]
+      ]
+    },
+    "es": {
+      "slug": "mejor-primera-jugada-ajedrez",
+      "name": "Posición inicial",
+      "title": "Mejor primera jugada en ajedrez: qué jugar con blancas",
+      "h1": "¿Cuál es la mejor primera jugada en ajedrez?",
+      "description": "Mira la mejor primera jugada del ajedrez según el motor, con su valoración y alternativas, explicada en palabras claras. Gratis, sin cuenta y sin conexión.",
+      "intro": "Esta es la posición inicial, con las blancas a punto de mover. Toda partida empieza aquí y cuatro jugadas cubren casi todo lo que eligen los jugadores fuertes: 1.e4, 1.d4, 1.Cf3 y 1.c4. Todas pelean por el centro y abren líneas para las piezas.",
+      "plans": [
+        "Ocupa espacio en el centro con un peón en e4 o d4.",
+        "Desarrolla rápido los caballos y alfiles, y luego enroca.",
+        "Mantén la dama en casa hasta que salgan las piezas menores."
+      ],
+      "pitfall": "Los principiantes suelen empujar peones de flanco como 1.f3 o 1.g4, que debilitan al rey y no ayudan al centro. Tras 1.f3 e5 2.g4 las negras hasta tienen el mate más rápido, 2...Dh4#.",
+      "faq": [
+        [
+          "¿Es mejor 1.e4 o 1.d4?",
+          "Las dos son totalmente sólidas y los mejores jugadores usan ambas. 1.e4 lleva a partidas abiertas y tácticas, y 1.d4 suele dar partidas más lentas y estratégicas."
+        ],
+        [
+          "¿La primera jugada decide la partida?",
+          "No. Cualquiera de las jugadas principales deja una posición equilibrada, y el resultado lo deciden los planes y los errores posteriores."
+        ]
+      ]
+    }
+  },
+  {
+    "key": "after-e4",
+    "moves": "e4",
+    "eco": "B00",
+    "en": {
+      "slug": "best-response-to-e4",
+      "name": "King's Pawn Opening",
+      "title": "Best Response to 1.e4: What Black Should Play",
+      "h1": "What is the best response to 1.e4?",
+      "description": "See the engine's best reply to 1.e4 with its score and alternatives, explained in plain words. Free in your browser, offline, no account needed.",
+      "intro": "White has opened with the king's pawn, taking space in the center and freeing the queen and the f1 bishop. It is the most popular first move at every level. Black has five main answers: 1...e5, 1...c5, 1...e6, 1...c6 and 1...d5.",
+      "plans": [
+        "Answer symmetrically with 1...e5 and develop the knights and bishops.",
+        "Fight for the center from the side with 1...c5, 1...e6 or 1...c6.",
+        "Castle early and avoid moves that leave the king in the center."
+      ],
+      "pitfall": "After 1...d5 2.exd5 Qxd5 3.Nc3 the queen has to move again, so Black spends time while White develops. It is playable, but you have to know where the queen goes next.",
+      "faq": [
+        [
+          "What is the most popular reply to 1.e4?",
+          "1...e5 and the Sicilian 1...c5 are the most common. The Sicilian is the most popular choice at the top level because it creates winning chances for Black."
+        ],
+        [
+          "What is the safest reply to 1.e4?",
+          "The Caro-Kann (1...c6) and the French (1...e6) are known for solid pawn structures that are hard to break."
+        ]
+      ]
+    },
+    "es": {
+      "slug": "mejor-respuesta-a-e4",
+      "name": "Apertura de peón de rey",
+      "title": "Mejor jugada después de 1.e4: qué responder con negras",
+      "h1": "¿Cuál es la mejor respuesta a 1.e4?",
+      "description": "Mira la mejor respuesta a 1.e4 según el motor, con su valoración y alternativas, explicada en palabras claras. Gratis, sin cuenta y sin conexión a internet.",
+      "intro": "Las blancas abrieron con el peón de rey, ganando espacio en el centro y liberando a la dama y al alfil de f1. Es la primera jugada más popular en todos los niveles. Las negras tienen cinco respuestas principales: 1...e5, 1...c5, 1...e6, 1...c6 y 1...d5.",
+      "plans": [
+        "Responde de forma simétrica con 1...e5 y desarrolla caballos y alfiles.",
+        "Pelea por el centro desde el flanco con 1...c5, 1...e6 o 1...c6.",
+        "Enroca pronto y evita jugadas que dejen al rey en el centro."
+      ],
+      "pitfall": "Tras 1...d5 2.exd5 Dxd5 3.Cc3 la dama tiene que moverse otra vez, así que las negras pierden tiempo mientras las blancas se desarrollan. Es jugable, pero debes saber a dónde va la dama después.",
+      "faq": [
+        [
+          "¿Cuál es la respuesta más popular a 1.e4?",
+          "1...e5 y la Siciliana 1...c5 son las más comunes. La Siciliana es la favorita en la élite porque da a las negras posibilidades reales de ganar."
+        ],
+        [
+          "¿Cuál es la respuesta más segura a 1.e4?",
+          "La Caro-Kann (1...c6) y la Francesa (1...e6) son conocidas por sus estructuras de peones sólidas y difíciles de romper."
+        ]
+      ]
+    }
+  },
+  {
+    "key": "after-d4",
+    "moves": "d4",
+    "eco": "A40",
+    "en": {
+      "slug": "best-response-to-d4",
+      "name": "Queen's Pawn Opening",
+      "title": "Best Response to 1.d4: What Black Should Play",
+      "h1": "What is the best response to 1.d4?",
+      "description": "See the engine's best reply to 1.d4 with its score and alternatives, explained in plain words. Free in your browser, offline, no account needed.",
+      "intro": "White has opened with the queen's pawn. The pawn is protected by the queen, so it leads to slower, more strategic games than 1.e4. Black's main answers are 1...d5, 1...Nf6, 1...e6 and the Dutch 1...f5.",
+      "plans": [
+        "Match the central pawn with 1...d5 and keep a solid structure.",
+        "Delay the pawn decision with 1...Nf6 and keep options open.",
+        "Prepare to challenge the center later with ...c5 or ...e5."
+      ],
+      "pitfall": "Answering 1...e5 (the Englund Gambit) usually just loses a pawn after 2.dxe5, and White can keep it with accurate development.",
+      "faq": [
+        [
+          "What is the best response to 1.d4 for beginners?",
+          "1...d5 is a simple, solid choice that fights for the center. Pair it with ...e6 and ...Nf6 and you have a reliable setup."
+        ],
+        [
+          "Is 1...Nf6 better than 1...d5?",
+          "Neither is clearly better. 1...Nf6 keeps more options (Indian defenses), while 1...d5 stakes the center directly."
+        ]
+      ]
+    },
+    "es": {
+      "slug": "mejor-respuesta-a-d4",
+      "name": "Apertura de peón de dama",
+      "title": "Mejor jugada después de 1.d4: qué responder con negras",
+      "h1": "¿Cuál es la mejor respuesta a 1.d4?",
+      "description": "Mira la mejor respuesta a 1.d4 según el motor, con su valoración y alternativas, explicada en palabras claras. Gratis, sin cuenta y sin conexión a internet.",
+      "intro": "Las blancas abrieron con el peón de dama. El peón está protegido por la dama, por eso las partidas son más lentas y estratégicas que con 1.e4. Las respuestas principales de las negras son 1...d5, 1...Cf6, 1...e6 y la Holandesa 1...f5.",
+      "plans": [
+        "Iguala el peón central con 1...d5 y mantén una estructura sólida.",
+        "Retrasa la decisión sobre el peón con 1...Cf6 y conserva opciones.",
+        "Prepárate para desafiar el centro después con ...c5 o ...e5."
+      ],
+      "pitfall": "Responder 1...e5 (el Gambito Englund) normalmente solo pierde un peón tras 2.dxe5, y las blancas pueden conservarlo con un desarrollo preciso.",
+      "faq": [
+        [
+          "¿Cuál es la mejor respuesta a 1.d4 para principiantes?",
+          "1...d5 es una opción simple y sólida que pelea por el centro. Combínala con ...e6 y ...Cf6 y tendrás un esquema confiable."
+        ],
+        [
+          "¿Es mejor 1...Cf6 que 1...d5?",
+          "Ninguna es claramente mejor. 1...Cf6 conserva más opciones (defensas indias), mientras que 1...d5 ocupa el centro directamente."
+        ]
+      ]
+    }
+  },
+  {
+    "key": "after-e4-e5",
+    "moves": "e4 e5",
+    "eco": "C20",
+    "en": {
+      "slug": "best-move-after-e4-e5",
+      "name": "Open Game",
+      "title": "1.e4 e5: Best Move for White After 1...e5",
+      "h1": "1.e4 e5: what is White's best move?",
+      "description": "See the engine's best move for White after 1.e4 e5 with its score and alternatives, explained in plain words. Free in your browser, offline, no account.",
+      "intro": "Both sides have put a pawn on e4 and e5, so the center is balanced and the position is called the Open Game. It is the classic start of chess and the root of the Italian, Spanish, Scotch and many other openings. White now chooses how to develop and how sharp to make the game.",
+      "plans": [
+        "Develop with 2.Nf3, attacking the e5 pawn and bringing a piece out.",
+        "Aim the bishop at f7 with Bc4 or pin the c6 knight with Bb5.",
+        "Open the center with d4 once the pieces are developed."
+      ],
+      "pitfall": "Bringing the queen out with 2.Qh5 attacks e5 but Black simply defends with ...Nc6 and ...g6, gaining tempo against the queen.",
+      "faq": [
+        [
+          "What is the best second move for White after 1.e4 e5?",
+          "2.Nf3 is by far the most common because it attacks e5 and develops a piece. Other solid options are the Vienna (2.Nc3) and the Bishop's Opening (2.Bc4)."
+        ],
+        [
+          "Is the King's Gambit still playable?",
+          "Yes, 2.f4 is a legitimate gambit that leads to sharp play, but it is riskier than 2.Nf3 and needs careful preparation."
+        ]
+      ]
+    },
+    "es": {
+      "slug": "mejor-jugada-despues-de-e4-e5",
+      "name": "Juego abierto",
+      "title": "1.e4 e5: mejor jugada de las blancas después de 1...e5",
+      "h1": "1.e4 e5: ¿cuál es la mejor jugada de las blancas?",
+      "description": "Mira la mejor jugada de las blancas tras 1.e4 e5 según el motor, con su valoración y alternativas. Gratis, en tu navegador, sin cuenta y sin conexión.",
+      "intro": "Los dos bandos pusieron un peón en e4 y e5, así que el centro está equilibrado y la posición se llama Juego abierto. Es el inicio clásico del ajedrez y la raíz de la Italiana, la Española, la Escocesa y muchas otras aperturas. Ahora las blancas eligen cómo desarrollarse y qué tan aguda será la partida.",
+      "plans": [
+        "Desarrolla con 2.Cf3, atacando el peón de e5 y sacando una pieza.",
+        "Apunta el alfil a f7 con Ac4 o clava el caballo de c6 con Ab5.",
+        "Abre el centro con d4 cuando las piezas ya estén desarrolladas."
+      ],
+      "pitfall": "Sacar la dama con 2.Dh5 ataca e5, pero las negras la defienden con ...Cc6 y ...g6, ganando tiempo contra la dama.",
+      "faq": [
+        [
+          "¿Cuál es la mejor segunda jugada de las blancas tras 1.e4 e5?",
+          "2.Cf3 es la más común por mucho, porque ataca e5 y desarrolla una pieza. Otras opciones sólidas son la Viena (2.Cc3) y la Apertura del Alfil (2.Ac4)."
+        ],
+        [
+          "¿Todavía se puede jugar el Gambito de Rey?",
+          "Sí, 2.f4 es un gambito legítimo que lleva a juego agudo, pero es más arriesgado que 2.Cf3 y exige buena preparación."
+        ]
+      ]
+    }
+  },
+  {
+    "key": "italian-game",
+    "moves": "e4 e5 Nf3 Nc6 Bc4",
+    "eco": "C50",
+    "en": {
+      "slug": "italian-game-best-move",
+      "name": "Italian Game",
+      "title": "Italian Game: Best Move for Black After 3.Bc4",
+      "h1": "Italian Game: what is Black's best move after 3.Bc4?",
+      "description": "See the engine's best move for Black in the Italian Game after 3.Bc4 with its score and alternatives. Free in your browser, offline, no account.",
+      "intro": "The Italian Game arises after 1.e4 e5 2.Nf3 Nc6 3.Bc4. White develops the bishop to an active diagonal aimed at the f7 pawn. It is one of the oldest openings and is popular from beginners to grandmasters.",
+      "plans": [
+        "Play 3...Bc5, the Giuoco Piano, and mirror White's setup.",
+        "Play 3...Nf6, the Two Knights Defense, to counterattack e4 at once.",
+        "Castle early and break in the center with ...d5 when it is safe."
+      ],
+      "pitfall": "In the Two Knights, 3...Nf6 4.Ng5 d5 5.exd5 Nxd5? runs into 6.Nxf7, the Fried Liver Attack. The right move is 5...Na5, kicking the bishop away.",
+      "faq": [
+        [
+          "Is the Italian Game good for beginners?",
+          "Yes. The ideas are clear: develop quickly, control the center and castle. The first moves also build good habits."
+        ],
+        [
+          "What is the best defense against the Italian Game?",
+          "3...Bc5 and 3...Nf6 are both fully sound. 3...Bc5 is calmer, while 3...Nf6 leads to sharper play."
+        ]
+      ]
+    },
+    "es": {
+      "slug": "apertura-italiana-mejor-jugada",
+      "name": "Apertura Italiana",
+      "title": "Apertura Italiana: mejor jugada de las negras tras 3.Ac4",
+      "h1": "Apertura Italiana: ¿cuál es la mejor jugada de las negras tras 3.Ac4?",
+      "description": "Mira la mejor jugada de las negras en la Apertura Italiana tras 3.Ac4 según el motor, con valoración y alternativas. Gratis, sin cuenta ni conexión.",
+      "intro": "La Apertura Italiana surge tras 1.e4 e5 2.Cf3 Cc6 3.Ac4. Las blancas desarrollan el alfil en una diagonal activa que apunta al peón de f7. Es una de las aperturas más antiguas y se juega desde principiantes hasta grandes maestros.",
+      "plans": [
+        "Juega 3...Ac5, el Giuoco Piano, y copia el esquema de las blancas.",
+        "Juega 3...Cf6, la Defensa de los Dos Caballos, para contraatacar e4 de inmediato.",
+        "Enroca pronto y rompe en el centro con ...d5 cuando sea seguro."
+      ],
+      "pitfall": "En los Dos Caballos, 3...Cf6 4.Cg5 d5 5.exd5 Cxd5? cae en 6.Cxf7, el Ataque del Hígado Frito. Lo correcto es 5...Ca5, que echa al alfil.",
+      "faq": [
+        [
+          "¿La Apertura Italiana es buena para principiantes?",
+          "Sí. Las ideas son claras: desarrollar rápido, controlar el centro y enrocar. Además, las primeras jugadas crean buenos hábitos."
+        ],
+        [
+          "¿Cuál es la mejor defensa contra la Apertura Italiana?",
+          "3...Ac5 y 3...Cf6 son totalmente sólidas. 3...Ac5 es más tranquila y 3...Cf6 lleva a un juego más agudo."
+        ]
+      ]
+    }
+  },
+  {
+    "key": "ruy-lopez",
+    "moves": "e4 e5 Nf3 Nc6 Bb5",
+    "eco": "C60",
+    "en": {
+      "slug": "ruy-lopez-best-move",
+      "name": "Ruy Lopez",
+      "title": "Ruy Lopez: Best Move for Black After 3.Bb5",
+      "h1": "Ruy Lopez: what is Black's best move after 3.Bb5?",
+      "description": "See the engine's best move for Black in the Ruy Lopez after 3.Bb5 with its score and alternatives. Free in your browser, offline, no account needed.",
+      "intro": "The Ruy Lopez, also called the Spanish Game, arises after 1.e4 e5 2.Nf3 Nc6 3.Bb5. White pins the knight that defends e5 and builds long-term pressure on the center. It has been a top-level weapon for more than a century.",
+      "plans": [
+        "Play 3...a6, the Morphy Defense, and ask the bishop what it wants to do.",
+        "Play 3...Nf6, the Berlin Defense, for a solid and simplified game.",
+        "Develop with ...Be7, castle and prepare ...b5 and ...d6."
+      ],
+      "pitfall": "After 3...a6 4.Ba4 Nf6 5.O-O, taking the pawn with 5...Nxe4 is playable but needs theory, such as 6.d4 b5 7.Bb3 d5. Without it Black can quickly get into trouble.",
+      "faq": [
+        [
+          "Is the Ruy Lopez good for beginners?",
+          "It is rich and strategic, so it takes time to understand fully. The first moves are easy to learn, and the ideas help you grow as a player."
+        ],
+        [
+          "Why does White play 3.Bb5?",
+          "The bishop pressures the c6 knight, which defends e5. The threat is not to win a pawn right away, but to keep the center under long-term pressure."
+        ]
+      ]
+    },
+    "es": {
+      "slug": "apertura-espanola-ruy-lopez-mejor-jugada",
+      "name": "Apertura Española (Ruy López)",
+      "title": "Ruy López: mejor jugada de las negras tras 3.Ab5",
+      "h1": "Ruy López: ¿cuál es la mejor jugada de las negras tras 3.Ab5?",
+      "description": "Mira la mejor jugada de las negras en la Ruy López tras 3.Ab5 según el motor, con valoración y alternativas. Gratis, sin cuenta y sin conexión a internet.",
+      "intro": "La Ruy López, también llamada Apertura Española, surge tras 1.e4 e5 2.Cf3 Cc6 3.Ab5. Las blancas clavan al caballo que defiende e5 y construyen presión duradera sobre el centro. Es un arma de élite desde hace más de un siglo.",
+      "plans": [
+        "Juega 3...a6, la Defensa Morphy, y pregunta al alfil qué quiere hacer.",
+        "Juega 3...Cf6, la Defensa Berlinesa, para una partida sólida y simplificada.",
+        "Desarrolla con ...Ae7, enroca y prepara ...b5 y ...d6."
+      ],
+      "pitfall": "Tras 3...a6 4.Aa4 Cf6 5.O-O, tomar el peón con 5...Cxe4 es jugable pero exige teoría, como 6.d4 b5 7.Ab3 d5. Sin ella las negras pueden meterse en problemas rápido.",
+      "faq": [
+        [
+          "¿La Ruy López es buena para principiantes?",
+          "Es rica y estratégica, así que cuesta entenderla a fondo. Las primeras jugadas son fáciles de aprender y sus ideas te ayudan a mejorar."
+        ],
+        [
+          "¿Por qué las blancas juegan 3.Ab5?",
+          "El alfil presiona al caballo de c6, que defiende e5. La idea no es ganar un peón de inmediato, sino mantener el centro bajo presión a largo plazo."
+        ]
+      ]
+    }
+  },
+  {
+    "key": "sicilian-defense",
+    "moves": "e4 c5",
+    "eco": "B20",
+    "en": {
+      "slug": "sicilian-defense-best-move",
+      "name": "Sicilian Defense",
+      "title": "Sicilian Defense: Best Move for White After 1...c5",
+      "h1": "Sicilian Defense: what is White's best move after 1...c5?",
+      "description": "See the engine's best move for White against the Sicilian Defense after 1.e4 c5 with its score and alternatives. Free in your browser, offline, no account.",
+      "intro": "The Sicilian Defense begins with 1.e4 c5. Black does not copy White's pawn, but attacks the d4 square from the flank and aims for an unbalanced game. It is the most popular reply to 1.e4 among strong players.",
+      "plans": [
+        "Play 2.Nf3 and 3.d4 to open the center, the Open Sicilian.",
+        "Try 2.c3, the Alapin, to build a big pawn center and avoid the main theory.",
+        "Play 2.Nc3 for a quieter, closed Sicilian with a later f4."
+      ],
+      "pitfall": "Treating it like 1.e4 e5 and playing slowly. Black's c-pawn trade for your d-pawn gives them a half-open c-file, so you need a clear plan.",
+      "faq": [
+        [
+          "What is the best move against the Sicilian Defense?",
+          "2.Nf3 followed by 3.d4 is the main line and the most testing, but the Alapin (2.c3) is a good way to avoid heavy theory."
+        ],
+        [
+          "Is the Sicilian Defense good for Black?",
+          "Yes. It is the most successful reply to 1.e4 in master games because it gives Black real winning chances, though it can lead to sharp attacks."
+        ]
+      ]
+    },
+    "es": {
+      "slug": "defensa-siciliana-mejor-jugada",
+      "name": "Defensa Siciliana",
+      "title": "Defensa Siciliana: mejor jugada de las blancas tras 1...c5",
+      "h1": "Defensa Siciliana: ¿cuál es la mejor jugada de las blancas tras 1...c5?",
+      "description": "Mira la mejor jugada de las blancas contra la Defensa Siciliana tras 1.e4 c5 según el motor, con valoración y alternativas. Gratis, sin cuenta ni conexión.",
+      "intro": "La Defensa Siciliana empieza con 1.e4 c5. Las negras no copian el peón de las blancas, sino que atacan la casilla d4 desde el flanco y buscan una partida desequilibrada. Es la respuesta más popular a 1.e4 entre los jugadores fuertes.",
+      "plans": [
+        "Juega 2.Cf3 y 3.d4 para abrir el centro, la Siciliana Abierta.",
+        "Prueba 2.c3, la Alapin, para armar un gran centro de peones y evitar la teoría principal.",
+        "Juega 2.Cc3 para una Siciliana cerrada y más tranquila, con f4 más adelante."
+      ],
+      "pitfall": "Tratarla como 1.e4 e5 y jugar lento. El cambio del peón c negro por tu peón d les da una columna c semiabierta, así que necesitas un plan claro.",
+      "faq": [
+        [
+          "¿Cuál es la mejor jugada contra la Defensa Siciliana?",
+          "2.Cf3 seguida de 3.d4 es la línea principal y la más exigente, pero la Alapin (2.c3) es una buena forma de evitar mucha teoría."
+        ],
+        [
+          "¿La Defensa Siciliana es buena para las negras?",
+          "Sí. Es la respuesta más exitosa a 1.e4 en partidas de maestros porque da a las negras posibilidades reales de ganar, aunque puede llevar a ataques agudos."
+        ]
+      ]
+    }
+  },
+  {
+    "key": "french-defense",
+    "moves": "e4 e6",
+    "eco": "C00",
+    "en": {
+      "slug": "french-defense-best-move",
+      "name": "French Defense",
+      "title": "French Defense: Best Move for White After 1...e6",
+      "h1": "French Defense: what is White's best move after 1...e6?",
+      "description": "See the engine's best move for White against the French Defense after 1.e4 e6 with its score and alternatives. Free in your browser, offline, no account.",
+      "intro": "The French Defense begins with 1.e4 e6, preparing ...d5 to challenge the center. Black accepts a slightly cramped position in exchange for a solid pawn chain and counterplay against White's center. The usual continuation is 2.d4 d5.",
+      "plans": [
+        "Play 2.d4 d5 and choose a setup: 3.Nc3, 3.Nd2, 3.e5 or 3.exd5.",
+        "Gain space with e5 in the Advance Variation and attack the base of Black's chain.",
+        "Develop smoothly and watch for the ...c5 break against d4."
+      ],
+      "pitfall": "In the Winawer, 3.Nc3 Bb4 4.e5 c5 5.a3 Bxc3+ 6.bxc3 gives you doubled pawns. They also give you the bishop pair, so choose this line only if you want the sharp fight.",
+      "faq": [
+        [
+          "What is the best move against the French Defense?",
+          "2.d4 is the main move, followed by 3.Nc3, 3.Nd2 or 3.e5. The right choice depends on whether you want a sharp or a solid game."
+        ],
+        [
+          "Is the French Defense hard to play?",
+          "It is solid but needs patience. Black's light-squared bishop is often blocked, so learning how to free it is the key skill."
+        ]
+      ]
+    },
+    "es": {
+      "slug": "defensa-francesa-mejor-jugada",
+      "name": "Defensa Francesa",
+      "title": "Defensa Francesa: mejor jugada de las blancas tras 1...e6",
+      "h1": "Defensa Francesa: ¿cuál es la mejor jugada de las blancas tras 1...e6?",
+      "description": "Mira la mejor jugada de las blancas contra la Defensa Francesa tras 1.e4 e6 según el motor, con valoración y alternativas. Gratis, sin cuenta ni conexión.",
+      "intro": "La Defensa Francesa empieza con 1.e4 e6, preparando ...d5 para desafiar el centro. Las negras aceptan una posición algo encerrada a cambio de una cadena de peones sólida y contrajuego contra el centro blanco. La continuación habitual es 2.d4 d5.",
+      "plans": [
+        "Juega 2.d4 d5 y elige un esquema: 3.Cc3, 3.Cd2, 3.e5 o 3.exd5.",
+        "Gana espacio con e5 en la Variante del Avance y ataca la base de la cadena negra.",
+        "Desarróllate con calma y vigila la ruptura ...c5 contra d4."
+      ],
+      "pitfall": "En la Winawer, 3.Cc3 Ab4 4.e5 c5 5.a3 Axc3+ 6.bxc3 te deja peones doblados. También te da la pareja de alfiles, así que elige esta línea solo si quieres la lucha aguda.",
+      "faq": [
+        [
+          "¿Cuál es la mejor jugada contra la Defensa Francesa?",
+          "2.d4 es la principal, seguida de 3.Cc3, 3.Cd2 o 3.e5. La mejor elección depende de si quieres una partida aguda o sólida."
+        ],
+        [
+          "¿La Defensa Francesa es difícil de jugar?",
+          "Es sólida pero pide paciencia. El alfil de casillas blancas de las negras suele quedar bloqueado, así que aprender a liberarlo es la clave."
+        ]
+      ]
+    }
+  },
+  {
+    "key": "caro-kann-defense",
+    "moves": "e4 c6",
+    "eco": "B10",
+    "en": {
+      "slug": "caro-kann-defense-best-move",
+      "name": "Caro-Kann Defense",
+      "title": "Caro-Kann Defense: Best Move for White After 1...c6",
+      "h1": "Caro-Kann Defense: what is White's best move after 1...c6?",
+      "description": "See the engine's best move for White against the Caro-Kann Defense after 1.e4 c6 with its score and alternatives. Free in your browser, offline, no account.",
+      "intro": "The Caro-Kann begins with 1.e4 c6, preparing ...d5 while keeping the light-squared bishop free to develop outside the pawn chain. It is known as one of the most solid replies to 1.e4. The main line is 2.d4 d5.",
+      "plans": [
+        "Play 2.d4 d5 and then 3.Nc3 or 3.Nd2 to challenge the d5 pawn.",
+        "Choose 3.e5, the Advance Variation, to gain space and cramp Black.",
+        "Try 3.exd5 cxd5 4.c4, the Panov Attack, for active piece play."
+      ],
+      "pitfall": "Overpressing against a solid structure. Black's ...Bf5 and ...e6 leave few weaknesses, so build up with development and a plan before storming forward with pawns.",
+      "faq": [
+        [
+          "Is the Caro-Kann good against 1.e4?",
+          "Yes. It is very solid, has a sound structure and is used by many strong players. It is a good choice if you prefer safety over early complications."
+        ],
+        [
+          "What is the main line of the Caro-Kann?",
+          "After 2.d4 d5 3.Nc3 dxe4 4.Nxe4 Black usually develops the bishop with 4...Bf5, which is the key idea of the whole opening."
+        ]
+      ]
+    },
+    "es": {
+      "slug": "defensa-caro-kann-mejor-jugada",
+      "name": "Defensa Caro-Kann",
+      "title": "Defensa Caro-Kann: mejor jugada de las blancas tras 1...c6",
+      "h1": "Defensa Caro-Kann: ¿cuál es la mejor jugada de las blancas tras 1...c6?",
+      "description": "Mira la mejor jugada de las blancas contra la Defensa Caro-Kann tras 1.e4 c6 según el motor, con valoración y alternativas. Gratis, sin cuenta ni conexión.",
+      "intro": "La Caro-Kann empieza con 1.e4 c6, preparando ...d5 y dejando al alfil de casillas blancas libre para desarrollarse fuera de la cadena de peones. Se le conoce como una de las respuestas más sólidas a 1.e4. La línea principal es 2.d4 d5.",
+      "plans": [
+        "Juega 2.d4 d5 y luego 3.Cc3 o 3.Cd2 para desafiar el peón de d5.",
+        "Elige 3.e5, la Variante del Avance, para ganar espacio y encerrar a las negras.",
+        "Prueba 3.exd5 cxd5 4.c4, el Ataque Panov, para un juego activo de piezas."
+      ],
+      "pitfall": "Forzar demasiado contra una estructura sólida. Con ...Af5 y ...e6 las negras dejan pocas debilidades, así que construye con desarrollo y un plan antes de lanzar los peones.",
+      "faq": [
+        [
+          "¿La Caro-Kann es buena contra 1.e4?",
+          "Sí. Es muy sólida, tiene una estructura sana y la usan muchos jugadores fuertes. Es una buena opción si prefieres seguridad a complicaciones tempranas."
+        ],
+        [
+          "¿Cuál es la línea principal de la Caro-Kann?",
+          "Tras 2.d4 d5 3.Cc3 dxe4 4.Cxe4 las negras suelen desarrollar el alfil con 4...Af5, la idea clave de toda la apertura."
+        ]
+      ]
+    }
+  },
+  {
+    "key": "scandinavian-defense",
+    "moves": "e4 d5",
+    "eco": "B01",
+    "en": {
+      "slug": "scandinavian-defense-best-move",
+      "name": "Scandinavian Defense",
+      "title": "Scandinavian Defense: Best Move for White After 1...d5",
+      "h1": "Scandinavian Defense: what is White's best move after 1...d5?",
+      "description": "See the engine's best move for White against the Scandinavian Defense after 1.e4 d5 with its score and alternatives. Free in your browser, offline, no account.",
+      "intro": "The Scandinavian Defense begins with 1.e4 d5. Black challenges the e4 pawn at once, which forces White to decide immediately what to do with the center. It is simple to learn and has been played by strong players for centuries.",
+      "plans": [
+        "Capture with 2.exd5 and gain a tempo when Black recaptures with the queen.",
+        "Develop quickly with Nc3, d4 and Nf3 while Black spends time moving the queen.",
+        "Castle and aim for a lead in development and space."
+      ],
+      "pitfall": "Spending too many moves chasing the queen. Develop your pieces first, because after 2.exd5 Qxd5 3.Nc3 Qa5 the queen is safe and Black has a solid setup.",
+      "faq": [
+        [
+          "What is the best move against the Scandinavian Defense?",
+          "2.exd5 is the main move. After 2...Qxd5 3.Nc3 White develops with tempo, and after 2...Nf6 3.d4 White can keep a healthy center."
+        ],
+        [
+          "Is the Scandinavian Defense good?",
+          "It is sound and easy to learn, though White gets a small edge in development. It is a good option for players who want a simple setup."
+        ]
+      ]
+    },
+    "es": {
+      "slug": "defensa-escandinava-mejor-jugada",
+      "name": "Defensa Escandinava",
+      "title": "Defensa Escandinava: mejor jugada de las blancas tras 1...d5",
+      "h1": "Defensa Escandinava: ¿cuál es la mejor jugada de las blancas tras 1...d5?",
+      "description": "Mira la mejor jugada de las blancas contra la Defensa Escandinava tras 1.e4 d5 según el motor, con valoración y alternativas. Gratis, sin cuenta ni conexión.",
+      "intro": "La Defensa Escandinava empieza con 1.e4 d5. Las negras desafían de inmediato el peón de e4, lo que obliga a las blancas a decidir enseguida qué hacer con el centro. Es sencilla de aprender y la juegan jugadores fuertes desde hace siglos.",
+      "plans": [
+        "Captura con 2.exd5 y gana un tiempo cuando las negras recapturen con la dama.",
+        "Desarróllate rápido con Cc3, d4 y Cf3 mientras las negras gastan tiempo moviendo la dama.",
+        "Enroca y busca ventaja de desarrollo y de espacio."
+      ],
+      "pitfall": "Gastar demasiadas jugadas persiguiendo a la dama. Desarrolla tus piezas primero, porque tras 2.exd5 Dxd5 3.Cc3 Da5 la dama está segura y las negras tienen un esquema sólido.",
+      "faq": [
+        [
+          "¿Cuál es la mejor jugada contra la Defensa Escandinava?",
+          "2.exd5 es la principal. Tras 2...Dxd5 3.Cc3 las blancas se desarrollan con tiempo, y tras 2...Cf6 3.d4 pueden mantener un centro sano."
+        ],
+        [
+          "¿La Defensa Escandinava es buena?",
+          "Es sólida y fácil de aprender, aunque las blancas obtienen una pequeña ventaja de desarrollo. Es una buena opción para quien quiere un esquema simple."
+        ]
+      ]
+    }
+  },
+  {
+    "key": "queens-gambit",
+    "moves": "d4 d5 c4",
+    "eco": "D06",
+    "en": {
+      "slug": "queens-gambit-best-move",
+      "name": "Queen's Gambit",
+      "title": "Queen's Gambit: Best Move for Black After 2.c4",
+      "h1": "Queen's Gambit: what is Black's best move after 2.c4?",
+      "description": "See the engine's best move for Black in the Queen's Gambit after 1.d4 d5 2.c4 with its score and alternatives. Free in your browser, offline, no account.",
+      "intro": "The Queen's Gambit arises after 1.d4 d5 2.c4. White offers a flank pawn to deflect Black's d5 pawn and win control of the center. It is not a true gambit, since White can usually regain the pawn.",
+      "plans": [
+        "Decline with 2...e6, the Queen's Gambit Declined, for a solid structure.",
+        "Choose 2...c6, the Slav, to support d5 and keep the bishop free.",
+        "Accept with 2...dxc4 and give the pawn back at the right moment."
+      ],
+      "pitfall": "After 2...dxc4 3.e3, clinging to the pawn with 3...b5? runs into 4.a4, and Black ends up weaker on the queenside. Develop and let go of the pawn.",
+      "faq": [
+        [
+          "Is the Queen's Gambit a real gambit?",
+          "Not really. If Black takes on c4, White can usually win the pawn back, so it works more like a strong central opening."
+        ],
+        [
+          "Should I accept or decline the Queen's Gambit?",
+          "Both work. Declining with 2...e6 or 2...c6 is the most solid, while accepting is fine if you know how to give the pawn back."
+        ]
+      ]
+    },
+    "es": {
+      "slug": "gambito-de-dama-mejor-jugada",
+      "name": "Gambito de Dama",
+      "title": "Gambito de Dama: mejor jugada de las negras tras 2.c4",
+      "h1": "Gambito de Dama: ¿cuál es la mejor jugada de las negras tras 2.c4?",
+      "description": "Mira la mejor jugada de las negras en el Gambito de Dama tras 1.d4 d5 2.c4 según el motor, con valoración y alternativas. Gratis, sin cuenta ni conexión.",
+      "intro": "El Gambito de Dama surge tras 1.d4 d5 2.c4. Las blancas ofrecen un peón de flanco para desviar el peón de d5 y ganar el control del centro. No es un gambito de verdad, porque las blancas normalmente recuperan el peón.",
+      "plans": [
+        "Rechaza con 2...e6, el Gambito de Dama Rehusado, para una estructura sólida.",
+        "Elige 2...c6, la Eslava, para apoyar d5 y dejar libre al alfil.",
+        "Acepta con 2...dxc4 y devuelve el peón en el momento justo."
+      ],
+      "pitfall": "Tras 2...dxc4 3.e3, aferrarse al peón con 3...b5? choca con 4.a4 y las negras quedan débiles en el flanco de dama. Desarróllate y suelta el peón.",
+      "faq": [
+        [
+          "¿El Gambito de Dama es un gambito de verdad?",
+          "No del todo. Si las negras toman en c4, las blancas normalmente recuperan el peón, así que funciona más como una apertura central fuerte."
+        ],
+        [
+          "¿Debo aceptar o rehusar el Gambito de Dama?",
+          "Ambas funcionan. Rehusar con 2...e6 o 2...c6 es lo más sólido, y aceptar está bien si sabes cómo devolver el peón."
+        ]
+      ]
+    }
+  },
+  {
+    "key": "london-system",
+    "moves": "d4 d5 Bf4",
+    "eco": "D00",
+    "en": {
+      "slug": "london-system-best-move",
+      "name": "London System",
+      "title": "London System: Best Move for Black After 2.Bf4",
+      "h1": "London System: what is Black's best move after 2.Bf4?",
+      "description": "See the engine's best move for Black against the London System after 1.d4 d5 2.Bf4 with its score and alternatives. Free in your browser, offline, no account.",
+      "intro": "The London System arises after 1.d4 d5 2.Bf4. White develops the bishop outside the pawn chain before playing e3, then builds a compact setup with Nf3, e3, c3 and Bd3. It is popular because it uses the same plan against many replies.",
+      "plans": [
+        "Develop with 2...Nf6 and 3...e6 or 3...c5 to challenge the center.",
+        "Hit the d4 pawn with ...c5 and ...Nc6, and consider ...Qb6 against b2.",
+        "Trade White's bishop with ...Bf5 or ...Nh5 when it helps."
+      ],
+      "pitfall": "Taking on b2 with the queen is tempting, but White often has Nbd2 or Qb3 ideas and the queen runs short of squares. Develop first.",
+      "faq": [
+        [
+          "How do you play against the London System?",
+          "Challenge the center with ...c5, develop the knights and bishops, and avoid passive play. The London is solid but not very sharp, so Black has many good setups."
+        ],
+        [
+          "Is the London System good for beginners?",
+          "Yes. The setup is simple and nearly the same against most replies, which lets you focus on plans instead of memorizing theory."
+        ]
+      ]
+    },
+    "es": {
+      "slug": "sistema-londres-mejor-jugada",
+      "name": "Sistema Londres",
+      "title": "Sistema Londres: mejor jugada de las negras tras 2.Af4",
+      "h1": "Sistema Londres: ¿cuál es la mejor jugada de las negras tras 2.Af4?",
+      "description": "Mira la mejor jugada de las negras contra el Sistema Londres tras 1.d4 d5 2.Af4 según el motor, con valoración y alternativas. Gratis, sin cuenta ni conexión.",
+      "intro": "El Sistema Londres surge tras 1.d4 d5 2.Af4. Las blancas desarrollan el alfil fuera de la cadena de peones antes de jugar e3 y luego arman un esquema compacto con Cf3, e3, c3 y Ad3. Es popular porque usa el mismo plan contra muchas respuestas.",
+      "plans": [
+        "Desarróllate con 2...Cf6 y 3...e6 o 3...c5 para desafiar el centro.",
+        "Ataca el peón de d4 con ...c5 y ...Cc6, y considera ...Db6 contra b2.",
+        "Cambia el alfil blanco con ...Af5 o ...Ch5 cuando convenga."
+      ],
+      "pitfall": "Tomar en b2 con la dama es tentador, pero las blancas suelen tener ideas con Cbd2 o Db3 y la dama se queda sin casillas. Primero desarróllate.",
+      "faq": [
+        [
+          "¿Cómo se juega contra el Sistema Londres?",
+          "Desafía el centro con ...c5, desarrolla caballos y alfiles y evita el juego pasivo. El Londres es sólido pero poco agudo, así que las negras tienen muchos esquemas buenos."
+        ],
+        [
+          "¿El Sistema Londres es bueno para principiantes?",
+          "Sí. El esquema es simple y casi igual contra la mayoría de las respuestas, así que te centras en los planes en lugar de memorizar teoría."
+        ]
+      ]
+    }
+  }
+]

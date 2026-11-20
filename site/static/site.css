@@ -10,4 +10,9 @@
 .site-foot p { margin: 0 0 10px; }
 .site-foot a { color: var(--accent); text-decoration: none; }
 .site-foot a:hover { text-decoration: underline; }
-html[lang="es"] .site-foot .en, html[lang="en"] .site-foot .es { display: none; }
+.site-foot h3 { margin: 18px 0 4px; font-size: 15px; color: var(--ink); }
+.site-foot ol, .site-foot ul { margin: 0 0 10px; padding-left: 20px; }
+.site-foot .lang-switch { float: right; margin: 0; }
+.site-foot .faq details { border-bottom: 1px solid var(--line); padding: 6px 0; }
+.site-foot .faq summary { cursor: pointer; color: var(--ink); }
+.site-foot .faq h2 { margin-top: 18px; }

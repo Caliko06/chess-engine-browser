@@ -374,6 +374,7 @@ export type PlayUiDependencies = {
 
 export type PlayUiHandle = {
   readonly ready: Promise<void>;
+  readonly loadPosition: (fen: string) => Promise<void>;
 };
 
 export function mountPlayUi(root: HTMLElement, dependencies: PlayUiDependencies): PlayUiHandle {
@@ -2001,7 +2002,7 @@ export function mountPlayUi(root: HTMLElement, dependencies: PlayUiDependencies)
 
   closeMoreMenuOnOutsideClick(root);
   const ready = startNewGame({ notifyReset: false });
-  return { ready };
+  return { ready, loadPosition: applyLoadPosition };
 }
 
 function appendMove(
