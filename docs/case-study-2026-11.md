@@ -15,7 +15,7 @@ produced it, and each section opens with a plain-language summary before the tec
 |---|---|---|
 | Tracked files | 1,355 | 265 |
 | Lines in the tree | 294,575 | 120,662 |
-| Playing strength | not measured; the old search lost **100-0** to the first version of the new engine | **~3039 CCRL Blitz** (95% CI 3007-3071) |
+| Playing strength | ~1286 Elo on Stockfish's limited-strength scale (1215-1348, 32 games, 18 Nov); the old search lost **100-0** to the first version of the new engine | **~3039 CCRL Blitz** (95% CI 3007-3071) |
 | Native search speed | legacy search ~120 k nodes/s (`bb57ff0`) | engine 2.0-3.0 M nodes/s |
 | Explore in the browser | depth 1-5, 220-290 k nodes/s, overran its node budget | depth 9-10 in ~200 ms, 1.0-1.5 M nodes/s, exact budget |
 | Explore after 1.e4 e5 (Aggressive) | 3.Qh5 (+70), a beginner's move | 3.d4 (+52) |
@@ -42,7 +42,7 @@ for speed and Explore.
 12. [What did not work](#12-what-did-not-work)
 13. [Verification for this report](#13-verification-for-this-report)
 14. [Known gaps](#14-known-gaps)
-15. [How the work was done](#15-how-the-work-was-done)
+15. [How I did it](#15-how-i-did-it)
 16. [Glossary](#16-glossary)
 
 ---
@@ -356,22 +356,64 @@ The audit also turned up these open items:
   the engine, and its speed table lists the legacy search.
 - **Explore's own strength is not measured.** Only the playing engine has an Elo figure.
 
-## 15. How the work was done
+## 15. How I did it
 
-The work was done by one developer directing AI coding agents. Anthropic's Claude Opus planned,
-reviewed evidence and integrated. Cheaper models (Sonnet, Haiku) implemented candidates in
-separate git worktrees (`elo/search`, `elo/eval`, `elo/see`, ...), compiled anchor engines and ran
-checks. Commits carry a `Claude-Session` trailer that links each change to its session.
+> **In short:** AI agents wrote most of the code. I chose the target, set what counted as proof,
+> and stopped the agents when they drifted. This section is rebuilt from my own messages and the
+> decisions I made in the session logs, not from memory.
 
-The method mattered more than the tools:
+### Before the 36 hours (May to October)
 
-1. **Measure first, then claim.** No speed or strength claim went in without a number and the
-   command that produced it.
-2. **Same output, faster.** Speed work had to prove an identical tree (node counts, perft,
-   fingerprint diffs) before it counted as speed.
-3. **Gate by games, not by intuition.** Every engine change won an SPRT or stayed out.
-4. **A surprising loss is a bug until proven otherwise.** That rule found the `see()` bug.
-5. **Delete before adding.** 157,518 lines left the tree, against 13,540 added.
+The repository did not start on 18 November. Between 13 May and 4 October it took 847 commits, and
+391 of them (46%) were documentation. By October it held 488 handoffs, 278 architecture decision
+records and 202 audits, governed by seven chained rule documents of about 2,200 lines. A neural
+evaluation (NNUE) went in during June. On 18 November the engine played at about **1286 Elo**
+(1215-1348) on Stockfish's limited-strength scale, over 32 games.
+
+The process had grown faster than the engine. That was the first thing I had to undo.
+
+### The turns I made
+
+| When | What I saw or asked | What changed |
+|---|---|---|
+| 18 Nov | My first read: the repo was heavy, slow and not very smart, and its rules were rigid. I asked for an end-to-end review that named every load, swallowed error and implicit state machine before touching anything. | Of the five blocks it proposed, I picked governance first. History went to a git tag, and the rule chain became a short map of what I want, not a list of laws. Agents commit each milestone without asking me. |
+| 18 Nov | An agent asked how the engine should fall back if the NNUE weights failed to load. | I said NNUE no longer exists. Its code in ~15 files was deleted before any other work. |
+| 18 Nov | An agent said the repo was ready to publish. | Not yet: I asked for a named inventory of what was left first. Then MIT, personal paths removed, push. |
+| 19 Nov | I was shown 1286 Elo and asked how far to aim. | I set **~2400, master level**, well above the 300-600 Elo the agent called realistic for one night. When stronger search broke tests that pinned exact moves, I ruled that strength wins. |
+| 19 Nov | The engine stalled near 2830 while the work kept going into search speed and depth. | I pushed back: deeper search is not the only lever, so state the real problem. The agent's answer was evaluation and measurement, and I chose to fix the measurement first. |
+| 19 Nov | Two plans came back with 1.5-hour runs. | I rejected both and asked for public data instead of blind runs. When a run stalled, it got five more minutes and a check, not an open clock. No sunk cost. |
+| 19 Nov | I approved using public Lichess evaluations (CC0) as tuning labels. | **I was wrong.** Both tunes lost games (−21 and −159 Elo). I stopped there and switched to new evaluation terms (v8, +13.3). The offline gate in §12 came out of that failure. |
+| 19 Nov | I set the next rule: an engine that is strong but slow is not the goal. I picked Stash and Ethereal as the engines to learn from, and asked for results in 20 minutes, compared against what existed before. Facts, not a story. | The speed milestone: same tree, about 1.9x faster, closed with a named before/after inventory. |
+| 19 Nov | I asked how the engine would fare against a top human, on the FIDE scale. | The estimate came back too wide (2495-3520). I asked for a bigger run, on a short clock. |
+| 19 Nov | I switched the agent's role to an external, adversarial auditor of its own work. | It found that Explore, the view I actually use, still ran the old search and suggested 3.Qh5 after 1.e4 e5. I moved Explore onto the engine. |
+| 19-20 Nov | I asked for a real inventory of implicit state machines and propagated biases, without re-running old tests. | The reconciliation pass (`373513bb`): errors split by cause, one request tracker, 23 dead scripts gone. |
+| 20 Nov | Before any redesign, I made the agent learn what I wanted before it chose anything. | My answers set the design: play and understand, precise and technical, one green accent, system theme, approved directly in the app. |
+
+### The rules I work by
+
+1. **Name it before fixing it.** Every load, error and hidden state gets a name and a location
+   first. A fix without a name is a guess.
+2. **State the real problem, then find who already solved it.** I describe the problem without
+   naming a tool, then look for prior art in public engines, papers and communities. That is how
+   the Lichess data and the Stash and Ethereal references came in.
+3. **Facts, not narratives.** A claim comes with the number and the command that produced it.
+   Speed, accuracy and strength are three different claims.
+4. **Time-box everything.** A run that takes too long gets cut, not defended.
+5. **Maps, not laws; delete before adding.** 157,518 lines left the tree, against 13,540 added.
+6. **I own direction and taste; the agents own technical detail.** When a choice is about what I
+   want, they ask me. When it can be settled by evidence, they settle it.
+
+### What the agents did
+
+Anthropic's Claude Opus planned, reviewed evidence and integrated. Cheaper models (Sonnet, Haiku)
+implemented candidates in separate git worktrees (`elo/search`, `elo/eval`, `elo/see`, ...),
+compiled anchor engines and ran the matches. Commits carry a `Claude-Session` trailer that links
+each change to its session.
+
+Credit where it belongs: Opus found the `see()` bug. A defended `Qxe5` scored +100 instead of
+−800, and the fix was worth +60 ± 26 Elo. The statistical gate on every engine change and the
+identical-tree proof for speed work were their method. The targets, the time limits and the calls
+to stop were mine.
 
 ## 16. Glossary
 
