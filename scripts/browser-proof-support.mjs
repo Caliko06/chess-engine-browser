@@ -1,3 +1,4 @@
+import { homedir } from "node:os";
 import { existsSync, readFileSync, statSync } from "node:fs";
 import { createServer } from "node:http";
 import { spawn } from "node:child_process";
@@ -121,7 +122,7 @@ export async function waitFor(cdp, expression, label) {
 }
 
 function chromePath() {
-  const macChrome = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
+  const macChrome = `${homedir()}/.local/bin/chrome-bot`;
   return existsSync(macChrome) ? macChrome : "google-chrome";
 }
 
