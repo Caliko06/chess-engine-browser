@@ -1,9 +1,12 @@
-# HANDOFF: OpSec and a clean public repo (2026-11-20)
+# HANDOFF: SEO for calichess.cc (2026-11-20)
 
-Done: the public repo Caliko06/chess-engine-browser was recreated from ONE clean commit, `d6295dfb` (an orphan with the tree of `c65eda37`, author noreply). Fresh clone: 1 ref, 1 commit, 0 personal strings; gitleaks only flags `positionKey` (Zobrist keys, false positive).
-The old repo, with its 1,895 commits, PRs #1-3 and personal data in the history (username/Mac, /Users paths, a surname, a tailnet IP, a gmail), is now PRIVATE as `Caliko06/chess-engine-browser-history-private`. Full backup: `~/Backups/chess-engine-browser-2026-11-20/` (mirror, PR JSON, metadata).
-LOCAL history is still the old one. `.git/hooks/pre-push` refuses any push not built on `d6295dfb`. To move work over: `git rebase --onto origin/main <old-base> <branch>` (e.g. base `c65eda37`).
-`c65eda37`: the WASM build uses `--remap-path-prefix=$HOME=~` (the live WASM leaked `/Users/<user>/.cargo`); `site/static/_headers` adds HSTS, frame-ancestors, X-Frame-Options, Permissions-Policy, COOP. Verified in a separate build: 0 `/Users/` in the WASM.
-PENDING: redeploy calichess.cc (`just site-deploy`) so those fixes go live. Not yet published: the OWNER chose to wait. chess-02 says nothing of theirs blocks it; the dirty tree (55 files) has an unknown owner. Option: build from a clean worktree of `c65eda37`.
-PENDING OWNER: move chess-02's engine commits (codex/repo-local-preview, 9f57938..87bd5e8) onto `d6295dfb`; the GitHub social preview (`docs/media/social-preview.png`) has to be uploaded again by hand.
-Note: the case study cites hashes from the old history and a compare link to github.com/Caliko06/chess that is now 404.
+Done (d16f4223, deployed c9e45a3f.calichess.pages.dev -> calichess.cc): / is English, /es/ Spanish, one URL per language with hreflang (lang.js removed).
+37 indexable URLs (was 10): 2 homes, 6 guides, 2 guide indexes, 2 opening hubs, 24 opening pages (/guides/en/openings/, /guides/es/aperturas/), notebook.
+Opening pages: copy in site/openings/content.json, engine numbers in engine.json (site/openings/engine.cjs, 10 M nodes, needs chess.js via NODE_PATH).
+App: /#fen=<FEN> opens a position (app.ts); workers resolve from import.meta.url so /es/ works. E2E: /es/#fen= Italian loads in 291 ms, recommends 3...Cf6.
+JSON-LD: WebSite, WebApplication per language, BreadcrumbList, FAQPage, TechArticle. Sitemap lastmod from git. IndexNow key in build.mjs; 37 URLs sent (HTTP 202).
+This deploy also published the pending OpSec fixes (0 /Users/ in the live WASM, security headers).
+Lighthouse SEO 100 before and after; accessibility 82 (app: aria roles, contrast), unchanged and out of scope.
+PENDING OWNER: Search Console is already verified by DNS; submit https://calichess.cc/sitemap.xml there and import the site into Bing Webmaster Tools (both need his login).
+Known: an opening deep link with Black to move keeps "Juegas con Blancas"; the analysis is still for the side to move.
+Not pushed: the public repo only accepts pushes built on d6295dfb (see the git history of this file).
